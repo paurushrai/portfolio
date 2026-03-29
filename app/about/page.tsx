@@ -5,7 +5,7 @@ const skills = {
   Languages: ["HTML", "CSS", "JavaScript", "TypeScript", "Handlebars", "MDX"],
   Frameworks: ["React.js", "Next.js", "Vue.js", "Nuxt.js", "Astro.js", "Electron.js", "React Native"],
   Libraries: ["Tailwind", "DaisyUI", "Shadcn", "Element Plus", "Chart.js", "Pinia", "Recoil", "Clerk", "Stripe"],
-  Database: ["PostgreSQL"],
+  Database: ["PostgreSQL", "MongoDB"],
   "Back End": ["Node.js", "Express.js", "Hasura", "Directus", "RESTful APIs", "GraphQL APIs"],
   "Version Control": ["Git", "GitLab", "GitHub"],
   "Platforms & Tools": ["Docker", "Firebase", "Datagrip", "Pipedream", "Vercel", "Apify", "Figma", "AdobeXD"],
@@ -77,20 +77,48 @@ export default function AboutPage() {
         {/* ── Bio ── */}
         <div className="space-y-5 text-zinc-400 leading-relaxed text-base">
           <p>
-            I'm <span className="text-zinc-100 font-medium">Paurush Rai</span> — a Senior Software Engineer with 4+ years of experience
-            building products people actually use. My work spans frontend-heavy applications, internal tools, browser
+            I'm <span className="text-zinc-100 font-medium">Paurush Rai</span> — a frontend-leaning full-stack engineer based in India, with almost 5 years of experience
+            building performant web platforms and developer productivity tools. My work spans product UIs, internal tooling, browser
             extensions, LMS integrations, and everything in between.
           </p>
           <p>
-            I care deeply about performance, clean architecture, and shipping things that matter. Whether that's
-            taking a Lighthouse score from 49 to 87, saving a company $24K with an AI notetaker, or making
-            a kiosk 60% faster for truck drivers in the field — the impact is what drives me.
+            I care deeply about performance, clean architecture, and shipping things that actually matter — not just
+            features that look good in a sprint review, but work that measurably moves the needle. That focus on
+            impact is what keeps me product-minded even when I'm deep in the code.
           </p>
           <p>
-            Outside of work I tinker with side projects, contribute to open-source when I can, and spend time
-            learning whatever's next. Currently based in India, open to remote opportunities worldwide.
+            Outside of work I'm usually spinning up a side project or reaching for a library I've never touched before —
+            I like the friction of learning new tools in real contexts.
           </p>
         </div>
+
+        {/* ── What I Build ── */}
+        <section>
+          <h2 className="text-sm font-medium text-zinc-500 uppercase tracking-widest mb-5">What I Build</h2>
+          <div className="flex flex-wrap gap-2">
+            {[
+              "CMS-integrated Websites",
+              "Data Scraping & Orchestration Workflows",
+              "Web Applications",
+              "Mobile Apps",
+              "Progressive Web Apps",
+              "Admin Dashboards",
+              "Desktop Software",
+              "VS Code Extensions",
+              "Jira Plugins",
+              "LTI Plugins",
+              "Chrome Extensions",
+              "Developer Tooling",
+            ].map((item) => (
+              <span
+                key={item}
+                className="px-3 py-1.5 text-xs rounded-full bg-zinc-800/60 text-zinc-300 border border-zinc-700/60 hover:border-zinc-500 hover:text-zinc-100 duration-200"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+        </section>
 
         <div className="w-full h-px bg-zinc-800" />
 
