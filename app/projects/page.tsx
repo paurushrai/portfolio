@@ -54,11 +54,11 @@ export default async function ProjectsPage() {
     return (
       <div className="relative pb-16">
         <Navigation />
-        <div className="px-6 pt-20 mx-auto space-y-8 max-w-7xl lg:px-8 md:space-y-16 md:pt-24 lg:pt-32">
+        <main className="px-6 pt-20 mx-auto space-y-8 max-w-7xl lg:px-8 md:space-y-16 md:pt-24 lg:pt-32">
           <div className="max-w-2xl mx-auto lg:mx-0">
-            <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
+            <h1 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
               Projects
-            </h2>
+            </h1>
             <p className="mt-4 text-zinc-400">
               Some of the projects are from work and some are on my own time.
             </p>
@@ -75,12 +75,12 @@ export default async function ProjectsPage() {
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
             </svg>
-            <h3 className="text-2xl font-semibold text-zinc-400 mb-2">No Projects Yet</h3>
+          <h3 className="text-2xl font-semibold text-zinc-400 mb-2">No Projects Yet</h3>
             <p className="text-zinc-600 max-w-sm">
               Projects are on their way. Check back soon!
             </p>
           </div>
-        </div>
+        </main>
       </div>
     );
   }
@@ -88,11 +88,11 @@ export default async function ProjectsPage() {
   return (
     <div className="relative pb-16">
       <Navigation />
-      <div className="px-6 pt-20 mx-auto space-y-8 max-w-7xl lg:px-8 md:space-y-16 md:pt-24 lg:pt-32">
+      <main className="px-6 pt-20 mx-auto space-y-8 max-w-7xl lg:px-8 md:space-y-16 md:pt-24 lg:pt-32">
         <div className="max-w-2xl mx-auto lg:mx-0">
-          <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
+          <h1 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
             Projects
-          </h2>
+          </h1>
           <p className="mt-4 text-zinc-400">
             Some of the projects are from work and some are on my own time.
           </p>
@@ -193,7 +193,7 @@ export default async function ProjectsPage() {
             <p className="text-zinc-500 text-lg">No additional projects found.</p>
           </div>
         )}
-      </div>
+      </main>
     </div>
   );
 }

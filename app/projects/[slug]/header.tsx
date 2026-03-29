@@ -67,8 +67,9 @@ export const Header: React.FC<Props> = ({ project, views }) => {
 								views,
 							)}
 						</span>
-						<Link target="_blank" href="https://twitter.com/paurushrai_">
+						<Link target="_blank" href="https://twitter.com/paurushrai_" aria-label="Follow on Twitter">
 							<Twitter
+								aria-hidden="true"
 								className={`w-6 h-6 duration-200 hover:font-medium ${
 									isIntersecting
 										? " text-zinc-400 hover:text-zinc-100"
@@ -76,8 +77,9 @@ export const Header: React.FC<Props> = ({ project, views }) => {
 								} `}
 							/>
 						</Link>
-						<Link target="_blank" href="https://github.com/paurushrai">
+						<Link target="_blank" href="https://github.com/paurushrai" aria-label="View GitHub profile">
 							<Github
+								aria-hidden="true"
 								className={`w-6 h-6 duration-200 hover:font-medium ${
 									isIntersecting
 										? " text-zinc-400 hover:text-zinc-100"
@@ -89,13 +91,14 @@ export const Header: React.FC<Props> = ({ project, views }) => {
 
 					<Link
 						href="/projects"
+						aria-label="Back to projects"
 						className={`duration-200 hover:font-medium ${
 							isIntersecting
 								? " text-zinc-400 hover:text-zinc-100"
 								: "text-zinc-600 hover:text-zinc-900"
 						} `}
 					>
-						<ArrowLeft className="w-6 h-6 " />
+						<ArrowLeft className="w-6 h-6" aria-hidden="true" />
 					</Link>
 				</div>
 			</div>
