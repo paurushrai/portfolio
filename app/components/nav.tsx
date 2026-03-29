@@ -5,12 +5,12 @@ import React, { useEffect, useRef, useState } from "react";
 
 export const Navigation: React.FC = () => {
 	const ref = useRef<HTMLElement>(null);
-	const [isIntersecting, setIntersecting] = useState(true);
+	const [isIntersecting, setIsIntersecting] = useState(true);
 
 	useEffect(() => {
 		if (!ref.current) return;
 		const observer = new IntersectionObserver(([entry]) =>
-			setIntersecting(entry.isIntersecting),
+			setIsIntersecting(entry.isIntersecting),
 		);
 
 		observer.observe(ref.current);
