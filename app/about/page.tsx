@@ -1,4 +1,6 @@
 import React from "react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Navigation } from "../components/nav";
 
 const skills = {
@@ -97,13 +99,13 @@ export default function AboutPage() {
           <h2 className="text-sm font-medium text-zinc-500 uppercase tracking-widest mb-5">What I Build</h2>
           <div className="flex flex-wrap gap-2">
             {[
-              "CMS-integrated Websites",
-              "Data Scraping & Orchestration Workflows",
               "Web Applications",
               "Mobile Apps",
               "Progressive Web Apps",
               "Admin Dashboards",
+              "CMS-integrated Websites",
               "Desktop Software",
+              "Data Scraping & Orchestration Workflows",
               "VS Code Extensions",
               "Jira Plugins",
               "LTI Plugins",
@@ -124,7 +126,20 @@ export default function AboutPage() {
 
         {/* ── Tech Skills ── */}
         <section>
-          <h2 className="text-2xl font-bold text-zinc-100 mb-8">Technical Skills</h2>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+            <h2 className="text-2xl font-bold text-zinc-100">Technical Skills</h2>
+            <Link
+              href="https://stackshare.io/paurushrai/my-stack"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-200 duration-200 group"
+            >
+              <span className="border-b border-transparent group-hover:border-zinc-500 transition-colors">
+                View full stack on StackShare
+              </span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 duration-200" />
+            </Link>
+          </div>
           <div className="space-y-6">
             {Object.entries(skills).map(([category, items]) => (
               <div key={category} className="grid grid-cols-[140px_1fr] gap-4 items-start">
