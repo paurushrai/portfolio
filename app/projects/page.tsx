@@ -5,7 +5,7 @@ import { Navigation } from "../components/nav";
 import { Card } from "../components/card";
 import { Article } from "./article";
 import { Redis } from "@upstash/redis";
-import { Eye } from "lucide-react";
+import { Briefcase } from "lucide-react";
 
 const isRedisConfigured =
   !!process.env.UPSTASH_REDIS_REST_URL &&
@@ -30,9 +30,9 @@ export default async function ProjectsPage() {
     }
   }
 
-  const featured = allProjects.find((project) => project.slug === "bob");
-  const top2 = allProjects.find((project) => project.slug === "planetfall");
-  const top3 = allProjects.find((project) => project.slug === "highstorm");
+  const featured = allProjects.find((project) => project.slug === "metanotes");
+  const top2 = allProjects.find((project) => project.slug === "testlify-app");
+  const top3 = allProjects.find((project) => project.slug === "fuelbuddy-customer-app");
   const sorted = allProjects
     .filter((p) => p.published)
     .filter(
@@ -106,32 +106,19 @@ export default async function ProjectsPage() {
                 <Link href={`/projects/${featured.slug}`}>
                   <article className="relative w-full h-full p-4 md:p-8">
                     <div className="flex items-center justify-between gap-2">
-                      <div className="text-xs text-zinc-100">
-                        {featured.date ? (
-                          <time dateTime={new Date(featured.date).toISOString()}>
-                            {Intl.DateTimeFormat(undefined, {
-                              dateStyle: "medium",
-                            }).format(new Date(featured.date))}
-                          </time>
-                        ) : (
-                          <span>SOON</span>
-                        )}
+                      <div className="flex items-center gap-1.5 text-xs text-zinc-400 font-medium tracking-wide uppercase group-hover:text-zinc-200 duration-150">
+                        <Briefcase className="w-4 h-4" />
+                        <span>{featured.company ? featured.company : "Independent"}</span>
                       </div>
-                      <span className="flex items-center gap-1 text-xs text-zinc-500">
-                        <Eye className="w-4 h-4" />{" "}
-                        {Intl.NumberFormat("en-US", { notation: "compact" }).format(
-                          views[featured.slug] ?? 0,
-                        )}
-                      </span>
                     </div>
 
                     <h2
                       id="featured-post"
-                      className="mt-4 text-3xl font-bold text-zinc-100 group-hover:text-white sm:text-4xl font-display"
+                      className="mt-4 text-3xl font-bold text-zinc-100 group-hover:text-white sm:text-5xl xl:text-6xl font-display"
                     >
                       {featured.title}
                     </h2>
-                    <p className="mt-4 leading-8 duration-150 text-zinc-400 group-hover:text-zinc-300">
+                    <p className="mt-6 sm:mt-8 text-base sm:text-lg leading-8 duration-150 text-zinc-400 group-hover:text-zinc-300 pb-8 lg:pb-12">
                       {featured.description}
                     </p>
                     <div className="absolute bottom-4 md:bottom-8">

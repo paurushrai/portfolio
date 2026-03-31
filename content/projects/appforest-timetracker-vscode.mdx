@@ -1,0 +1,20 @@
+---
+title: AppForest Timetracker - VS Code Extension
+description: Single-handedly engineered a native VS Code extension to sync developer workflow activity directly with Jira, cutting reporting errors by 80% and eliminating manual time-tracking friction.
+url: https://marketplace.visualstudio.com/items?itemName=AppforestTimetracker.appforest-timetracker
+date: 2025-07-01
+published: true
+company: Testlify
+---
+
+While our internal Jira plugin successfully centralized time tracking at Testlify, developers still faced the daily friction of context-switching to manually log their hours. To completely eliminate this administrative burden, I single-handedly designed, built, and shipped the **AppForest Timetracker**, a native Visual Studio Code extension that automates the logging process without requiring engineers to ever leave their IDE.
+
+## Technical Scope & Contributions
+
+- **VS Code Extension Architecture:** Built the extension entirely from scratch utilizing the official VS Code Extension API. I developed lightweight background processes to silently monitor active editor time, file transitions, and workspace modifications, ensuring a zero-interruption experience for the end user.
+- **Git Branch & Jira Synchronization:** Engineered an intelligent data-bridge between the developer's local Git environment and secure Jira REST APIs. The extension automatically parses the current active Git branch, extracts the relevant ticket ID, and pushes precise, context-aware time logs directly into our Atlassian ecosystem.
+- **End-to-End Solo Execution:** Operated as the sole owner of the entire product lifecycle. I managed everything from conceptualizing the local configuration UX and handling secure OAuth token encryption, all the way to packaging and publishing the final build on the Microsoft Visual Studio Marketplace.
+
+## Business Impact
+
+By transforming a tedious organizational chore into an invisible, automated data pipeline, this extension had a profound effect on engineering velocity. It successfully **reduced manual time-tracking efforts by 60–70%** and **cut human reporting errors by a staggering 80%**. The resulting influx of pinpoint-accurate, frictionless data provided leadership with exactly what they needed to drastically improve both sprint planning precision and billing accuracy.
