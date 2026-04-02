@@ -14,10 +14,10 @@ export const metadata: Metadata = {
     default: "paurushrai.in",
     template: "%s | paurushrai.in",
   },
-  description: "Co-founder of unkey.dev and founder of planetfall.io",
+  description: "Full-stack Software Engineer architecting enterprise web platforms, AI-driven applications, and developer productivity tools.",
   openGraph: {
     title: "paurushrai.in",
-    description: "Co-founder of unkey.dev and founder of planetfall.io",
+    description: "Full-stack Software Engineer architecting enterprise web platforms, AI-driven applications, and developer productivity tools.",
     url: "https://paurushrai.in",
     siteName: "paurushrai.in",
     images: [
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: "paurushrai",
+    title: "Paurush Rai",
     card: "summary_large_image",
   },
   icons: {
