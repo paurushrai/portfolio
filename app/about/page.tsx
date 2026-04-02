@@ -80,16 +80,13 @@ export default function AboutPage() {
         <div className="space-y-5 text-zinc-400 leading-relaxed text-base">
           <p>
             I'm <span className="text-zinc-100 font-medium">Paurush Rai</span> — a frontend-leaning full-stack engineer based in India, with almost 5 years of experience
-            building performant web platforms and developer productivity tools. My work spans product UIs, internal tooling, browser
-            extensions, LMS integrations, and everything in between.
+            architecting enterprise web platforms, AI-driven applications, and developer productivity tools. My work spans complex B2B dashboards, robust LMS integrations, custom Jira and VS Code plugins, and everything in between.
           </p>
           <p>
-            I care deeply about performance, clean architecture, and shipping things that actually matter — not just
-            features that look good in a sprint review, but work that measurably moves the needle. That focus on
-            impact is what keeps me product-minded even when I'm deep in the code.
+            I care deeply about performance, clean architecture, and shipping things that actually matter. Whether it's building a greenfield franchise portal from scratch, engineering real-time AI interview workflows, or developing internal tools that save the business thousands of dollars annually, my focus is always on work that measurably moves the needle. That product-minded approach is what keeps me grounded in user impact, even when I'm deep in the code.
           </p>
           <p>
-            Outside of work I'm usually spinning up a side project or reaching for a library I've never touched before —
+            Outside of work I'm usually spinning up a side project, automating a tedious workflow, or reaching for a library I've never touched before —
             I like the friction of learning new tools in real contexts.
           </p>
         </div>
@@ -99,18 +96,17 @@ export default function AboutPage() {
           <h2 className="text-sm font-medium text-zinc-500 uppercase tracking-widest mb-5">What I Build</h2>
           <div className="flex flex-wrap gap-2">
             {[
-              "Web Applications",
-              "Mobile Apps",
+              "Enterprise B2B Platforms",
+              "AI Applications & Workflows",
+              "Admin & Franchise Dashboards",
+              "LMS / LTI Integrations",
+              "Headless CMS & Jamstack",
+              "Internal Developer Tooling",
+              "VS Code & Jira Plugins",
+              "Data Pipelines & Automation",
+              "Custom Component Libraries",
               "Progressive Web Apps",
-              "Admin Dashboards",
-              "CMS-integrated Websites",
-              "Desktop Software",
-              "Data Scraping & Orchestration Workflows",
-              "VS Code Extensions",
-              "Jira Plugins",
-              "LTI Plugins",
-              "Chrome Extensions",
-              "Developer Tooling",
+              "Browser Extensions",
             ].map((item) => (
               <span
                 key={item}
