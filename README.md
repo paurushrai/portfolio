@@ -1,7 +1,7 @@
 <div align="center">
     <a href="https://paurushrai.in"><h1 align="center">paurushrai.in</h1></a>
 
-My personal website, built with [Next.js](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/), [Upstash](https://upstash.com?ref=paurushrai.in), [Contentlayer](https://www.contentlayer.dev/) and deployed to [Vercel](https://vercel.com/).
+My personal website, built with [Next.js](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/), [Upstash](https://upstash.com?ref=paurushrai.in), [Contentlayer](https://www.contentlayer.dev/) and deployed to [Netlify](https://www.netlify.com/).
 
 </div>
 
