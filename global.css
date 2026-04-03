@@ -6,5 +6,15 @@
   .text-edge-outline {
     -webkit-text-stroke: 1px rgba(255,255,255,0.3);
   }
-} 
 
+  /* Completely hide the scrollbar to prevent all layout shifts and visual artifacts */
+  html, body {
+    color-scheme: dark; /* Prevents iOS auto-inverting dark theme */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  ::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+}
