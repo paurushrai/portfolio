@@ -4,21 +4,22 @@ import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 
 export const Navigation: React.FC = () => {
-  const ref = useRef<HTMLElement>(null);
   const [isIntersecting, setIsIntersecting] = useState(true);
 
   useEffect(() => {
-    if (!ref.current) return;
-    const observer = new IntersectionObserver(([entry]) =>
-      setIsIntersecting(entry.isIntersecting),
-    );
-
-    observer.observe(ref.current);
-    return () => observer.disconnect();
+    const handleScroll = () => {
+      setIsIntersecting(window.scrollY < 50);
+    };
+    
+    // Check initial scroll position
+    handleScroll();
+    
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <header ref={ref}>
+    <header>
       <div
         className={`fixed inset-x-0 top-0 z-50 backdrop-blur transition-colors duration-200 border-b transform-gpu ${
           isIntersecting

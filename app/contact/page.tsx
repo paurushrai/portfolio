@@ -35,9 +35,9 @@ export default function ContactPage() {
   return (
     <div className=" bg-gradient-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0">
       <Navigation />
-      <main className="container flex flex-col items-center justify-center min-h-[100dvh] px-4 mx-auto">
+      <main className="container flex flex-col items-center justify-center min-h-[100dvh] px-4 py-24 mx-auto">
         <h1 className="sr-only">Contact</h1>
-        <div className="grid w-full grid-cols-1 gap-4 mx-auto mt-32 sm:mt-0 md:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+        <div className="grid w-full grid-cols-1 gap-4 mx-auto sm:mt-0 md:grid-cols-2 lg:grid-cols-4 lg:gap-6">
           {socials.map((s) => (
             <Card key={s.href}>
               <Link
@@ -45,7 +45,7 @@ export default function ContactPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${s.label}: ${s.handle}`}
-                className="p-4 relative flex flex-col items-center gap-3 duration-700 group md:gap-4 md:py-12 lg:pb-16 md:p-8"
+                className="p-4 relative flex flex-col items-center gap-3 duration-700 group md:gap-4 md:py-8 md:p-8"
               >
                 <span
                   className="absolute w-px h-2/3 bg-gradient-to-b from-zinc-500 via-zinc-500/50 to-transparent"
