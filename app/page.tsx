@@ -38,18 +38,20 @@ export default function Home() {
         <div className="hidden w-screen h-px animate-glow md:block animate-fade-right bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
         <div className="my-16 text-center animate-fade-in flex flex-col items-center gap-4 px-6 md:px-0">
           <p className="text-sm text-zinc-500">
-            Senior Software Engineer — building products, tools, and integrations that ship fast and last long.
+            Senior Software Engineer — building products, tools, and
+            integrations that ship fast and last long.
           </p>
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-zinc-700/60 bg-zinc-900/40 backdrop-blur-sm">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
-            <span className="text-xs text-zinc-400 tracking-wide">Open to work</span>
+            <span className="text-xs text-zinc-400 tracking-wide">
+              Open to work
+            </span>
           </div>
         </div>
       </main>
     </div>
   );
-
 }

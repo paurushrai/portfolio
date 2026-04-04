@@ -18,6 +18,8 @@ export function ProgressBar() {
     return () => clearTimeout(timeout);
   }, [pathname, searchParams]);
 
+  if (pathname === "/") return null;
+
   return (
     <AnimatePresence>
       {isNavigating && (
