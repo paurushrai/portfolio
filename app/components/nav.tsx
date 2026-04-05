@@ -1,7 +1,7 @@
 "use client";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export const Navigation: React.FC = () => {
   const [isIntersecting, setIsIntersecting] = useState(true);
@@ -28,7 +28,7 @@ export const Navigation: React.FC = () => {
         }`}
       >
         <div className="container flex flex-row-reverse items-center justify-between p-6 mx-auto">
-          <div className="flex justify-between gap-8">
+          <div className="flex justify-between gap-4 md:gap-8">
             <Link
               href="/about"
               className="duration-200 text-zinc-400 hover:text-zinc-100"
@@ -41,6 +41,12 @@ export const Navigation: React.FC = () => {
             >
               Projects
             </Link>
+            {/* <Link
+              href="/services"
+              className="duration-200 text-zinc-400 hover:text-zinc-100"
+            >
+              Services
+            </Link> */}
             <Link
               href="/contact"
               className="duration-200 text-zinc-400 hover:text-zinc-100"
