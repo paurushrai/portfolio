@@ -1,0 +1,161 @@
+import type { Locale } from "./en";
+
+export const fr: Locale = {
+  nav: {
+    about: "À propos",
+    projects: "Projets",
+    services: "Services",
+    contact: "Contact",
+  },
+  home: {
+    tagline:
+      "Ingénieur Logiciel Senior — je conçois des produits, des outils et des intégrations qui livrent vite et durent longtemps.",
+    openToWork: "Disponible pour des missions",
+  },
+  projects: {
+    title: "Projets",
+    subtitle: "Certains projets sont issus de mon travail, d'autres de mon temps libre.",
+    readMore: "Lire la suite",
+    empty: "Aucun projet trouvé.",
+    independent: "Indépendant",
+  },
+  services: {
+    badge: "Disponible en freelance",
+    title: "Services",
+    intro:
+      "Je prends en charge un nombre limité de projets freelance par trimestre. Tout ce que je développe est prêt pour la production, performant, et livré avec une passation propre. Pas d'agences, pas de sous-traitance — vous travaillez directement avec moi.",
+    pricing: {
+      startingAt: "À partir de",
+      fixedPrice: "Prix fixe",
+      perProject: "par projet",
+      perTool: "par outil",
+      perIntegration: "par intégration",
+      perSite: "par site",
+      auditNote: "audit + recommandations",
+    },
+    cta: {
+      startProject: "Démarrer un projet",
+      discussIdea: "Discuter de votre idée",
+      buildTool: "Créer votre outil",
+      integrateLms: "Intégrer votre LMS",
+      auditSite: "Auditer mon site",
+      moderniseSite: "Moderniser mon site",
+    },
+    retainer: {
+      label: "Collaboration continue",
+      title: "Retainer Mensuel",
+      description:
+        "Vous avez besoin d'un ingénieur dédié disponible en permanence ? Je propose des accords de retainer pour les équipes qui ont besoin de développement continu, de corrections de bugs ou d'un partenaire technique — sans les coûts d'un employé à temps plein.",
+      hours: "jusqu'à 40 h/mois",
+      cta: "Parlons-en",
+    },
+    faq: {
+      title: "Questions fréquentes",
+      items: [
+        {
+          q: "Comment démarrer ?",
+          a: "Contactez-moi par e-mail ou LinkedIn avec une brève description de votre projet. Je répondrai dans les 24 heures pour planifier un appel de cadrage de 30 minutes — sans engagement.",
+        },
+        {
+          q: "Travaillez-vous avec des clients internationaux ?",
+          a: "Oui. La plupart de mes clients sont aux États-Unis, au Royaume-Uni et en Europe. Je travaille en mode asynchrone avec des disponibilités pour des appels communs.",
+        },
+        {
+          q: "Quelle est votre durée de projet habituelle ?",
+          a: "Petits outils et audits : 1–2 semaines. Applications full-stack et intégrations : 4–10 semaines selon la portée. Je vous fournirai une estimation détaillée après l'appel de cadrage.",
+        },
+        {
+          q: "Proposez-vous des retainers ?",
+          a: "Oui — pour les travaux continus, je propose des retainers mensuels à partir de 2 000 $/mois pour jusqu'à 40 heures.",
+        },
+      ],
+    },
+    finalCta: {
+      text: "Prêt à construire quelque chose ?",
+      link: "Prendre contact",
+    },
+  },
+  about: {
+    title: "À propos de moi",
+    subtitle: "Un peu de contexte sur qui je suis et ce que je fais.",
+    bio: [
+      "Je suis Paurush Rai — un ingénieur full-stack orienté frontend basé en Inde, avec près de 5 ans d'expérience dans la conception de plateformes web d'entreprise, d'applications pilotées par l'IA et d'outils de productivité pour développeurs. Mon travail couvre des tableaux de bord B2B complexes, des intégrations LMS robustes, des plugins Jira et VS Code personnalisés, et bien plus encore.",
+      "Je tiens profondément à la performance, à une architecture propre et à livrer des choses qui comptent vraiment. Qu'il s'agisse de construire un portail franchise de zéro, de développer des workflows d'entretien IA en temps réel ou de créer des outils internes qui font économiser des milliers de dollars par an, mon focus est toujours sur un travail qui déplace l'aiguille de manière mesurable.",
+      "En dehors du travail, je lance généralement un projet parallèle, j'automatise un workflow fastidieux ou je m'empare d'une bibliothèque que je n'ai jamais utilisée — j'apprécie la friction d'apprendre de nouveaux outils dans des contextes réels.",
+    ],
+    whatIBuild: "Ce que je développe",
+    technicalSkills: "Compétences techniques",
+    viewFullStack: "Voir la stack complète sur StackShare",
+    workHistory: "Parcours professionnel",
+    buildItems: [
+      "Plateformes B2B d'entreprise",
+      "Applications et flux de travail d'IA",
+      "Tableaux de bord d'administration et de franchise",
+      "Intégrations LMS/LTI",
+      "CMS et Jamstack sans tête",
+      "Outils de développement internes",
+      "Plugins VSCode et Jira",
+      "Pipelines de données et automatisation",
+      "Bibliothèques de composants personnalisés",
+      "Applications Web progressives",
+      "Extensions de navigateur",
+    ],
+    skills: {
+      "Langues": ["HTML", "CSS", "JavaScript", "TypeScript", "Handlebars", "MDX"],
+      "Cadres": ["React.js", "Next.js", "Vue.js", "Nuxt.js", "Astro.js", "Electron.js", "React Native"],
+      "Bibliothèques": ["Tailwind", "DaisyUI", "Shadcn", "Element Plus", "Chart.js", "Pinia", "Recoil", "Clerk", "Stripe"],
+      "Base de données": ["PostgreSQL", "MongoDB"],
+      "Back-End": ["Node.js", "Express.js", "Hasura", "Directus", "RESTful APIs", "GraphQL APIs"],
+      "Contrôle des versions": ["Git", "GitLab", "GitHub"],
+      "Plateformes et outils": ["Docker", "Firebase", "Datagrip", "Pipedream", "Vercel", "Apify", "Figma", "AdobeXD"],
+      "Autre": ["Chrome Plugin", "VS Code Extension", "LTI Plugin", "Jira Plugin", "CI/CD", "Shell Scripting"],
+    },
+    experience: [
+      {
+        company: "Testlify",
+        role: "Ingénieur logiciel senior",
+        location: "Bombay, Inde",
+        period: "Janvier 2025 – Aujourd’hui",
+        highlights: [
+          "Conception d'un plugin compatible LTI intégrant Testlify aux principales plates-formes LMS, contribuant à une croissance de 20 à 30 % de l'adoption par les entreprises.",
+          "Création de MetaNotes, un outil de prise de notes de réunion IA avec enregistrement, transcription et résumés automatisés, ce qui permet d'économiser 24 000 $ par an.",
+          "Pilotage de l'optimisation des performances frontend sur le site marketing, augmentant les scores Lighthouse de 49/53 à 87/91 sur mobile/ordinateur de bureau.",
+          "Conception d'une extension VS Code pour suivre automatiquement le temps de codage par la branche Git et se connecter à Jira, réduisant ainsi le suivi manuel de 60 à 70 %.",
+          "Création d'un plugin Jira interne pour les feuilles de temps et la répartition des coûts, économisant plus de 9 000 $ par an.",
+          "Mise en œuvre de flux de travail d'entretien basés sur l'IA (Chat, Voice, Video AI), réduisant les efforts des intervieweurs de plus de 40 % et générant une croissance des revenus de 20 à 30 %.",
+        ],
+      },
+      {
+        company: "FuelBuddy",
+        role: "Ingénieur logiciel",
+        location: "Gurugram, Inde",
+        period: "Septembre 2023 – décembre 2024",
+        highlights: [
+          "Création d'une interface d'application de kiosque à partir de zéro, réduisant le temps de distribution de carburant de 60 %.",
+          "Développement et mise à l'échelle de 6 applications Web de production pour les clients, les administrateurs, les franchises et les chauffeurs.",
+          "Conception de 8 tableaux de bord d'administration pour la validation des données et la résolution des écarts, réduisant ainsi le temps de résolution de 60 à 70 %.",
+          "Encadrement de 3 développeurs et 5 stagiaires, établissant des pratiques de révision de code qui ont amélioré la qualité et la vitesse d'intégration.",
+          "Plus de 100 fonctionnalités fournies de bout en bout sur plusieurs plates-formes.",
+          "Sentry et Clarity intégrés, réduisant le temps de résolution des problèmes de 30 % et augmentant les informations exploitables sur les utilisateurs de 20 %.",
+        ],
+      },
+      {
+        company: "Modocosm",
+        role: "Ingénieur logiciel",
+        location: "New York, États-Unis (à distance)",
+        period: "Juillet 2021 – octobre 2023",
+        highlights: [
+          "Conception et maintenance de 4 sites Web réactifs basés sur CMS supportant une croissance soutenue du trafic.",
+          "CMS Directus déconstruit et configuration de schéma rationalisée avec des requêtes PostgreSQL, réduisant le temps de démarrage de plus de 70 %.",
+          "Conception d'un système de projection de paris automatisé à l'aide de Google Sheets et du scraping Python, améliorant ainsi la précision de 15 à 20 %.",
+          "Création de plus de 100 composants d'interface utilisateur et systèmes de conception réutilisables, accélérant ainsi la livraison.",
+          "Modernisation de 7 sites Web existants en migrant vers Astro.js Jamstack + CMS sans tête, réduisant ainsi le temps de lancement du contenu de 50 %.",
+        ],
+      },
+    ],
+
+  },
+  contact: {
+    title: "Contact",
+  },
+};

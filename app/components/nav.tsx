@@ -2,18 +2,19 @@
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { useLanguage } from "../i18n/LanguageContext";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 export const Navigation: React.FC = () => {
+  const { t } = useLanguage();
   const [isIntersecting, setIsIntersecting] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsIntersecting(window.scrollY < 50);
     };
-    
-    // Check initial scroll position
+
     handleScroll();
-    
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -24,35 +25,36 @@ export const Navigation: React.FC = () => {
         className={`fixed inset-x-0 top-0 z-50 backdrop-blur transition-colors duration-200 border-b transform-gpu ${
           isIntersecting
             ? "bg-zinc-900/0 border-transparent"
-            : "bg-zinc-900/50  border-zinc-800"
+            : "bg-zinc-900/50 border-zinc-800"
         }`}
       >
         <div className="container flex flex-row-reverse items-center justify-between p-6 mx-auto">
-          <div className="flex justify-between gap-4 md:gap-8">
+          <div className="flex items-center gap-4 md:gap-7">
             <Link
               href="/about"
-              className="duration-200 text-zinc-400 hover:text-zinc-100"
+              className="duration-200 text-zinc-400 hover:text-zinc-100 text-sm"
             >
-              About
+              {t.nav.about}
             </Link>
             <Link
               href="/projects"
-              className="duration-200 text-zinc-400 hover:text-zinc-100"
+              className="duration-200 text-zinc-400 hover:text-zinc-100 text-sm"
             >
-              Projects
+              {t.nav.projects}
             </Link>
             {/* <Link
               href="/services"
-              className="duration-200 text-zinc-400 hover:text-zinc-100"
+              className="duration-200 text-zinc-400 hover:text-zinc-100 text-sm"
             >
-              Services
+              {t.nav.services}
             </Link> */}
             <Link
               href="/contact"
-              className="duration-200 text-zinc-400 hover:text-zinc-100"
+              className="duration-200 text-zinc-400 hover:text-zinc-100 text-sm"
             >
-              Contact
+              {t.nav.contact}
             </Link>
+            <LanguageSwitcher />
           </div>
 
           <Link

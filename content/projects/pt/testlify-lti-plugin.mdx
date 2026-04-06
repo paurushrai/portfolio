@@ -1,0 +1,20 @@
+---
+title: Plug-in Testlify LTI 1.3 Advantage
+description: Solo arquitetou uma integração LTI 1.3 full-stack que une com segurança os sistemas de gerenciamento de aprendizagem corporativos ao Testlify, automatizando handshakes OIDC complexos, sincronizações de escalas e passback de notas.
+url: https://lti.testlify.com/
+date: 2026-03-01
+published: true
+company: Testlify
+---
+
+Sistemas de gerenciamento de aprendizagem (LMS) como Canvas, Moodle e Blackboard são os centros operacionais para instituições educacionais e setores de treinamento corporativo. Para desbloquear os recursos de avaliação de talentos do Testlify para esses enormes ecossistemas, era necessária uma ponte excepcionalmente segura e compatível. Operando ativamente como engenheiro solo full-stack, projetei e entreguei o **Testlify LTI Plugin**, uma integração perfeita projetada para conectar o Testlify diretamente dentro do ambiente LMS nativo do instrutor.
+
+## Escopo Técnico e Arquitetura
+
+- **Mecanismo criptográfico LTI 1.3 personalizado:** Deixando de lado as pesadas bibliotecas LTI de terceiros em caixa preta, projetei uma implementação personalizada altamente segura desde o início dentro do Next.js 14. Rolei manualmente os handshakes estritos do OpenID Connect (OIDC), lidei com verificações profundas de assinatura JWT e estabeleci endpoints de chave pública JWKS seguros para garantir confiança impenetrável entre o LMS e a plataforma.
+- **Sincronização automatizada de dados:** Arquitetura de uma camada de API sofisticada para automatizar fluxos de trabalho administrativos tediosos. Integrei os serviços de provisionamento de nomes e funções (NRPS) para sincronizar listas enormes de alunos instantaneamente e criei ouvintes de webhook robustos que utilizam serviços de atribuição e notas (AGS) para enviar perfeitamente as pontuações da avaliação dos candidatos diretamente para o boletim de notas do LMS.
+- **Design de sistema Full Stack:** Roteamento de API unificado, complexo e multilocatário e uma interface de usuário do React 18 Dashboard polida e acessível em uma única arquitetura monolítica. Projetei esquemas MongoDB escaláveis ​​para lidar com configurações seguras de plataforma LMS e orquestrei configurações avançadas de Docker para simular ambientes LMS isolados para testes locais.
+
+## Impacto nos negócios
+
+Ao projetar com sucesso uma integração LTI universalmente compatível e sem atritos, este projeto expandiu agressivamente o mercado endereçável da Testlify para os setores de Ensino Superior e Treinamento Empresarial. O Single Sign-On (SSO) automatizado e a sincronização automática de notas eliminaram completamente os atritos administrativos, capacitando os instrutores a adotarem a plataforma sem esforço e gerando um envolvimento institucional massivo.

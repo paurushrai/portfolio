@@ -1,0 +1,20 @@
+---
+title: AppForest Timetracker - Extension de code VS
+description: J'ai conçu à moi seul une extension VS Code native pour synchroniser l'activité du flux de travail des développeurs directement avec Jira, réduisant ainsi les erreurs de reporting de 80 % et éliminant les frictions liées au suivi manuel du temps.
+url: https://marketplace.visualstudio.com/items?itemName=AppforestTimetracker.appforest-timetracker
+date: 2025-07-01
+published: true
+company: Testlify
+---
+
+Alors que notre plugin Jira interne a réussi à centraliser le suivi du temps chez Testlify, les développeurs étaient toujours confrontés aux frictions quotidiennes du changement de contexte pour enregistrer manuellement leurs heures. Pour éliminer complètement cette charge administrative, j'ai conçu, construit et livré à lui seul **AppForest Timetracker**, une extension native de Visual Studio Code qui automatise le processus de journalisation sans obliger les ingénieurs à quitter leur IDE.
+
+## Portée technique et contributions
+
+- **Architecture d'extension VS Code :** Construit l'extension entièrement à partir de zéro en utilisant l'API officielle d'extension VS Code. J'ai développé des processus d'arrière-plan légers pour surveiller silencieusement le temps d'activité de l'éditeur, les transitions de fichiers et les modifications de l'espace de travail, garantissant ainsi une expérience sans interruption pour l'utilisateur final.
+- **Git Branch & Jira Synchronisation :** Conception d'un pont de données intelligent entre l'environnement Git local du développeur et les API REST Jira sécurisées. L'extension analyse automatiquement la branche Git active actuelle, extrait l'ID de ticket correspondant et transmet des journaux de temps précis et contextuels directement dans notre écosystème Atlassian.
+- **Exécution solo de bout en bout :** Exploité en tant qu'unique propriétaire de l'ensemble du cycle de vie du produit. J'ai tout géré, depuis la conceptualisation de la configuration locale UX et la gestion du cryptage sécurisé des jetons OAuth, jusqu'au packaging et à la publication de la version finale sur Microsoft Visual Studio Marketplace.
+
+## Impact commercial
+
+En transformant une tâche organisationnelle fastidieuse en un pipeline de données invisible et automatisé, cette extension a eu un effet profond sur la vitesse d'ingénierie. Il a réussi à **réduire les efforts manuels de suivi du temps de 60 à 70 %** et à **réduire les erreurs de reporting humain de 80 %**. L’afflux de données précises et fluides qui en a résulté a fourni aux dirigeants exactement ce dont ils avaient besoin pour améliorer considérablement à la fois la précision de la planification des sprints et celle de la facturation.

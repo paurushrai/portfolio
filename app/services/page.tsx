@@ -1,17 +1,14 @@
+"use client";
 import { Navigation } from "../components/nav";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
-import { Metadata } from "next";
+import { useLanguage } from "../i18n/LanguageContext";
 
-export const metadata: Metadata = {
-  title: "Services",
-  description:
-    "Hire Paurush Rai for freelance software engineering — full-stack web apps, AI integrations, internal tooling, LMS plugins, and more.",
-};
-
+// Service card data — titles/descriptions stay in English (technical content understood globally)
 const services = [
   {
     id: "fullstack-web",
+    ctaKey: "startProject" as const,
     title: "Full-Stack Web Development",
     tagline: "Production-grade apps, built fast.",
     description:
@@ -24,15 +21,13 @@ const services = [
       "Deployment-ready codebase",
       "Documentation & handoff",
     ],
-    pricing: {
-      label: "Starting at",
-      amount: "$2,500",
-      note: "per project",
-    },
-    cta: "Start a project",
+    pricingKey: "startingAt" as const,
+    amount: "$2,500",
+    noteKey: "perProject" as const,
   },
   {
     id: "ai-integration",
+    ctaKey: "discussIdea" as const,
     title: "AI Workflow Integration",
     tagline: "Ship AI-powered features that actually work.",
     description:
@@ -45,15 +40,13 @@ const services = [
       "Frontend AI UX",
       "Cost & latency optimisation",
     ],
-    pricing: {
-      label: "Starting at",
-      amount: "$3,000",
-      note: "per project",
-    },
-    cta: "Discuss your idea",
+    pricingKey: "startingAt" as const,
+    amount: "$3,000",
+    noteKey: "perProject" as const,
   },
   {
     id: "internal-tooling",
+    ctaKey: "buildTool" as const,
     title: "Internal Tools & Plugins",
     tagline: "Tools your team will actually use.",
     description:
@@ -65,15 +58,13 @@ const services = [
       "Admin configuration panel",
       "Team rollout support",
     ],
-    pricing: {
-      label: "Starting at",
-      amount: "$1,500",
-      note: "per tool",
-    },
-    cta: "Build your tool",
+    pricingKey: "startingAt" as const,
+    amount: "$1,500",
+    noteKey: "perTool" as const,
   },
   {
     id: "lms-lti",
+    ctaKey: "integrateLms" as const,
     title: "LMS / LTI Integration",
     tagline: "Connect your platform to any LMS.",
     description:
@@ -86,15 +77,13 @@ const services = [
       "Multi-LMS compatibility",
       "Security & token handling",
     ],
-    pricing: {
-      label: "Starting at",
-      amount: "$4,000",
-      note: "per integration",
-    },
-    cta: "Integrate your LMS",
+    pricingKey: "startingAt" as const,
+    amount: "$4,000",
+    noteKey: "perIntegration" as const,
   },
   {
     id: "performance-audit",
+    ctaKey: "auditSite" as const,
     title: "Frontend Performance Audit",
     tagline: "Fast sites convert. Let's fix yours.",
     description:
@@ -107,15 +96,13 @@ const services = [
       "Concrete code-level fixes",
       "Before/after benchmark",
     ],
-    pricing: {
-      label: "Fixed price",
-      amount: "$800",
-      note: "audit + recommendations",
-    },
-    cta: "Audit my site",
+    pricingKey: "fixedPrice" as const,
+    amount: "$800",
+    noteKey: "auditNote" as const,
   },
   {
     id: "cms-jamstack",
+    ctaKey: "moderniseSite" as const,
     title: "Headless CMS & Jamstack",
     tagline: "Content-first. Launch-optimised.",
     description:
@@ -128,35 +115,16 @@ const services = [
       "Editor-friendly authoring",
       "CI/CD deployment pipeline",
     ],
-    pricing: {
-      label: "Starting at",
-      amount: "$2,000",
-      note: "per site",
-    },
-    cta: "Modernise my site",
-  },
-];
-
-const faqs = [
-  {
-    q: "How do I get started?",
-    a: "Reach out via email or LinkedIn with a brief description of your project. I'll respond within 24 hours to schedule a 30-minute scoping call — no commitment required.",
-  },
-  {
-    q: "Do you work with international clients?",
-    a: "Yes. Most of my clients are based in the US, UK, and EU. I work async-first with availability for overlap calls.",
-  },
-  {
-    q: "What's your typical timeline?",
-    a: "Small tools & audits: 1–2 weeks. Full-stack apps & integrations: 4–10 weeks depending on scope. I'll give you a detailed estimate after the scoping call.",
-  },
-  {
-    q: "Do you offer retainers?",
-    a: "Yes — for ongoing work, I offer monthly retainer arrangements starting at $2,000/month for up to 40 hours.",
+    pricingKey: "startingAt" as const,
+    amount: "$2,000",
+    noteKey: "perSite" as const,
   },
 ];
 
 export default function ServicesPage() {
+  const { t } = useLanguage();
+  const s = t.services;
+
   return (
     <div className="bg-gradient-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0 relative pb-24">
       <Navigation />
@@ -166,17 +134,12 @@ export default function ServicesPage() {
         {/* ── Header ── */}
         <div className="max-w-2xl mb-16">
           <p className="text-xs font-medium uppercase tracking-widest text-zinc-500 mb-4">
-            Available for freelance
+            {s.badge}
           </p>
           <h1 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl mb-5">
-            Services
+            {s.title}
           </h1>
-          <p className="text-zinc-400 leading-relaxed">
-            I take on a limited number of freelance projects each quarter.
-            Everything I build is production-grade, performant, and shipped with
-            clean handoff. No agencies, no subcontracting — you work directly
-            with me.
-          </p>
+          <p className="text-zinc-400 leading-relaxed">{s.intro}</p>
         </div>
 
         <div className="w-full h-px bg-zinc-800 mb-16" />
@@ -188,7 +151,6 @@ export default function ServicesPage() {
               key={service.id}
               className="group relative flex flex-col rounded-2xl border border-zinc-800 bg-zinc-900/40 p-7 hover:border-zinc-700 hover:bg-zinc-900/70 transition-all duration-300"
             >
-              {/* top accent line */}
               <span className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-zinc-500/0 via-zinc-400/40 to-zinc-500/0 rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
               <div className="mb-5">
@@ -216,12 +178,12 @@ export default function ServicesPage() {
 
               {/* Stack tags */}
               <div className="flex flex-wrap gap-1.5 mb-8">
-                {service.stack.map((t) => (
+                {service.stack.map((tag) => (
                   <span
-                    key={t}
+                    key={tag}
                     className="px-2 py-0.5 text-[11px] rounded-full bg-zinc-800 text-zinc-500 border border-zinc-700/60"
                   >
-                    {t}
+                    {tag}
                   </span>
                 ))}
               </div>
@@ -230,20 +192,17 @@ export default function ServicesPage() {
               <div className="mt-auto flex items-end justify-between gap-4">
                 <div>
                   <p className="text-[11px] text-zinc-600 uppercase tracking-widest mb-0.5">
-                    {service.pricing.label}
+                    {s.pricing[service.pricingKey]}
                   </p>
-                  <p className="text-2xl font-bold text-zinc-100">
-                    {service.pricing.amount}
-                  </p>
-                  <p className="text-xs text-zinc-600">{service.pricing.note}</p>
+                  <p className="text-2xl font-bold text-zinc-100">{service.amount}</p>
+                  <p className="text-xs text-zinc-600">{s.pricing[service.noteKey]}</p>
                 </div>
-
                 <Link
-                  href={`/contact`}
-                  aria-label={service.cta}
+                  href="/contact"
+                  aria-label={s.cta[service.ctaKey]}
                   className="flex items-center gap-1.5 text-sm text-zinc-400 hover:text-zinc-100 transition-colors duration-200 group/cta shrink-0"
                 >
-                  {service.cta}
+                  {s.cta[service.ctaKey]}
                   <ArrowRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
                 </Link>
               </div>
@@ -256,20 +215,24 @@ export default function ServicesPage() {
           <span className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-zinc-500/0 via-zinc-400/30 to-zinc-500/0" />
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div>
-              <p className="text-xs uppercase tracking-widest text-zinc-500 mb-2 font-medium">Ongoing work</p>
-              <h2 className="text-xl font-bold text-zinc-100 mb-2">Monthly Retainer</h2>
+              <p className="text-xs uppercase tracking-widest text-zinc-500 mb-2 font-medium">
+                {s.retainer.label}
+              </p>
+              <h2 className="text-xl font-bold text-zinc-100 mb-2">{s.retainer.title}</h2>
               <p className="text-sm text-zinc-400 max-w-lg leading-relaxed">
-                Need a dedicated engineer on call? I offer retainer arrangements for teams that need ongoing feature work, bug fixes, or a technical partner — without the overhead of a full-time hire.
+                {s.retainer.description}
               </p>
             </div>
             <div className="shrink-0 text-right">
-              <p className="text-3xl font-bold text-zinc-100">$2,000<span className="text-base font-normal text-zinc-500">/mo</span></p>
-              <p className="text-xs text-zinc-600 mb-4">up to 40 hrs/month</p>
+              <p className="text-3xl font-bold text-zinc-100">
+                $2,000<span className="text-base font-normal text-zinc-500">/mo</span>
+              </p>
+              <p className="text-xs text-zinc-600 mb-4">{s.retainer.hours}</p>
               <Link
                 href="/contact"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-zinc-100 text-zinc-900 text-sm font-semibold hover:bg-white transition-colors duration-200"
               >
-                Let's talk
+                {s.retainer.cta}
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -279,10 +242,10 @@ export default function ServicesPage() {
         {/* ── FAQ ── */}
         <section className="mb-16">
           <h2 className="text-sm font-medium text-zinc-500 uppercase tracking-widest mb-8">
-            FAQ
+            {s.faq.title}
           </h2>
           <div className="space-y-8">
-            {faqs.map((faq) => (
+            {s.faq.items.map((faq) => (
               <div key={faq.q} className="grid md:grid-cols-[1fr_2fr] gap-3 md:gap-8">
                 <p className="text-sm font-medium text-zinc-200">{faq.q}</p>
                 <p className="text-sm text-zinc-400 leading-relaxed">{faq.a}</p>
@@ -295,12 +258,12 @@ export default function ServicesPage() {
 
         {/* ── Final CTA ── */}
         <div className="text-center">
-          <p className="text-zinc-400 text-sm mb-2">Ready to build something?</p>
+          <p className="text-zinc-400 text-sm mb-2">{s.finalCta.text}</p>
           <Link
             href="/contact"
             className="inline-flex items-center gap-2 text-zinc-100 font-medium hover:text-white transition-colors duration-200 group"
           >
-            Get in touch
+            {s.finalCta.link}
             <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200" />
           </Link>
         </div>

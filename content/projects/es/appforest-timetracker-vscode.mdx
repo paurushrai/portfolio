@@ -1,0 +1,20 @@
+---
+title: AppForest Timetracker - Extensión de código VS
+description: Diseñé por sí solo una extensión nativa de VS Code para sincronizar la actividad del flujo de trabajo del desarrollador directamente con Jira, reduciendo los errores de informes en un 80 % y eliminando la fricción en el seguimiento manual del tiempo.
+url: https://marketplace.visualstudio.com/items?itemName=AppforestTimetracker.appforest-timetracker
+date: 2025-07-01
+published: true
+company: Testlify
+---
+
+Si bien nuestro complemento interno de Jira centralizó con éxito el seguimiento del tiempo en Testlify, los desarrolladores aún enfrentaban la fricción diaria del cambio de contexto para registrar manualmente sus horas. Para eliminar por completo esta carga administrativa, diseñé, construí y envié **AppForest Timetracker**, una extensión nativa de Visual Studio Code que automatiza el proceso de registro sin necesidad de que los ingenieros abandonen su IDE.
+
+## Alcance técnico y contribuciones
+
+- **Arquitectura de extensión de VS Code:** Creó la extensión completamente desde cero utilizando la API oficial de VS Code Extension. Desarrollé procesos ligeros en segundo plano para monitorear silenciosamente el tiempo activo del editor, las transiciones de archivos y las modificaciones del espacio de trabajo, garantizando una experiencia sin interrupciones para el usuario final.
+- **Sincronización de Git Branch y Jira:** Diseñé un puente de datos inteligente entre el entorno Git local del desarrollador y las API REST seguras de Jira. La extensión analiza automáticamente la rama Git activa actual, extrae el ID del ticket relevante y envía registros de tiempo precisos y contextuales directamente a nuestro ecosistema Atlassian.
+- **Ejecución individual de extremo a extremo:** Operado como único propietario de todo el ciclo de vida del producto. Gestioné todo, desde conceptualizar la configuración local UX y manejar el cifrado seguro del token OAuth, hasta empaquetar y publicar la versión final en Microsoft Visual Studio Marketplace.
+
+## Impacto empresarial
+
+Al transformar una tediosa tarea organizacional en un canal de datos invisible y automatizado, esta extensión tuvo un profundo efecto en la velocidad de la ingeniería. Logró **reducir los esfuerzos de seguimiento manual del tiempo entre un 60% y un 70%** y **reducir los errores humanos en los informes en un asombroso 80%**. La afluencia resultante de datos precisos y sin fricciones proporcionó a los líderes exactamente lo que necesitaban para mejorar drásticamente tanto la precisión de la planificación del sprint como la exactitud de la facturación.

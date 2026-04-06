@@ -1,64 +1,14 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Navigation } from "../components/nav";
+import { useLanguage } from "../i18n/LanguageContext";
 
-const skills = {
-  Languages: ["HTML", "CSS", "JavaScript", "TypeScript", "Handlebars", "MDX"],
-  Frameworks: ["React.js", "Next.js", "Vue.js", "Nuxt.js", "Astro.js", "Electron.js", "React Native"],
-  Libraries: ["Tailwind", "DaisyUI", "Shadcn", "Element Plus", "Chart.js", "Pinia", "Recoil", "Clerk", "Stripe"],
-  Database: ["PostgreSQL", "MongoDB"],
-  "Back End": ["Node.js", "Express.js", "Hasura", "Directus", "RESTful APIs", "GraphQL APIs"],
-  "Version Control": ["Git", "GitLab", "GitHub"],
-  "Platforms & Tools": ["Docker", "Firebase", "Datagrip", "Pipedream", "Vercel", "Apify", "Figma", "AdobeXD"],
-  Other: ["Chrome Plugin", "VS Code Extension", "LTI Plugin", "Jira Plugin", "CI/CD", "Shell Scripting"],
-};
-
-const experience = [
-  {
-    company: "Testlify",
-    role: "Senior Software Engineer",
-    location: "Mumbai, India",
-    period: "January 2025 – Present",
-    highlights: [
-      "Architected an LTI-compliant plugin integrating Testlify with major LMS platforms, contributing to 20–30% growth in enterprise adoption.",
-      "Built MetaNotes, an AI meeting notetaker with automated recording, transcription, and summaries — saving $24K annually.",
-      "Led frontend performance optimisation on the marketing site, lifting Lighthouse scores from 49/53 to 87/91 on mobile/desktop.",
-      "Engineered a VS Code extension to auto-track coding time by Git branch and log to Jira, cutting manual tracking by 60–70%.",
-      "Created an internal Jira plugin for timesheets and cost allocation, saving $9K+ annually.",
-      "Implemented AI-driven interview workflows (Chat, Voice, Video AI), reducing interviewer effort by 40%+ and driving 20–30% revenue growth.",
-    ],
-  },
-  {
-    company: "FuelBuddy",
-    role: "Software Engineer",
-    location: "Gurugram, India",
-    period: "September 2023 – December 2024",
-    highlights: [
-      "Built a kiosk application frontend from scratch, reducing fuel dispensing time by 60%.",
-      "Developed and scaled 6 production web applications for customers, admins, franchises, and drivers.",
-      "Designed 8 admin dashboards for data validation and discrepancy resolution, reducing resolution time by 60–70%.",
-      "Mentored 3 developers and 5 interns, establishing code review practices that improved quality and onboarding speed.",
-      "Delivered 100+ features end-to-end across multiple platforms.",
-      "Integrated Sentry and Clarity, reducing issue resolution time by 30% and increasing actionable user insights by 20%.",
-    ],
-  },
-  {
-    company: "Modocosm",
-    role: "Software Engineer",
-    location: "New York City, US (Remote)",
-    period: "July 2021 – October 2023",
-    highlights: [
-      "Designed and maintained 4 CMS-driven responsive websites supporting sustained traffic growth.",
-      "Deconstructed Directus CMS and streamlined schema setup with PostgreSQL queries, reducing bootstrapping time by 70%+.",
-      "Architected an automated betting projection system using Google Sheets and Python scraping, improving accuracy by 15–20%.",
-      "Created 100+ reusable UI components and design systems, accelerating delivery.",
-      "Modernised 7 legacy websites by migrating to Astro.js Jamstack + headless CMS, cutting content launch time by 50%.",
-    ],
-  },
-];
 
 export default function AboutPage() {
+  const { t } = useLanguage();
+  const a = t.about;
   return (
     <div className="bg-gradient-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0 relative pb-16">
       <Navigation />
@@ -67,47 +17,25 @@ export default function AboutPage() {
         {/* ── Header ── */}
         <div className="max-w-2xl">
           <h1 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
-            About Me
+            {a.title}
           </h1>
-          <p className="mt-4 text-zinc-400">
-            A little background on who I am and what I do.
-          </p>
+          <p className="mt-4 text-zinc-400">{a.subtitle}</p>
         </div>
 
         <div className="w-full h-px bg-zinc-800" />
 
         {/* ── Bio ── */}
         <div className="space-y-5 text-zinc-400 leading-relaxed text-base">
-          <p>
-            I'm <span className="text-zinc-100 font-medium">Paurush Rai</span> — a frontend-leaning full-stack engineer based in India, with almost 5 years of experience
-            architecting enterprise web platforms, AI-driven applications, and developer productivity tools. My work spans complex B2B dashboards, robust LMS integrations, custom Jira and VS Code plugins, and everything in between.
-          </p>
-          <p>
-            I care deeply about performance, clean architecture, and shipping things that actually matter. Whether it's building a greenfield franchise portal from scratch, engineering real-time AI interview workflows, or developing internal tools that save the business thousands of dollars annually, my focus is always on work that measurably moves the needle. That product-minded approach is what keeps me grounded in user impact, even when I'm deep in the code.
-          </p>
-          <p>
-            Outside of work I'm usually spinning up a side project, automating a tedious workflow, or reaching for a library I've never touched before —
-            I like the friction of learning new tools in real contexts.
-          </p>
+          {a.bio.map((paragraph, i) => (
+            <p key={i}>{paragraph}</p>
+          ))}
         </div>
 
         {/* ── What I Build ── */}
         <section>
-          <h2 className="text-sm font-medium text-zinc-500 uppercase tracking-widest mb-5">What I Build</h2>
+          <h2 className="text-sm font-medium text-zinc-500 uppercase tracking-widest mb-5">{a.whatIBuild}</h2>
           <div className="flex flex-wrap gap-2">
-            {[
-              "Enterprise B2B Platforms",
-              "AI Applications & Workflows",
-              "Admin & Franchise Dashboards",
-              "LMS / LTI Integrations",
-              "Headless CMS & Jamstack",
-              "Internal Developer Tooling",
-              "VS Code & Jira Plugins",
-              "Data Pipelines & Automation",
-              "Custom Component Libraries",
-              "Progressive Web Apps",
-              "Browser Extensions",
-            ].map((item) => (
+            {a.buildItems.map((item) => (
               <span
                 key={item}
                 className="px-3 py-1.5 text-xs rounded-full bg-zinc-800/60 text-zinc-300 border border-zinc-700/60 hover:border-zinc-500 hover:text-zinc-100 duration-200"
@@ -123,7 +51,7 @@ export default function AboutPage() {
         {/* ── Tech Skills ── */}
         <section>
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-            <h2 className="text-2xl font-bold text-zinc-100">Technical Skills</h2>
+            <h2 className="text-2xl font-bold text-zinc-100">{a.technicalSkills}</h2>
             <Link
               href="https://stackshare.io/paurushrai/my-stack"
               target="_blank"
@@ -131,13 +59,13 @@ export default function AboutPage() {
               className="flex items-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-200 duration-200 group"
             >
               <span className="border-b border-transparent group-hover:border-zinc-500 transition-colors">
-                View full stack on StackShare
+                {a.viewFullStack}
               </span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 duration-200" />
             </Link>
           </div>
           <div className="space-y-6">
-            {Object.entries(skills).map(([category, items]) => (
+            {Object.entries(a.skills).map(([category, items]) => (
               <div key={category} className="grid grid-cols-[140px_1fr] gap-4 items-start">
                 <span className="text-sm font-medium text-zinc-500 pt-1">{category}</span>
                 <div className="flex flex-wrap gap-2">
@@ -159,9 +87,9 @@ export default function AboutPage() {
 
         {/* ── Work History ── */}
         <section className="pb-4">
-          <h2 className="text-2xl font-bold text-zinc-100 mb-10">Work History</h2>
+          <h2 className="text-2xl font-bold text-zinc-100 mb-10">{a.workHistory}</h2>
           <div className="relative space-y-12 before:absolute before:left-0 before:top-2 before:bottom-0 before:w-px before:bg-zinc-800">
-            {experience.map((job) => (
+            {a.experience.map((job) => (
               <div key={job.company} className="relative pl-8">
                 {/* timeline dot */}
                 <div className="absolute left-0 top-[6px] -translate-x-1/2 w-[9px] h-[9px] rounded-full bg-zinc-600 border border-zinc-500" />

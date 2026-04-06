@@ -10,9 +10,23 @@ const computedFields = {
 		type: "string",
 		resolve: (doc) => `/${doc._raw.flattenedPath}`,
 	},
+	// Derive locale from the first folder segment: projects/en/slug → "en"
+	locale: {
+		type: "string",
+		resolve: (doc) => {
+			const parts = doc._raw.flattenedPath.split("/");
+			// flattenedPath = "projects/en/metanotes" → parts[1] = "en"
+			return parts.length >= 3 ? parts[1] : "en";
+		},
+	},
+	// Slug without locale prefix: projects/en/metanotes → "metanotes"
 	slug: {
 		type: "string",
-		resolve: (doc) => doc._raw.flattenedPath.split("/").slice(1).join("/"),
+		resolve: (doc) => {
+			const parts = doc._raw.flattenedPath.split("/");
+			// Remove the "projects" prefix and locale segment, keep the rest
+			return parts.slice(2).join("/");
+		},
 	},
 };
 

@@ -4,6 +4,7 @@ import LocalFont from "next/font/local";
 import { Metadata } from "next";
 import { Analytics } from "./components/analytics";
 import { ProgressBar } from "./components/progress-bar";
+import { LanguageProvider } from "./i18n/LanguageContext";
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -75,8 +76,10 @@ export default function RootLayout({
           process.env.NODE_ENV === "development" ? "debug-screens" : undefined
         }`}
       >
-        <ProgressBar />
-        {children}
+        <LanguageProvider>
+          <ProgressBar />
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );
