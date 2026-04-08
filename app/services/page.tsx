@@ -4,123 +4,6 @@ import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext";
 
-// Service card data — titles/descriptions stay in English (technical content understood globally)
-const services = [
-  {
-    id: "fullstack-web",
-    ctaKey: "startProject" as const,
-    title: "Full-Stack Web Development",
-    tagline: "Production-grade apps, built fast.",
-    description:
-      "End-to-end development of web applications — from architecture and API design to polished frontend. I've built B2B SaaS platforms, multi-tenant dashboards, and customer-facing apps that serve tens of thousands of users.",
-    stack: ["React / Next.js", "Vue / Nuxt.js", "Node.js / Express", "PostgreSQL / MongoDB", "REST & GraphQL APIs"],
-    deliverables: [
-      "Responsive, accessible UI",
-      "Authenticated user flows",
-      "API design & integration",
-      "Deployment-ready codebase",
-      "Documentation & handoff",
-    ],
-    pricingKey: "startingAt" as const,
-    amount: "$2,500",
-    noteKey: "perProject" as const,
-  },
-  {
-    id: "ai-integration",
-    ctaKey: "discussIdea" as const,
-    title: "AI Workflow Integration",
-    tagline: "Ship AI-powered features that actually work.",
-    description:
-      "I integrate LLMs, voice AI, and automation workflows into real products. Built MetaNotes — an AI meeting notetaker that saved $24K/year — and AI-driven interview workflows (chat, voice, video) that cut interviewer effort by 40%.",
-    stack: ["OpenAI / Claude / Whisper", "LangChain", "Pipedream / n8n", "Webhooks & event pipelines", "Vector DBs"],
-    deliverables: [
-      "AI feature scoping & design",
-      "LLM prompt engineering",
-      "Backend pipeline setup",
-      "Frontend AI UX",
-      "Cost & latency optimisation",
-    ],
-    pricingKey: "startingAt" as const,
-    amount: "$3,000",
-    noteKey: "perProject" as const,
-  },
-  {
-    id: "internal-tooling",
-    ctaKey: "buildTool" as const,
-    title: "Internal Tools & Plugins",
-    tagline: "Tools your team will actually use.",
-    description:
-      "Custom developer tools, Jira plugins, VS Code extensions, and browser extensions. My Jira timesheet plugin saves $9K+/year; my VS Code extension eliminated manual time tracking for an engineering team.",
-    stack: ["VS Code Extension API", "Jira Forge / Connect", "Chrome Extensions", "Node.js", "Shell scripting"],
-    deliverables: [
-      "Scoped requirements & spec",
-      "Working plugin / extension",
-      "Admin configuration panel",
-      "Team rollout support",
-    ],
-    pricingKey: "startingAt" as const,
-    amount: "$1,500",
-    noteKey: "perTool" as const,
-  },
-  {
-    id: "lms-lti",
-    ctaKey: "integrateLms" as const,
-    title: "LMS / LTI Integration",
-    tagline: "Connect your platform to any LMS.",
-    description:
-      "LTI 1.3-compliant plugin development for Moodle, Canvas, Blackboard, and beyond. I architected Testlify's LTI plugin from scratch — a custom cryptographic implementation that drove 20–30% enterprise adoption growth.",
-    stack: ["LTI 1.3 / LTI Advantage", "Moodle / Canvas / Blackboard", "OAuth 2.0 / JWKS", "Node.js", "Deep Linking & AGS"],
-    deliverables: [
-      "LTI 1.3 compliant integration",
-      "Deep Linking support",
-      "Grade passback (AGS)",
-      "Multi-LMS compatibility",
-      "Security & token handling",
-    ],
-    pricingKey: "startingAt" as const,
-    amount: "$4,000",
-    noteKey: "perIntegration" as const,
-  },
-  {
-    id: "performance-audit",
-    ctaKey: "auditSite" as const,
-    title: "Frontend Performance Audit",
-    tagline: "Fast sites convert. Let's fix yours.",
-    description:
-      "Comprehensive Lighthouse, Core Web Vitals, and bundle analysis with a prioritised fix list. I lifted a production marketing site from 49/53 → 87/91 on mobile/desktop — improvements that directly impact SEO and conversions.",
-    stack: ["Lighthouse / PageSpeed", "WebPageTest", "Chrome DevTools", "Next.js / Vite optimisation", "Image & font pipeline"],
-    deliverables: [
-      "Full Lighthouse audit report",
-      "Prioritised issue list",
-      "Bundle & asset analysis",
-      "Concrete code-level fixes",
-      "Before/after benchmark",
-    ],
-    pricingKey: "fixedPrice" as const,
-    amount: "$800",
-    noteKey: "auditNote" as const,
-  },
-  {
-    id: "cms-jamstack",
-    ctaKey: "moderniseSite" as const,
-    title: "Headless CMS & Jamstack",
-    tagline: "Content-first. Launch-optimised.",
-    description:
-      "Migrate legacy sites to modern Jamstack stacks or build new ones from scratch. I've migrated 7 legacy websites to Astro.js + headless CMS, cutting content launch time by 50%, and built 4 CMS-driven sites that scale with traffic.",
-    stack: ["Astro.js / Next.js", "Directus / Contentful / Sanity", "PostgreSQL", "Vercel / Netlify", "MDX / Contentlayer"],
-    deliverables: [
-      "CMS setup & schema design",
-      "Content modelling",
-      "Static site generation",
-      "Editor-friendly authoring",
-      "CI/CD deployment pipeline",
-    ],
-    pricingKey: "startingAt" as const,
-    amount: "$2,000",
-    noteKey: "perSite" as const,
-  },
-];
-
 export default function ServicesPage() {
   const { t } = useLanguage();
   const s = t.services;
@@ -146,7 +29,7 @@ export default function ServicesPage() {
 
         {/* ── Service Cards ── */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-24">
-          {services.map((service) => (
+          {s.servicesList.map((service) => (
             <div
               key={service.id}
               className="group relative flex flex-col rounded-2xl border border-zinc-800 bg-zinc-900/40 p-7 hover:border-zinc-700 hover:bg-zinc-900/70 transition-all duration-300"
