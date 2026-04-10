@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import { Analytics } from "./components/analytics";
 import { ProgressBar } from "./components/progress-bar";
 import { LanguageProvider } from "./i18n/LanguageContext";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -77,7 +78,9 @@ export default function RootLayout({
         }`}
       >
         <LanguageProvider>
-          <ProgressBar />
+          <Suspense fallback={null}>
+            <ProgressBar />
+          </Suspense>
           {children}
         </LanguageProvider>
       </body>

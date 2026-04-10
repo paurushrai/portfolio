@@ -27,10 +27,10 @@ export function LocaleProjectFilter({ projects, views }: Props) {
 
   // Pick current locale, fall back to "en"
   const localed: ProjectMeta[] = [];
-  for (const [, localeMap] of bySlug) {
+  bySlug.forEach((localeMap) => {
     const pick = localeMap[language] ?? localeMap["en"];
     if (pick) localed.push(pick);
-  }
+  });
 
   const published = localed.filter((p) => p.published);
   const featured = published.find((p) => p.slug === FEATURED_SLUG);

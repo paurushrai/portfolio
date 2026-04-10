@@ -225,7 +225,7 @@ export const en = {
       "Version Control": ["Git", "GitLab", "GitHub"],
       "Platforms & Tools": ["Docker", "Firebase", "Datagrip", "Pipedream", "Vercel", "Apify", "Figma", "AdobeXD"],
       "Other": ["Chrome Plugin", "VS Code Extension", "LTI Plugin", "Jira Plugin", "CI/CD", "Shell Scripting"],
-    },
+    } as Record<string, string[]>,
     experience: [
       {
         company: "Testlify",
@@ -274,6 +274,6 @@ export const en = {
   contact: {
     title: "Contact",
   },
-} as const;
+};
 
 export type Locale = typeof en;

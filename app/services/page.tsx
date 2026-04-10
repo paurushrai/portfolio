@@ -75,17 +75,17 @@ export default function ServicesPage() {
               <div className="mt-auto flex items-end justify-between gap-4">
                 <div>
                   <p className="text-[11px] text-zinc-600 uppercase tracking-widest mb-0.5">
-                    {s.pricing[service.pricingKey]}
+                    {s.pricing[service.pricingKey as keyof typeof s.pricing]}
                   </p>
                   <p className="text-2xl font-bold text-zinc-100">{service.amount}</p>
-                  <p className="text-xs text-zinc-600">{s.pricing[service.noteKey]}</p>
+                  <p className="text-xs text-zinc-600">{s.pricing[service.noteKey as keyof typeof s.pricing]}</p>
                 </div>
                 <Link
                   href="/contact"
-                  aria-label={s.cta[service.ctaKey]}
+                  aria-label={s.cta[service.ctaKey as keyof typeof s.cta]}
                   className="flex items-center gap-1.5 text-sm text-zinc-400 hover:text-zinc-100 transition-colors duration-200 group/cta shrink-0"
                 >
-                  {s.cta[service.ctaKey]}
+                  {s.cta[service.ctaKey as keyof typeof s.cta]}
                   <ArrowRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
                 </Link>
               </div>
