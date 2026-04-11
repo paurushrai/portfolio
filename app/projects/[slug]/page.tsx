@@ -6,6 +6,8 @@ import "./mdx.css";
 import { ReportView } from "./view";
 import { Redis } from "@upstash/redis";
 
+import { LocaleProjectClient } from "./LocaleProjectClient";
+
 export const dynamic = "force-dynamic";
 
 const isRedisConfigured =
@@ -20,9 +22,10 @@ type Props = {
 
 export default async function PostPage({ params }: Props) {
   const slug = params?.slug;
-  const project = allProjects.find((project) => project.slug === slug);
+  
+  const projectLocales = allProjects.filter((project) => project.slug === slug);
 
-  if (!project) {
+  if (projectLocales.length === 0) {
     notFound();
   }
 
@@ -40,12 +43,7 @@ export default async function PostPage({ params }: Props) {
 
   return (
     <div className="bg-zinc-50 min-h-screen">
-      <Header project={project} />
-      <ReportView slug={project.slug} />
-
-      <article className="px-4 py-12 mx-auto prose prose-zinc prose-quoteless">
-        <Mdx code={project.body.code} />
-      </article>
+      <LocaleProjectClient projectLocales={projectLocales} views={views} />
     </div>
   );
 }

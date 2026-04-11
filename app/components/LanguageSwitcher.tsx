@@ -13,6 +13,10 @@ const languages: { code: Language; label: string; flag: string }[] = [
   { code: "ja", label: "日本語", flag: "🇯🇵" },
   { code: "zh", label: "中文", flag: "🇨🇳" },
   { code: "pt", label: "Português", flag: "🇧🇷" },
+  { code: "hi", label: "हिन्दी", flag: "🇮🇳" },
+  { code: "ko", label: "한국어", flag: "🇰🇷" },
+  { code: "it", label: "Italiano", flag: "🇮🇹" },
+  { code: "ru", label: "Русский", flag: "🇷🇺" },
 ];
 
 export function LanguageSwitcher() {

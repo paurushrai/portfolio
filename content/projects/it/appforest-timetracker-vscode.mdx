@@ -1,0 +1,19 @@
+---
+title: "AppForest Timetracker - Estensione VS Code"
+description: "Ho progettato da solo un'estensione VS Code nativa per sincronizzare l'attività del flusso di lavoro degli sviluppatori direttamente con Jira, riducendo gli errori di reporting dell'80% ed eliminando gli attriti legati al monitoraggio manuale del tempo."
+url: https://marketplace.visualstudio.com/items?itemName=AppforestTimetracker.appforest-timetracker
+date: 2025-07-01
+published: true
+company: Testlify
+---
+Anche se il nostro plug-in Jira interno ha centralizzato con successo il monitoraggio del tempo su Testlify, gli sviluppatori dovevano ancora affrontare l'attrito quotidiano del cambio di contesto per registrare manualmente le loro ore. Per eliminare completamente questo onere amministrativo, ho progettato, creato e distribuito da solo **AppForest Timetracker**, un'estensione nativa di Visual Studio Code che automatizza il processo di registrazione senza richiedere agli ingegneri di abbandonare l'IDE. 
+
+## Ambito tecnico e contributi 
+
+- **Architettura di estensione VS Code:** ha creato l'estensione interamente da zero utilizzando l'API ufficiale di estensione VS Code. Ho sviluppato processi in background leggeri per monitorare silenziosamente il tempo dell'editor attivo, le transizioni dei file e le modifiche dell'area di lavoro, garantendo un'esperienza senza interruzioni per l'utente finale. 
+- **Git Branch e sincronizzazione Jira:** progettato un ponte dati intelligente tra l'ambiente Git locale dello sviluppatore e le API REST Jira sicure. L'estensione analizza automaticamente il ramo Git attualmente attivo, estrae l'ID del ticket pertinente e inserisce registri temporali precisi e sensibili al contesto direttamente nel nostro ecosistema Atlassian. 
+- **Esecuzione individuale end-to-end:** gestito come unico proprietario dell'intero ciclo di vita del prodotto. Ho gestito tutto, dalla concettualizzazione della configurazione UX locale e alla gestione della crittografia sicura dei token OAuth, fino al confezionamento e alla pubblicazione della build finale sul Microsoft Visual Studio Marketplace. 
+
+## Impatto aziendale 
+
+Trasformando un noioso compito organizzativo in una pipeline di dati invisibile e automatizzata, questa estensione ha avuto un profondo effetto sulla velocità di progettazione. È riuscito a **ridurre gli sforzi manuali di monitoraggio del tempo del 60-70%** e **a ridurre gli errori umani di reporting di uno sconcertante 80%**. Il conseguente afflusso di dati precisi e senza intoppi ha fornito alla leadership esattamente ciò di cui aveva bisogno per migliorare drasticamente sia la precisione della pianificazione dello sprint che l'accuratezza della fatturazione.
