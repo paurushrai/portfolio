@@ -9,6 +9,7 @@ export { hi } from "./locales/hi";
 export { ko } from "./locales/ko";
 export { it } from "./locales/it";
 export { ru } from "./locales/ru";
+export { tr } from "./locales/tr";
 export type { Locale } from "./locales/en";
 
 import { en } from "./locales/en";
@@ -22,6 +23,7 @@ import { hi } from "./locales/hi";
 import { ko } from "./locales/ko";
 import { it } from "./locales/it";
 import { ru } from "./locales/ru";
+import { tr } from "./locales/tr";
 
-export const translations = { en, de, fr, es, ja, zh, pt, hi, ko, it, ru } as const;
+export const translations = { en, de, fr, es, ja, zh, pt, hi, ko, it, ru, tr } as const;
 export type Language = keyof typeof translations;

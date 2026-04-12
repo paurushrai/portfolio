@@ -21,7 +21,7 @@ const LanguageContext = createContext<LanguageContextType>({
   t: translations.en,
 });
 
-const SUPPORTED: Language[] = ["en", "de", "fr", "es", "ja", "zh", "pt", "hi", "ko", "it", "ru"];
+const SUPPORTED: Language[] = ["en", "de", "fr", "es", "ja", "zh", "pt", "hi", "ko", "it", "ru", "tr"];
 
 function detectBrowserLanguage(): Language {
   if (typeof window === "undefined") return "en";

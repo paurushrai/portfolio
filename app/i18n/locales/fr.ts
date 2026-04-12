@@ -1,78 +1,75 @@
-import type { Locale } from "./en";
+import { Locale } from "./en";
 
 export const fr: Locale = {
   nav: {
     about: "À propos",
     projects: "Projets",
     services: "Services",
-    contact: "Contact",
+    contact: "Contact"
   },
   home: {
-    tagline:
-      "Ingénieur Logiciel Senior — je conçois des produits, des outils et des intégrations qui livrent vite et durent longtemps.",
-    openToWork: "Disponible pour des missions",
+    tagline: "Ingénieur logiciel senior – créer des produits, des outils et des intégrations qui sont livrés rapidement et durent longtemps.",
+    openToWork: "Ouvert au travail"
   },
   projects: {
     title: "Projets",
-    subtitle: "Certains projets sont issus de mon travail, d'autres de mon temps libre.",
-    readMore: "Lire la suite",
+    subtitle: "Certains projets sont réalisés dans le cadre du travail et d'autres pendant mon temps libre.",
+    readMore: "En savoir plus",
     empty: "Aucun projet trouvé.",
-    independent: "Indépendant",
+    independent: "Indépendante"
   },
   services: {
     badge: "Disponible en freelance",
     title: "Services",
-    intro:
-      "Je prends en charge un nombre limité de projets freelance par trimestre. Tout ce que je développe est prêt pour la production, performant, et livré avec une passation propre. Pas d'agences, pas de sous-traitance — vous travaillez directement avec moi.",
+    intro: "Je prends en charge un nombre limité de projets indépendants chaque trimestre. Tout ce que je construis est de qualité production, performant et livré avec un transfert propre. Pas d'agence, pas de sous-traitance, vous travaillez directement avec moi.",
     pricing: {
       startingAt: "À partir de",
-      fixedPrice: "Prix fixe",
+      fixedPrice: "Prix ​​fixe",
       perProject: "par projet",
       perTool: "par outil",
       perIntegration: "par intégration",
       perSite: "par site",
-      auditNote: "audit + recommandations",
+      auditNote: "audit + recommandations"
     },
     cta: {
       startProject: "Démarrer un projet",
-      discussIdea: "Discuter de votre idée",
-      buildTool: "Créer votre outil",
-      integrateLms: "Intégrer votre LMS",
+      discussIdea: "Discutez de votre idée",
+      buildTool: "Construisez votre outil",
+      integrateLms: "Intégrez votre LMS",
       auditSite: "Auditer mon site",
-      moderniseSite: "Moderniser mon site",
+      moderniseSite: "Moderniser mon site"
     },
     retainer: {
-      label: "Collaboration continue",
-      title: "Retainer Mensuel",
-      description:
-        "Vous avez besoin d'un ingénieur dédié disponible en permanence ? Je propose des accords de retainer pour les équipes qui ont besoin de développement continu, de corrections de bugs ou d'un partenaire technique — sans les coûts d'un employé à temps plein.",
-      hours: "jusqu'à 40 h/mois",
-      cta: "Parlons-en",
+      label: "Travaux en cours",
+      title: "Rémunération mensuelle",
+      description: "Besoin d'un ingénieur dédié de garde ? Je propose des modalités de rétention pour les équipes qui ont besoin d'un travail continu sur les fonctionnalités, de corrections de bugs ou d'un partenaire technique, sans les frais généraux d'une embauche à temps plein.",
+      hours: "jusqu'à 40 heures/mois",
+      cta: "Parlons"
     },
     faq: {
-      title: "Questions fréquentes",
+      title: "FAQ",
       items: [
         {
-          q: "Comment démarrer ?",
-          a: "Contactez-moi par e-mail ou LinkedIn avec une brève description de votre projet. Je répondrai dans les 24 heures pour planifier un appel de cadrage de 30 minutes — sans engagement.",
+          q: "Comment puis-je commencer ?",
+          a: "Contactez-nous par e-mail ou LinkedIn avec une brève description de votre projet. Je vous répondrai dans les 24 heures pour planifier un appel de cadrage de 30 minutes – aucun engagement n'est requis."
         },
         {
           q: "Travaillez-vous avec des clients internationaux ?",
-          a: "Oui. La plupart de mes clients sont aux États-Unis, au Royaume-Uni et en Europe. Je travaille en mode asynchrone avec des disponibilités pour des appels communs.",
+          a: "Oui. La plupart de mes clients sont basés aux États-Unis, au Royaume-Uni et dans l'UE. Je travaille d'abord de manière asynchrone avec une disponibilité pour les appels qui se chevauchent."
         },
         {
-          q: "Quelle est votre durée de projet habituelle ?",
-          a: "Petits outils et audits : 1–2 semaines. Applications full-stack et intégrations : 4–10 semaines selon la portée. Je vous fournirai une estimation détaillée après l'appel de cadrage.",
+          q: "Quel est votre calendrier habituel ?",
+          a: "Petits outils et audits : 1 à 2 semaines. Applications et intégrations full-stack : 4 à 10 semaines selon la portée. Je vous donnerai une estimation détaillée après l'appel de cadrage."
         },
         {
-          q: "Proposez-vous des retainers ?",
-          a: "Oui — pour les travaux continus, je propose des retainers mensuels à partir de 2 000 $/mois pour jusqu'à 40 heures.",
-        },
-      ],
+          q: "Proposez-vous des mandats ?",
+          a: "Oui, pour un travail en cours, je propose des forfaits mensuels à partir de 2 000 $/mois pour un maximum de 40 heures."
+        }
+      ]
     },
     finalCta: {
       text: "Prêt à construire quelque chose ?",
-      link: "Prendre contact",
+      link: "Entrer en contact"
     },
     servicesList: [
       {
@@ -86,18 +83,18 @@ export const fr: Locale = {
           "Vue / Nuxt.js",
           "Node.js / Express",
           "PostgreSQL / MongoDB",
-          "REST & GraphQL APIs",
+          "REST & GraphQL APIs"
         ],
         deliverables: [
           "Interface utilisateur réactive et accessible",
           "Flux d'utilisateurs authentifiés",
           "Conception et intégration d'API",
           "Base de code prête au déploiement",
-          "Documentation et transfert",
+          "Documentation et transfert"
         ],
         pricingKey: "startingAt",
         amount: "$2,500",
-        noteKey: "perProject",
+        noteKey: "perProject"
       },
       {
         id: "ai-integration",
@@ -110,18 +107,18 @@ export const fr: Locale = {
           "LangChain",
           "Pipedream / n8n",
           "Webhooks & event pipelines",
-          "Vector DBs",
+          "Vector DBs"
         ],
         deliverables: [
           "Cadrage et conception des fonctionnalités d'IA",
           "Ingénierie rapide LLM",
           "Configuration du pipeline back-end",
           "UX front-end IA",
-          "Optimisation des coûts et de la latence",
+          "Optimisation des coûts et de la latence"
         ],
         pricingKey: "startingAt",
         amount: "$3,000",
-        noteKey: "perProject",
+        noteKey: "perProject"
       },
       {
         id: "internal-tooling",
@@ -134,17 +131,17 @@ export const fr: Locale = {
           "Jira Forge / Connect",
           "Chrome Extensions",
           "Node.js",
-          "Shell scripting",
+          "Shell scripting"
         ],
         deliverables: [
           "Exigences et spécifications étendues",
           "Plugin/extension fonctionnel",
           "Panneau de configuration de l'administrateur",
-          "Prise en charge du déploiement en équipe",
+          "Prise en charge du déploiement en équipe"
         ],
         pricingKey: "startingAt",
         amount: "$1,500",
-        noteKey: "perTool",
+        noteKey: "perTool"
       },
       {
         id: "lms-lti",
@@ -157,18 +154,18 @@ export const fr: Locale = {
           "Moodle / Canvas / Blackboard",
           "OAuth 2.0 / JWKS",
           "Node.js",
-          "Deep Linking & AGS",
+          "Deep Linking & AGS"
         ],
         deliverables: [
           "Intégration conforme LTI 1.3",
           "Prise en charge des liens profonds",
           "Passback de note (AGS)",
           "Compatibilité multi-LMS",
-          "Sécurité et gestion des jetons",
+          "Sécurité et gestion des jetons"
         ],
         pricingKey: "startingAt",
         amount: "$4,000",
-        noteKey: "perIntegration",
+        noteKey: "perIntegration"
       },
       {
         id: "performance-audit",
@@ -181,18 +178,18 @@ export const fr: Locale = {
           "WebPageTest",
           "Chrome DevTools",
           "Next.js / Vite optimisation",
-          "Image & font pipeline",
+          "Image & font pipeline"
         ],
         deliverables: [
           "Rapport d'audit complet de Lighthouse",
           "Liste des problèmes prioritaires",
           "Analyse des offres groupées et des actifs",
           "Correctifs concrets au niveau du code",
-          "Benchmark avant/après",
+          "Benchmark avant/après"
         ],
         pricingKey: "fixedPrice",
         amount: "$800",
-        noteKey: "auditNote",
+        noteKey: "auditNote"
       },
       {
         id: "cms-jamstack",
@@ -205,33 +202,33 @@ export const fr: Locale = {
           "Directus / Contentful / Sanity",
           "PostgreSQL",
           "Vercel / Netlify",
-          "MDX / Contentlayer",
+          "MDX / Contentlayer"
         ],
         deliverables: [
           "Configuration du CMS et conception de schéma",
           "Modélisation de contenu",
           "Génération de sites statiques",
           "Création conviviale pour l'éditeur",
-          "Pipeline de déploiement CI/CD",
+          "Pipeline de déploiement CI/CD"
         ],
         pricingKey: "startingAt",
         amount: "$2,000",
-        noteKey: "perSite",
-      },
-    ],
+        noteKey: "perSite"
+      }
+    ]
   },
   about: {
-    title: "À propos de moi",
-    subtitle: "Un peu de contexte sur qui je suis et ce que je fais.",
+    title: "Sur moi",
+    subtitle: "Un petit aperçu de qui je suis et de ce que je fais.",
     bio: [
-      "Je suis Paurush Rai — un ingénieur full-stack orienté frontend basé en Inde, avec près de 5 ans d'expérience dans la conception de plateformes web d'entreprise, d'applications pilotées par l'IA et d'outils de productivité pour développeurs. Mon travail couvre des tableaux de bord B2B complexes, des intégrations LMS robustes, des plugins Jira et VS Code personnalisés, et bien plus encore.",
-      "Je tiens profondément à la performance, à une architecture propre et à livrer des choses qui comptent vraiment. Qu'il s'agisse de construire un portail franchise de zéro, de développer des workflows d'entretien IA en temps réel ou de créer des outils internes qui font économiser des milliers de dollars par an, mon focus est toujours sur un travail qui déplace l'aiguille de manière mesurable.",
-      "En dehors du travail, je lance généralement un projet parallèle, j'automatise un workflow fastidieux ou je m'empare d'une bibliothèque que je n'ai jamais utilisée — j'apprécie la friction d'apprendre de nouveaux outils dans des contextes réels.",
+      "Je m'appelle Paurush Rai, un ingénieur full-stack orienté front-end basé en Inde, avec près de 5 ans d'expérience dans l'architecture de plates-formes Web d'entreprise, d'applications basées sur l'IA et d'outils de productivité pour les développeurs. Mon travail couvre des tableaux de bord B2B complexes, des intégrations LMS robustes, des plugins Jira et VS Code personnalisés, et tout le reste.",
+      "Je me soucie profondément des performances, de l'architecture épurée et de l'expédition des éléments qui comptent réellement. Qu'il s'agisse de créer un nouveau portail de franchise à partir de zéro, de concevoir des flux de travail d'entretien d'IA en temps réel ou de développer des outils internes qui permettent à l'entreprise d'économiser des milliers de dollars par an, je me concentre toujours sur un travail qui fait bouger les choses de manière mesurable.",
+      "En dehors du travail, je suis généralement en train de lancer un projet parallèle, d'automatiser un flux de travail fastidieux ou d'accéder à une bibliothèque à laquelle je n'ai jamais touché auparavant. J'aime la friction liée à l'apprentissage de nouveaux outils dans des contextes réels."
     ],
-    whatIBuild: "Ce que je développe",
+    whatIBuild: "Ce que je construis",
     technicalSkills: "Compétences techniques",
-    viewFullStack: "Voir la stack complète sur StackShare",
-    workHistory: "Parcours professionnel",
+    viewFullStack: "Afficher la pile complète sur StackShare",
+    workHistory: "Historique de travail",
     buildItems: [
       "Plateformes B2B d'entreprise",
       "Applications et flux de travail d'IA",
@@ -243,21 +240,76 @@ export const fr: Locale = {
       "Pipelines de données et automatisation",
       "Bibliothèques de composants personnalisés",
       "Applications Web progressives",
-      "Extensions de navigateur",
+      "Extensions de navigateur"
     ],
     skills: {
-      "Langues": ["HTML", "CSS", "JavaScript", "TypeScript", "Handlebars", "MDX"],
-      "Cadres": ["React.js", "Next.js", "Vue.js", "Nuxt.js", "Astro.js", "Electron.js", "React Native"],
-      "Bibliothèques": ["Tailwind", "DaisyUI", "Shadcn", "Element Plus", "Chart.js", "Pinia", "Recoil", "Clerk", "Stripe"],
-      "Base de données": ["PostgreSQL", "MongoDB"],
-      "Back-End": ["Node.js", "Express.js", "Hasura", "Directus", "RESTful APIs", "GraphQL APIs"],
-      "Contrôle des versions": ["Git", "GitLab", "GitHub"],
-      "Plateformes et outils": ["Docker", "Firebase", "Datagrip", "Pipedream", "Vercel", "Apify", "Figma", "AdobeXD"],
-      "Autre": ["Chrome Plugin", "VS Code Extension", "LTI Plugin", "Jira Plugin", "CI/CD", "Shell Scripting"],
+      Langues: [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "TypeScript",
+        "Handlebars",
+        "MDX"
+      ],
+      Cadres: [
+        "React.js",
+        "Next.js",
+        "Vue.js",
+        "Nuxt.js",
+        "Astro.js",
+        "Electron.js",
+        "React Native"
+      ],
+      "Bibliothèques": [
+        "Tailwind",
+        "DaisyUI",
+        "Shadcn",
+        "Element Plus",
+        "Chart.js",
+        "Pinia",
+        "Recoil",
+        "Clerk",
+        "Stripe"
+      ],
+      "Base de données": [
+        "PostgreSQL",
+        "MongoDB"
+      ],
+      "Back-End": [
+        "Node.js",
+        "Express.js",
+        "Hasura",
+        "Directus",
+        "RESTful APIs",
+        "GraphQL APIs"
+      ],
+      "Contrôle des versions": [
+        "Git",
+        "GitLab",
+        "GitHub"
+      ],
+      "Plateformes et outils": [
+        "Docker",
+        "Firebase",
+        "Datagrip",
+        "Pipedream",
+        "Vercel",
+        "Apify",
+        "Figma",
+        "AdobeXD"
+      ],
+      Autre: [
+        "Chrome Plugin",
+        "VS Code Extension",
+        "LTI Plugin",
+        "Jira Plugin",
+        "CI/CD",
+        "Shell Scripting"
+      ]
     },
     experience: [
       {
-        company: "Testlify",
+        company: "Testez",
         role: "Ingénieur logiciel senior",
         location: "Bombay, Inde",
         period: "Janvier 2025 – Aujourd’hui",
@@ -267,11 +319,11 @@ export const fr: Locale = {
           "Pilotage de l'optimisation des performances frontend sur le site marketing, augmentant les scores Lighthouse de 49/53 à 87/91 sur mobile/ordinateur de bureau.",
           "Conception d'une extension VS Code pour suivre automatiquement le temps de codage par la branche Git et se connecter à Jira, réduisant ainsi le suivi manuel de 60 à 70 %.",
           "Création d'un plugin Jira interne pour les feuilles de temps et la répartition des coûts, économisant plus de 9 000 $ par an.",
-          "Mise en œuvre de flux de travail d'entretien basés sur l'IA (Chat, Voice, Video AI), réduisant les efforts des intervieweurs de plus de 40 % et générant une croissance des revenus de 20 à 30 %.",
-        ],
+          "Mise en œuvre de flux de travail d'entretien basés sur l'IA (Chat, Voice, Video AI), réduisant les efforts des intervieweurs de plus de 40 % et générant une croissance des revenus de 20 à 30 %."
+        ]
       },
       {
-        company: "FuelBuddy",
+        company: "Copain de carburant",
         role: "Ingénieur logiciel",
         location: "Gurugram, Inde",
         period: "Septembre 2023 – décembre 2024",
@@ -281,11 +333,11 @@ export const fr: Locale = {
           "Conception de 8 tableaux de bord d'administration pour la validation des données et la résolution des écarts, réduisant ainsi le temps de résolution de 60 à 70 %.",
           "Encadrement de 3 développeurs et 5 stagiaires, établissant des pratiques de révision de code qui ont amélioré la qualité et la vitesse d'intégration.",
           "Plus de 100 fonctionnalités fournies de bout en bout sur plusieurs plates-formes.",
-          "Sentry et Clarity intégrés, réduisant le temps de résolution des problèmes de 30 % et augmentant les informations exploitables sur les utilisateurs de 20 %.",
-        ],
+          "Sentry et Clarity intégrés, réduisant le temps de résolution des problèmes de 30 % et augmentant les informations exploitables sur les utilisateurs de 20 %."
+        ]
       },
       {
-        company: "Modocosm",
+        company: "Modocosme",
         role: "Ingénieur logiciel",
         location: "New York, États-Unis (à distance)",
         period: "Juillet 2021 – octobre 2023",
@@ -294,13 +346,12 @@ export const fr: Locale = {
           "CMS Directus déconstruit et configuration de schéma rationalisée avec des requêtes PostgreSQL, réduisant le temps de démarrage de plus de 70 %.",
           "Conception d'un système de projection de paris automatisé à l'aide de Google Sheets et du scraping Python, améliorant ainsi la précision de 15 à 20 %.",
           "Création de plus de 100 composants d'interface utilisateur et systèmes de conception réutilisables, accélérant ainsi la livraison.",
-          "Modernisation de 7 sites Web existants en migrant vers Astro.js Jamstack + CMS sans tête, réduisant ainsi le temps de lancement du contenu de 50 %.",
-        ],
-      },
-    ],
-
+          "Modernisation de 7 sites Web existants en migrant vers Astro.js Jamstack + CMS sans tête, réduisant ainsi le temps de lancement du contenu de 50 %."
+        ]
+      }
+    ]
   },
   contact: {
-    title: "Contact",
-  },
+    title: "Contact"
+  }
 };

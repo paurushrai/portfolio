@@ -1,22 +1,21 @@
 ---
-title: BuyChain - Architecture d'entreprise sans tête
-description: Conception d'une architecture Web découplée et hautement évolutive à partir de zéro à l'aide d'Astro.js et Directus pour servir des solutions de chaîne d'approvisionnement B2B dynamiques avec une UX à latence nulle.
+title: "BuyChain - Architecture d'entreprise sans tête"
+description: "Conception d'une architecture Web découplée et hautement évolutive à partir de zéro à l'aide d'Astro.js et Directus pour servir des solutions de chaîne d'approvisionnement B2B dynamiques avec une UX à latence nulle."
 url: https://www.buychain.co/
 date: 2023-04-01
 published: true
 company: Modocosm
 ---
+[BuyChain](https://www.buychain.co/) avait besoin d'une présence numérique robuste capable d'articuler ses solutions complexes de chaîne d'approvisionnement B2B tout en maintenant une vitesse et une fiabilité absolues. En tant qu'ingénieur principal de cette version, j'ai entièrement conçu l'infrastructure frontend à partir de zéro, en adoptant une approche Jamstack moderne. 
 
-[AcheterChaîne](https://www.buychain.co/) avait besoin d'une présence numérique solide, capable d'articuler ses solutions complexes de chaîne d'approvisionnement B2B tout en maintenant une vitesse et une fiabilité absolues. En tant qu'ingénieur principal de cette version, j'ai entièrement conçu l'infrastructure frontend à partir de zéro, en adoptant une approche Jamstack moderne.
+![BuyChain](/projects/buychain/image.png) 
 
-![BuyChain](/projects/buychain/image.png)
+## Réalisations clés en matière d'ingénierie 
 
-## Réalisations clés en ingénierie
+- **Jamstack piloté par composants (Astro.js) :** Conception de l'ensemble du frontend en tirant parti d'Astro. En hydratant les composants interactifs uniquement lorsque cela est nécessaire (architecture en îlot), j'ai proposé une expérience numérique sans latence qui gère en douceur le rendu d'interface utilisateur complexe. 
+- **Écosystème de contenu dynamique :** Architecture d'une couche de données sophistiquée via **Directus CMS**. J'ai conçu des schémas SQL complets à partir de zéro, cartographiant les données relationnelles pour alimenter les pages localisées et les ressources marketing B2B dynamiques. 
+- **Orchestration et sécurité des API :** Création de pipelines sécurisés en lecture seule entre le processus de construction Astro et les points de terminaison Directus. Cela garantit que la diffusion de contenu sensible est isolée des vulnérabilités du frontend tout en garantissant une disponibilité à 100 % grâce aux versions statiques. 
 
-- **Jamstack piloté par composants (Astro.js) :** Conception de l'ensemble du frontend en tirant parti d'Astro. En hydratant les composants interactifs uniquement lorsque cela est nécessaire (architecture en îlot), j'ai proposé une expérience numérique sans latence qui gère en douceur le rendu d'interface utilisateur complexe.
-- **Écosystème de contenu dynamique :** Architecture d'une couche de données sophistiquée via **Directus CMS**. J'ai conçu des schémas SQL complets à partir de zéro, cartographiant les données relationnelles pour alimenter les pages localisées et les ressources marketing B2B dynamiques.
-- **Orchestration et sécurité des API :** Création de pipelines sécurisés en lecture seule entre le processus de construction Astro et les points de terminaison Directus. Cela garantit que la diffusion de contenu sensible est isolée des vulnérabilités du frontend tout en garantissant une disponibilité à 100 % grâce aux versions statiques.
-
-## Impact commercial
+## Impact sur l'entreprise 
 
 Le système découplé permet à l'équipe des parties prenantes d'itérer rapidement sur de nouvelles pages de destination et de nouveaux secteurs d'activité sans intervention du développeur. Cela a éliminé les goulots d'étranglement en matière d'ingénierie, réduit les coûts de calcul courants du serveur et fourni à BuyChain une base Web de niveau entreprise prête pour une échelle massive.
