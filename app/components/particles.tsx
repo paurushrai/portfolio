@@ -26,8 +26,12 @@ export default function Particles({
 	const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
 	const canvasSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 });
 	const dpr = globalThis.window === undefined ? 1 : window.devicePixelRatio;
+	const prefersReducedMotion =
+		typeof window !== "undefined" &&
+		window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 	useEffect(() => {
+		if (prefersReducedMotion) return;
 		if (canvasRef.current) {
 			context.current = canvasRef.current.getContext("2d");
 		}
@@ -223,8 +227,14 @@ export default function Particles({
 				);
 			}
 		});
-		globalThis.requestAnimationFrame(animate);
+		if (!prefersReducedMotion) {
+			globalThis.requestAnimationFrame(animate);
+		}
 	};
+
+	if (prefersReducedMotion) {
+		return <div className={className} aria-hidden="true" />;
+	}
 
 	return (
 		<div className={className} ref={canvasContainerRef} aria-hidden="true">
