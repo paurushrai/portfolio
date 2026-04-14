@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import { useMousePosition } from "@/util/mouse";
 
 interface ParticlesProps {
-	className?: string;
-	quantity?: number;
-	staticity?: number;
-	ease?: number;
-	refresh?: boolean;
+	readonly className?: string;
+	readonly quantity?: number;
+	readonly staticity?: number;
+	readonly ease?: number;
+	readonly refresh?: boolean;
 }
 
 export default function Particles({
@@ -25,7 +25,7 @@ export default function Particles({
 	const mousePosition = useMousePosition();
 	const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
 	const canvasSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 });
-	const dpr = typeof window !== "undefined" ? window.devicePixelRatio : 1;
+	const dpr = globalThis.window === undefined ? 1 : window.devicePixelRatio;
 
 	useEffect(() => {
 		if (canvasRef.current) {
@@ -100,7 +100,7 @@ export default function Particles({
 		const translateY = 0;
 		const size = Math.floor(Math.random() * 2) + 0.1;
 		const alpha = 0;
-		const targetAlpha = parseFloat((Math.random() * 0.6 + 0.1).toFixed(1));
+		const targetAlpha = Number.parseFloat((Math.random() * 0.6 + 0.1).toFixed(1));
 		const dx = (Math.random() - 0.5) * 0.2;
 		const dy = (Math.random() - 0.5) * 0.2;
 		const magnetism = 0.1 + Math.random() * 4;
@@ -223,7 +223,7 @@ export default function Particles({
 				);
 			}
 		});
-		window.requestAnimationFrame(animate);
+		globalThis.requestAnimationFrame(animate);
 	};
 
 	return (

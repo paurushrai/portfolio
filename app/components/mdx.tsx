@@ -124,37 +124,45 @@ const components = {
 	hr: ({ ...props }) => (
 		<hr className="my-4 border-zinc-200 md:my-8" {...props} />
 	),
-	table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
+	table: ({ className, children, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
 		<div className="w-full my-6 overflow-y-auto">
-			<table className={clsx("w-full", className)} {...props} />
+			<table className={clsx("w-full", className)} {...props}>
+				{children}
+			</table>
 		</div>
 	),
-	tr: ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
+	tr: ({ className, children, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
 		<tr
 			className={clsx(
 				"m-0 border-t border-zinc-300 p-0 even:bg-zinc-100",
 				className,
 			)}
 			{...props}
-		/>
+		>
+			{children}
+		</tr>
 	),
-	th: ({ className, ...props }) => (
+	th: ({ className, children, ...props }) => (
 		<th
 			className={clsx(
 				"border border-zinc-200 px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right",
 				className,
 			)}
 			{...props}
-		/>
+		>
+			{children}
+		</th>
 	),
-	td: ({ className, ...props }) => (
+	td: ({ className, children, ...props }) => (
 		<td
 			className={clsx(
 				"border border-zinc-200 px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right",
 				className,
 			)}
 			{...props}
-		/>
+		>
+			{children}
+		</td>
 	),
 	pre: ({ className, ...props }) => (
 		<pre
@@ -178,7 +186,7 @@ const components = {
 };
 
 interface MdxProps {
-	code: string;
+	readonly code: string;
 }
 
 export function Mdx({ code }: MdxProps) {
