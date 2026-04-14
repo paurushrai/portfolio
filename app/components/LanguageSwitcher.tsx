@@ -52,7 +52,7 @@ export function LanguageSwitcher() {
         onClick={() => setOpen((o) => !o)}
         aria-label="Select language"
         aria-expanded={open}
-        aria-haspopup="listbox"
+        aria-haspopup="menu"
         className="flex items-center gap-1 text-zinc-400 hover:text-zinc-100 transition-colors duration-200 select-none"
       >
         <span className="text-base leading-none">{current.flag}</span>
@@ -68,15 +68,15 @@ export function LanguageSwitcher() {
 
       {open && (
         <div
-          role="listbox"
+          role="menu"
           aria-label="Language options"
           className="absolute right-0 top-full mt-2 w-38 rounded-xl border border-zinc-800 bg-zinc-950 shadow-2xl shadow-black/60 overflow-hidden z-[60]"
         >
           {languages.map((lang) => (
             <button
               key={lang.code}
-              role="option"
-              aria-selected={language === lang.code}
+              role="menuitem"
+              aria-current={language === lang.code ? "true" : undefined}
               onClick={() => {
                 setLanguage(lang.code);
                 setOpen(false);
