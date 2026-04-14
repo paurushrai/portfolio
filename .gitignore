@@ -38,4 +38,4 @@ next-env.d.ts
 .contentlayer
 
 graphify-out
-.claude
+.claude.env.local
