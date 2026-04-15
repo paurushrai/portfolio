@@ -9,7 +9,8 @@
       "Bash(rtk grep *)",
       "Bash(pnpm build *)",
       "Bash(rtk next *)",
-      "Bash(npm install *)"
+      "Bash(npm install *)",
+      "Bash(npm uninstall *)"
     ]
   }
 }

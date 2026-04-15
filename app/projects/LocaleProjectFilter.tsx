@@ -8,14 +8,13 @@ import type { ProjectMeta } from "./page";
 
 type Props = {
   projects: ProjectMeta[];
-  views: Record<string, number>;
 };
 
 const FEATURED_SLUG = "metanotes";
 const TOP2_SLUG = "testlify-app";
 const TOP3_SLUG = "fuelbuddy-customer-app";
 
-export function LocaleProjectFilter({ projects, views }: Props) {
+export function LocaleProjectFilter({ projects }: Props) {
   const { language, t } = useLanguage();
 
   // Group by slug → { locale → project }
