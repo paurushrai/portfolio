@@ -9,6 +9,7 @@ export const en = {
     tagline:
       "Senior Software Engineer — building products, tools, and integrations that ship fast and last long.",
     openToWork: "Open to work",
+    resume: "Resume",
   },
   projects: {
     title: "Projects",
@@ -202,6 +203,7 @@ export const en = {
     technicalSkills: "Technical Skills",
     viewFullStack: "View full stack on StackShare",
     workHistory: "Work History",
+    downloadResume: "Download Resume",
 
     buildItems: [
       "Enterprise B2B Platforms",
@@ -273,6 +275,28 @@ export const en = {
 
   contact: {
     title: "Contact",
+    heading: "Get in touch",
+    subtitle: "Have a project in mind, a question, or just want to say hello? Send me a message and I'll get back to you within a day.",
+    form: {
+      name: "Name",
+      email: "Email",
+      message: "Message",
+      namePlaceholder: "Jane Smith",
+      emailPlaceholder: "jane@company.com",
+      messagePlaceholder: "Tell me about your project or what you'd like to discuss...",
+      submit: "Send message",
+      sending: "Sending…",
+    },
+    success: {
+      title: "Message sent",
+      body: "Thanks for reaching out — I'll reply to your email within 24 hours.",
+      again: "Send another message",
+    },
+    error: {
+      network: "Network error. Please check your connection.",
+      generic: "Something went wrong. Please try again.",
+    },
+    socials: "Or find me on",
   },
 };
 

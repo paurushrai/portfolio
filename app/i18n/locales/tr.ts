@@ -9,7 +9,8 @@ export const tr: Locale = {
   },
   home: {
     tagline: "Kıdemli Yazılım Mühendisi — hızlı gönderilen ve uzun süre dayanan ürünler, araçlar ve entegrasyonlar oluşturur.",
-    openToWork: "Çalışmaya açık"
+    openToWork: "Çalışmaya açık",
+    resume: "Özgeçmiş"
   },
   projects: {
     title: "Projeler",
@@ -229,6 +230,7 @@ export const tr: Locale = {
     technicalSkills: "Teknik Beceriler",
     viewFullStack: "StackShare'de tüm yığını görüntüleyin",
     workHistory: "Çalışma Geçmişi",
+    downloadResume: "Özgeçmişi indir",
     buildItems: [
       "Kurumsal B2B Platformları",
       "Yapay Zeka Uygulamaları ve İş Akışları",
@@ -352,6 +354,28 @@ export const tr: Locale = {
     ]
   },
   contact: {
-    title: "Temas etmek"
-  }
+    title: "Temas etmek",
+    heading: "İletişime geçin",
+    subtitle: "Aklınızda bir proje mi var, bir sorunuz mu var, yoksa sadece merhaba mı demek istiyorsunuz? Bana bir mesaj gönderin, bir gün içinde yanıt vereceğim.",
+    form: {
+      name: "Ad",
+      email: "E-posta",
+      message: "Mesaj",
+      namePlaceholder: "Ali Yılmaz",
+      emailPlaceholder: "ali@sirket.com",
+      messagePlaceholder: "Projeniz veya tartışmak istediğiniz konular hakkında bilgi verin...",
+      submit: "Mesaj gönder",
+      sending: "Gönderiliyor…",
+    },
+    success: {
+      title: "Mesaj gönderildi",
+      body: "Ulaştığınız için teşekkürler — 24 saat içinde e-postanıza yanıt vereceğim.",
+      again: "Başka bir mesaj gönder",
+    },
+    error: {
+      network: "Ağ hatası. Lütfen bağlantınızı kontrol edin.",
+      generic: "Bir şeyler ters gitti. Lütfen tekrar deneyin.",
+    },
+    socials: "Veya beni şurada bulun",
+  },
 };

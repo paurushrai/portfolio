@@ -11,6 +11,7 @@ export const ja: Locale = {
     tagline:
       "シニアソフトウェアエンジニア — 速く出荷でき、長続きするプロダクト・ツール・インテグレーションを構築しています。",
     openToWork: "案件募集中",
+    resume: "履歴書",
   },
   projects: {
     title: "プロジェクト",
@@ -232,6 +233,7 @@ export const ja: Locale = {
     technicalSkills: "技術スキル",
     viewFullStack: "StackShareでフルスタックを見る",
     workHistory: "職歴",
+    downloadResume: "履歴書をダウンロード",
     buildItems: [
       "エンタープライズB2Bプラットフォーム",
       "AI アプリケーションとワークフロー",
@@ -302,5 +304,27 @@ export const ja: Locale = {
   },
   contact: {
     title: "お問い合わせ",
+    heading: "お問い合わせ",
+    subtitle: "プロジェクトのご相談、質問、または単にご挨拶でも、メッセージをお送りください。1日以内にご返信いたします。",
+    form: {
+      name: "お名前",
+      email: "メールアドレス",
+      message: "メッセージ",
+      namePlaceholder: "山田 太郎",
+      emailPlaceholder: "yamada@company.com",
+      messagePlaceholder: "プロジェクトについてや話し合いたいことをお聞かせください...",
+      submit: "送信する",
+      sending: "送信中…",
+    },
+    success: {
+      title: "送信完了",
+      body: "ご連絡いただきありがとうございます。24時間以内にメールにてご返信いたします。",
+      again: "別のメッセージを送る",
+    },
+    error: {
+      network: "ネットワークエラー。接続を確認してください。",
+      generic: "エラーが発生しました。もう一度お試しください。",
+    },
+    socials: "またはここでも見つけられます",
   },
 };

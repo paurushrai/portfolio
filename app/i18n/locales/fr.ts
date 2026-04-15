@@ -9,7 +9,8 @@ export const fr: Locale = {
   },
   home: {
     tagline: "Ingénieur logiciel senior – créer des produits, des outils et des intégrations qui sont livrés rapidement et durent longtemps.",
-    openToWork: "Ouvert au travail"
+    openToWork: "Ouvert au travail",
+    resume: "CV"
   },
   projects: {
     title: "Projets",
@@ -229,6 +230,7 @@ export const fr: Locale = {
     technicalSkills: "Compétences techniques",
     viewFullStack: "Afficher la pile complète sur StackShare",
     workHistory: "Historique de travail",
+    downloadResume: "Télécharger le CV",
     buildItems: [
       "Plateformes B2B d'entreprise",
       "Applications et flux de travail d'IA",
@@ -352,6 +354,28 @@ export const fr: Locale = {
     ]
   },
   contact: {
-    title: "Contact"
-  }
+    title: "Contact",
+    heading: "Prendre contact",
+    subtitle: "Vous avez un projet en tête, une question ou vous souhaitez simplement dire bonjour ? Envoyez-moi un message, je vous répondrai dans la journée.",
+    form: {
+      name: "Nom",
+      email: "E-mail",
+      message: "Message",
+      namePlaceholder: "Jean Dupont",
+      emailPlaceholder: "jean@entreprise.fr",
+      messagePlaceholder: "Parlez-moi de votre projet ou de ce que vous souhaitez discuter...",
+      submit: "Envoyer le message",
+      sending: "Envoi en cours…",
+    },
+    success: {
+      title: "Message envoyé",
+      body: "Merci de m'avoir contacté — je vous répondrai par e-mail dans les 24 heures.",
+      again: "Envoyer un autre message",
+    },
+    error: {
+      network: "Erreur réseau. Veuillez vérifier votre connexion.",
+      generic: "Une erreur s'est produite. Veuillez réessayer.",
+    },
+    socials: "Ou retrouvez-moi sur",
+  },
 };

@@ -9,7 +9,8 @@ export const ko: Locale = {
   },
   home: {
     tagline: "수석 소프트웨어 엔지니어 — 빠르고 오래 지속되는 제품, 도구 및 통합을 구축합니다.",
-    openToWork: "근무 가능"
+    openToWork: "근무 가능",
+    resume: "이력서"
   },
   projects: {
     title: "프로젝트",
@@ -229,6 +230,7 @@ export const ko: Locale = {
     technicalSkills: "기술적 능력",
     viewFullStack: "StackShare에서 전체 스택 보기",
     workHistory: "경력",
+    downloadResume: "이력서 다운로드",
     buildItems: [
       "엔터프라이즈 B2B 플랫폼",
       "AI 애플리케이션 및 워크플로",
@@ -352,6 +354,28 @@ export const ko: Locale = {
     ]
   },
   contact: {
-    title: "연락하다"
-  }
+    title: "연락하다",
+    heading: "연락하기",
+    subtitle: "프로젝트 문의, 질문, 또는 간단한 인사라도 환영합니다. 메시지를 보내주시면 하루 안에 답변드리겠습니다.",
+    form: {
+      name: "이름",
+      email: "이메일",
+      message: "메시지",
+      namePlaceholder: "홍길동",
+      emailPlaceholder: "hong@company.com",
+      messagePlaceholder: "프로젝트나 논의하고 싶은 내용을 알려주세요...",
+      submit: "메시지 보내기",
+      sending: "전송 중…",
+    },
+    success: {
+      title: "메시지가 전송되었습니다",
+      body: "연락해 주셔서 감사합니다 — 24시간 이내에 이메일로 답변드리겠습니다.",
+      again: "다른 메시지 보내기",
+    },
+    error: {
+      network: "네트워크 오류. 연결을 확인해 주세요.",
+      generic: "문제가 발생했습니다. 다시 시도해 주세요.",
+    },
+    socials: "또는 여기서 찾아보세요",
+  },
 };

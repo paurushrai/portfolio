@@ -11,6 +11,7 @@ export const pt: Locale = {
     tagline:
       "Engenheiro de Software Sênior — construo produtos, ferramentas e integrações que entregam rápido e duram muito.",
     openToWork: "Aberto a projetos",
+    resume: "Currículo",
   },
   projects: {
     title: "Projetos",
@@ -232,6 +233,7 @@ export const pt: Locale = {
     technicalSkills: "Habilidades técnicas",
     viewFullStack: "Ver stack completo no StackShare",
     workHistory: "Histórico profissional",
+    downloadResume: "Baixar currículo",
     buildItems: [
       "Plataformas empresariais B2B",
       "Aplicativos e fluxos de trabalho de IA",
@@ -302,5 +304,27 @@ export const pt: Locale = {
   },
   contact: {
     title: "Contato",
+    heading: "Entre em contato",
+    subtitle: "Tem um projeto em mente, uma dúvida ou quer simplesmente dizer olá? Envie-me uma mensagem e responderei em até um dia.",
+    form: {
+      name: "Nome",
+      email: "E-mail",
+      message: "Mensagem",
+      namePlaceholder: "João Silva",
+      emailPlaceholder: "joao@empresa.com",
+      messagePlaceholder: "Fale-me sobre seu projeto ou o que gostaria de discutir...",
+      submit: "Enviar mensagem",
+      sending: "Enviando…",
+    },
+    success: {
+      title: "Mensagem enviada",
+      body: "Obrigado por entrar em contato — responderei ao seu e-mail em 24 horas.",
+      again: "Enviar outra mensagem",
+    },
+    error: {
+      network: "Erro de rede. Verifique sua conexão.",
+      generic: "Algo deu errado. Tente novamente.",
+    },
+    socials: "Ou me encontre em",
   },
 };

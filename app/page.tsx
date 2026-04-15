@@ -66,7 +66,7 @@ export default function Home() {
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-zinc-700/60 bg-zinc-900/40 backdrop-blur-sm text-xs text-zinc-400 hover:text-zinc-100 hover:border-zinc-500 duration-200"
             >
               <Download className="w-3 h-3" />
-              Resume
+              {t.home.resume}
             </a>
           </div>
         </div>

@@ -26,7 +26,7 @@ export default function AboutPage() {
             className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-zinc-700 bg-zinc-800/50 text-sm text-zinc-300 hover:text-zinc-100 hover:border-zinc-500 hover:bg-zinc-800 duration-200"
           >
             <Download className="w-4 h-4" />
-            Download Resume
+            {a.downloadResume}
           </a>
         </div>
 

@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { Navigation } from "../components/nav";
 import { Card } from "../components/card";
+import { useLanguage } from "../i18n/LanguageContext";
 
 const socials = [
   {
@@ -35,6 +36,8 @@ const socials = [
 type FormState = "idle" | "loading" | "success" | "error";
 
 export default function ContactPage() {
+  const { t } = useLanguage();
+  const c = t.contact;
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState<FormState>("idle");
   const [errorMsg, setErrorMsg] = useState("");
@@ -60,11 +63,11 @@ export default function ContactPage() {
         setForm({ name: "", email: "", message: "" });
       } else {
         const text = await res.text();
-        setErrorMsg(text || "Something went wrong. Please try again.");
+        setErrorMsg(text || c.error.generic);
         setStatus("error");
       }
     } catch {
-      setErrorMsg("Network error. Please check your connection.");
+      setErrorMsg(c.error.network);
       setStatus("error");
     }
   };
@@ -80,10 +83,10 @@ export default function ContactPage() {
         {/* ── Header ── */}
         <div className="max-w-2xl">
           <h1 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
-            Get in touch
+            {c.heading}
           </h1>
           <p className="mt-4 text-zinc-400">
-            Have a project in mind, a question, or just want to say hello? Send me a message and I'll get back to you within a day.
+            {c.subtitle}
           </p>
         </div>
 
@@ -95,16 +98,16 @@ export default function ContactPage() {
             <div className="flex flex-col items-start gap-3 p-6 rounded-xl border border-emerald-800/60 bg-emerald-900/20">
               <div className="flex items-center gap-2 text-emerald-400">
                 <CheckCircle className="w-5 h-5" />
-                <span className="font-medium text-sm">Message sent</span>
+                <span className="font-medium text-sm">{c.success.title}</span>
               </div>
               <p className="text-sm text-zinc-400">
-                Thanks for reaching out — I'll reply to your email within 24 hours.
+                {c.success.body}
               </p>
               <button
                 onClick={() => setStatus("idle")}
                 className="mt-1 text-xs text-zinc-500 hover:text-zinc-300 duration-200 underline underline-offset-2"
               >
-                Send another message
+                {c.success.again}
               </button>
             </div>
           ) : (
@@ -112,7 +115,7 @@ export default function ContactPage() {
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="space-y-1.5">
                   <label htmlFor="name" className="text-xs font-medium text-zinc-400 uppercase tracking-widest">
-                    Name
+                    {c.form.name}
                   </label>
                   <input
                     id="name"
@@ -120,7 +123,7 @@ export default function ContactPage() {
                     type="text"
                     required
                     autoComplete="name"
-                    placeholder="Jane Smith"
+                    placeholder={c.form.namePlaceholder}
                     value={form.name}
                     onChange={handleChange}
                     className={inputClass}
@@ -128,7 +131,7 @@ export default function ContactPage() {
                 </div>
                 <div className="space-y-1.5">
                   <label htmlFor="email" className="text-xs font-medium text-zinc-400 uppercase tracking-widest">
-                    Email
+                    {c.form.email}
                   </label>
                   <input
                     id="email"
@@ -136,7 +139,7 @@ export default function ContactPage() {
                     type="email"
                     required
                     autoComplete="email"
-                    placeholder="jane@company.com"
+                    placeholder={c.form.emailPlaceholder}
                     value={form.email}
                     onChange={handleChange}
                     className={inputClass}
@@ -146,14 +149,14 @@ export default function ContactPage() {
 
               <div className="space-y-1.5">
                 <label htmlFor="message" className="text-xs font-medium text-zinc-400 uppercase tracking-widest">
-                  Message
+                  {c.form.message}
                 </label>
                 <textarea
                   id="message"
                   name="message"
                   required
                   rows={5}
-                  placeholder="Tell me about your project or what you'd like to discuss..."
+                  placeholder={c.form.messagePlaceholder}
                   value={form.message}
                   onChange={handleChange}
                   className={`${inputClass} resize-none`}
@@ -175,12 +178,12 @@ export default function ContactPage() {
                 {status === "loading" ? (
                   <>
                     <span className="w-4 h-4 border-2 border-zinc-400 border-t-zinc-900 rounded-full animate-spin" />
-                    Sending…
+                    {c.form.sending}
                   </>
                 ) : (
                   <>
                     <Send className="w-4 h-4" />
-                    Send message
+                    {c.form.submit}
                   </>
                 )}
               </button>
@@ -193,7 +196,7 @@ export default function ContactPage() {
         {/* ── Social Cards ── */}
         <section>
           <h2 className="text-sm font-medium text-zinc-500 uppercase tracking-widest mb-6">
-            Or find me on
+            {c.socials}
           </h2>
           <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
             {socials.map((s) => (

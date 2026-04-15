@@ -11,6 +11,7 @@ export const zh: Locale = {
     tagline:
       "高级软件工程师 — 构建快速交付、经久耐用的产品、工具与集成方案。",
     openToWork: "欢迎合作",
+    resume: "简历",
   },
   projects: {
     title: "项目",
@@ -232,6 +233,7 @@ export const zh: Locale = {
     technicalSkills: "技术技能",
     viewFullStack: "在 StackShare 查看完整技术栈",
     workHistory: "工作经历",
+    downloadResume: "下载简历",
     buildItems: [
       "企业B2B平台",
       "人工智能应用程序和工作流程",
@@ -302,5 +304,27 @@ export const zh: Locale = {
   },
   contact: {
     title: "联系我",
+    heading: "联系我",
+    subtitle: "有项目想法、问题，或只是想打个招呼？给我发消息，我会在一天内回复。",
+    form: {
+      name: "姓名",
+      email: "电子邮件",
+      message: "消息",
+      namePlaceholder: "张三",
+      emailPlaceholder: "zhangsan@company.com",
+      messagePlaceholder: "告诉我您的项目或想讨论的内容...",
+      submit: "发送消息",
+      sending: "发送中…",
+    },
+    success: {
+      title: "消息已发送",
+      body: "感谢您的联系 — 我将在24小时内回复您的邮件。",
+      again: "发送另一条消息",
+    },
+    error: {
+      network: "网络错误。请检查您的连接。",
+      generic: "出了点问题。请重试。",
+    },
+    socials: "或在这里找到我",
   },
 };

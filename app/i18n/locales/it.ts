@@ -9,7 +9,8 @@ export const it: Locale = {
   },
   home: {
     tagline: "Senior Software Engineer: crea prodotti, strumenti e integrazioni che vengono spediti velocemente e durano a lungo.",
-    openToWork: "Aperto a lavorare"
+    openToWork: "Aperto a lavorare",
+    resume: "Curriculum"
   },
   projects: {
     title: "Progetti",
@@ -229,6 +230,7 @@ export const it: Locale = {
     technicalSkills: "Competenze tecniche",
     viewFullStack: "Visualizza lo stack completo su StackShare",
     workHistory: "Storia del lavoro",
+    downloadResume: "Scarica il curriculum",
     buildItems: [
       "Piattaforme B2B aziendali",
       "Applicazioni e flussi di lavoro AI",
@@ -352,6 +354,28 @@ export const it: Locale = {
     ]
   },
   contact: {
-    title: "Contatto"
-  }
+    title: "Contatto",
+    heading: "Contattami",
+    subtitle: "Hai un progetto in mente, una domanda o vuoi semplicemente salutare? Mandami un messaggio e ti risponderò entro un giorno.",
+    form: {
+      name: "Nome",
+      email: "Email",
+      message: "Messaggio",
+      namePlaceholder: "Mario Rossi",
+      emailPlaceholder: "mario@azienda.it",
+      messagePlaceholder: "Parlami del tuo progetto o di cosa vorresti discutere...",
+      submit: "Invia messaggio",
+      sending: "Invio in corso…",
+    },
+    success: {
+      title: "Messaggio inviato",
+      body: "Grazie per avermi contattato — risponderò alla tua email entro 24 ore.",
+      again: "Invia un altro messaggio",
+    },
+    error: {
+      network: "Errore di rete. Controlla la tua connessione.",
+      generic: "Qualcosa è andato storto. Riprova.",
+    },
+    socials: "O trovami su",
+  },
 };

@@ -9,7 +9,8 @@ export const de: Locale = {
   },
   home: {
     tagline: "Senior Software Engineer – Entwicklung von Produkten, Tools und Integrationen, die schnell geliefert werden und lange halten.",
-    openToWork: "Offen für die Arbeit"
+    openToWork: "Offen für die Arbeit",
+    resume: "Lebenslauf"
   },
   projects: {
     title: "Projekte",
@@ -229,6 +230,7 @@ export const de: Locale = {
     technicalSkills: "Technische Fähigkeiten",
     viewFullStack: "Vollständigen Stack auf StackShare anzeigen",
     workHistory: "Arbeitsgeschichte",
+    downloadResume: "Lebenslauf herunterladen",
     buildItems: [
       "Unternehmens-B2B-Plattformen",
       "KI-Anwendungen und Workflows",
@@ -352,6 +354,28 @@ export const de: Locale = {
     ]
   },
   contact: {
-    title: "Kontakt"
-  }
+    title: "Kontakt",
+    heading: "Kontakt aufnehmen",
+    subtitle: "Haben Sie ein Projekt, eine Frage oder möchten Sie einfach Hallo sagen? Schreiben Sie mir eine Nachricht — ich antworte innerhalb eines Tages.",
+    form: {
+      name: "Name",
+      email: "E-Mail",
+      message: "Nachricht",
+      namePlaceholder: "Max Mustermann",
+      emailPlaceholder: "max@firma.de",
+      messagePlaceholder: "Erzählen Sie mir von Ihrem Projekt oder was Sie besprechen möchten...",
+      submit: "Nachricht senden",
+      sending: "Wird gesendet…",
+    },
+    success: {
+      title: "Nachricht gesendet",
+      body: "Danke für Ihre Nachricht — ich antworte innerhalb von 24 Stunden.",
+      again: "Weitere Nachricht senden",
+    },
+    error: {
+      network: "Netzwerkfehler. Bitte überprüfen Sie Ihre Verbindung.",
+      generic: "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
+    },
+    socials: "Oder finden Sie mich auf",
+  },
 };
