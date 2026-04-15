@@ -16,7 +16,7 @@ export default function ServicesPage() {
 
         {/* ── Header ── */}
         <div className="max-w-2xl mb-16">
-          <p className="text-xs font-medium uppercase tracking-widest text-zinc-500 mb-4">
+          <p className="text-xs font-medium uppercase tracking-widest text-zinc-400 mb-4">
             {s.badge}
           </p>
           <h1 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl mb-5">
@@ -40,7 +40,7 @@ export default function ServicesPage() {
                 <h2 className="text-lg font-semibold text-zinc-100 mb-1">
                   {service.title}
                 </h2>
-                <p className="text-xs text-zinc-500 font-medium tracking-wide">
+                <p className="text-xs text-zinc-400 font-medium tracking-wide">
                   {service.tagline}
                 </p>
               </div>
@@ -64,7 +64,7 @@ export default function ServicesPage() {
                 {service.stack.map((tag) => (
                   <span
                     key={tag}
-                    className="px-2 py-0.5 text-[11px] rounded-full bg-zinc-800 text-zinc-500 border border-zinc-700/60"
+                    className="px-2 py-0.5 text-[11px] rounded-full bg-zinc-800 text-zinc-400 border border-zinc-700/60"
                   >
                     {tag}
                   </span>
@@ -74,11 +74,11 @@ export default function ServicesPage() {
               {/* Pricing + CTA */}
               <div className="mt-auto flex items-end justify-between gap-4">
                 <div>
-                  <p className="text-[11px] text-zinc-600 uppercase tracking-widest mb-0.5">
+                  <p className="text-[11px] text-zinc-500 uppercase tracking-widest mb-0.5">
                     {s.pricing[service.pricingKey as keyof typeof s.pricing]}
                   </p>
                   <p className="text-2xl font-bold text-zinc-100">{service.amount}</p>
-                  <p className="text-xs text-zinc-600">{s.pricing[service.noteKey as keyof typeof s.pricing]}</p>
+                  <p className="text-xs text-zinc-500">{s.pricing[service.noteKey as keyof typeof s.pricing]}</p>
                 </div>
                 <Link
                   href="/contact"
@@ -98,7 +98,7 @@ export default function ServicesPage() {
           <span className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-zinc-500/0 via-zinc-400/30 to-zinc-500/0" />
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div>
-              <p className="text-xs uppercase tracking-widest text-zinc-500 mb-2 font-medium">
+              <p className="text-xs uppercase tracking-widest text-zinc-400 mb-2 font-medium">
                 {s.retainer.label}
               </p>
               <h2 className="text-xl font-bold text-zinc-100 mb-2">{s.retainer.title}</h2>
@@ -108,9 +108,9 @@ export default function ServicesPage() {
             </div>
             <div className="shrink-0 text-right">
               <p className="text-3xl font-bold text-zinc-100">
-                $2,000<span className="text-base font-normal text-zinc-500">/mo</span>
+                $2,000<span className="text-base font-normal text-zinc-400">/mo</span>
               </p>
-              <p className="text-xs text-zinc-600 mb-4">{s.retainer.hours}</p>
+              <p className="text-xs text-zinc-500 mb-4">{s.retainer.hours}</p>
               <Link
                 href="/contact"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-zinc-100 text-zinc-900 text-sm font-semibold hover:bg-white transition-colors duration-200"
@@ -124,7 +124,7 @@ export default function ServicesPage() {
 
         {/* ── FAQ ── */}
         <section className="mb-16">
-          <h2 className="text-sm font-medium text-zinc-500 uppercase tracking-widest mb-8">
+          <h2 className="text-sm font-medium text-zinc-400 uppercase tracking-widest mb-8">
             {s.faq.title}
           </h2>
           <div className="space-y-8">

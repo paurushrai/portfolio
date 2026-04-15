@@ -62,7 +62,7 @@ export function LocaleProjectFilter({ projects }: Props) {
 
       {!hasFeaturedSection && sorted.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-24 text-center">
-          <p className="text-zinc-500 text-lg">{t.projects.empty}</p>
+          <p className="text-zinc-400 text-lg">{t.projects.empty}</p>
         </div>
       ) : (
         <>

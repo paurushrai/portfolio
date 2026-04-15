@@ -120,11 +120,14 @@ export default function RootLayout({
             }),
           }}
         />
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <LanguageProvider>
           <Suspense fallback={null}>
             <ProgressBar />
           </Suspense>
-          {children}
+          <div id="main-content">{children}</div>
         </LanguageProvider>
       </body>
     </html>

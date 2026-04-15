@@ -17,4 +17,30 @@
   ::-webkit-scrollbar {
     display: none; /* Chrome, Safari and Opera */
   }
+
+  /* WCAG 2.4.7 — visible focus ring for all interactive elements */
+  :focus-visible {
+    outline: 2px solid #a1a1aa;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Skip-to-content link — visually hidden until focused */
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    z-index: 9999;
+    padding: 0.5rem 1rem;
+    background: #18181b;
+    color: #f4f4f5;
+    border: 1px solid #52525b;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: top 0.15s;
+  }
+  .skip-link:focus {
+    top: 1rem;
+  }
 }

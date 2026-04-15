@@ -76,7 +76,7 @@ export default function ContactPage() {
     "w-full px-4 py-2.5 rounded-lg bg-zinc-800/60 border border-zinc-700 text-zinc-100 placeholder-zinc-500 text-sm focus:outline-none focus:border-zinc-500 focus:bg-zinc-800 duration-200";
 
   return (
-    <div className="bg-gradient-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0">
+    <div className="min-h-screen bg-gradient-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0">
       <Navigation />
       <main className="px-6 pt-20 pb-24 mx-auto max-w-4xl lg:px-8 md:pt-24 lg:pt-32 space-y-16">
 

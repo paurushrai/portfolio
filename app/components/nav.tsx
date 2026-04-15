@@ -32,25 +32,25 @@ export const Navigation: React.FC = () => {
           <div className="flex items-center gap-4 md:gap-7">
             <Link
               href="/about"
-              className="duration-200 text-zinc-400 hover:text-zinc-100 text-sm"
+              className="duration-200 text-zinc-400 hover:text-zinc-100 text-sm rounded px-1"
             >
               {t.nav.about}
             </Link>
             <Link
               href="/projects"
-              className="duration-200 text-zinc-400 hover:text-zinc-100 text-sm"
+              className="duration-200 text-zinc-400 hover:text-zinc-100 text-sm rounded px-1"
             >
               {t.nav.projects}
             </Link>
             {/* <Link
               href="/services"
-              className="duration-200 text-zinc-400 hover:text-zinc-100 text-sm"
+              className="duration-200 text-zinc-400 hover:text-zinc-100 text-sm rounded px-1"
             >
               {t.nav.services}
             </Link> */}
             <Link
               href="/contact"
-              className="duration-200 text-zinc-400 hover:text-zinc-100 text-sm"
+              className="duration-200 text-zinc-400 hover:text-zinc-100 text-sm rounded px-1"
             >
               {t.nav.contact}
             </Link>
@@ -60,7 +60,7 @@ export const Navigation: React.FC = () => {
           <Link
             href="/"
             aria-label="Back to home"
-            className="duration-200 text-zinc-300 hover:text-zinc-100"
+            className="duration-200 text-zinc-300 hover:text-zinc-100 rounded"
           >
             <ArrowLeft className="w-6 h-6" aria-hidden="true" />
           </Link>

@@ -49,7 +49,7 @@ export default function Home() {
 
         <div className="hidden w-screen h-px animate-glow md:block animate-fade-right bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
         <div className="my-16 text-center animate-fade-in flex flex-col items-center gap-4 px-6 md:px-0">
-          <p className="text-sm text-zinc-500 max-w-sm">{t.home.tagline}</p>
+          <p className="text-sm text-zinc-400 max-w-sm">{t.home.tagline}</p>
           <div className="flex items-center gap-3 flex-wrap justify-center">
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-zinc-700/60 bg-zinc-900/40 backdrop-blur-sm">
               <span className="relative flex h-2 w-2">

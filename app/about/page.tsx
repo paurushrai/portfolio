@@ -75,7 +75,7 @@ export default function AboutPage() {
           <div className="space-y-6">
             {Object.entries(a.skills).map(([category, items]) => (
               <div key={category} className="grid grid-cols-[140px_1fr] gap-4 items-start">
-                <span className="text-sm font-medium text-zinc-500 pt-1">{category}</span>
+                <span className="text-sm font-medium text-zinc-400 pt-1">{category}</span>
                 <div className="flex flex-wrap gap-2">
                   {items.map((skill) => (
                     <span
@@ -104,7 +104,7 @@ export default function AboutPage() {
 
                 <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1">
                   <h3 className="text-lg font-semibold text-zinc-100">{job.company}</h3>
-                  <span className="text-xs text-zinc-500 shrink-0">{job.period}</span>
+                  <span className="text-xs text-zinc-400 shrink-0">{job.period}</span>
                 </div>
                 <p className="text-sm text-zinc-400 mb-4">
                   {job.role} &mdash; {job.location}
