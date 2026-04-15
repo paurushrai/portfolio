@@ -2,7 +2,6 @@ import "../global.css";
 import { Inter } from "next/font/google";
 import LocalFont from "next/font/local";
 import { Metadata } from "next";
-import { Analytics } from "./components/analytics";
 import { ProgressBar } from "./components/progress-bar";
 import { LanguageProvider } from "./i18n/LanguageContext";
 import { Suspense } from "react";
@@ -69,9 +68,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={[inter.variable, calSans.variable].join(" ")}>
-      <head>
-        <Analytics />
-      </head>
+      <head />
       <body
         className={`bg-black ${
           process.env.NODE_ENV === "development" ? "debug-screens" : undefined
