@@ -2,6 +2,20 @@ import React from "react";
 import { allProjects } from "contentlayer/generated";
 import { Navigation } from "../components/nav";
 import { LocaleProjectFilter } from "./LocaleProjectFilter";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Projects",
+  description: "A collection of web platforms, mobile apps, and developer tools I've built — spanning enterprise SaaS, fintech, and AI-driven products.",
+  alternates: {
+    canonical: "https://paurushrai.in/projects",
+  },
+  openGraph: {
+    title: "Projects | paurushrai.in",
+    description: "A collection of web platforms, mobile apps, and developer tools I've built — spanning enterprise SaaS, fintech, and AI-driven products.",
+    url: "https://paurushrai.in/projects",
+  },
+};
 
 export type ProjectMeta = {
   _id: string;
