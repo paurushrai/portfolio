@@ -4,9 +4,6 @@ import { withContentlayer } from "next-contentlayer";
 const nextConfig = {
 	pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
 	output: "standalone",
-	experimental: {
-		mdxRs: true,
-	},
 	webpack: (config) => {
 		config.infrastructureLogging = {
 			level: "error",
