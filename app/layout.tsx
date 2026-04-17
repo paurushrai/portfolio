@@ -90,6 +90,19 @@ export default function RootLayout({
   return (
     <html lang="en" className={[inter.variable, calSans.variable].join(" ")}>
       <head />
+      <Script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-9K3JKH3R6G"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-9K3JKH3R6G');
+        `}
+      </Script>
       {process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (
         <Script
           defer
