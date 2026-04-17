@@ -10,9 +10,7 @@ type Props = {
   projects: ProjectMeta[];
 };
 
-const FEATURED_SLUG = "metanotes";
-const TOP2_SLUG = "testlify-app";
-const TOP3_SLUG = "fuelbuddy-customer-app";
+const FEATURED_PROJECTS = ["metanotes", "testlify-app", "fuelbuddy-customer-app"];
 
 export function LocaleProjectFilter({ projects }: Props) {
   const { language, t } = useLanguage();
@@ -32,16 +30,11 @@ export function LocaleProjectFilter({ projects }: Props) {
   });
 
   const published = localed.filter((p) => p.published);
-  const featured = published.find((p) => p.slug === FEATURED_SLUG);
-  const top2 = published.find((p) => p.slug === TOP2_SLUG);
-  const top3 = published.find((p) => p.slug === TOP3_SLUG);
+  const featured = published.find((p) => p.slug === FEATURED_PROJECTS[0]);
+  const top2 = published.find((p) => p.slug === FEATURED_PROJECTS[1]);
+  const top3 = published.find((p) => p.slug === FEATURED_PROJECTS[2]);
   const sorted = published
-    .filter(
-      (p) =>
-        p.slug !== FEATURED_SLUG &&
-        p.slug !== TOP2_SLUG &&
-        p.slug !== TOP3_SLUG,
-    )
+    .filter((p) => !FEATURED_PROJECTS.includes(p.slug))
     .sort(
       (a, b) =>
         new Date(b.date ?? Number.POSITIVE_INFINITY).getTime() -
