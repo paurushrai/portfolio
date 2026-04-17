@@ -1,4 +1,4 @@
-import { Locale } from "./en";
+import type { Locale } from "./en";
 
 export const fr: Locale = {
   nav: {
