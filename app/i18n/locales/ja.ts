@@ -10,7 +10,7 @@ export const ja: Locale = {
   home: {
     tagline:
       "シニアソフトウェアエンジニア — 速く出荷でき、長続きするプロダクト・ツール・インテグレーションを構築しています。",
-    openToWork: "案件募集中",
+    openToWork: "コラボレーション歓迎",
     resume: "履歴書",
   },
   projects: {

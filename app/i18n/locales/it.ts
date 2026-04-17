@@ -9,7 +9,7 @@ export const it: Locale = {
   },
   home: {
     tagline: "Senior Software Engineer: crea prodotti, strumenti e integrazioni che vengono spediti velocemente e durano a lungo.",
-    openToWork: "Aperto a lavorare",
+    openToWork: "Aperto a collaborazioni",
     resume: "Curriculum"
   },
   projects: {

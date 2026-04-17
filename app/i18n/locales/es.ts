@@ -10,7 +10,7 @@ export const es: Locale = {
   home: {
     tagline:
       "Ingeniero de Software Senior — construyo productos, herramientas e integraciones que se lanzan rápido y duran mucho.",
-    openToWork: "Disponible para proyectos",
+    openToWork: "Abierto a la colaboración",
     resume: "Currículum",
   },
   projects: {

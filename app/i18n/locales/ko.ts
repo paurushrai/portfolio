@@ -9,7 +9,7 @@ export const ko: Locale = {
   },
   home: {
     tagline: "수석 소프트웨어 엔지니어 — 빠르고 오래 지속되는 제품, 도구 및 통합을 구축합니다.",
-    openToWork: "근무 가능",
+    openToWork: "협업 환영",
     resume: "이력서"
   },
   projects: {

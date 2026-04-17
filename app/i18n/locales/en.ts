@@ -8,7 +8,7 @@ export const en = {
   home: {
     tagline:
       "Senior Software Engineer — building products, tools, and integrations that ship fast and last long.",
-    openToWork: "Open to work",
+    openToWork: "Open for collaboration",
     resume: "Resume",
   },
   projects: {

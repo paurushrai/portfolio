@@ -10,7 +10,7 @@ export const zh: Locale = {
   home: {
     tagline:
       "高级软件工程师 — 构建快速交付、经久耐用的产品、工具与集成方案。",
-    openToWork: "欢迎合作",
+    openToWork: "开放合作",
     resume: "简历",
   },
   projects: {
