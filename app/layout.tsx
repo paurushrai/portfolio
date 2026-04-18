@@ -3,7 +3,8 @@ import { Inter } from "next/font/google";
 import LocalFont from "next/font/local";
 import { Metadata } from "next";
 import Script from "next/script";
-import { ProgressBar } from "./components/progress-bar";
+import dynamic from "next/dynamic";
+const ProgressBar = dynamic(() => import("./components/progress-bar").then(mod => mod.ProgressBar), { ssr: false });
 import { LanguageProvider } from "./i18n/LanguageContext";
 import { Suspense } from "react";
 
@@ -91,7 +92,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={[inter.variable, calSans.variable].join(" ")}>
-      <head />
       <Script
         async
         src="https://www.googletagmanager.com/gtag/js?id=G-9K3JKH3R6G"
