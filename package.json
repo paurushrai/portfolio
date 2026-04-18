@@ -52,5 +52,11 @@
       "@opentelemetry/sdk-trace-node": "1.13.0",
       "@opentelemetry/semantic-conventions": "1.13.0"
     }
-  }
+  },
+  "browserslist": [
+    "chrome >= 94",
+    "firefox >= 93",
+    "safari >= 15.4",
+    "edge >= 94"
+  ]
 }
