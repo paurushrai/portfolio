@@ -3,8 +3,7 @@ import { Inter } from "next/font/google";
 import LocalFont from "next/font/local";
 import { Metadata } from "next";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-const ProgressBar = dynamic(() => import("./components/progress-bar").then(mod => mod.ProgressBar), { ssr: false });
+import { ProgressBar } from "./components/progress-bar";
 import { LanguageProvider } from "./i18n/LanguageContext";
 import { Suspense } from "react";
 
