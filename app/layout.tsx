@@ -91,24 +91,28 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={[inter.variable, calSans.variable].join(" ")}>
-      <Script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=G-9K3JKH3R6G"
-        strategy="lazyOnload"
-      />
-      <Script id="google-analytics" strategy="lazyOnload">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-9K3JKH3R6G');
-        `}
-      </Script>
-      {process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (
+      {process.env.GA_ID && (
+        <>
+          <Script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GA_ID}`}
+            strategy="lazyOnload"
+          />
+          <Script id="google-analytics" strategy="lazyOnload">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${process.env.GA_ID}');
+            `}
+          </Script>
+        </>
+      )}
+      {process.env.UMAMI_WEBSITE_ID && (
         <Script
           defer
           src="https://cloud.umami.is/script.js"
-          data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
+          data-website-id={process.env.UMAMI_WEBSITE_ID}
           strategy="lazyOnload"
         />
       )}

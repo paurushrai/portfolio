@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface MousePosition {
 	x: number;
@@ -10,16 +10,21 @@ export function useMousePosition(): MousePosition {
 		x: 0,
 		y: 0,
 	});
+	const rafId = useRef<number>(0);
 
 	useEffect(() => {
 		const handleMouseMove = (event: MouseEvent) => {
-			setMousePosition({ x: event.clientX, y: event.clientY });
+			cancelAnimationFrame(rafId.current);
+			rafId.current = requestAnimationFrame(() => {
+				setMousePosition({ x: event.clientX, y: event.clientY });
+			});
 		};
 
-		window.addEventListener("mousemove", handleMouseMove);
+		window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
 		return () => {
 			window.removeEventListener("mousemove", handleMouseMove);
+			cancelAnimationFrame(rafId.current);
 		};
 	}, []);
 

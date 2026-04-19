@@ -1,10 +1,15 @@
 "use client";
 import Link from "next/link";
 import React from "react";
+import dynamic from "next/dynamic";
 import { Download } from "lucide-react";
-import Particles from "./components/particles";
 import { useLanguage } from "./i18n/LanguageContext";
 import { LanguageSwitcher } from "./components/LanguageSwitcher";
+
+const Particles = dynamic(() => import("./components/particles"), {
+  ssr: false,
+  loading: () => null,
+});
 
 export default function Home() {
   const { t } = useLanguage();

@@ -22,6 +22,7 @@ export default function Particles({
 	const canvasContainerRef = useRef<HTMLDivElement>(null);
 	const context = useRef<CanvasRenderingContext2D | null>(null);
 	const circles = useRef<any[]>([]);
+	const rectCache = useRef<DOMRect | null>(null);
 	const mousePosition = useMousePosition();
 	const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
 	const canvasSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 });
@@ -58,16 +59,15 @@ export default function Particles({
 	};
 
 	const onMouseMove = () => {
-		if (canvasRef.current) {
-			const rect = canvasRef.current.getBoundingClientRect();
-			const { w, h } = canvasSize.current;
-			const x = mousePosition.x - rect.left - w / 2;
-			const y = mousePosition.y - rect.top - h / 2;
-			const inside = x < w / 2 && x > -w / 2 && y < h / 2 && y > -h / 2;
-			if (inside) {
-				mouse.current.x = x;
-				mouse.current.y = y;
-			}
+		const rect = rectCache.current;
+		if (!rect) return;
+		const { w, h } = canvasSize.current;
+		const x = mousePosition.x - rect.left - w / 2;
+		const y = mousePosition.y - rect.top - h / 2;
+		const inside = x < w / 2 && x > -w / 2 && y < h / 2 && y > -h / 2;
+		if (inside) {
+			mouse.current.x = x;
+			mouse.current.y = y;
 		}
 	};
 
@@ -94,6 +94,7 @@ export default function Particles({
 			canvasRef.current.style.width = `${canvasSize.current.w}px`;
 			canvasRef.current.style.height = `${canvasSize.current.h}px`;
 			context.current.scale(dpr, dpr);
+			rectCache.current = canvasRef.current.getBoundingClientRect();
 		}
 	};
 
