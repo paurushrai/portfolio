@@ -112,7 +112,7 @@ export default function RootLayout({
           defer
           src="/um/script.js"
           data-website-id={process.env.UMAMI_WEBSITE_ID}
-          data-host-url="https://paurushrai.in/um"
+          data-host-url="/um"
           strategy="lazyOnload"
         />
       )}
