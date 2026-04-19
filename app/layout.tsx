@@ -94,11 +94,10 @@ export default function RootLayout({
       {process.env.GA_ID && (
         <>
           <Script
-            async
             src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GA_ID}`}
-            strategy="lazyOnload"
+            strategy="afterInteractive"
           />
-          <Script id="google-analytics" strategy="lazyOnload">
+          <Script id="google-analytics" strategy="afterInteractive">
             {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
@@ -111,8 +110,9 @@ export default function RootLayout({
       {process.env.UMAMI_WEBSITE_ID && (
         <Script
           defer
-          src="https://cloud.umami.is/script.js"
+          src="/um/script.js"
           data-website-id={process.env.UMAMI_WEBSITE_ID}
+          data-host-url="https://paurushrai.in/um"
           strategy="lazyOnload"
         />
       )}
