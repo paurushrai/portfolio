@@ -52,7 +52,8 @@ A `.env.example` file is included in the repository. Create a `.env.local` file 
 | Variable | Description |
 | -------- | ----------- |
 | `RESEND_API_KEY` | Your Resend API key for the contact form functionality. |
-| `NEXT_PUBLIC_UMAMI_WEBSITE_ID` | Your Umami site ID for analytics tracking. |
+| `UMAMI_WEBSITE_ID` | Your Umami site ID for privacy-friendly analytics. |
+| `GA_ID` | Your Google Analytics 4 measurement ID (e.g. `G-XXXXXXXXXX`). |
 
 ## ☁️ Deployment
 
@@ -60,7 +61,7 @@ This project is strictly configured for deployment on **Netlify**.
 
 The configuration is managed via the included `netlify.toml` file, which handles:
 - Build environment variables logic.
-- Excluding intentionally public variables (like `NEXT_PUBLIC_UMAMI_WEBSITE_ID`) from Netlify's aggressive secret scanner to prevent false-positive build failures.
+- Excluding analytics IDs (`UMAMI_WEBSITE_ID`, `GA_ID`) from Netlify's secret scanner to prevent false-positive build failures (these values are intentionally rendered into HTML).
 
 **To deploy:**
 1. Connect the repository to your Netlify account.
@@ -71,10 +72,11 @@ The configuration is managed via the included `netlify.toml` file, which handles
 ## ⚡ Performance (Lighthouse)
 
 The site is meticulously optimized for Core Web Vitals:
-- **Performance**: 93
-- **Accessibility**: 100
-- **Best Practices**: 100
-- **SEO**: 100
+
+|  | Performance | Accessibility | Best Practices | SEO |
+|--|:-----------:|:-------------:|:--------------:|:---:|
+| Mobile  | 97 | 100 | 100 | 100 |
+| Desktop | 99 | 100 | 100 | 100 |
 
 ## 📝 License
 
