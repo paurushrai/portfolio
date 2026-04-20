@@ -53,7 +53,7 @@ A `.env.example` file is included in the repository. Create a `.env.local` file 
 | -------- | ----------- |
 | `RESEND_API_KEY` | Your Resend API key for the contact form functionality. |
 | `UMAMI_WEBSITE_ID` | Your Umami site ID for privacy-friendly analytics. |
-| `GA_ID` | Your Google Analytics 4 measurement ID (e.g. `G-XXXXXXXXXX`). |
+| `GTM_ID` | Your Google Tag Manager container ID (e.g. `GTM-XXXXXXX`). |
 
 ## ☁️ Deployment
 
@@ -61,7 +61,7 @@ This project is strictly configured for deployment on **Netlify**.
 
 The configuration is managed via the included `netlify.toml` file, which handles:
 - Build environment variables logic.
-- Excluding analytics IDs (`UMAMI_WEBSITE_ID`, `GA_ID`) from Netlify's secret scanner to prevent false-positive build failures (these values are intentionally rendered into HTML).
+- Excluding analytics IDs (`UMAMI_WEBSITE_ID`, `GTM_ID`) from Netlify's secret scanner to prevent false-positive build failures (these values are intentionally rendered into HTML).
 
 **To deploy:**
 1. Connect the repository to your Netlify account.
