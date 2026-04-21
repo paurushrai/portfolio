@@ -17,7 +17,9 @@ export const ru: Locale = {
     subtitle: "Некоторые проекты я делаю на работе, а некоторые — в свободное время.",
     readMore: "Читать далее",
     empty: "Проекты не найдены.",
-    independent: "Независимый"
+    independent: "Независимый",
+    personalProject: "Личный проект",
+    associatedWith: "Связано с"
   },
   services: {
     badge: "Доступен для фрилансера",

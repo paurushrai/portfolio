@@ -2,6 +2,7 @@
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
+import { useLanguage } from "@/app/i18n/LanguageContext";
 
 type Props = {
 	project: {
@@ -17,6 +18,7 @@ type Props = {
 export const Header: React.FC<Props> = ({ project }) => {
 	const ref = useRef<HTMLElement>(null);
 	const [isIntersecting, setIsIntersecting] = useState(true);
+	const { t } = useLanguage();
 
 	const links: { label: string; href: string }[] = [];
 	if (project.repository) {
@@ -62,7 +64,9 @@ export const Header: React.FC<Props> = ({ project }) => {
 									: "text-zinc-600"
 							}`}
 						>
-							{project.company ? `Associated with ${project.company}` : "Personal Project"}
+							{project.company && project.company !== "Personal Project"
+								? `${t.projects.associatedWith} ${project.company}`
+								: t.projects.personalProject}
 						</span>
 					</div>
 

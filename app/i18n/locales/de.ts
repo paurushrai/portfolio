@@ -17,7 +17,9 @@ export const de: Locale = {
     subtitle: "Einige der Projekte entstehen bei der Arbeit, andere in meiner Freizeit.",
     readMore: "Mehr lesen",
     empty: "Keine Projekte gefunden.",
-    independent: "Unabhängig"
+    independent: "Unabhängig",
+    personalProject: "Persönliches Projekt",
+    associatedWith: "Assoziiert mit"
   },
   services: {
     badge: "Verfügbar für Freiberufler",

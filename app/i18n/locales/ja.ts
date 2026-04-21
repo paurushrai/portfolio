@@ -19,6 +19,8 @@ export const ja: Locale = {
     readMore: "続きを読む",
     empty: "プロジェクトが見つかりません。",
     independent: "個人",
+    personalProject: "個人プロジェクト",
+    associatedWith: "関連企業",
   },
   services: {
     badge: "フリーランス案件受付中",

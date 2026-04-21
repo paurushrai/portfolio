@@ -19,6 +19,8 @@ export const zh: Locale = {
     readMore: "阅读更多",
     empty: "未找到项目。",
     independent: "独立",
+    personalProject: "个人项目",
+    associatedWith: "关联公司",
   },
   services: {
     badge: "接受自由职业项目",

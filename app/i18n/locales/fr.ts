@@ -17,7 +17,9 @@ export const fr: Locale = {
     subtitle: "Certains projets sont réalisés dans le cadre du travail et d'autres pendant mon temps libre.",
     readMore: "En savoir plus",
     empty: "Aucun projet trouvé.",
-    independent: "Indépendante"
+    independent: "Indépendante",
+    personalProject: "Projet Personnel",
+    associatedWith: "Associé à"
   },
   services: {
     badge: "Disponible en freelance",

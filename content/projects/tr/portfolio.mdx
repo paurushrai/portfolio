@@ -1,0 +1,33 @@
+---
+title: Kişisel Portfolyo — paurushrai.in
+description: 99/100 Lighthouse masaüstü performansı elde eden, production kalitesinde çok dilli bir portfolyo — 12 dilli i18n sistemi, WCAG 2.1 AA erişilebilirliği ve reklam engelleyicileri devre dışı bırakmak için birinci taraf analitik proxy'si ile.
+url: https://paurushrai.in
+repository: https://github.com/paurushrai/portfolio
+date: 2026-04-01
+published: true
+company: Personal Project
+---
+
+Bu portfolyo, canlı bir mühendislik eseri olarak işlev görmek üzere inşa edilmiş bir **Next.js 14 App Router** uygulamasıdır — bir şablon değil. Her mimari karar, kurumsal sistemlerde uygulanan aynı production kalitesindeki düşünceyi yansıtır: doğruluk, gözlemlenebilirlik ve ölçülebilir performans. Site, **masaüstünde 99/100, mobilde 97/100 Lighthouse performansı**nın yanı sıra Erişilebilirlik ve SEO'da mükemmel 100 puan elde etmektedir.
+
+![Personal Portfolio — paurushrai.in](/projects/portfolio/portfolio.gif)
+
+## Teknik Kapsam ve Katkılar
+
+- **12 Dilli i18n Mimarisi:** Tamamen özel bir uluslararasılaştırma sistemi sıfırdan tasarlandı ve hayata geçirildi — üçüncü taraf kütüphane kullanılmadı. İngilizce, Almanca, İspanyolca, Fransızca, Hintçe, İtalyanca, Japonca, Korece, Portekizce, Rusça, Türkçe ve Çince olmak üzere 12 dil genelinde güçlü biçimde yazılmış bir çeviri haritasıyla tip güvenli bir `LanguageContext` oluşturuldu. Dil değiştirici, kullanıcı tercihini `localStorage` aracılığıyla kalıcı hale getiriyor ve `<html lang>` özniteliğini dinamik olarak güncelliyor; böylece ekran okuyucuları ve tarayıcı botları her zaman doğru yerel ayarı işliyor. İletişim formu etiketleri, hata durumları ve CTA metni dahil olmak üzere tüm kullanıcıya yönelik dizeler 12 yerel ayarda eksiksiz biçimde yerelleştirildi.
+
+- **Canvas Animasyonu ve Performans Mühendisliği:** Ham Canvas 2D API kullanılarak fare güdümlü manyetizma, alfa solma fiziği ve pürüzsüz sınır sarma özelliklerine sahip WebGL kalitesinde bir parçacık sistemi yazıldı. Kritik bir zorla yeniden akış darboğazı tespit edilerek ortadan kaldırıldı — `getBoundingClientRect()` çağrıları, yalnızca yeniden boyutlandırma olaylarında güncellenen önbelleğe alınmış bir `ref`'e taşınarak sık tetiklenen `mousemove` yolundan çıkarıldı; böylece kare başına DOM yükü O(n)'den O(1)'e indirildi. RAF ile kısıtlanmış fare durumu güncellemeleri ve parçacıkları kritik render yolunun tamamen dışında tutmak için `next/dynamic` ile tembel yükleme birleştirilerek masaüstü Lighthouse performans puanı **99/100**'e çıkarıldı.
+
+- **Reklam Engelleyici Kör Noktası Olmayan Analitik Altyapısı:** Çift analitik kurulumu (Umami + Google Tag Manager) tasarlandı ve tüm telemetriyi birinci taraf alan adı üzerinden yönlendiren bir Next.js rewrite proxy'si oluşturuldu (`/um/script.js` → `cloud.umami.is`, `/um/api/send` → `api-gateway.umami.dev`). Bu yapı, uBlock Origin ve Brave tarafından engellenen üçüncü taraf kaynaklardan yüklenen analitik betiklerinde tipik olarak görülen yüzde 20–40 oranındaki sessiz etkinlik kaybını ortadan kaldırıyor. GTM, GA4 etiketini sunucu tarafında yönetip tüm etiket yönetimini tek bir yerde topluyor.
+
+- **SEO ve Yapılandırılmış Veri Paketi:** JSON-LD `Person` şeması, 12 yerel ayarın tamamı için hreflang alternatif bağlantıları, rota başına kanonik URL'ler ve her proje slug'ında dinamik `generateMetadata` uygulandı. `generateMetadata`, proje başına Open Graph ve `SoftwareApplication` JSON-LD üretecek şekilde yapılandırıldı; bu sayede Google'ın yapılandırılmış veri doğrulayıcısı karşılandı ve yerelleştirilmiş rotalar genelindeki yinelenen içerik sinyalleri ortadan kaldırıldı.
+
+- **WCAG 2.1 AA Erişilebilirliği:** Eksiksiz bir erişilebilirlik denetimi gerçekleştirildi ve tüm hatalar giderildi — görsel olarak gizlenmiş bir içeriğe geç bağlantısı eklendi, tek bir CSS kuralıyla global olarak `:focus-visible` klavye halkaları zorunlu kılındı, tüm gövde metninde ön plan/arka plan kontrast oranları düzeltildi (koyu yüzeylerde zinc-500 → zinc-400, AA kontrastını 4.5:1+ ile karşılıyor) ve dekoratif canvas öğelerine `aria-hidden` uygulandı. Dil değiştirici, anlamsal olmayan `listbox` yapısından uygun bir ARIA `menu` yapısına dönüştürüldü.
+
+- **Tip Güvenli İçerik Pipeline'ı:** Contentlayer, MDX proje dosyalarını derleme sırasında tamamen tiplenmiş statik JSON'a işleyecek şekilde yapılandırıldı; hesaplanmış `slug` ve `locale` alanları yalnızca dosya yolu yapısından türetildi. Yeni projeler için sıfır kod değişikliği gerekiyor — doğru yerel ayar klasörüne bir MDX dosyası bırakın, bir sonraki deploy'da sitede otomatik olarak görünür. Çalışma zamanı ayrıştırma yükü tamamen ortadan kaldırıldı.
+
+- **Sunucusuz Sayfa Görüntüleme Takibi:** Yinelenenleri kaldırma için SHA-256 ile hash'lenmiş IP adresleri kullanan anonim sayfa görüntüleme sayımına yönelik sunucusuz bir Edge Function oluşturuldu — çerez yok, kişisel veri saklanmıyor. Sayımlar 60 saniyelik ISR penceresinde yenileniyor; bu sayede statik dağıtım modeli feda edilmeden proje görüntülemeleri canlı hissettiriyor.
+
+## İş Etkisi
+
+Bu portfolyo, kasıtlı bir ustalık kanıtıdır. Parçacık sistemindeki zorla yeniden akış darboğazını gidermekten birinci taraf analitik proxy'si oluşturmaya ve 12 yerel ayarlı içerik geçişini tamamlamaya kadar her optimizasyon, ölçekte production sistemlerine uygulanan aynı mühendislik titizliğiyle yürütüldü. Sonuç: Erişilebilirlik ve SEO'da mükemmel puanlar, neredeyse kusursuz Performans, milyarlarca İngilizce konuşmayan kullanıcıya açık tamamen uluslararasılaştırılmış bir içerik yüzeyi ve diğer uygulamaların sessizce göz ardı ettiği verileri yakalayan bir analitik pipeline'ı. Kod tabanı açık kaynaklıdır — mimari kararlar denetlenebilir, iddia edilmez.

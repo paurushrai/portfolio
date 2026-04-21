@@ -17,7 +17,9 @@ export const ko: Locale = {
     subtitle: "프로젝트 중 일부는 업무 중이고 일부는 개인 시간에 진행됩니다.",
     readMore: "더 읽어보세요",
     empty: "프로젝트를 찾을 수 없습니다.",
-    independent: "독립적인"
+    independent: "독립적인",
+    personalProject: "개인 프로젝트",
+    associatedWith: "협력사"
   },
   services: {
     badge: "프리랜서로 이용 가능",

@@ -19,6 +19,8 @@ export const pt: Locale = {
     readMore: "Ler mais",
     empty: "Nenhum projeto encontrado.",
     independent: "Independente",
+    personalProject: "Projeto Pessoal",
+    associatedWith: "Associado a",
   },
   services: {
     badge: "Disponível como freelancer",

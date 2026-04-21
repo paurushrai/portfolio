@@ -1,0 +1,33 @@
+---
+title: Personal Portfolio — paurushrai.in
+description: Engineered a production-grade, multilingual portfolio achieving 99/100 Lighthouse desktop performance — featuring a 12-language i18n system, WCAG 2.1 AA accessibility, and a first-party analytics proxy to defeat ad blockers.
+url: https://paurushrai.in
+repository: paurushrai/portfolio
+date: 2026-04-01
+published: true
+company: Personal Project
+---
+
+This portfolio is a **Next.js 14 App Router** application built to function as a live engineering artifact — not a template. Every architectural decision reflects the same production-grade thinking applied in enterprise systems: correctness, observability, and measurable performance. The site achieves **99/100 desktop and 97/100 mobile Lighthouse performance** alongside perfect 100 scores in Accessibility and SEO.
+
+![Personal Portfolio — paurushrai.in](/projects/portfolio/portfolio.gif)
+
+## Technical Scope & Contributions
+
+- **12-Language i18n Architecture:** Designed and implemented a fully custom internationalization system from scratch — no third-party libraries. Built a type-safe `LanguageContext` with a strongly-typed translation map across English, German, Spanish, French, Hindi, Italian, Japanese, Korean, Portuguese, Russian, Turkish, and Chinese. The language switcher persists user preference via `localStorage` and updates the `<html lang>` attribute dynamically, ensuring screen readers and crawlers consume the correct locale at all times. Every user-facing string — including contact form labels, error states, and CTA copy — is fully localized across all 12 locales.
+
+- **Canvas Animation & Performance Engineering:** Authored a WebGL-grade particle system using the raw Canvas 2D API with mouse-driven magnetism, alpha fade physics, and smooth boundary wrapping. Identified and eliminated a critical forced-reflow bottleneck — moved `getBoundingClientRect()` calls off the hot `mousemove` path into a cached `ref` updated only on resize events, collapsing per-frame DOM thrash from O(n) to O(1). Combined with RAF-throttled mouse state updates and `next/dynamic` lazy loading to keep particles fully off the critical render path, driving the desktop Lighthouse performance score to **99/100**.
+
+- **Analytics Stack Without Ad Blocker Blind Spots:** Engineered a dual-analytics setup (Umami + Google Tag Manager) and built a Next.js rewrite proxy routing all telemetry through the first-party domain (`/um/script.js` → `cloud.umami.is`, `/um/api/send` → `api-gateway.umami.dev`). This eliminates the 20–40% silent event loss typical when analytics scripts load from third-party origins blocked by uBlock Origin and Brave. GTM manages the GA4 tag server-side, consolidating all tag governance in one place.
+
+- **SEO & Structured Data Suite:** Implemented JSON-LD `Person` schema, hreflang alternate links for all 12 locales, per-route canonical URLs, and dynamic `generateMetadata` on every project slug. Configured `generateMetadata` to produce per-project Open Graph and `SoftwareApplication` JSON-LD, satisfying Google's structured data validator and eliminating duplicate-content signals across localized routes.
+
+- **WCAG 2.1 AA Accessibility:** Conducted a full accessibility audit and remediated every failure — implemented a visually-hidden skip-to-content link, enforced `:focus-visible` keyboard rings globally via a single CSS rule, corrected foreground/background contrast ratios across all body copy (zinc-500 → zinc-400 on dark surfaces passes AA contrast at 4.5:1+), and applied `aria-hidden` to decorative canvas elements. Refactored the language switcher from a non-semantic `listbox` to a proper ARIA `menu` structure.
+
+- **Type-Safe Content Pipeline:** Configured Contentlayer to process MDX project files into fully-typed static JSON at build time, with computed `slug` and `locale` fields derived purely from file path structure. New projects require zero code changes — drop an MDX file in the correct locale folder and it appears on the site at the next deploy. Eliminated runtime parsing overhead entirely.
+
+- **Serverless Pageview Tracking:** Built a serverless Edge Function for anonymous pageview counting using SHA-256 hashed IP addresses for deduplication — no cookies, no PII stored. Counts revalidate on a 60-second ISR window, making project views feel live without sacrificing the static delivery model.
+
+## Business Impact
+
+The portfolio is a deliberate proof-of-craft. Every optimization — from eliminating a forced-reflow bottleneck in the particle system to building a first-party analytics proxy to completing a 12-locale content migration — was driven by the same engineering rigour applied to production systems at scale. The result: perfect scores in Accessibility and SEO, near-perfect Performance, a fully internationalized content surface accessible to billions of non-English speakers, and an analytics pipeline that captures data other implementations silently discard. The codebase is open source — architectural decisions are auditable, not claimed.

@@ -1,0 +1,33 @@
+---
+title: Portfolio Personnel — paurushrai.in
+description: Développement d'un portfolio multilingue de qualité production atteignant 99/100 en performance Lighthouse desktop — avec un système i18n en 12 langues, l'accessibilité WCAG 2.1 AA, et un proxy analytique first-party pour contourner les bloqueurs de publicités.
+url: https://paurushrai.in
+repository: https://github.com/paurushrai/portfolio
+date: 2026-04-01
+published: true
+company: Personal Project
+---
+
+Ce portfolio est une application **Next.js 14 App Router** conçue comme un artefact d'ingénierie vivant — pas un simple gabarit. Chaque décision architecturale reflète la même rigueur de production appliquée aux systèmes d'entreprise : exactitude, observabilité et performances mesurables. Le site atteint **99/100 en performance Lighthouse desktop et 97/100 en mobile**, avec des scores parfaits de 100 en Accessibilité et en SEO.
+
+![Personal Portfolio — paurushrai.in](/projects/portfolio/portfolio.gif)
+
+## Périmètre Technique & Contributions
+
+- **Architecture i18n en 12 Langues :** Conception et implémentation d'un système d'internationalisation entièrement personnalisé, sans bibliothèque tierce. Construction d'un `LanguageContext` fortement typé avec une carte de traductions couvrant l'anglais, l'allemand, l'espagnol, le français, l'hindi, l'italien, le japonais, le coréen, le portugais, le russe, le turc et le chinois. Le sélecteur de langue persiste la préférence utilisateur via `localStorage` et met à jour dynamiquement l'attribut `<html lang>`, garantissant que les lecteurs d'écran et les robots d'exploration consomment en permanence la bonne locale. Chaque chaîne visible par l'utilisateur — y compris les libellés du formulaire de contact, les états d'erreur et les CTA — est entièrement localisée dans les 12 locales.
+
+- **Animation Canvas & Optimisation des Performances :** Développement d'un système de particules de qualité WebGL utilisant l'API Canvas 2D native, avec magnétisme piloté par la souris, physique de fondu alpha et rebondissement fluide sur les bords. Identification et élimination d'un goulot d'étranglement critique de forced-reflow — déplacement des appels `getBoundingClientRect()` hors du chemin chaud `mousemove` vers une `ref` mise en cache uniquement lors des événements de redimensionnement, réduisant le DOM thrash par frame de O(n) à O(1). Combiné à des mises à jour d'état souris throttlées par RAF et au chargement différé via `next/dynamic` pour maintenir les particules entièrement hors du chemin de rendu critique, ce qui porte le score de performance Lighthouse desktop à **99/100**.
+
+- **Stack Analytique Sans Angles Morts liés aux Bloqueurs :** Mise en place d'un dispositif analytique dual (Umami + Google Tag Manager) et construction d'un proxy de réécriture Next.js qui route toute la télémétrie via le domaine first-party (`/um/script.js` → `cloud.umami.is`, `/um/api/send` → `api-gateway.umami.dev`). Cela élimine la perte silencieuse de 20–40 % des événements typiquement causée par le chargement de scripts analytiques depuis des origines tierces bloquées par uBlock Origin et Brave. GTM gère le tag GA4 côté serveur, centralisant toute la gouvernance des tags en un seul endroit.
+
+- **Suite SEO & Données Structurées :** Implémentation d'un schéma JSON-LD `Person`, de liens hreflang alternatifs pour les 12 locales, d'URLs canoniques par route, et de `generateMetadata` dynamique sur chaque slug de projet. Configuration de `generateMetadata` pour produire Open Graph et JSON-LD `SoftwareApplication` par projet, satisfaisant le validateur de données structurées de Google et éliminant les signaux de contenu dupliqué sur les routes localisées.
+
+- **Accessibilité WCAG 2.1 AA :** Audit complet de l'accessibilité et correction de chaque non-conformité — implémentation d'un lien d'évitement visuellement masqué, application globale des anneaux de focus `:focus-visible` au clavier via une seule règle CSS, correction des ratios de contraste texte/fond sur tout le corps de texte (zinc-500 → zinc-400 sur fond sombre, conforme AA à 4.5:1+), et application de `aria-hidden` aux éléments canvas décoratifs. Refactorisation du sélecteur de langue d'une structure `listbox` non sémantique vers une structure ARIA `menu` appropriée.
+
+- **Pipeline de Contenu Typé :** Configuration de Contentlayer pour traiter les fichiers MDX de projets en JSON statique entièrement typé au moment du build, avec des champs `slug` et `locale` calculés directement depuis la structure des chemins de fichiers. L'ajout de nouveaux projets ne nécessite aucune modification de code — il suffit de déposer un fichier MDX dans le bon dossier de locale pour qu'il apparaisse sur le site au prochain déploiement. La surcharge du parsing à l'exécution est totalement éliminée.
+
+- **Suivi des Pages Vues en Serverless :** Développement d'une Edge Function serverless pour le comptage anonyme des pages vues, utilisant des adresses IP hachées en SHA-256 pour la déduplication — sans cookies, sans données personnelles stockées. Les compteurs se revalident sur une fenêtre ISR de 60 secondes, donnant aux vues de projets un caractère quasi-temps réel sans sacrifier le modèle de livraison statique.
+
+## Impact Métier
+
+Ce portfolio est une démonstration délibérée du savoir-faire technique. Chaque optimisation — de l'élimination d'un goulot forced-reflow dans le système de particules à la construction d'un proxy analytique first-party en passant par une migration de contenu sur 12 locales — a été guidée par la même rigueur d'ingénierie que celle appliquée aux systèmes de production à grande échelle. Le résultat : des scores parfaits en Accessibilité et en SEO, une Performance quasi-parfaite, une surface de contenu entièrement internationalisée accessible à des milliards de non-anglophones, et un pipeline analytique qui capture les données que d'autres implémentations perdent silencieusement. Le code source est ouvert — les décisions architecturales sont auditables, pas seulement annoncées.

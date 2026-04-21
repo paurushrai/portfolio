@@ -17,6 +17,8 @@ export const en = {
     readMore: "Read more",
     empty: "No projects found.",
     independent: "Independent",
+    personalProject: "Personal Project",
+    associatedWith: "Associated with",
   },
   services: {
     badge: "Available for freelance",

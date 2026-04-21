@@ -17,7 +17,9 @@ export const hi: Locale = {
     subtitle: "कुछ प्रोजेक्ट काम के हैं और कुछ मेरे अपने समय के हैं।",
     readMore: "और पढ़ें",
     empty: "कोई प्रोजेक्ट नहीं मिला.",
-    independent: "स्वतंत्र"
+    independent: "स्वतंत्र",
+    personalProject: "व्यक्तिगत प्रोजेक्ट",
+    associatedWith: "इसके साथ संबद्ध"
   },
   services: {
     badge: "फ्रीलांस के लिए उपलब्ध है",

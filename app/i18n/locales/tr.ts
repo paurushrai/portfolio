@@ -17,7 +17,9 @@ export const tr: Locale = {
     subtitle: "Projelerin bir kısmı işten, bir kısmı da kendi zamanıma ait.",
     readMore: "Devamını oku",
     empty: "Hiçbir proje bulunamadı.",
-    independent: "Bağımsız"
+    independent: "Bağımsız",
+    personalProject: "Kişisel Proje",
+    associatedWith: "İlişkili"
   },
   services: {
     badge: "Serbest çalışma için mevcut",
