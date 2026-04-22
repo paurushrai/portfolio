@@ -8,6 +8,8 @@ company: Testlify
 ---
 Canvas, Moodle 및 Blackboard와 같은 학습 관리 시스템(LMS)은 교육 기관 및 기업 교육 부문의 운영 허브입니다. 이러한 대규모 생태계에 대한 Testlify의 인재 평가 기능을 활용하려면 매우 안전하고 규정을 준수하는 브리지가 필요했습니다. 솔로 풀 스택 엔지니어로 적극적으로 활동하면서 저는 강사의 기본 LMS 환경 내에서 Testlify를 직접 연결하도록 설계된 원활한 통합인 **Testlify LTI 플러그인**을 설계하고 출시했습니다. 
 
+![Testlify LTI 1.3 Plugin Demo](/projects/testlify-lti-plugin/plugin.gif)
+
 ## 기술 범위 및 아키텍처 
 
 - **사용자 정의 LTI 1.3 암호화 엔진:** 앞서 언급한 무거운 블랙박스 타사 LTI 라이브러리를 사용하지 않고 Next.js 14 내에서 매우 안전한 사용자 정의 구현을 처음부터 설계했습니다. 엄격한 OIDC(OpenID Connect) 핸드셰이크를 직접 수행하고, 심층적인 JWT 서명 확인을 처리하고, 안전한 JWKS 공개 키 엔드포인트를 설정하여 LMS와 플랫폼 간의 뚫을 수 없는 신뢰를 보장했습니다. 

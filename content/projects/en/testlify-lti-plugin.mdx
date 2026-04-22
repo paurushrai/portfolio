@@ -9,6 +9,8 @@ company: Testlify
 
 Learning Management Systems (LMS) like Canvas, Moodle, and Blackboard are the operational hubs for educational institutions and corporate training sectors. To unlock Testlify's talent assessment capabilities for these massive ecosystems, an exceptionally secure, compliant bridge was required. Actively operating as a solo full-stack engineer, I architected and shipped the **Testlify LTI Plugin**, a seamless integration designed to connect Testlify directly inside the instructor's native LMS environment.
 
+![Testlify LTI 1.3 Plugin Demo](/projects/testlify-lti-plugin/plugin.gif)
+
 ## Technical Scope & Architecture
 
 - **Custom LTI 1.3 Cryptographic Engine:** Foregoing heavy, black-boxed third-party LTI libraries, I engineered a highly secure, custom implementation from the ground up inside Next.js 14. I hand-rolled the strict OpenID Connect (OIDC) handshakes, handled deep JWT signature verifications, and established secure JWKS public key endpoints to guarantee impenetrable trust between the LMS and the platform.
