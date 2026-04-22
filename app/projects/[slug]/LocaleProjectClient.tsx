@@ -21,9 +21,11 @@ export function LocaleProjectClient({ projectLocales }: Props) {
   return (
     <>
       <Header project={project} />
-      <article className="px-4 py-12 mx-auto prose prose-zinc prose-quoteless">
-        <Mdx code={project.body.code} />
-      </article>
+      <div className="px-6 py-12 mx-auto max-w-4xl lg:px-8">
+        <article className="prose prose-zinc prose-quoteless max-w-none">
+          <Mdx code={project.body.code} />
+        </article>
+      </div>
     </>
   );
 }
