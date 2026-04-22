@@ -70,6 +70,8 @@ export const metadata: Metadata = {
   },
   icons: {
     shortcut: "/favicon.png",
+    icon: "/favicon.png",
+    apple: "/favicon.png",
   },
 };
 const inter = Inter({
