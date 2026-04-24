@@ -39,3 +39,6 @@ next-env.d.ts
 
 graphify-out
 .claude.env.local
+
+.agents
+.claude

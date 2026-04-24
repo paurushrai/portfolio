@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
+# Block crawlers from non-content paths
+Disallow: /api/
+
 Sitemap: https://paurushrai.in/sitemap.xml
