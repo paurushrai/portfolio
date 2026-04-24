@@ -28,6 +28,16 @@ export default function Home() {
         <LanguageSwitcher />
       </div>
 
+      {/* Privacy link — bottom right */}
+      <div className="absolute bottom-6 right-6 z-50">
+        <Link
+          href="/privacy"
+          className="text-xs text-zinc-600 hover:text-zinc-400 duration-300 transition-colors"
+        >
+          Privacy Policy
+        </Link>
+      </div>
+
       <nav aria-label="Main navigation" className="my-16 animate-fade-in">
         <ul className="flex items-center justify-center gap-4">
           {navigation.map((item) => (
