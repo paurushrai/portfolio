@@ -178,8 +178,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 "@type": "Occupation",
                 name: "Senior Software Engineer",
                 occupationLocation: {
-                  "@type": "City",
-                  name: "Dubai",
+                  "@type": "Country",
+                  name: "India",
                 },
                 skills: "React, Next.js, TypeScript, Node.js, AI Integration, Full-Stack Development",
               },
