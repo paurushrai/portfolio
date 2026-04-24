@@ -17,7 +17,7 @@ export default function PrivacyPage() {
     <div className="min-h-screen bg-gradient-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0">
       <Navigation />
 
-      <main className="px-6 pt-20 pb-32 mx-auto max-w-3xl lg:px-8 md:pt-24 lg:pt-32">
+      <main className="px-6 pt-20 pb-32 mx-auto max-w-4xl lg:px-8 md:pt-24 lg:pt-32">
         {/* Header */}
         <div className="mb-12">
           <p className="text-xs font-medium text-zinc-500 uppercase tracking-widest mb-3">
