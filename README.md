@@ -45,6 +45,35 @@ Start the development server:
 npm run dev
 ```
 
+## 🐳 Running with Docker
+
+No local Node.js required — the multi-stage `Dockerfile` installs dependencies, builds, and serves the standalone Next.js output.
+
+### First-time setup
+
+```bash
+# 1. Clone
+git clone https://github.com/paurushrai/portfolio.git
+cd portfolio
+
+# 2. (Optional) configure env vars — site runs without them,
+#    but the contact form needs RESEND_API_KEY
+cp .env.example .env   # then fill in values
+
+# 3. Build the image
+docker build -t portfolio .
+```
+
+### Daily launch
+
+```bash
+docker run --rm -p 3000:3000 --env-file .env portfolio
+```
+
+Open <http://localhost:3000>. Skip `--env-file .env` if you didn't create one.
+
+Rebuild the image (`docker build -t portfolio .`) whenever code or content changes — the site is statically generated at build time.
+
 ## ⚙️ Environment Variables
 
 A `.env.example` file is included in the repository. Create a `.env.local` file at the root of the project with the following keys:
