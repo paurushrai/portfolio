@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="MonoStart preview placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1e293b"/>
+      <stop offset="1" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <rect x="40" y="40" width="1200" height="640" rx="20" fill="none" stroke="#334155" stroke-width="2" stroke-dasharray="10 10"/>
+  <text x="640" y="346" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="72" font-weight="700" fill="#e2e8f0" text-anchor="middle">MonoStart</text>
+  <text x="640" y="406" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="30" fill="#94a3b8" text-anchor="middle">Customizable New-Tab Chrome Extension</text>
+  <text x="640" y="470" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="20" fill="#64748b" text-anchor="middle">preview image coming soon — replace this file</text>
+</svg>
