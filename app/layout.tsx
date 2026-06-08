@@ -84,9 +84,9 @@ export const metadata: Metadata = {
     card: "summary_large_image",
   },
   icons: {
-    shortcut: "/favicon.png",
-    icon: "/favicon.png",
-    apple: "/favicon.png",
+    shortcut: "/favicon.ico",
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
 };
 const inter = Inter({
