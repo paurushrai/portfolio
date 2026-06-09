@@ -26,9 +26,14 @@ export function ArticleList({ articles }: { articles: ArticleMeta[] }) {
           <p className="text-lg text-zinc-400">{t.articles.empty}</p>
         </div>
       ) : (
-        <div className="grid items-start grid-cols-1 gap-4 mx-auto lg:mx-0 sm:grid-cols-2 lg:grid-cols-3">
-          {articles.map((article) => (
-            <ArticleCard key={article.url} article={article} />
+        <div className="grid items-start grid-cols-1 gap-4 mx-auto lg:mx-0 sm:grid-cols-2 lg:grid-cols-3 grid-flow-row-dense">
+          {articles.map((article, index) => (
+            <div
+              key={article.url}
+              className={index === 0 ? "sm:col-span-2" : undefined}
+            >
+              <ArticleCard article={article} featured={index === 0} />
+            </div>
           ))}
         </div>
       )}
