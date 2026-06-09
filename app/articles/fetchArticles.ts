@@ -8,9 +8,12 @@ const SNIPPET_MAX_CHARS = 160;
 export const REVALIDATE_SECONDS = 3600;
 const FETCH_TIMEOUT_MS = 10_000;
 
-const IMG_SRC_RE = /<img[^>]+src=["']([^"']+)["']/i;
+const IMG_SRC_RE = /<img[^>]+src=["']([^"']+)["']/gi;
 const HTML_TAG_RE = /<[^>]*>/g;
 const WHITESPACE_RE = /\s+/g;
+// Medium injects a 1x1 tracking pixel (e.g. medium.com/_/stat?event=...) as an
+// <img>; skip it so posts without a real cover resolve to "no image".
+const TRACKING_IMG_RE = /\/_\/stat|\/stat\?/i;
 
 type MediumItem = {
   title?: string;
@@ -27,8 +30,11 @@ const parser = new Parser<unknown, MediumItem>({
 
 export function extractImage(html: string | undefined): string | null {
   if (!html) return null;
-  const match = IMG_SRC_RE.exec(html);
-  return match ? match[1] : null;
+  for (const match of html.matchAll(IMG_SRC_RE)) {
+    const src = match[1];
+    if (!TRACKING_IMG_RE.test(src)) return src;
+  }
+  return null;
 }
 
 export function toSnippet(html: string | undefined): string {

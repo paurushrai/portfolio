@@ -4,7 +4,6 @@ import { ArticleCard } from "./ArticleCard";
 import { ARTICLE_FEEDS } from "./feeds";
 import type { ArticleMeta } from "./types";
 
-const COLUMNS = 3;
 const FALLBACK_PROFILE_URL = "https://medium.com";
 const PRIMARY_PROFILE_URL =
   ARTICLE_FEEDS[0]?.profileUrl ?? FALLBACK_PROFILE_URL;
@@ -27,16 +26,9 @@ export function ArticleList({ articles }: { articles: ArticleMeta[] }) {
           <p className="text-lg text-zinc-400">{t.articles.empty}</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-4 mx-auto lg:mx-0 md:grid-cols-3">
-          {Array.from({ length: COLUMNS }, (_, col) => (
-            // biome-ignore lint/suspicious/noArrayIndexKey: fixed 3-column masonry layout — the column position is the stable identity
-            <div key={col} className="grid grid-cols-1 gap-4">
-              {articles
-                .filter((_, i) => i % COLUMNS === col)
-                .map((article) => (
-                  <ArticleCard key={article.url} article={article} />
-                ))}
-            </div>
+        <div className="grid items-start grid-cols-1 gap-4 mx-auto lg:mx-0 sm:grid-cols-2 lg:grid-cols-3">
+          {articles.map((article) => (
+            <ArticleCard key={article.url} article={article} />
           ))}
         </div>
       )}

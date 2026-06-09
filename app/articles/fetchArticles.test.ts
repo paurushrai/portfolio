@@ -17,6 +17,18 @@ describe("extractImage", () => {
     expect(extractImage("<p>no image</p>")).toBeNull();
     expect(extractImage(undefined)).toBeNull();
   });
+  it("skips Medium tracking pixels and returns the first real image", () => {
+    expect(
+      extractImage(
+        '<img src="https://medium.com/_/stat?event=post.clientViewed&postId=1"><img src="https://cdn/real.png">',
+      ),
+    ).toBe("https://cdn/real.png");
+  });
+  it("returns null when the only image is a tracking pixel", () => {
+    expect(
+      extractImage('<img src="https://medium.com/_/stat?event=x">'),
+    ).toBeNull();
+  });
 });
 
 describe("toSnippet", () => {
