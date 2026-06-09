@@ -87,7 +87,7 @@ export const Navigation: React.FC = () => {
                 {link.label}
               </Link>
             ))}
-            <div className="pt-4">
+            <div className="px-2 pt-4">
               <LanguageSwitcher />
             </div>
           </nav>
