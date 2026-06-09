@@ -22,13 +22,7 @@ function CoverPlaceholder() {
   );
 }
 
-export function ArticleCard({
-  article,
-  featured = false,
-}: {
-  article: ArticleMeta;
-  featured?: boolean;
-}) {
+export function ArticleCard({ article }: { article: ArticleMeta }) {
   const [imageFailed, setImageFailed] = useState(false);
   const showImage = Boolean(article.imageUrl) && !imageFailed;
 
@@ -61,11 +55,7 @@ export function ArticleCard({
                 {formatDate(article.publishedAt)}
               </time>
             </div>
-            <h2
-              className={`z-20 mt-4 font-medium duration-1000 text-zinc-200 group-hover:text-white font-display ${
-                featured ? "text-2xl lg:text-3xl" : "text-xl lg:text-2xl"
-              }`}
-            >
+            <h2 className="z-20 mt-4 text-xl font-medium duration-1000 lg:text-2xl text-zinc-200 group-hover:text-white font-display">
               {article.title}
             </h2>
             <p className="z-20 mt-4 text-sm duration-1000 text-zinc-400 group-hover:text-zinc-200">
