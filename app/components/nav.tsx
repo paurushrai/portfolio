@@ -33,6 +33,14 @@ export const Navigation: React.FC = () => {
 
   return (
     <header>
+      {menuOpen && (
+        <button
+          type="button"
+          aria-label="Close menu"
+          onClick={() => setMenuOpen(false)}
+          className="fixed inset-0 z-40 md:hidden bg-black/50 backdrop-blur-sm"
+        />
+      )}
       <div
         className={`fixed inset-x-0 top-0 z-50 backdrop-blur transition-colors duration-200 border-b transform-gpu ${
           isIntersecting && !menuOpen
