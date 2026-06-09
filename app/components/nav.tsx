@@ -1,13 +1,15 @@
 "use client";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Menu, X } from "lucide-react";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import type React from "react";
+import { useEffect, useState } from "react";
 import { useLanguage } from "../i18n/LanguageContext";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
 export const Navigation: React.FC = () => {
   const { t } = useLanguage();
   const [isIntersecting, setIsIntersecting] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,58 +21,77 @@ export const Navigation: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const links = [
+    { href: "/about", label: t.nav.about },
+    { href: "/projects", label: t.nav.projects },
+    { href: "/articles", label: t.nav.articles },
+    { href: "/contact", label: t.nav.contact },
+  ];
+
+  const linkClass =
+    "duration-200 text-zinc-400 hover:text-zinc-100 text-sm rounded px-1";
+
   return (
     <header>
       <div
         className={`fixed inset-x-0 top-0 z-50 backdrop-blur transition-colors duration-200 border-b transform-gpu ${
-          isIntersecting
+          isIntersecting && !menuOpen
             ? "bg-zinc-900/0 border-transparent"
             : "bg-zinc-900/50 border-zinc-800"
         }`}
       >
         <div className="container flex flex-row-reverse items-center justify-between p-6 mx-auto">
           <div className="flex items-center gap-4 md:gap-7">
-            <Link
-              href="/about"
-              className="duration-200 text-zinc-400 hover:text-zinc-100 text-sm rounded px-1"
+            <nav className="items-center hidden gap-4 md:flex md:gap-7">
+              {links.map((link) => (
+                <Link key={link.href} href={link.href} className={linkClass}>
+                  {link.label}
+                </Link>
+              ))}
+              <LanguageSwitcher />
+            </nav>
+
+            <button
+              type="button"
+              onClick={() => setMenuOpen((open) => !open)}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
+              className="duration-200 rounded md:hidden text-zinc-300 hover:text-zinc-100"
             >
-              {t.nav.about}
-            </Link>
-            <Link
-              href="/projects"
-              className="duration-200 text-zinc-400 hover:text-zinc-100 text-sm rounded px-1"
-            >
-              {t.nav.projects}
-            </Link>
-            <Link
-              href="/articles"
-              className="duration-200 text-zinc-400 hover:text-zinc-100 text-sm rounded px-1"
-            >
-              {t.nav.articles}
-            </Link>
-            {/* <Link
-              href="/services"
-              className="duration-200 text-zinc-400 hover:text-zinc-100 text-sm rounded px-1"
-            >
-              {t.nav.services}
-            </Link> */}
-            <Link
-              href="/contact"
-              className="duration-200 text-zinc-400 hover:text-zinc-100 text-sm rounded px-1"
-            >
-              {t.nav.contact}
-            </Link>
-            <LanguageSwitcher />
+              {menuOpen ? (
+                <X className="w-6 h-6" aria-hidden="true" />
+              ) : (
+                <Menu className="w-6 h-6" aria-hidden="true" />
+              )}
+            </button>
           </div>
 
           <Link
             href="/"
             aria-label="Back to home"
-            className="duration-200 text-zinc-300 hover:text-zinc-100 rounded"
+            className="duration-200 rounded text-zinc-300 hover:text-zinc-100"
           >
             <ArrowLeft className="w-6 h-6" aria-hidden="true" />
           </Link>
         </div>
+
+        {menuOpen && (
+          <nav className="flex flex-col px-6 pb-4 md:hidden">
+            {links.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className="px-2 py-3 text-base duration-200 border-b text-zinc-300 hover:text-zinc-100 border-zinc-800/60"
+              >
+                {link.label}
+              </Link>
+            ))}
+            <div className="pt-4">
+              <LanguageSwitcher />
+            </div>
+          </nav>
+        )}
       </div>
     </header>
   );
