@@ -3,6 +3,7 @@ import {
   aggregate,
   extractImage,
   normalizeItem,
+  resolveCover,
   toSnippet,
 } from "./fetchArticles";
 import type { ArticleMeta } from "./types";
@@ -28,6 +29,25 @@ describe("extractImage", () => {
     expect(
       extractImage('<img src="https://medium.com/_/stat?event=x">'),
     ).toBeNull();
+  });
+});
+
+describe("resolveCover", () => {
+  it("uses a cover override when the post id matches the url", () => {
+    expect(
+      resolveCover(
+        "https://paurushrai.medium.com/building-a-modern-lti-1-3-tool-b8afc00eab3d",
+        '<img src="https://cdn/body.png">',
+      ),
+    ).toBe("/articles/lti-1-3-cover.svg");
+  });
+  it("falls back to the extracted body image when no override matches", () => {
+    expect(
+      resolveCover(
+        "https://medium.com/p/some-other-post",
+        '<img src="https://cdn/body.png">',
+      ),
+    ).toBe("https://cdn/body.png");
   });
 });
 

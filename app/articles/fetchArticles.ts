@@ -1,5 +1,5 @@
 import Parser from "rss-parser";
-import { ARTICLE_FEEDS, MAX_ARTICLES } from "./feeds";
+import { ARTICLE_FEEDS, COVER_OVERRIDES, MAX_ARTICLES } from "./feeds";
 import type { ArticleMeta, FeedSource } from "./types";
 
 const SNIPPET_MAX_CHARS = 160;
@@ -37,6 +37,16 @@ export function extractImage(html: string | undefined): string | null {
   return null;
 }
 
+export function resolveCover(
+  url: string,
+  body: string | undefined,
+): string | null {
+  for (const [postId, cover] of Object.entries(COVER_OVERRIDES)) {
+    if (url.includes(postId)) return cover;
+  }
+  return extractImage(body);
+}
+
 export function toSnippet(html: string | undefined): string {
   if (!html) return "";
   const text = html
@@ -66,7 +76,7 @@ export function normalizeItem(
     source,
     publishedAt: new Date(time).toISOString(),
     snippet: toSnippet(body),
-    imageUrl: extractImage(body),
+    imageUrl: resolveCover(url, body),
   };
 }
 
