@@ -4,6 +4,7 @@ export const de: Locale = {
   nav: {
     about: "Um",
     projects: "Projekte",
+    articles: "Artikel",
     services: "Dienstleistungen",
     contact: "Kontakt"
   },
@@ -20,6 +21,13 @@ export const de: Locale = {
     independent: "Unabhängig",
     personalProject: "Persönliches Projekt",
     associatedWith: "Assoziiert mit"
+  },
+  articles: {
+    title: "Artikel",
+    subtitle:
+      "Gedanken über Engineering, Tools und Produktentwicklung — veröffentlicht auf Medium.",
+    viewAll: "Alle auf Medium ansehen",
+    empty: "Noch keine Artikel — schau bald wieder vorbei.",
   },
   services: {
     badge: "Verfügbar für Freiberufler",

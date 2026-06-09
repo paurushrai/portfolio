@@ -4,6 +4,7 @@ export const hi: Locale = {
   nav: {
     about: "के बारे में",
     projects: "परियोजनाओं",
+    articles: "लेख",
     services: "सेवाएं",
     contact: "संपर्क"
   },
@@ -20,6 +21,13 @@ export const hi: Locale = {
     independent: "स्वतंत्र",
     personalProject: "व्यक्तिगत प्रोजेक्ट",
     associatedWith: "इसके साथ संबद्ध"
+  },
+  articles: {
+    title: "लेख",
+    subtitle:
+      "इंजीनियरिंग, टूल्स और प्रोडक्ट बनाने पर विचार — Medium पर प्रकाशित।",
+    viewAll: "Medium पर सभी देखें",
+    empty: "अभी कोई लेख नहीं — जल्द ही फिर देखें।",
   },
   services: {
     badge: "फ्रीलांस के लिए उपलब्ध है",

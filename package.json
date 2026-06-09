@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "fmt": "biome check --write ."
+    "fmt": "biome check --write .",
+    "test": "vitest run"
   },
   "dependencies": {
     "@next/mdx": "^14.2.35",
@@ -24,6 +25,7 @@
     "rehype-slug": "^6.0.0",
     "remark-gfm": "3.0.1",
     "resend": "^6.12.2",
+    "rss-parser": "^3.13.0",
     "shiki": "^0.14.7",
     "typescript": "^5.2.2"
   },
@@ -42,7 +44,8 @@
     "postcss": "^8.4.31",
     "postcss-nesting": "^12.0.1",
     "tailwindcss": "^3.3.3",
-    "tailwindcss-debug-screens": "^2.2.1"
+    "tailwindcss-debug-screens": "^2.2.1",
+    "vitest": "^4.1.8"
   },
   "browserslist": [
     "chrome >= 94",
