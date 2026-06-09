@@ -4,6 +4,7 @@ export const tr: Locale = {
   nav: {
     about: "Hakkında",
     projects: "Projeler",
+    articles: "Makaleler",
     services: "Hizmetler",
     contact: "Temas etmek"
   },
@@ -20,6 +21,13 @@ export const tr: Locale = {
     independent: "Bağımsız",
     personalProject: "Kişisel Proje",
     associatedWith: "İlişkili"
+  },
+  articles: {
+    title: "Makaleler",
+    subtitle:
+      "Mühendislik, araçlar ve ürün geliştirme üzerine düşünceler — Medium'da yayınlandı.",
+    viewAll: "Tümünü Medium'da gör",
+    empty: "Henüz makale yok — yakında tekrar kontrol edin.",
   },
   services: {
     badge: "Serbest çalışma için mevcut",

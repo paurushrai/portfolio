@@ -4,6 +4,7 @@ export const zh: Locale = {
   nav: {
     about: "关于我",
     projects: "项目",
+    articles: "文章",
     services: "服务",
     contact: "联系我",
   },
@@ -21,6 +22,12 @@ export const zh: Locale = {
     independent: "独立",
     personalProject: "个人项目",
     associatedWith: "关联公司",
+  },
+  articles: {
+    title: "文章",
+    subtitle: "关于工程、工具和产品打造的思考 — 发布于 Medium。",
+    viewAll: "在 Medium 上查看全部",
+    empty: "暂无文章 — 请稍后再来。",
   },
   services: {
     badge: "接受自由职业项目",

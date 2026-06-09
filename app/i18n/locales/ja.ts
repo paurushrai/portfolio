@@ -4,6 +4,7 @@ export const ja: Locale = {
   nav: {
     about: "プロフィール",
     projects: "プロジェクト",
+    articles: "記事",
     services: "サービス",
     contact: "お問い合わせ",
   },
@@ -21,6 +22,13 @@ export const ja: Locale = {
     independent: "個人",
     personalProject: "個人プロジェクト",
     associatedWith: "関連企業",
+  },
+  articles: {
+    title: "記事",
+    subtitle:
+      "エンジニアリング、ツール、プロダクト開発についての考察 — Mediumに掲載。",
+    viewAll: "Mediumですべて見る",
+    empty: "まだ記事がありません — また後でご確認ください。",
   },
   services: {
     badge: "フリーランス案件受付中",

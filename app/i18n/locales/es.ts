@@ -4,6 +4,7 @@ export const es: Locale = {
   nav: {
     about: "Sobre mí",
     projects: "Proyectos",
+    articles: "Artículos",
     services: "Servicios",
     contact: "Contacto",
   },
@@ -21,6 +22,13 @@ export const es: Locale = {
     independent: "Independiente",
     personalProject: "Proyecto Personal",
     associatedWith: "Asociado con",
+  },
+  articles: {
+    title: "Artículos",
+    subtitle:
+      "Reflexiones sobre ingeniería, herramientas y creación de productos — publicadas en Medium.",
+    viewAll: "Ver todo en Medium",
+    empty: "Aún no hay artículos — vuelve pronto.",
   },
   services: {
     badge: "Disponible como freelance",

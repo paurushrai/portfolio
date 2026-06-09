@@ -4,6 +4,7 @@ export const ru: Locale = {
   nav: {
     about: "О",
     projects: "Проекты",
+    articles: "Статьи",
     services: "Услуги",
     contact: "Контакт"
   },
@@ -20,6 +21,13 @@ export const ru: Locale = {
     independent: "Независимый",
     personalProject: "Личный проект",
     associatedWith: "Связано с"
+  },
+  articles: {
+    title: "Статьи",
+    subtitle:
+      "Мысли об инженерии, инструментах и создании продуктов — опубликовано на Medium.",
+    viewAll: "Смотреть всё на Medium",
+    empty: "Пока нет статей — загляните позже.",
   },
   services: {
     badge: "Доступен для фрилансера",
