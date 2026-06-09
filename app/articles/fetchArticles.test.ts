@@ -55,7 +55,10 @@ describe("normalizeItem", () => {
   });
   it("returns null on an unparseable date", () => {
     expect(
-      normalizeItem({ ...item, isoDate: "not-a-date", pubDate: undefined }, "Medium"),
+      normalizeItem(
+        { ...item, isoDate: "not-a-date", pubDate: undefined },
+        "Medium",
+      ),
     ).toBeNull();
   });
 });

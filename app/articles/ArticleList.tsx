@@ -29,6 +29,7 @@ export function ArticleList({ articles }: { articles: ArticleMeta[] }) {
       ) : (
         <div className="grid grid-cols-1 gap-4 mx-auto lg:mx-0 md:grid-cols-3">
           {Array.from({ length: COLUMNS }, (_, col) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: fixed 3-column masonry layout — the column position is the stable identity
             <div key={col} className="grid grid-cols-1 gap-4">
               {articles
                 .filter((_, i) => i % COLUMNS === col)

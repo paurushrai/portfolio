@@ -19,7 +19,7 @@ export function ArticleCard({ article }: { article: ArticleMeta }) {
       <a href={article.url} target="_blank" rel="noopener noreferrer">
         <article className="flex flex-col h-full">
           {article.imageUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
+            // biome-ignore lint/performance/noImgElement: cover images come from arbitrary Medium CDN hosts; native <img> avoids maintaining a next/image remote-host allow-list
             <img
               src={article.imageUrl}
               alt=""
