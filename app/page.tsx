@@ -17,6 +17,7 @@ export default function Home() {
   const navigation = [
     { name: t.nav.about, href: "/about" },
     { name: t.nav.projects, href: "/projects" },
+    { name: t.nav.articles, href: "/articles" },
     // { name: t.nav.services, href: "/services" },
     { name: t.nav.contact, href: "/contact" },
   ];
