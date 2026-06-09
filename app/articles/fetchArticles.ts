@@ -3,7 +3,10 @@ import { ARTICLE_FEEDS, MAX_ARTICLES } from "./feeds";
 import type { ArticleMeta, FeedSource } from "./types";
 
 const SNIPPET_MAX_CHARS = 160;
-const REVALIDATE_SECONDS = 3600;
+// Keep in sync with `export const revalidate` in page.tsx (Next requires that to
+// be a static literal, so it cannot import this constant).
+export const REVALIDATE_SECONDS = 3600;
+const FETCH_TIMEOUT_MS = 10_000;
 
 const IMG_SRC_RE = /<img[^>]+src=["']([^"']+)["']/i;
 const HTML_TAG_RE = /<[^>]*>/g;
@@ -73,8 +76,11 @@ export function aggregate(perFeed: ArticleMeta[][]): ArticleMeta[] {
 
 async function fetchFeed(source: FeedSource): Promise<ArticleMeta[]> {
   try {
+    // Fetch manually (not parser.parseURL) so Next's ISR cache applies to the
+    // request; the timeout bounds build/revalidate time if Medium hangs.
     const res = await fetch(source.feedUrl, {
       next: { revalidate: REVALIDATE_SECONDS },
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
     });
     if (!res.ok) {
       console.error(

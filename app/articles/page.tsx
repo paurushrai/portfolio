@@ -3,6 +3,8 @@ import { Navigation } from "../components/nav";
 import { ArticleList } from "./ArticleList";
 import { getArticles } from "./fetchArticles";
 
+// Must be a static literal for Next's build-time analysis. Mirror of
+// REVALIDATE_SECONDS in fetchArticles.ts — keep both in sync.
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
