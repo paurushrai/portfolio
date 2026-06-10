@@ -43,4 +43,12 @@
   .skip-link:focus {
     top: 1rem;
   }
+
+  /* Flag emoji rendering — "Twemoji Country Flags" is injected at runtime by
+     country-flag-emoji-polyfill on platforms without native flag glyphs (Windows) */
+  .font-flag {
+    font-family:
+      "Twemoji Country Flags", "Apple Color Emoji", "Segoe UI Emoji",
+      "Noto Color Emoji", sans-serif;
+  }
 }

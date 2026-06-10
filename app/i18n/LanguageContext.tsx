@@ -1,5 +1,6 @@
 "use client";
 
+import { polyfillCountryFlagEmojis } from "country-flag-emoji-polyfill";
 import React, {
   createContext,
   useContext,
@@ -37,6 +38,9 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // Windows has no native flag emoji glyphs; this injects a Twemoji
+    // flags-only font on platforms where flags don't render.
+    polyfillCountryFlagEmojis();
     const stored = localStorage.getItem("lang") as Language | null;
     const lang =
       stored && SUPPORTED.includes(stored) ? stored : detectBrowserLanguage();

@@ -55,7 +55,7 @@ export function LanguageSwitcher() {
         aria-haspopup="menu"
         className="flex items-center gap-1 text-zinc-400 hover:text-zinc-100 transition-colors duration-200 select-none"
       >
-        <span className="text-base leading-none">{current.flag}</span>
+        <span className="text-base leading-none font-flag">{current.flag}</span>
         <span className="text-xs font-medium uppercase tracking-wider">
           {current.code}
         </span>
@@ -87,7 +87,9 @@ export function LanguageSwitcher() {
                   : "text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50"
               }`}
             >
-              <span className="text-base leading-none">{lang.flag}</span>
+              <span className="text-base leading-none font-flag">
+                {lang.flag}
+              </span>
               <span>{lang.label}</span>
             </button>
           ))}
