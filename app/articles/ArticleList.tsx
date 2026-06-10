@@ -26,7 +26,7 @@ export function ArticleList({ articles }: { articles: ArticleMeta[] }) {
           <p className="text-lg text-zinc-400">{t.articles.empty}</p>
         </div>
       ) : (
-        <div className="grid items-start grid-cols-1 gap-6 mx-auto lg:mx-0 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 mx-auto lg:mx-0 md:grid-cols-2 lg:grid-cols-3">
           {articles.map((article) => (
             <ArticleCard key={article.url} article={article} />
           ))}

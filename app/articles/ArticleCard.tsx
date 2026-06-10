@@ -36,8 +36,13 @@ export function ArticleCard({ article }: { article: ArticleMeta }) {
 
   return (
     <Card>
-      <a href={article.url} target="_blank" rel="noopener noreferrer">
-        <article className="flex flex-col">
+      <a
+        href={article.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block h-full"
+      >
+        <article className="flex flex-col h-full">
           {showImage ? (
             // biome-ignore lint/performance/noImgElement: cover images come from arbitrary Medium CDN hosts; native <img> avoids maintaining a next/image remote-host allow-list
             <img
@@ -63,10 +68,10 @@ export function ArticleCard({ article }: { article: ArticleMeta }) {
                 {formatDate(article.publishedAt)}
               </time>
             </div>
-            <h2 className="z-20 mt-4 text-xl font-medium duration-1000 lg:text-2xl text-zinc-200 group-hover:text-white font-display">
+            <h2 className="z-20 mt-4 text-xl font-medium duration-1000 lg:text-2xl text-zinc-200 group-hover:text-white font-display line-clamp-2">
               {article.title}
             </h2>
-            <p className="z-20 mt-4 text-sm duration-1000 text-zinc-400 group-hover:text-zinc-200">
+            <p className="z-20 mt-4 text-sm duration-1000 text-zinc-400 group-hover:text-zinc-200 line-clamp-5">
               {article.snippet}
             </p>
           </div>
