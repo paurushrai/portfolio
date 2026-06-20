@@ -95,8 +95,8 @@ export default function ContactPage() {
         {/* ── Contact Form ── */}
         <section className="max-w-xl">
           {status === "success" ? (
-            <div className="flex flex-col items-start gap-3 p-6 rounded-xl border border-emerald-800/60 bg-emerald-900/20">
-              <div className="flex items-center gap-2 text-emerald-400">
+            <div className="flex flex-col items-start gap-3 p-6 rounded-xl border border-accent-800/60 bg-accent-900/20">
+              <div className="flex items-center gap-2 text-accent-400">
                 <CheckCircle className="w-5 h-5" />
                 <span className="font-medium text-sm">{c.success.title}</span>
               </div>

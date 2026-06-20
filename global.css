@@ -3,6 +3,40 @@
 @tailwind utilities;
 
 @layer base {
+  /* ============================================================
+     THEME TOKENS — single source of truth for the site's palette.
+
+     To re-theme the site's accent, swap the --accent-* ramp below;
+     nothing else needs to change. Values are space-separated RGB
+     channels (not hex) so Tailwind opacity modifiers keep working via
+     `rgb(var(--token) / <alpha-value>)` — e.g. `bg-accent-500/40`.
+     See tailwind.config.js where these map to the `accent` color name.
+
+     Neutrals (backgrounds, text, borders) intentionally stay on
+     Tailwind's `zinc` scale — they are theme-stable. The accent is the
+     site's one brand color (the "open to work" dot, contact-success
+     state, article-card glow). To add a second theme, scope a block:
+       [data-theme="ocean"] { --accent-500: 14 165 233; ... }
+     and toggle `data-theme` on <html>.
+     ============================================================ */
+  :root {
+    /* Accent — the brand hue (currently: emerald) */
+    --accent-50: 236 253 245;
+    --accent-100: 209 250 229;
+    --accent-200: 167 243 208;
+    --accent-300: 110 231 183;
+    --accent-400: 52 211 153;
+    --accent-500: 16 185 129;
+    --accent-600: 5 150 105;
+    --accent-700: 4 120 87;
+    --accent-800: 6 95 70;
+    --accent-900: 6 78 59;
+    --accent-950: 2 44 34;
+
+    /* Particle — ambient canvas field hue, read by particles.tsx */
+    --particle: 255 255 255;
+  }
+
   .text-edge-outline {
     -webkit-text-stroke: 1px rgba(255,255,255,0.3);
   }

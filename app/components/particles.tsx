@@ -11,6 +11,12 @@ interface ParticlesProps {
 	readonly refresh?: boolean;
 }
 
+// CSS custom property (global.css :root) that drives the particle hue, so the
+// canvas tracks the theme. Value is space-separated RGB channels.
+const PARTICLE_COLOR_VAR = "--particle";
+// Fallback if the var can't be resolved (matches --particle / white).
+const FALLBACK_PARTICLE_CHANNELS = "255 255 255";
+
 export default function Particles({
 	className = "",
 	quantity = 30,
@@ -21,6 +27,7 @@ export default function Particles({
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const canvasContainerRef = useRef<HTMLDivElement>(null);
 	const context = useRef<CanvasRenderingContext2D | null>(null);
+	const colorChannels = useRef<string>(FALLBACK_PARTICLE_CHANNELS);
 	const circles = useRef<any[]>([]);
 	const rectCache = useRef<DOMRect | null>(null);
 	const mousePosition = useMousePosition();
@@ -36,6 +43,10 @@ export default function Particles({
 		if (canvasRef.current) {
 			context.current = canvasRef.current.getContext("2d");
 		}
+		const resolved = getComputedStyle(document.documentElement)
+			.getPropertyValue(PARTICLE_COLOR_VAR)
+			.trim();
+		if (resolved) colorChannels.current = resolved;
 		initCanvas();
 		animate();
 		window.addEventListener("resize", initCanvas);
@@ -129,7 +140,7 @@ export default function Particles({
 			context.current.translate(translateX, translateY);
 			context.current.beginPath();
 			context.current.arc(x, y, size, 0, 2 * Math.PI);
-			context.current.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+			context.current.fillStyle = `rgb(${colorChannels.current} / ${alpha})`;
 			context.current.fill();
 			context.current.setTransform(dpr, 0, 0, dpr, 0, 0);
 
