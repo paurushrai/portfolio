@@ -327,6 +327,7 @@ export const de: Locale = {
         period: "Januar 2025 – Heute",
         highlights: [
           "Entwicklung eines LTI-kompatiblen Plugins, das Testlify in die wichtigsten LMS-Plattformen integriert und so zu einem Wachstum der Unternehmensakzeptanz um 20–30 % beiträgt.",
+          "Eine private npm-Komponentenbibliothek bereitgestellt, die in über 6 Testlify-Repositorys übernommen wurde, doppelten UI-Code eliminiert und die Feature-Auslieferung um 30 % beschleunigt.",
           "Entwickelte MetaNotes, einen KI-Meeting-Notizierer mit automatischer Aufzeichnung, Transkription und Zusammenfassungen – wodurch jährlich 24.000 US-Dollar eingespart werden.",
           "Leitete die Optimierung der Frontend-Leistung auf der Marketing-Website und steigerte die Lighthouse-Bewertung von 49/53 auf 87/91 auf Mobilgeräten/Desktops.",
           "Entwickelte eine VS-Code-Erweiterung zur automatischen Verfolgung der Codierungszeit durch Git-Zweig und Protokollierung in Jira, wodurch die manuelle Nachverfolgung um 60–70 % reduziert wurde.",

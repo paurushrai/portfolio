@@ -246,6 +246,7 @@ export const en = {
         period: "January 2025 – Present",
         highlights: [
           "Architected an LTI-compliant plugin integrating Testlify with major LMS platforms, contributing to 20–30% growth in enterprise adoption.",
+          "Deployed a private npm component library adopted across 6+ Testlify repos, eliminating duplicate UI code and speeding feature delivery by 30%.",
           "Built MetaNotes, an AI meeting notetaker with automated recording, transcription, and summaries — saving $24K annually.",
           "Led frontend performance optimisation on the marketing site, lifting Lighthouse scores from 49/53 to 87/91 on mobile/desktop.",
           "Engineered a VS Code extension to auto-track coding time by Git branch and log to Jira, cutting manual tracking by 60–70%.",

@@ -327,6 +327,7 @@ export const tr: Locale = {
         period: "Ocak 2025 – Şu Anda",
         highlights: [
           "Testlify'ı büyük LMS platformlarıyla entegre eden LTI uyumlu bir eklenti tasarladı ve kurumsal benimsemede %20-30 oranında büyümeye katkıda bulundu.",
+          "6'dan fazla Testlify deposunda benimsenen özel bir npm bileşen kütüphanesi yayınlayarak yinelenen arayüz kodunu ortadan kaldırdım ve özellik teslimatını %30 hızlandırdım.",
           "Otomatik kayıt, transkripsiyon ve özetler sunan bir yapay zeka toplantı not alma aracı olan MetaNotes'u geliştirdik ve yılda 24 bin dolar tasarruf ettik.",
           "Pazarlama sitesinde ön uç performans optimizasyonunu yöneterek Lighthouse puanlarını mobil/masaüstünde 49/53'ten 87/91'e yükseltti.",
           "Git şubesine göre kodlama süresini otomatik olarak izlemek ve Jira'da oturum açmak için bir VS Code uzantısı tasarlandı ve manuel izlemeyi %60-70 oranında azalttı.",

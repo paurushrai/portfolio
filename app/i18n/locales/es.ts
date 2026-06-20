@@ -275,6 +275,7 @@ export const es: Locale = {
         period: "Enero 2025 – Presente",
         highlights: [
           "Diseñé un complemento compatible con LTI que integra Testlify con las principales plataformas LMS, contribuyendo a un crecimiento del 20 al 30 % en la adopción empresarial.",
+          "Desplegué una biblioteca privada de componentes npm adoptada en más de 6 repositorios de Testlify, eliminando código de interfaz duplicado y acelerando la entrega de funciones en un 30 %.",
           "Creó MetaNotes, un anotador de reuniones de IA con grabación, transcripción y resúmenes automatizados, lo que le permitió ahorrar 24,000 al año.",
           "Lideré la optimización del rendimiento del frontend en el sitio de marketing, elevando las puntuaciones de Lighthouse de 49/53 a 87/91 en dispositivos móviles/escritorio.",
           "Diseñé una extensión de VS Code para realizar un seguimiento automático del tiempo de codificación mediante la rama Git y registrarlo en Jira, lo que redujo el seguimiento manual entre un 60 % y un 70 %.",
