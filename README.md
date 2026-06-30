@@ -2,6 +2,9 @@
     <a href="https://paurushrai.in"><h1 align="center">Paurush Rai - Personal Portfolio</h1></a>
 
 My personal website and professional portfolio. Built for speed, performance, and multilingual support.
+
+[![CI](https://github.com/paurushrai/portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/paurushrai/portfolio/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 </div>
 
 ## ✨ Features & Highlights
@@ -44,6 +47,22 @@ Start the development server:
 ```bash
 npm run dev
 ```
+
+## 🎨 Make It Yours
+
+Forking this as your own portfolio? Swap out the personal content — the code is yours to keep, the identity is not (see [License](#-license)). Everything you need to change:
+
+| What | Where |
+| ---- | ----- |
+| **Copy & UI strings** (name, headings, bios) | `app/i18n/locales/` — per-language translation files |
+| **Project case studies** | `content/projects/<locale>/*.mdx` — one folder per language (`en`, `de`, `es`, …) |
+| **Résumé** | `public/resume.pdf` |
+| **Branding assets** | `public/` — `favicon.ico`, `apple-touch-icon.png`, `og.png` |
+| **Site metadata & social links** | `app/layout.tsx` (title, Open Graph, domain) |
+| **Domain references** | search-and-replace `paurushrai.in` across `app/` (e.g. `app/sitemap.ts`, `app/layout.tsx`) |
+| **Analytics** | `UMAMI_WEBSITE_ID` / `GTM_ID` in your `.env` (omit to disable) |
+
+> Tip: `grep -rn "paurushrai" app/ content/` surfaces remaining references to replace.
 
 ## 🐳 Running with Docker
 
@@ -109,6 +128,6 @@ The site is meticulously optimized for Core Web Vitals:
 
 ## 📝 License
 
-This project is open-source and available under the [MIT License](LICENSE). 
+The **source code** is open-source under the [MIT License](LICENSE) — fork it, modify it, ship it.
 
-> **Note:** Please remove all of my personal information, branding, projects, and images before deploying your own version of this site.
+> **Personal content is not covered by MIT.** The name, biography, copy, project case studies, résumé, photographs, and branding are © Paurush Rai, all rights reserved. Replace all of it with your own before deploying a derivative site (see [Make It Yours](#-make-it-yours)).

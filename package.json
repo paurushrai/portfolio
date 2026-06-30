@@ -2,6 +2,30 @@
   "name": "paurushrai.in",
   "version": "1.0.0",
   "private": true,
+  "description": "Personal portfolio site — Next.js 14 App Router, MDX content via Contentlayer, and type-safe i18n across 12 languages.",
+  "author": "Paurush Rai <paurushrai99@gmail.com> (https://paurushrai.in)",
+  "license": "MIT",
+  "homepage": "https://paurushrai.in",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paurushrai/portfolio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/paurushrai/portfolio/issues"
+  },
+  "keywords": [
+    "portfolio",
+    "nextjs",
+    "app-router",
+    "typescript",
+    "tailwindcss",
+    "contentlayer",
+    "mdx",
+    "i18n"
+  ],
+  "engines": {
+    "node": ">=18.17.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
