@@ -38,7 +38,7 @@ next-env.d.ts
 
 .contentlayer
 
-graphify-out
+/graphify-out
 .claude.env.local
 
 .agents
