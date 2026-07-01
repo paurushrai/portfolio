@@ -48,7 +48,9 @@ export const hi: Locale = {
       buildTool: "अपना उपकरण बनाएं",
       integrateLms: "अपने एलएमएस को एकीकृत करें",
       auditSite: "मेरी साइट का ऑडिट करें",
-      moderniseSite: "मेरी साइट का आधुनिकीकरण करें"
+      moderniseSite: "मेरी साइट का आधुनिकीकरण करें",
+      buildDesktop: "मेरा डेस्कटॉप ऐप बनाएं",
+      buildMobile: "मेरा मोबाइल ऐप बनाएं"
     },
     retainer: {
       label: "चल रहा काम",
@@ -129,6 +131,56 @@ export const hi: Locale = {
         ],
         pricingKey: "startingAt",
         amount: "$3,000",
+        noteKey: "perProject"
+      },
+      {
+        id: "desktop-apps",
+        ctaKey: "buildDesktop",
+        title: "डेस्कटॉप एप्लिकेशन विकास",
+        tagline: "Mac, Windows और Linux के लिए नेटिव-जैसे ऐप्स।",
+        description:
+          "Electron और Tauri के साथ बनाए गए क्रॉस-प्लेटफ़ॉर्म डेस्कटॉप एप्लिकेशन - एक कोडबेस, तीन ऑपरेटिंग सिस्टम। ऑफ़लाइन-फ़र्स्ट उत्पादकता उपकरणों से लेकर डेटा-भारी आंतरिक ऐप्स तक, मैं नेटिव मेनू, सिस्टम ट्रे और OS एकीकरण के साथ हस्ताक्षरित, स्वतः-अपडेट होने वाले बिल्ड भेजता हूं जो हर प्लेटफ़ॉर्म पर घर जैसे लगते हैं।",
+        stack: [
+          "Electron",
+          "Tauri (Rust)",
+          "React / TypeScript",
+          "Native OS APIs",
+          "Auto-update & code signing"
+        ],
+        deliverables: [
+          "क्रॉस-प्लेटफ़ॉर्म बिल्ड (Mac/Win/Linux)",
+          "नेटिव मेनू और सिस्टम ट्रे",
+          "स्वतः-अपडेट पाइपलाइन",
+          "कोड हस्ताक्षर और नोटराइज़ेशन",
+          "इंस्टॉलर और वितरण"
+        ],
+        pricingKey: "startingAt",
+        amount: "$4,500",
+        noteKey: "perProject"
+      },
+      {
+        id: "mobile-apps",
+        ctaKey: "buildMobile",
+        title: "मोबाइल ऐप विकास",
+        tagline: "एक ही कोडबेस से iOS और Android।",
+        description:
+          "React Native और Expo के साथ क्रॉस-प्लेटफ़ॉर्म मोबाइल ऐप्स - दो कोडबेस बनाए रखे बिना नेटिव प्रदर्शन। मैं आर्किटेक्चर से लेकर स्टोर स्वीकृति तक पूरा रास्ता संभालता हूं: पुश नोटिफिकेशन, डीप लिंक, ऑफ़लाइन सिंक और नेटिव डिवाइस एकीकरण, App Store और Play Store दोनों पर भेजे गए।",
+        stack: [
+          "React Native / Expo",
+          "TypeScript",
+          "Native modules (iOS/Android)",
+          "Push notifications",
+          "App Store / Play Store"
+        ],
+        deliverables: [
+          "एक कोडबेस से iOS + Android",
+          "App Store और Play Store सबमिशन",
+          "पुश नोटिफिकेशन और डीप लिंक",
+          "ऑफ़लाइन-फ़र्स्ट डेटा सिंक",
+          "नेटिव डिवाइस एकीकरण"
+        ],
+        pricingKey: "startingAt",
+        amount: "$4,000",
         noteKey: "perProject"
       },
       {

@@ -50,6 +50,8 @@ export const zh: Locale = {
       integrateLms: "集成您的 LMS",
       auditSite: "审计我的站点",
       moderniseSite: "升级我的站点",
+      buildDesktop: "开发我的桌面应用",
+      buildMobile: "开发我的移动应用",
     },
     retainer: {
       label: "持续合作",
@@ -131,6 +133,44 @@ export const zh: Locale = {
         ],
         pricingKey: "startingAt",
         amount: "$3,000",
+        noteKey: "perProject",
+      },
+      {
+        id: "desktop-apps",
+        ctaKey: "buildDesktop",
+        title: "桌面应用程序开发",
+        tagline: "为 Mac、Windows 和 Linux 打造原生般的应用体验。",
+        description:
+          "使用 Electron 和 Tauri 构建的跨平台桌面应用程序 — 一套代码库，三大操作系统。从离线优先的效率工具到数据密集型的内部应用，我交付经过签名、支持自动更新的构建版本，配备原生菜单、系统托盘和操作系统集成，在每个平台上都如原生应用般自然。",
+        stack: ["Electron", "Tauri (Rust)", "React / TypeScript", "Native OS APIs", "Auto-update & code signing"],
+        deliverables: [
+          "跨平台构建（Mac/Win/Linux）",
+          "原生菜单和系统托盘",
+          "自动更新管道",
+          "代码签名和公证",
+          "安装程序和分发",
+        ],
+        pricingKey: "startingAt",
+        amount: "$4,500",
+        noteKey: "perProject",
+      },
+      {
+        id: "mobile-apps",
+        ctaKey: "buildMobile",
+        title: "移动应用开发",
+        tagline: "单一代码库，同时覆盖 iOS 和 Android。",
+        description:
+          "使用 React Native 和 Expo 构建的跨平台移动应用 — 无需维护两套代码库即可获得原生性能。我负责从架构设计到应用商店审核的全流程：推送通知、深度链接、离线同步和原生设备集成，最终上架 App Store 和 Play Store。",
+        stack: ["React Native / Expo", "TypeScript", "Native modules (iOS/Android)", "Push notifications", "App Store / Play Store"],
+        deliverables: [
+          "一套代码库同时支持 iOS 和 Android",
+          "上架 App Store 和 Play Store",
+          "推送通知和深度链接",
+          "离线优先的数据同步",
+          "原生设备集成",
+        ],
+        pricingKey: "startingAt",
+        amount: "$4,000",
         noteKey: "perProject",
       },
       {

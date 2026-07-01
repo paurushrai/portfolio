@@ -47,7 +47,9 @@ export const ko: Locale = {
       buildTool: "도구를 구축하세요",
       integrateLms: "LMS 통합",
       auditSite: "내 사이트 감사",
-      moderniseSite: "내 사이트 현대화"
+      moderniseSite: "내 사이트 현대화",
+      buildDesktop: "내 데스크톱 앱 구축",
+      buildMobile: "내 모바일 앱 구축"
     },
     retainer: {
       label: "진행중인 작업",
@@ -128,6 +130,54 @@ export const ko: Locale = {
         ],
         pricingKey: "startingAt",
         amount: "$3,000",
+        noteKey: "perProject"
+      },
+      {
+        id: "desktop-apps",
+        ctaKey: "buildDesktop",
+        title: "데스크톱 애플리케이션 개발",
+        tagline: "Mac, Windows, Linux를 위한 네이티브 감각의 앱.",
+        description: "Electron과 Tauri로 구축된 크로스 플랫폼 데스크톱 애플리케이션 — 하나의 코드베이스, 세 가지 운영 체제. 오프라인 우선 생산성 도구부터 데이터 집약적인 내부 앱까지, 모든 플랫폼에서 자연스럽게 어울리는 네이티브 메뉴, 시스템 트레이, OS 통합을 갖춘 서명되고 자동 업데이트되는 빌드를 출시합니다.",
+        stack: [
+          "Electron",
+          "Tauri (Rust)",
+          "React / TypeScript",
+          "Native OS APIs",
+          "Auto-update & code signing"
+        ],
+        deliverables: [
+          "크로스 플랫폼 빌드 (Mac/Win/Linux)",
+          "네이티브 메뉴 및 시스템 트레이",
+          "자동 업데이트 파이프라인",
+          "코드 서명 및 공증",
+          "설치 프로그램 및 배포"
+        ],
+        pricingKey: "startingAt",
+        amount: "$4,500",
+        noteKey: "perProject"
+      },
+      {
+        id: "mobile-apps",
+        ctaKey: "buildMobile",
+        title: "모바일 앱 개발",
+        tagline: "단일 코드베이스로 iOS 및 Android 구현.",
+        description: "React Native와 Expo로 구축된 크로스 플랫폼 모바일 앱 — 두 개의 코드베이스를 유지하지 않고도 네이티브 성능을 제공합니다. 아키텍처부터 스토어 승인까지 전 과정을 처리합니다: 푸시 알림, 딥 링크, 오프라인 동기화, 네이티브 기기 통합을 App Store와 Play Store 양쪽에 출시합니다.",
+        stack: [
+          "React Native / Expo",
+          "TypeScript",
+          "Native modules (iOS/Android)",
+          "Push notifications",
+          "App Store / Play Store"
+        ],
+        deliverables: [
+          "하나의 코드베이스로 iOS + Android 구현",
+          "App Store 및 Play Store 제출",
+          "푸시 알림 및 딥 링크",
+          "오프라인 우선 데이터 동기화",
+          "네이티브 기기 통합"
+        ],
+        pricingKey: "startingAt",
+        amount: "$4,000",
         noteKey: "perProject"
       },
       {

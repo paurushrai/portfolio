@@ -48,7 +48,9 @@ export const fr: Locale = {
       buildTool: "Construisez votre outil",
       integrateLms: "Intégrez votre LMS",
       auditSite: "Auditer mon site",
-      moderniseSite: "Moderniser mon site"
+      moderniseSite: "Moderniser mon site",
+      buildDesktop: "Développer mon application de bureau",
+      buildMobile: "Développer mon application mobile"
     },
     retainer: {
       label: "Travaux en cours",
@@ -129,6 +131,54 @@ export const fr: Locale = {
         ],
         pricingKey: "startingAt",
         amount: "$3,000",
+        noteKey: "perProject"
+      },
+      {
+        id: "desktop-apps",
+        ctaKey: "buildDesktop",
+        title: "Développement d'applications de bureau",
+        tagline: "Des applications au ressenti natif pour Mac, Windows et Linux.",
+        description: "Des applications de bureau multiplateformes conçues avec Electron et Tauri — une seule base de code, trois systèmes d'exploitation. Des outils de productivité en mode hors ligne d'abord aux applications internes gourmandes en données, je livre des builds signés et à mise à jour automatique, avec menus natifs, barre d'état système et intégrations à l'OS qui se sentent chez elles sur chaque plateforme.",
+        stack: [
+          "Electron",
+          "Tauri (Rust)",
+          "React / TypeScript",
+          "Native OS APIs",
+          "Auto-update & code signing"
+        ],
+        deliverables: [
+          "Build multiplateforme (Mac/Win/Linux)",
+          "Menus natifs et barre d'état système",
+          "Pipeline de mise à jour automatique",
+          "Signature de code et notarisation",
+          "Installateur et distribution"
+        ],
+        pricingKey: "startingAt",
+        amount: "$4,500",
+        noteKey: "perProject"
+      },
+      {
+        id: "mobile-apps",
+        ctaKey: "buildMobile",
+        title: "Développement d'applications mobiles",
+        tagline: "iOS et Android à partir d'une seule base de code.",
+        description: "Des applications mobiles multiplateformes avec React Native et Expo — des performances natives sans maintenir deux bases de code. Je gère l'ensemble du parcours, de l'architecture à la validation sur les stores : notifications push, deep links, synchronisation hors ligne et intégrations natives aux appareils, livrées sur l'App Store et le Play Store.",
+        stack: [
+          "React Native / Expo",
+          "TypeScript",
+          "Native modules (iOS/Android)",
+          "Push notifications",
+          "App Store / Play Store"
+        ],
+        deliverables: [
+          "iOS + Android à partir d'une seule base de code",
+          "Soumission à l'App Store et au Play Store",
+          "Notifications push et deep links",
+          "Synchronisation des données hors ligne d'abord",
+          "Intégrations natives aux appareils"
+        ],
+        pricingKey: "startingAt",
+        amount: "$4,000",
         noteKey: "perProject"
       },
       {
