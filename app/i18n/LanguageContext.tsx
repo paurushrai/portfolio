@@ -1,14 +1,15 @@
 "use client";
 
 import { polyfillCountryFlagEmojis } from "country-flag-emoji-polyfill";
-import React, {
+import type React from "react";
+import {
   createContext,
   useContext,
   useEffect,
   useState,
   useCallback,
 } from "react";
-import { translations, Language, Locale } from "./translations";
+import { translations, type Language, type Locale } from "./translations";
 
 type LanguageContextType = {
   language: Language;

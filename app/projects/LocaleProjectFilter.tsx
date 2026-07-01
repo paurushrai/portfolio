@@ -18,14 +18,18 @@ export function LocaleProjectFilter({ projects }: Props) {
   // Group by slug → { locale → project }
   const bySlug = new Map<string, Record<string, ProjectMeta>>();
   for (const p of projects) {
-    if (!bySlug.has(p.slug)) bySlug.set(p.slug, {});
-    bySlug.get(p.slug)![p.locale] = p;
+    let group = bySlug.get(p.slug);
+    if (!group) {
+      group = {};
+      bySlug.set(p.slug, group);
+    }
+    group[p.locale] = p;
   }
 
   // Pick current locale, fall back to "en"
   const localed: ProjectMeta[] = [];
   bySlug.forEach((localeMap) => {
-    const pick = localeMap[language] ?? localeMap["en"];
+    const pick = localeMap[language] ?? localeMap.en;
     if (pick) localed.push(pick);
   });
 
@@ -97,26 +101,26 @@ export function LocaleProjectFilter({ projects }: Props) {
 
               <div className="flex flex-col w-full gap-8 mx-auto border-t border-gray-900/10 lg:mx-0 lg:border-t-0">
                 {[top2, top3]
-                  .filter(Boolean)
+                  .filter((project): project is ProjectMeta => Boolean(project))
                   .map((project) => (
-                    <Card key={project!.slug}>
-                      <Link href={`/projects/${project!.slug}`}>
+                    <Card key={project.slug}>
+                      <Link href={`/projects/${project.slug}`}>
                         <article className="p-4 md:p-8">
                           <div className="flex justify-between gap-2 items-center">
                             <span className="flex items-center gap-1.5 text-xs font-semibold tracking-wide uppercase duration-1000 text-zinc-400 group-hover:text-zinc-200">
                               <Briefcase className="w-4 h-4" />
                               <span>
-                                {project!.company
-                                  ? project!.company
+                                {project.company
+                                  ? project.company
                                   : t.projects.independent}
                               </span>
                             </span>
                           </div>
                           <h2 className="z-20 mt-4 text-xl font-medium duration-1000 lg:text-3xl text-zinc-200 group-hover:text-white font-display">
-                            {project!.title}
+                            {project.title}
                           </h2>
                           <p className="z-20 mt-4 text-sm duration-1000 text-zinc-400 group-hover:text-zinc-200">
-                            {project!.description}
+                            {project.description}
                           </p>
                         </article>
                       </Link>

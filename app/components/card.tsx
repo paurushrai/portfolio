@@ -20,7 +20,7 @@ export const Card: React.FC<PropsWithChildren> = ({ children }) => {
 	const style = { maskImage, WebkitMaskImage: maskImage };
 
 	return (
-		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
+		// biome-ignore lint/a11y/noStaticElementInteractions: decorative mouse-tracking gradient, not an interactive control
 		<div
 			onMouseMove={onMouseMove}
 			className="overflow-hidden relative duration-700 border rounded-xl hover:bg-zinc-800/10 group md:gap-8 hover:border-zinc-400/50 border-zinc-600 focus-within:ring-2 focus-within:ring-zinc-400 focus-within:ring-offset-2 focus-within:ring-offset-black"

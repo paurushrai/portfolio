@@ -33,8 +33,8 @@ export default function AboutPage() {
 
         {/* ── Bio ── */}
         <div className="space-y-5 text-zinc-400 leading-relaxed text-base">
-          {a.bio.map((paragraph, i) => (
-            <p key={i}>{paragraph}</p>
+          {a.bio.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
           ))}
         </div>
 
@@ -110,8 +110,8 @@ export default function AboutPage() {
                 </p>
 
                 <ul className="space-y-2">
-                  {job.highlights.map((point, i) => (
-                    <li key={i} className="flex gap-3 text-sm text-zinc-400">
+                  {job.highlights.map((point) => (
+                    <li key={point} className="flex gap-3 text-sm text-zinc-400">
                       <span className="mt-[6px] shrink-0 w-1 h-1 rounded-full bg-zinc-600" />
                       <span>{point}</span>
                     </li>

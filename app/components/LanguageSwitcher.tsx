@@ -48,6 +48,7 @@ export function LanguageSwitcher() {
   return (
     <div ref={ref} className="relative">
       <button
+        type="button"
         id="language-switcher-btn"
         onClick={() => setOpen((o) => !o)}
         aria-label="Select language"
@@ -74,6 +75,7 @@ export function LanguageSwitcher() {
         >
           {languages.map((lang) => (
             <button
+              type="button"
               key={lang.code}
               role="menuitem"
               aria-current={language === lang.code ? "true" : undefined}

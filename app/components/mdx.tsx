@@ -1,10 +1,10 @@
 // @ts-nocheck
-import * as React from "react";
+import type * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useMDXComponent } from "next-contentlayer/hooks";
 
-function clsx(...args: any) {
+function clsx(...args: unknown[]) {
 	return args.filter(Boolean).join(" ");
 }
 const components = {
@@ -114,7 +114,7 @@ const components = {
 		alt,
 		...props
 	}: React.ImgHTMLAttributes<HTMLImageElement>) => (
-		// eslint-disable-next-line @next/next/no-img-element
+		// biome-ignore lint/performance/noImgElement: MDX content images have arbitrary sources; next/image is impractical here
 		<img
 			className={clsx("rounded-md border border-zinc-200 w-full", className)}
 			alt={alt}

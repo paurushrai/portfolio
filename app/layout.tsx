@@ -1,7 +1,7 @@
 import "../global.css";
 import { Inter } from "next/font/google";
 import LocalFont from "next/font/local";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Script from "next/script";
 import { ProgressBar } from "./components/progress-bar";
 import { LanguageProvider } from "./i18n/LanguageContext";
@@ -141,6 +141,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {process.env.GTM_ID && (
           <noscript>
             <iframe
+              title="Google Tag Manager"
               src={`https://www.googletagmanager.com/ns.html?id=${process.env.GTM_ID}`}
               height="0"
               width="0"
@@ -148,6 +149,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             />
           </noscript>
         )}
+        {/* JSON-LD structured data, serialized from trusted app constants (no user input). */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

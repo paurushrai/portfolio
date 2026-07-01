@@ -53,6 +53,7 @@ export default async function PostPage({ params }: Props) {
 
   return (
     <div className="bg-zinc-50 min-h-screen">
+      {/* JSON-LD structured data, serialized from trusted app constants (no user input). */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
