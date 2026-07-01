@@ -8,6 +8,15 @@ export default function ServicesPage() {
   const { t } = useLanguage();
   const s = t.services;
 
+  // Route service CTAs to the Google Calendar booking page when configured,
+  // otherwise fall back to the generic contact form (keeps the template safe
+  // when NEXT_PUBLIC_BOOKING_URL is unset). See .env.example.
+  const bookingUrl = process.env.NEXT_PUBLIC_BOOKING_URL;
+  const ctaHref = bookingUrl ?? "/contact";
+  const ctaExternalProps = bookingUrl
+    ? { target: "_blank" as const, rel: "noopener noreferrer" }
+    : {};
+
   return (
     <div className="bg-linear-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0 relative pb-24">
       <Navigation />
@@ -81,7 +90,8 @@ export default function ServicesPage() {
                   <p className="text-xs text-zinc-500">{s.pricing[service.noteKey as keyof typeof s.pricing]}</p>
                 </div>
                 <Link
-                  href="/contact"
+                  href={ctaHref}
+                  {...ctaExternalProps}
                   aria-label={s.cta[service.ctaKey as keyof typeof s.cta]}
                   className="flex items-center gap-1.5 text-sm text-zinc-400 hover:text-zinc-100 transition-colors duration-200 group/cta shrink-0"
                 >
@@ -112,7 +122,8 @@ export default function ServicesPage() {
               </p>
               <p className="text-xs text-zinc-500 mb-4">{s.retainer.hours}</p>
               <Link
-                href="/contact"
+                href={ctaHref}
+                {...ctaExternalProps}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-zinc-100 text-zinc-900 text-sm font-semibold hover:bg-white transition-colors duration-200"
               >
                 {s.retainer.cta}
@@ -143,7 +154,8 @@ export default function ServicesPage() {
         <div className="text-center">
           <p className="text-zinc-400 text-sm mb-2">{s.finalCta.text}</p>
           <Link
-            href="/contact"
+            href={ctaHref}
+            {...ctaExternalProps}
             className="inline-flex items-center gap-2 text-zinc-100 font-medium hover:text-white transition-colors duration-200 group"
           >
             {s.finalCta.link}
