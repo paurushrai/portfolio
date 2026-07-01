@@ -9,7 +9,14 @@ export const fr: Locale = {
     contact: "Contact"
   },
   home: {
-    tagline: "Ingénieur logiciel senior – créer des produits, des outils et des intégrations qui sont livrés rapidement et durent longtemps.",
+    roles: [
+      "Ingénieur logiciel senior",
+      "Développeur full-stack",
+      "Développeur d'applications IA",
+      "Ingénieur frontend",
+      "Créateur d'outils pour développeurs",
+    ],
+    tagline: "Créer des produits, des outils et des intégrations qui sont livrés rapidement et durent longtemps.",
     openToWork: "Ouvert à la collaboration",
     resume: "CV"
   },
