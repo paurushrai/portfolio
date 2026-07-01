@@ -11,7 +11,7 @@ export default function GlobalError({
 	reset: () => void;
 }) {
 	return (
-		<div className="flex flex-col items-center justify-center w-screen min-h-screen bg-gradient-to-tl from-black via-zinc-900/50 to-black">
+		<div className="flex flex-col items-center justify-center w-screen min-h-screen bg-linear-to-tl from-black via-zinc-900/50 to-black">
 			<div className="flex flex-col items-center text-center px-6 max-w-md">
 				<p className="text-sm font-medium text-zinc-500 uppercase tracking-widest mb-4">
 					Error

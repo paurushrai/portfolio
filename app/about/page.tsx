@@ -9,7 +9,7 @@ export default function AboutPage() {
   const { t } = useLanguage();
   const a = t.about;
   return (
-    <div className="bg-gradient-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0 relative pb-16">
+    <div className="bg-linear-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0 relative pb-16">
       <Navigation />
       <main className="px-6 pt-20 mx-auto space-y-16 max-w-4xl lg:px-8 md:pt-24 lg:pt-32">
 

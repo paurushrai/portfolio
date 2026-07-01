@@ -9,7 +9,7 @@ export default function ServicesPage() {
   const s = t.services;
 
   return (
-    <div className="bg-gradient-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0 relative pb-24">
+    <div className="bg-linear-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0 relative pb-24">
       <Navigation />
 
       <main className="px-6 pt-20 mx-auto max-w-5xl lg:px-8 md:pt-24 lg:pt-32">
@@ -34,7 +34,7 @@ export default function ServicesPage() {
               key={service.id}
               className="group relative flex flex-col rounded-2xl border border-zinc-800 bg-zinc-900/40 p-7 hover:border-zinc-700 hover:bg-zinc-900/70 transition-all duration-300"
             >
-              <span className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-zinc-500/0 via-zinc-400/40 to-zinc-500/0 rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <span className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-zinc-500/0 via-zinc-400/40 to-zinc-500/0 rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
               <div className="mb-5">
                 <h2 className="text-lg font-semibold text-zinc-100 mb-1">
@@ -95,7 +95,7 @@ export default function ServicesPage() {
 
         {/* ── Retainer Banner ── */}
         <div className="relative rounded-2xl border border-zinc-800 bg-zinc-900/40 p-8 md:p-10 mb-24 overflow-hidden">
-          <span className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-zinc-500/0 via-zinc-400/30 to-zinc-500/0" />
+          <span className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-zinc-500/0 via-zinc-400/30 to-zinc-500/0" />
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div>
               <p className="text-xs uppercase tracking-widest text-zinc-400 mb-2 font-medium">

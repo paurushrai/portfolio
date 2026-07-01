@@ -71,7 +71,7 @@ export function LanguageSwitcher() {
         <div
           role="menu"
           aria-label="Language options"
-          className="absolute right-0 top-full mt-2 w-38 rounded-xl border border-zinc-800 bg-zinc-950 shadow-2xl shadow-black/60 overflow-hidden z-[60]"
+          className="absolute right-0 top-full mt-2 w-38 rounded-xl border border-zinc-800 bg-zinc-950 shadow-2xl shadow-black/60 overflow-hidden z-60"
         >
           {languages.map((lang) => (
             <button
