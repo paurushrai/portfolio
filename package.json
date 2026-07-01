@@ -52,7 +52,7 @@
     "remark-gfm": "3.0.1",
     "resend": "^6.12.2",
     "rss-parser": "^3.13.0",
-    "shiki": "^0.14.7",
+    "shiki": "^4.3.0",
     "typescript": "^5.2.2"
   },
   "devDependencies": {
