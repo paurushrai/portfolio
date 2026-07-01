@@ -9,7 +9,14 @@ export const it: Locale = {
     contact: "Contatto"
   },
   home: {
-    tagline: "Senior Software Engineer: crea prodotti, strumenti e integrazioni che vengono spediti velocemente e durano a lungo.",
+    roles: [
+      "Senior Software Engineer",
+      "Sviluppatore Full-Stack",
+      "Sviluppatore di Applicazioni AI",
+      "Frontend Engineer",
+      "Creatore di Developer Tools",
+    ],
+    tagline: "Crea prodotti, strumenti e integrazioni che vengono spediti velocemente e durano a lungo.",
     openToWork: "Aperto a collaborazioni",
     resume: "Curriculum"
   },

@@ -9,8 +9,15 @@ export const es: Locale = {
     contact: "Contacto",
   },
   home: {
+    roles: [
+      "Ingeniero de Software Senior",
+      "Desarrollador Full-Stack",
+      "Desarrollador de Aplicaciones de IA",
+      "Ingeniero Frontend",
+      "Creador de Herramientas para Desarrolladores",
+    ],
     tagline:
-      "Ingeniero de Software Senior — construyo productos, herramientas e integraciones que se lanzan rápido y duran mucho.",
+      "Construyo productos, herramientas e integraciones que se lanzan rápido y duran mucho.",
     openToWork: "Abierto a la colaboración",
     resume: "Currículum",
   },
