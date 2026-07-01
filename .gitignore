@@ -43,3 +43,5 @@ next-env.d.ts
 
 .agents
 .claude
+# Local Netlify folder
+.netlify
