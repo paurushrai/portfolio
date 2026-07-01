@@ -74,10 +74,10 @@ export default function ContactPage() {
   };
 
   const inputClass =
-    "w-full px-4 py-2.5 rounded-lg bg-zinc-800/60 border border-zinc-700 text-zinc-100 placeholder-zinc-500 text-sm focus:outline-none focus:border-zinc-500 focus:bg-zinc-800 duration-200";
+    "w-full px-4 py-2.5 rounded-lg bg-zinc-800/60 border border-zinc-700 text-zinc-100 placeholder-zinc-500 text-sm focus:outline-hidden focus:border-zinc-500 focus:bg-zinc-800 duration-200";
 
   return (
-    <div className="min-h-screen bg-gradient-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0">
+    <div className="min-h-screen bg-linear-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0">
       <Navigation />
       <main className="px-6 pt-20 pb-24 mx-auto max-w-4xl lg:px-8 md:pt-24 lg:pt-32 space-y-16">
 
@@ -211,7 +211,7 @@ export default function ContactPage() {
                   className="p-4 relative flex flex-col items-center gap-3 duration-700 group md:gap-4 md:py-8 md:p-8"
                 >
                   <span
-                    className="absolute w-px h-2/3 bg-gradient-to-b from-zinc-500 via-zinc-500/50 to-transparent"
+                    className="absolute w-px h-2/3 bg-linear-to-b from-zinc-500 via-zinc-500/50 to-transparent"
                     aria-hidden="true"
                   />
                   <span className="relative z-10 flex items-center justify-center w-12 h-12 text-sm duration-1000 border rounded-full text-zinc-200 group-hover:text-white group-hover:bg-zinc-900 border-zinc-500 bg-zinc-900 group-hover:border-zinc-200 drop-shadow-orange">

@@ -22,7 +22,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center w-screen h-[100dvh] overflow-hidden bg-gradient-to-tl from-black via-zinc-900/50 to-black">
+    <div className="flex flex-col items-center justify-center w-screen h-dvh overflow-hidden bg-linear-to-tl from-black via-zinc-900/50 to-black">
       {/* Language switcher — top right on home page */}
       <div className="absolute top-6 right-6 z-50">
         <LanguageSwitcher />
@@ -52,7 +52,7 @@ export default function Home() {
           ))}
         </ul>
       </nav>
-      <div className="hidden w-screen h-px animate-glow md:block animate-fade-left bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
+      <div className="hidden w-screen h-px animate-glow md:block animate-fade-left bg-linear-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
       <Particles
         className="absolute inset-0 -z-10 animate-fade-in"
         quantity={100}
@@ -62,11 +62,11 @@ export default function Home() {
           Paurush Rai
         </h1>
 
-        <div className="hidden w-screen h-px animate-glow md:block animate-fade-right bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
+        <div className="hidden w-screen h-px animate-glow md:block animate-fade-right bg-linear-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
         <div className="my-16 text-center animate-fade-in flex flex-col items-center gap-4 px-6 md:px-0">
           <p className="text-sm text-zinc-400 max-w-sm">{t.home.tagline}</p>
           <div className="flex items-center gap-3 flex-wrap justify-center">
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-zinc-700/60 bg-zinc-900/40 backdrop-blur-sm">
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-zinc-700/60 bg-zinc-900/40 backdrop-blur-xs">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-500"></span>
@@ -78,7 +78,7 @@ export default function Home() {
             <a
               href="/resume.pdf"
               download="Paurush_Rai_Resume.pdf"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-zinc-700/60 bg-zinc-900/40 backdrop-blur-sm text-xs text-zinc-400 hover:text-zinc-100 hover:border-zinc-500 duration-200"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-zinc-700/60 bg-zinc-900/40 backdrop-blur-xs text-xs text-zinc-400 hover:text-zinc-100 hover:border-zinc-500 duration-200"
             >
               <Download className="w-3 h-3" />
               {t.home.resume}

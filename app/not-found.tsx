@@ -3,7 +3,7 @@ import { ArrowLeft } from "lucide-react";
 
 export default function NotFound() {
 	return (
-		<div className="flex flex-col items-center justify-center w-screen h-[100dvh] bg-gradient-to-tl from-black via-zinc-900/50 to-black">
+		<div className="flex flex-col items-center justify-center w-screen h-dvh bg-linear-to-tl from-black via-zinc-900/50 to-black">
 			<div className="flex flex-col items-center text-center px-6">
 				<p className="text-sm font-medium text-zinc-500 uppercase tracking-widest mb-4">
 					404

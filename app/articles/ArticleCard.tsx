@@ -16,8 +16,8 @@ function formatDate(iso: string): string {
 
 function CoverPlaceholder({ title }: { title: string }) {
   return (
-    <div className="relative flex items-end w-full overflow-hidden border-b aspect-[16/9] border-zinc-800 bg-gradient-to-br from-zinc-800 via-zinc-900 to-black">
-      <div className="absolute inset-0 opacity-[0.06] [background-image:radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] [background-size:18px_18px]" />
+    <div className="relative flex items-end w-full overflow-hidden border-b aspect-video border-zinc-800 bg-linear-to-br from-zinc-800 via-zinc-900 to-black">
+      <div className="absolute inset-0 opacity-[0.06] bg-[radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] bg-size-[18px_18px]" />
       <div className="absolute w-40 h-40 rounded-full -top-10 -left-10 bg-accent-500/10 blur-3xl" />
       <BookOpen
         className="absolute w-6 h-6 top-5 right-5 text-zinc-600"
@@ -50,7 +50,7 @@ export function ArticleCard({ article }: { article: ArticleMeta }) {
               alt=""
               loading="lazy"
               onError={() => setImageFailed(true)}
-              className="object-cover w-full border-b aspect-[16/9] border-zinc-800"
+              className="object-cover w-full border-b aspect-video border-zinc-800"
             />
           ) : (
             <CoverPlaceholder title={article.title} />

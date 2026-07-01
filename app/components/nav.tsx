@@ -29,7 +29,7 @@ export const Navigation: React.FC = () => {
   ];
 
   const linkClass =
-    "duration-200 text-zinc-400 hover:text-zinc-100 text-sm rounded px-1";
+    "duration-200 text-zinc-400 hover:text-zinc-100 text-sm rounded-sm px-1";
 
   return (
     <header>
@@ -38,11 +38,11 @@ export const Navigation: React.FC = () => {
           type="button"
           aria-label="Close menu"
           onClick={() => setMenuOpen(false)}
-          className="fixed inset-0 z-40 md:hidden bg-black/50 backdrop-blur-sm"
+          className="fixed inset-0 z-40 md:hidden bg-black/50 backdrop-blur-xs"
         />
       )}
       <div
-        className={`fixed inset-x-0 top-0 z-50 backdrop-blur transition-colors duration-200 border-b transform-gpu ${
+        className={`fixed inset-x-0 top-0 z-50 backdrop-blur-sm transition-colors duration-200 border-b transform-gpu ${
           isIntersecting && !menuOpen
             ? "bg-zinc-900/0 border-transparent"
             : "bg-zinc-900/50 border-zinc-800"
@@ -64,7 +64,7 @@ export const Navigation: React.FC = () => {
               onClick={() => setMenuOpen((open) => !open)}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
-              className="duration-200 rounded md:hidden text-zinc-300 hover:text-zinc-100"
+              className="duration-200 rounded-sm md:hidden text-zinc-300 hover:text-zinc-100"
             >
               {menuOpen ? (
                 <X className="w-6 h-6" aria-hidden="true" />
@@ -77,7 +77,7 @@ export const Navigation: React.FC = () => {
           <Link
             href="/"
             aria-label="Back to home"
-            className="duration-200 rounded text-zinc-300 hover:text-zinc-100"
+            className="duration-200 rounded-sm text-zinc-300 hover:text-zinc-100"
           >
             <ArrowLeft className="w-6 h-6" aria-hidden="true" />
           </Link>

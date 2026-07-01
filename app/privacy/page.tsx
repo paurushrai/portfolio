@@ -14,7 +14,7 @@ const BASE_URL = "https://paurushrai.in";
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0">
+    <div className="min-h-screen bg-linear-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0">
       <Navigation />
 
       <main className="px-6 pt-20 pb-32 mx-auto max-w-4xl lg:px-8 md:pt-24 lg:pt-32">
