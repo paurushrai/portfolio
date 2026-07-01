@@ -9,14 +9,7 @@ export const de: Locale = {
     contact: "Kontakt"
   },
   home: {
-    roles: [
-      "Senior Software Engineer",
-      "Full-Stack-Entwickler",
-      "AI-Application-Entwickler",
-      "Frontend-Entwickler",
-      "Entwickler für Developer Tools",
-    ],
-    tagline: "Entwicklung von Produkten, Tools und Integrationen, die schnell geliefert werden und lange halten.",
+    tagline: "Senior Software Engineer – Entwicklung von Produkten, Tools und Integrationen, die schnell geliefert werden und lange halten.",
     openToWork: "Offen für Zusammenarbeit",
     resume: "Lebenslauf"
   },
