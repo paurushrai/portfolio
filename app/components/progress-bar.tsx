@@ -8,6 +8,7 @@ export function ProgressBar() {
   const searchParams = useSearchParams();
   const [isNavigating, setIsNavigating] = useState(false);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: pathname/searchParams are the route-change trigger, not read in the effect body
   useEffect(() => {
     setIsNavigating(true);
     const timeout = setTimeout(() => {

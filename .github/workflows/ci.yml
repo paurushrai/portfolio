@@ -30,6 +30,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Cheap gate first: fail fast on lint before the expensive build.
+      - name: Lint
+        run: npm run lint
+
       # `next build` runs Contentlayer + type-checks the app; the real gate.
       - name: Build
         run: npm run build

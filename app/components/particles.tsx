@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { useMousePosition } from "@/util/mouse";
 
 interface ParticlesProps {
@@ -28,7 +28,7 @@ export default function Particles({
 	const canvasContainerRef = useRef<HTMLDivElement>(null);
 	const context = useRef<CanvasRenderingContext2D | null>(null);
 	const colorChannels = useRef<string>(FALLBACK_PARTICLE_CHANNELS);
-	const circles = useRef<any[]>([]);
+	const circles = useRef<Circle[]>([]);
 	const rectCache = useRef<DOMRect | null>(null);
 	const mousePosition = useMousePosition();
 	const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
@@ -38,6 +38,7 @@ export default function Particles({
 		typeof window !== "undefined" &&
 		window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: canvas set-up runs once on mount; helper closures are stable for the component's lifetime
 	useEffect(() => {
 		if (prefersReducedMotion) return;
 		if (canvasRef.current) {
@@ -56,10 +57,12 @@ export default function Particles({
 		};
 	}, []);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: re-run only on mouse movement; onMouseMove reads latest refs
 	useEffect(() => {
 		onMouseMove();
 	}, [mousePosition.x, mousePosition.y]);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: re-init only when the refresh prop changes
 	useEffect(() => {
 		initCanvas();
 	}, [refresh]);

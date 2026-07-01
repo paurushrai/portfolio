@@ -1,7 +1,8 @@
 "use client";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import type React from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/app/i18n/LanguageContext";
 
 type Props = {

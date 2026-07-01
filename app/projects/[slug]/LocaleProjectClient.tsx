@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useLanguage } from "../../i18n/LanguageContext";
 import { Header } from "./header";
 import { Mdx } from "@/app/components/mdx";

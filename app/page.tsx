@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import React from "react";
 import dynamic from "next/dynamic";
 import { Download } from "lucide-react";
 import { useLanguage } from "./i18n/LanguageContext";

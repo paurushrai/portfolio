@@ -1,7 +1,8 @@
 "use client";
 import { Github, LinkedinIcon, Mail, MessageCircle, Send, CheckCircle, AlertCircle } from "lucide-react";
 import Link from "next/link";
-import React, { useState } from "react";
+import type React from "react";
+import { useState } from "react";
 import { Navigation } from "../components/nav";
 import { Card } from "../components/card";
 import { useLanguage } from "../i18n/LanguageContext";
@@ -104,6 +105,7 @@ export default function ContactPage() {
                 {c.success.body}
               </p>
               <button
+                type="button"
                 onClick={() => setStatus("idle")}
                 className="mt-1 text-xs text-zinc-500 hover:text-zinc-300 duration-200 underline underline-offset-2"
               >
