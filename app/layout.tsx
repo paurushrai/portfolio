@@ -4,6 +4,7 @@ import LocalFont from "next/font/local";
 import type { Metadata } from "next";
 import Script from "next/script";
 import { ProgressBar } from "./components/progress-bar";
+import ClickSpark from "./components/click-spark";
 import { LanguageProvider } from "./i18n/LanguageContext";
 import { Suspense } from "react";
 
@@ -193,6 +194,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           </Suspense>
           <div id="main-content">{children}</div>
         </LanguageProvider>
+        <ClickSpark />
       </body>
     </html>
   );
