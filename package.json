@@ -68,7 +68,6 @@
     "critters": "npm:beasties@^0.4.2",
     "cross-env": "^10.1.0",
     "postcss": "^8.5.16",
-    "postcss-nesting": "^12.0.1",
     "tailwindcss": "^4.3.2",
     "vitest": "^4.1.9"
   },
