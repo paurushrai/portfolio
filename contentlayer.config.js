@@ -98,9 +98,12 @@ export default makeSource({
 						}
 					},
 					onVisitHighlightedLine(node) {
+						// className is optional in rehype-pretty-code v0.14; init before pushing.
+						node.properties.className ??= [];
 						node.properties.className.push("line--highlighted");
 					},
-					onVisitHighlightedWord(node) {
+					// Renamed from onVisitHighlightedWord in rehype-pretty-code v0.14.
+					onVisitHighlightedChars(node) {
 						node.properties.className = ["word--highlighted"];
 					},
 				},
