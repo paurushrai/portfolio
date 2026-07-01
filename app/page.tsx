@@ -4,7 +4,6 @@ import dynamic from "next/dynamic";
 import { Download } from "lucide-react";
 import { useLanguage } from "./i18n/LanguageContext";
 import { LanguageSwitcher } from "./components/LanguageSwitcher";
-import TextType from "./components/text-type";
 
 const Particles = dynamic(() => import("./components/particles"), {
   ssr: false,
@@ -65,10 +64,6 @@ export default function Home() {
 
         <div className="hidden w-screen h-px animate-glow md:block animate-fade-right bg-linear-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
         <div className="my-16 text-center animate-fade-in flex flex-col items-center gap-4 px-6 md:px-0">
-          <TextType
-            texts={t.home.roles}
-            className="text-lg md:text-2xl font-medium text-zinc-200 font-display"
-          />
           <p className="text-sm text-zinc-400 max-w-sm">{t.home.tagline}</p>
           <div className="flex items-center gap-3 flex-wrap justify-center">
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-zinc-700/60 bg-zinc-900/40 backdrop-blur-xs">

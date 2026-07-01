@@ -7,15 +7,8 @@ export const en = {
     contact: "Contact",
   },
   home: {
-    roles: [
-      "Senior Software Engineer",
-      "Full-Stack Developer",
-      "AI Application Developer",
-      "Frontend Engineer",
-      "Developer Tools Builder",
-    ],
     tagline:
-      "Building products, tools, and integrations that ship fast and last long.",
+      "Senior Software Engineer — building products, tools, and integrations that ship fast and last long.",
     openToWork: "Open for collaboration",
     resume: "Resume",
   },

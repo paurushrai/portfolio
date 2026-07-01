@@ -9,15 +9,8 @@ export const pt: Locale = {
     contact: "Contato",
   },
   home: {
-    roles: [
-      "Engenheiro de Software Sênior",
-      "Desenvolvedor Full-Stack",
-      "Desenvolvedor de Aplicações de IA",
-      "Engenheiro Frontend",
-      "Criador de Ferramentas para Desenvolvedores",
-    ],
     tagline:
-      "Construo produtos, ferramentas e integrações que entregam rápido e duram muito.",
+      "Engenheiro de Software Sênior — construo produtos, ferramentas e integrações que entregam rápido e duram muito.",
     openToWork: "Aberto para colaboração",
     resume: "Currículo",
   },
