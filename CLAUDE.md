@@ -33,6 +33,7 @@ See `.env.example`:
 - `RESEND_API_KEY` — Resend API key for the contact form (server-only)
 - `UMAMI_WEBSITE_ID` — Umami analytics website ID (optional)
 - `GTM_ID` — Google Tag Manager container ID (optional)
+- `NEXT_PUBLIC_BOOKING_URL` — public Google Calendar appointment-schedule URL; services CTAs link here when set, else fall back to `/contact` (optional, client-exposed)
 
 ## Path Alias
 
