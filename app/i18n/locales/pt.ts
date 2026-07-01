@@ -51,6 +51,8 @@ export const pt: Locale = {
       integrateLms: "Integrar seu LMS",
       auditSite: "Auditar meu site",
       moderniseSite: "Modernizar meu site",
+      buildDesktop: "Criar meu app desktop",
+      buildMobile: "Criar meu app mobile",
     },
     retainer: {
       label: "Trabalho contínuo",
@@ -132,6 +134,44 @@ export const pt: Locale = {
         ],
         pricingKey: "startingAt",
         amount: "$3,000",
+        noteKey: "perProject",
+      },
+      {
+        id: "desktop-apps",
+        ctaKey: "buildDesktop",
+        title: "Desenvolvimento de Aplicações Desktop",
+        tagline: "Apps com cara de nativo para Mac, Windows e Linux.",
+        description:
+          "Aplicações desktop multiplataforma criadas com Electron e Tauri — uma única base de código, três sistemas operacionais. De ferramentas de produtividade offline-first a apps internos com muitos dados, entrego builds assinados, com atualização automática, menus nativos, bandeja do sistema e integrações com o SO que se sentem em casa em cada plataforma.",
+        stack: ["Electron", "Tauri (Rust)", "React / TypeScript", "Native OS APIs", "Auto-update & code signing"],
+        deliverables: [
+          "Build multiplataforma (Mac/Win/Linux)",
+          "Menus nativos e bandeja do sistema",
+          "Pipeline de atualização automática",
+          "Assinatura de código e notarização",
+          "Instalador e distribuição",
+        ],
+        pricingKey: "startingAt",
+        amount: "$4,500",
+        noteKey: "perProject",
+      },
+      {
+        id: "mobile-apps",
+        ctaKey: "buildMobile",
+        title: "Desenvolvimento de Apps Mobile",
+        tagline: "iOS e Android a partir de uma única base de código.",
+        description:
+          "Apps mobile multiplataforma com React Native e Expo — desempenho nativo sem manter duas bases de código. Cuido de todo o percurso, da arquitetura à aprovação nas lojas: notificações push, deep links, sincronização offline e integrações nativas com o dispositivo, entregues na App Store e na Play Store.",
+        stack: ["React Native / Expo", "TypeScript", "Native modules (iOS/Android)", "Push notifications", "App Store / Play Store"],
+        deliverables: [
+          "iOS + Android a partir de uma base de código",
+          "Submissão à App Store e Play Store",
+          "Notificações push e deep links",
+          "Sincronização de dados offline-first",
+          "Integrações nativas com o dispositivo",
+        ],
+        pricingKey: "startingAt",
+        amount: "$4,000",
         noteKey: "perProject",
       },
       {

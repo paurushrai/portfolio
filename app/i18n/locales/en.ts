@@ -49,6 +49,8 @@ export const en = {
       integrateLms: "Integrate your LMS",
       auditSite: "Audit my site",
       moderniseSite: "Modernise my site",
+      buildDesktop: "Build my desktop app",
+      buildMobile: "Build my mobile app",
     },
     retainer: {
       label: "Ongoing work",
@@ -121,6 +123,44 @@ export const en = {
         ],
         pricingKey: "startingAt",
         amount: "$3,000",
+        noteKey: "perProject",
+      },
+      {
+        id: "desktop-apps",
+        ctaKey: "buildDesktop",
+        title: "Desktop Application Development",
+        tagline: "Native-feel apps for Mac, Windows & Linux.",
+        description:
+          "Cross-platform desktop applications built with Electron and Tauri — one codebase, three operating systems. From offline-first productivity tools to data-heavy internal apps, I ship signed, auto-updating builds with native menus, system tray, and OS integrations that feel at home on every platform.",
+        stack: ["Electron", "Tauri (Rust)", "React / TypeScript", "Native OS APIs", "Auto-update & code signing"],
+        deliverables: [
+          "Cross-platform build (Mac/Win/Linux)",
+          "Native menus & system tray",
+          "Auto-update pipeline",
+          "Code signing & notarization",
+          "Installer & distribution",
+        ],
+        pricingKey: "startingAt",
+        amount: "$4,500",
+        noteKey: "perProject",
+      },
+      {
+        id: "mobile-apps",
+        ctaKey: "buildMobile",
+        title: "Mobile App Development",
+        tagline: "iOS & Android from a single codebase.",
+        description:
+          "Cross-platform mobile apps with React Native and Expo — native performance without maintaining two codebases. I handle the full path from architecture to store approval: push notifications, deep links, offline sync, and native device integrations, shipped to both the App Store and Play Store.",
+        stack: ["React Native / Expo", "TypeScript", "Native modules (iOS/Android)", "Push notifications", "App Store / Play Store"],
+        deliverables: [
+          "iOS + Android from one codebase",
+          "App Store & Play Store submission",
+          "Push notifications & deep links",
+          "Offline-first data sync",
+          "Native device integrations",
+        ],
+        pricingKey: "startingAt",
+        amount: "$4,000",
         noteKey: "perProject",
       },
       {

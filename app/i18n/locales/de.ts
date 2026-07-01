@@ -48,7 +48,9 @@ export const de: Locale = {
       buildTool: "Bauen Sie Ihr Werkzeug",
       integrateLms: "Integrieren Sie Ihr LMS",
       auditSite: "Überprüfen Sie meine Website",
-      moderniseSite: "Modernisieren Sie meine Website"
+      moderniseSite: "Modernisieren Sie meine Website",
+      buildDesktop: "Meine Desktop-App entwickeln",
+      buildMobile: "Meine mobile App entwickeln"
     },
     retainer: {
       label: "Laufende Arbeit",
@@ -129,6 +131,54 @@ export const de: Locale = {
         ],
         pricingKey: "startingAt",
         amount: "$3,000",
+        noteKey: "perProject"
+      },
+      {
+        id: "desktop-apps",
+        ctaKey: "buildDesktop",
+        title: "Entwicklung von Desktop-Anwendungen",
+        tagline: "Apps mit nativem Gefühl für Mac, Windows & Linux.",
+        description: "Plattformübergreifende Desktop-Anwendungen, entwickelt mit Electron und Tauri – eine Codebasis, drei Betriebssysteme. Von Offline-First-Produktivitätstools bis hin zu datenintensiven internen Apps liefere ich signierte, sich automatisch aktualisierende Builds mit nativen Menüs, System-Tray und Betriebssystemintegrationen, die sich auf jeder Plattform wie zu Hause anfühlen.",
+        stack: [
+          "Electron",
+          "Tauri (Rust)",
+          "React / TypeScript",
+          "Native OS APIs",
+          "Auto-update & code signing"
+        ],
+        deliverables: [
+          "Plattformübergreifender Build (Mac/Win/Linux)",
+          "Native Menüs & System-Tray",
+          "Auto-Update-Pipeline",
+          "Codesignierung & Notarisierung",
+          "Installer & Distribution"
+        ],
+        pricingKey: "startingAt",
+        amount: "$4,500",
+        noteKey: "perProject"
+      },
+      {
+        id: "mobile-apps",
+        ctaKey: "buildMobile",
+        title: "Entwicklung mobiler Apps",
+        tagline: "iOS & Android aus einer einzigen Codebasis.",
+        description: "Plattformübergreifende mobile Apps mit React Native und Expo – native Leistung, ohne zwei Codebasen pflegen zu müssen. Ich übernehme den gesamten Weg von der Architektur bis zur Store-Freigabe: Push-Benachrichtigungen, Deep Links, Offline-Synchronisierung und native Geräteintegrationen, ausgeliefert an den App Store und den Play Store.",
+        stack: [
+          "React Native / Expo",
+          "TypeScript",
+          "Native modules (iOS/Android)",
+          "Push notifications",
+          "App Store / Play Store"
+        ],
+        deliverables: [
+          "iOS + Android aus einer Codebasis",
+          "Einreichung im App Store & Play Store",
+          "Push-Benachrichtigungen & Deep Links",
+          "Offline-First-Datensynchronisierung",
+          "Native Geräteintegrationen"
+        ],
+        pricingKey: "startingAt",
+        amount: "$4,000",
         noteKey: "perProject"
       },
       {

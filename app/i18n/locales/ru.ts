@@ -48,7 +48,9 @@ export const ru: Locale = {
       buildTool: "Создайте свой инструмент",
       integrateLms: "Интегрируйте свою LMS",
       auditSite: "Аудит моего сайта",
-      moderniseSite: "Модернизировать мой сайт"
+      moderniseSite: "Модернизировать мой сайт",
+      buildDesktop: "Создать десктопное приложение",
+      buildMobile: "Создать мобильное приложение"
     },
     retainer: {
       label: "Текущая работа",
@@ -129,6 +131,54 @@ export const ru: Locale = {
         ],
         pricingKey: "startingAt",
         amount: "$3,000",
+        noteKey: "perProject"
+      },
+      {
+        id: "desktop-apps",
+        ctaKey: "buildDesktop",
+        title: "Разработка десктопных приложений",
+        tagline: "Приложения с нативным ощущением для Mac, Windows и Linux.",
+        description: "Кроссплатформенные десктопные приложения на Electron и Tauri — одна кодовая база, три операционные системы. От офлайн-ориентированных инструментов продуктивности до насыщенных данными внутренних приложений — я поставляю подписанные сборки с автообновлением, нативными меню, системным треем и интеграциями с ОС, которые органично вписываются в каждую платформу.",
+        stack: [
+          "Electron",
+          "Tauri (Rust)",
+          "React / TypeScript",
+          "Native OS APIs",
+          "Auto-update & code signing"
+        ],
+        deliverables: [
+          "Кроссплатформенная сборка (Mac/Win/Linux)",
+          "Нативные меню и системный трей",
+          "Конвейер автообновления",
+          "Подписание кода и нотаризация",
+          "Установщик и дистрибуция"
+        ],
+        pricingKey: "startingAt",
+        amount: "$4,500",
+        noteKey: "perProject"
+      },
+      {
+        id: "mobile-apps",
+        ctaKey: "buildMobile",
+        title: "Разработка мобильных приложений",
+        tagline: "iOS и Android из единой кодовой базы.",
+        description: "Кроссплатформенные мобильные приложения на React Native и Expo — нативная производительность без поддержки двух кодовых баз. Я беру на себя весь путь от архитектуры до одобрения в магазине: push-уведомления, deep links, офлайн-синхронизация и нативные интеграции с устройством, с публикацией в App Store и Play Store.",
+        stack: [
+          "React Native / Expo",
+          "TypeScript",
+          "Native modules (iOS/Android)",
+          "Push notifications",
+          "App Store / Play Store"
+        ],
+        deliverables: [
+          "iOS + Android из единой кодовой базы",
+          "Публикация в App Store и Play Store",
+          "Push-уведомления и deep links",
+          "Офлайн-ориентированная синхронизация данных",
+          "Нативные интеграции с устройством"
+        ],
+        pricingKey: "startingAt",
+        amount: "$4,000",
         noteKey: "perProject"
       },
       {

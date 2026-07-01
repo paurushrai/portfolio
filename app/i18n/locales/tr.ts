@@ -48,7 +48,9 @@ export const tr: Locale = {
       buildTool: "Aracınızı oluşturun",
       integrateLms: "ÖYS'nizi entegre edin",
       auditSite: "Sitemi denetle",
-      moderniseSite: "Sitemi modernleştir"
+      moderniseSite: "Sitemi modernleştir",
+      buildDesktop: "Masaüstü uygulamamı oluştur",
+      buildMobile: "Mobil uygulamamı oluştur"
     },
     retainer: {
       label: "Devam eden çalışma",
@@ -129,6 +131,54 @@ export const tr: Locale = {
         ],
         pricingKey: "startingAt",
         amount: "$3,000",
+        noteKey: "perProject"
+      },
+      {
+        id: "desktop-apps",
+        ctaKey: "buildDesktop",
+        title: "Masaüstü Uygulama Geliştirme",
+        tagline: "Mac, Windows ve Linux için yerel hissi veren uygulamalar.",
+        description: "Electron ve Tauri ile geliştirilen çapraz platform masaüstü uygulamaları — tek kod tabanı, üç işletim sistemi. Önce çevrimdışı çalışan üretkenlik araçlarından veri yoğun dahili uygulamalara kadar; yerel menülere, sistem tepsisine ve her platformda kendini evinde hissettiren işletim sistemi entegrasyonlarına sahip, imzalı ve otomatik güncellenen sürümler gönderiyorum.",
+        stack: [
+          "Electron",
+          "Tauri (Rust)",
+          "React / TypeScript",
+          "Native OS APIs",
+          "Auto-update & code signing"
+        ],
+        deliverables: [
+          "Çapraz platform sürümü (Mac/Win/Linux)",
+          "Yerel menüler ve sistem tepsisi",
+          "Otomatik güncelleme hattı",
+          "Kod imzalama ve noterleştirme",
+          "Yükleyici ve dağıtım"
+        ],
+        pricingKey: "startingAt",
+        amount: "$4,500",
+        noteKey: "perProject"
+      },
+      {
+        id: "mobile-apps",
+        ctaKey: "buildMobile",
+        title: "Mobil Uygulama Geliştirme",
+        tagline: "Tek bir kod tabanından iOS ve Android.",
+        description: "React Native ve Expo ile geliştirilen çapraz platform mobil uygulamalar — iki ayrı kod tabanını sürdürmeden yerel performans. Mimariden mağaza onayına kadar tüm süreci yönetiyorum: anlık bildirimler, derin bağlantılar, çevrimdışı senkronizasyon ve yerel cihaz entegrasyonları; hem App Store'a hem de Play Store'a gönderilir.",
+        stack: [
+          "React Native / Expo",
+          "TypeScript",
+          "Native modules (iOS/Android)",
+          "Push notifications",
+          "App Store / Play Store"
+        ],
+        deliverables: [
+          "Tek kod tabanından iOS + Android",
+          "App Store ve Play Store gönderimi",
+          "Anlık bildirimler ve derin bağlantılar",
+          "Önce çevrimdışı veri senkronizasyonu",
+          "Yerel cihaz entegrasyonları"
+        ],
+        pricingKey: "startingAt",
+        amount: "$4,000",
         noteKey: "perProject"
       },
       {
