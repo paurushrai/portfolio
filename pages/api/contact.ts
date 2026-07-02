@@ -3,6 +3,18 @@ import type { NextApiRequest, NextApiResponse } from "next";
 const TO_EMAIL = "paurushrai96@gmail.com";
 const FROM_EMAIL = "contact@paurushrai.in";
 
+const HTML_ESCAPES: Record<string, string> = {
+	"&": "&amp;",
+	"<": "&lt;",
+	">": "&gt;",
+	'"': "&quot;",
+	"'": "&#39;",
+};
+
+function escapeHtml(value: string): string {
+	return value.replace(/[&<>"']/g, (char) => HTML_ESCAPES[char]);
+}
+
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse,
@@ -35,6 +47,10 @@ export default async function handler(
 		return;
 	}
 
+	const safeName = escapeHtml(name);
+	const safeEmail = escapeHtml(email);
+	const safeMessage = escapeHtml(message);
+
 	const resendRes = await fetch("https://api.resend.com/emails", {
 		method: "POST",
 		headers: {
@@ -54,15 +70,15 @@ export default async function handler(
           <table style="width:100%;border-collapse:collapse;margin-bottom:24px;font-size:14px">
             <tr>
               <td style="padding:8px 12px;background:#f4f4f5;border-radius:4px 0 0 4px;font-weight:600;width:72px">Name</td>
-              <td style="padding:8px 12px;border:1px solid #e4e4e7;border-left:none;border-radius:0 4px 4px 0">${name}</td>
+              <td style="padding:8px 12px;border:1px solid #e4e4e7;border-left:none;border-radius:0 4px 4px 0">${safeName}</td>
             </tr>
             <tr>
               <td style="padding:8px 12px;background:#f4f4f5;font-weight:600">Email</td>
-              <td style="padding:8px 12px;border:1px solid #e4e4e7;border-left:none"><a href="mailto:${email}" style="color:#2563eb">${email}</a></td>
+              <td style="padding:8px 12px;border:1px solid #e4e4e7;border-left:none"><a href="mailto:${safeEmail}" style="color:#2563eb">${safeEmail}</a></td>
             </tr>
           </table>
-          <div style="padding:16px;background:#f4f4f5;border-radius:6px;font-size:14px;line-height:1.6;white-space:pre-wrap">${message}</div>
-          <p style="margin-top:24px;font-size:12px;color:#a1a1aa">Reply directly to this email to respond to ${name}.</p>
+          <div style="padding:16px;background:#f4f4f5;border-radius:6px;font-size:14px;line-height:1.6;white-space:pre-wrap">${safeMessage}</div>
+          <p style="margin-top:24px;font-size:12px;color:#a1a1aa">Reply directly to this email to respond to ${safeName}.</p>
         </div>
       `,
 		}),
