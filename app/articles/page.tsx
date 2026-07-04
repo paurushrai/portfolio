@@ -8,13 +8,16 @@ import { getArticles } from "./fetchArticles";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Articles — Paurush Rai | Senior Software Engineer",
+  title: "Articles — Paurush Rai | Senior Product Engineer",
   description:
     "Articles by Paurush Rai on software engineering, developer tools, AI integration, and building production-grade products — published on Medium.",
   keywords: [
     "Paurush Rai Articles",
     "Software Engineering Blog",
     "Frontend Engineering Articles",
+    "AI Integration",
+    "React",
+    "Next.js",
     "Developer Tools",
     "Medium",
   ],
@@ -22,7 +25,7 @@ export const metadata: Metadata = {
     canonical: "https://paurushrai.in/articles",
   },
   openGraph: {
-    title: "Articles — Paurush Rai | Senior Software Engineer",
+    title: "Articles — Paurush Rai | Senior Product Engineer",
     description:
       "Writing on software engineering, developer tools, and building products.",
     url: "https://paurushrai.in/articles",

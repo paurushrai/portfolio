@@ -9,7 +9,7 @@ export const tr: Locale = {
     contact: "Temas etmek"
   },
   home: {
-    tagline: "Kıdemli Yazılım Mühendisi — hızlı gönderilen ve uzun süre dayanan ürünler, araçlar ve entegrasyonlar oluşturur.",
+    tagline: "Kıdemli Ürün Mühendisi — hızlı gönderilen ve uzun süre dayanan ürünler, araçlar ve entegrasyonlar oluşturur.",
     openToWork: "İşbirliğine açık",
     resume: "Özgeçmiş"
   },

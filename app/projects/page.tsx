@@ -5,24 +5,26 @@ import { LocaleProjectFilter } from "./LocaleProjectFilter";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Projects — Paurush Rai | Senior Software Engineer",
-  description: "Explore projects by Paurush Rai — a Senior Software Engineer & Full-Stack Developer. Includes enterprise SaaS platforms, AI-integrated applications, fintech products, and developer productivity tools built with React, Next.js, and TypeScript.",
+  title: "Projects — Paurush Rai | Senior Product Engineer",
+  description: "Explore projects by Paurush Rai — a Senior Product Engineer & Full-Stack Developer. Includes enterprise SaaS platforms, AI-integrated applications, logistics platforms, and developer productivity tools built with React, Next.js, and TypeScript.",
   keywords: [
-    "Senior Software Engineer Portfolio",
-    "Frontend Developer Projects",
+    "Senior Product Engineer Portfolio",
     "Full-Stack Developer Projects",
-    "AI Integration Projects",
     "React Projects",
     "Next.js Portfolio",
+    "React Native Apps",
+    "AI Application Projects",
     "Enterprise SaaS",
-    "Product Developer Portfolio",
+    "LTI LMS Integration",
+    "VS Code Extension Development",
+    "Jira Plugin Development",
     "Paurush Rai Projects",
   ],
   alternates: {
     canonical: "https://paurushrai.in/projects",
   },
   openGraph: {
-    title: "Projects — Paurush Rai | Senior Software Engineer",
+    title: "Projects — Paurush Rai | Senior Product Engineer",
     description: "Enterprise SaaS, AI-integrated apps, fintech platforms and developer tools built with React, Next.js, and TypeScript.",
     url: "https://paurushrai.in/projects",
   },
