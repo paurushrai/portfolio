@@ -275,7 +275,7 @@ export const pt: Locale = {
     title: "Sobre mim",
     subtitle: "Um pouco de contexto sobre quem eu sou e o que faço.",
     bio: [
-      "Sou Paurush Rai — um engenheiro full-stack com foco em frontend, baseado na Índia, com quase 5 anos de experiência arquitetando plataformas web empresariais, aplicações impulsionadas por IA e ferramentas de produtividade para desenvolvedores. Meu trabalho abrange dashboards B2B complexos, integrações LMS robustas, plugins personalizados para Jira e VS Code, e muito mais.",
+      "Sou Paurush Rai — um engenheiro full-stack com foco em frontend, baseado na Índia, com mais de 5 anos de experiência arquitetando plataformas web empresariais, aplicações impulsionadas por IA e ferramentas de produtividade para desenvolvedores. Meu trabalho abrange dashboards B2B complexos, integrações LMS robustas, plugins personalizados para Jira e VS Code, e muito mais.",
       "Me importo profundamente com performance, arquitetura limpa e entregar coisas que realmente importam. Seja construindo um portal de franquias do zero, desenvolvendo fluxos de entrevista com IA em tempo real ou criando ferramentas internas que economizam milhares de dólares por ano, meu foco é sempre em trabalho que move o ponteiro de forma mensurável.",
       "Fora do trabalho, geralmente estou iniciando um projeto paralelo, automatizando um fluxo de trabalho tedioso ou explorando uma biblioteca que nunca usei — gosto da fricção de aprender novas ferramentas em contextos reais.",
     ],
