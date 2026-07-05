@@ -245,7 +245,7 @@ export const en = {
     title: "About Me",
     subtitle: "A little background on who I am and what I do.",
     bio: [
-      "I'm Paurush Rai — a frontend-leaning full-stack engineer based in India, with almost 5 years of experience architecting enterprise web platforms, AI-driven applications, and developer productivity tools. My work spans complex B2B dashboards, robust LMS integrations, custom Jira and VS Code plugins, and everything in between.",
+      "I'm Paurush Rai — a frontend-leaning full-stack engineer based in India, with 5+ years of experience architecting enterprise web platforms, AI-driven applications, and developer productivity tools. My work spans complex B2B dashboards, robust LMS integrations, custom Jira and VS Code plugins, and everything in between.",
       "I care deeply about performance, clean architecture, and shipping things that actually matter. Whether it's building a greenfield franchise portal from scratch, engineering real-time AI interview workflows, or developing internal tools that save the business thousands of dollars annually, my focus is always on work that measurably moves the needle.",
       "Outside of work I'm usually spinning up a side project, automating a tedious workflow, or reaching for a library I've never touched before — I like the friction of learning new tools in real contexts.",
     ],

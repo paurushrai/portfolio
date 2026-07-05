@@ -282,7 +282,7 @@ export const tr: Locale = {
     title: "Hakkımda",
     subtitle: "Kim olduğum ve ne yaptığım hakkında küçük bir arka plan.",
     bio: [
-      "Ben Paurush Rai; kurumsal web platformları, yapay zeka destekli uygulamalar ve geliştirici üretkenlik araçları tasarımında neredeyse 5 yıllık deneyime sahip, Hindistan merkezli, ön uç eğilimli, tam yığın mühendisiyim. Çalışmalarım karmaşık B2B kontrol panellerini, sağlam LMS entegrasyonlarını, özel Jira ve VS Code eklentilerini ve aradaki her şeyi kapsamaktadır.",
+      "Ben Paurush Rai; kurumsal web platformları, yapay zeka destekli uygulamalar ve geliştirici üretkenlik araçları tasarımında 5+ yıllık deneyime sahip, Hindistan merkezli, ön uç eğilimli, tam yığın mühendisiyim. Çalışmalarım karmaşık B2B kontrol panellerini, sağlam LMS entegrasyonlarını, özel Jira ve VS Code eklentilerini ve aradaki her şeyi kapsamaktadır.",
       "Performansa, temiz mimariye ve gerçekten önemli olan şeylerin nakliyesine çok önem veriyorum. İster sıfırdan yeni bir franchise portalı oluşturmak, ister gerçek zamanlı yapay zeka mülakat iş akışları tasarlamak, ister işletmeye yılda binlerce dolar tasarruf sağlayacak dahili araçlar geliştirmek olsun, odak noktam her zaman ölçülebilir şekilde ibreyi hareket ettiren işlerdir.",
       "İş dışında genellikle bir yan proje üzerinde çalışıyorum, sıkıcı bir iş akışını otomatikleştiriyorum veya daha önce hiç dokunmadığım bir kütüphaneye ulaşıyorum; gerçek bağlamlarda yeni araçlar öğrenmenin sürtünmesini seviyorum."
     ],

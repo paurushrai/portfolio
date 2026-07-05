@@ -282,7 +282,7 @@ export const de: Locale = {
     title: "Über mich",
     subtitle: "Ein kleiner Hintergrund darüber, wer ich bin und was ich tue.",
     bio: [
-      "Ich bin Paurush Rai – ein Frontend-orientierter Full-Stack-Ingenieur mit Sitz in Indien und fast fünf Jahren Erfahrung in der Architektur von Unternehmens-Webplattformen, KI-gesteuerten Anwendungen und Entwicklerproduktivitätstools. Meine Arbeit umfasst komplexe B2B-Dashboards, robuste LMS-Integrationen, benutzerdefinierte Jira- und VS-Code-Plugins und alles dazwischen.",
+      "Ich bin Paurush Rai – ein Frontend-orientierter Full-Stack-Ingenieur mit Sitz in Indien und 5+ Jahren Erfahrung in der Architektur von Unternehmens-Webplattformen, KI-gesteuerten Anwendungen und Entwicklerproduktivitätstools. Meine Arbeit umfasst komplexe B2B-Dashboards, robuste LMS-Integrationen, benutzerdefinierte Jira- und VS-Code-Plugins und alles dazwischen.",
       "Ich lege großen Wert auf Leistung, saubere Architektur und den Versand von Dingen, die wirklich wichtig sind. Ganz gleich, ob es darum geht, ein Greenfield-Franchise-Portal von Grund auf aufzubauen, KI-Interview-Workflows in Echtzeit zu entwickeln oder interne Tools zu entwickeln, die dem Unternehmen jährlich Tausende von Dollar einsparen, mein Fokus liegt immer auf der Arbeit, die messbar etwas bewegt.",
       "Außerhalb der Arbeit starte ich normalerweise ein Nebenprojekt, automatisiere einen mühsamen Arbeitsablauf oder greife nach einer Bibliothek, die ich noch nie zuvor berührt habe – ich mag die Reibung, neue Tools in realen Kontexten zu lernen."
     ],
