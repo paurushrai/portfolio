@@ -308,69 +308,16 @@ export const de: Locale = {
       "Browsererweiterungen"
     ],
     skills: {
-      Sprachen: [
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "TypeScript",
-        "Handlebars",
-        "MDX"
-      ],
-      Rahmenwerke: [
-        "React.js",
-        "Next.js",
-        "Vue.js",
-        "Nuxt.js",
-        "Astro.js",
-        "Electron.js",
-        "React Native"
-      ],
-      Bibliotheken: [
-        "Tailwind",
-        "DaisyUI",
-        "Shadcn",
-        "Element Plus",
-        "Chart.js",
-        "Pinia",
-        "Recoil",
-        "Clerk",
-        "Stripe"
-      ],
-      Datenbank: [
-        "PostgreSQL",
-        "MongoDB"
-      ],
-      "Back-End": [
-        "Node.js",
-        "Express.js",
-        "Hasura",
-        "Directus",
-        "RESTful APIs",
-        "GraphQL APIs"
-      ],
-      Versionskontrolle: [
-        "Git",
-        "GitLab",
-        "GitHub"
-      ],
-      "Plattformen und Tools": [
-        "Docker",
-        "Firebase",
-        "Datagrip",
-        "Pipedream",
-        "Vercel",
-        "Apify",
-        "Figma",
-        "AdobeXD"
-      ],
-      Andere: [
-        "Chrome Plugin",
-        "VS Code Extension",
-        "LTI Plugin",
-        "Jira Plugin",
-        "CI/CD",
-        "Shell Scripting"
-      ]
+      Sprachen: ["JavaScript", "TypeScript"],
+      Frameworks: ["React.js", "Next.js", "React Native", "Node.js", "Express.js"],
+      Frontend: ["Tailwind CSS", "Shadcn", "HTML/CSS", "Vue.js", "Nuxt.js", "Astro.js"],
+      Bibliotheken: ["Zod", "Clerk", "Stripe"],
+      "KI, Cloud & Automatisierung": ["OpenAI API", "LLM Integration", "MCP", "AWS", "n8n"],
+      Daten: ["PostgreSQL", "MongoDB", "Redis", "Prisma", "GraphQL", "REST APIs"],
+      Infrastruktur: ["Hasura", "Directus", "Payload", "BullMQ", "WebSocket"],
+      Testen: ["Vitest", "Playwright"],
+      "DevOps & Monitoring": ["Docker", "GitHub Actions", "Git", "GitHub", "GitLab", "Vercel", "Turborepo", "Sentry"],
+      "Erweiterungen & Plugins": ["VS Code Extension", "Chrome Extension", "LTI 1.3 Plugin", "Jira Plugin"]
     },
     experience: [
       {

@@ -308,68 +308,71 @@ export const fr: Locale = {
       "Extensions de navigateur"
     ],
     skills: {
-      Langues: [
-        "HTML",
-        "CSS",
+      Langages: [
         "JavaScript",
-        "TypeScript",
-        "Handlebars",
-        "MDX"
+        "TypeScript"
       ],
-      Cadres: [
+      Frameworks: [
         "React.js",
         "Next.js",
+        "React Native",
+        "Node.js",
+        "Express.js"
+      ],
+      Frontend: [
+        "Tailwind CSS",
+        "Shadcn",
+        "HTML/CSS",
         "Vue.js",
         "Nuxt.js",
-        "Astro.js",
-        "Electron.js",
-        "React Native"
+        "Astro.js"
       ],
       "Bibliothèques": [
-        "Tailwind",
-        "DaisyUI",
-        "Shadcn",
-        "Element Plus",
-        "Chart.js",
-        "Pinia",
-        "Recoil",
+        "Zod",
         "Clerk",
         "Stripe"
       ],
-      "Base de données": [
-        "PostgreSQL",
-        "MongoDB"
+      "IA, Cloud & Automatisation": [
+        "OpenAI API",
+        "LLM Integration",
+        "MCP",
+        "AWS",
+        "n8n"
       ],
-      "Back-End": [
-        "Node.js",
-        "Express.js",
+      "Données": [
+        "PostgreSQL",
+        "MongoDB",
+        "Redis",
+        "Prisma",
+        "GraphQL",
+        "REST APIs"
+      ],
+      Infrastructure: [
         "Hasura",
         "Directus",
-        "RESTful APIs",
-        "GraphQL APIs"
+        "Payload",
+        "BullMQ",
+        "WebSocket"
       ],
-      "Contrôle des versions": [
-        "Git",
-        "GitLab",
-        "GitHub"
+      Tests: [
+        "Vitest",
+        "Playwright"
       ],
-      "Plateformes et outils": [
+      "DevOps & Supervision": [
         "Docker",
-        "Firebase",
-        "Datagrip",
-        "Pipedream",
+        "GitHub Actions",
+        "Git",
+        "GitHub",
+        "GitLab",
         "Vercel",
-        "Apify",
-        "Figma",
-        "AdobeXD"
+        "Turborepo",
+        "Sentry"
       ],
-      Autre: [
-        "Chrome Plugin",
+      "Extensions & Plugins": [
         "VS Code Extension",
-        "LTI Plugin",
-        "Jira Plugin",
-        "CI/CD",
-        "Shell Scripting"
+        "Chrome Extension",
+        "LTI 1.3 Plugin",
+        "Jira Plugin"
       ]
     },
     experience: [

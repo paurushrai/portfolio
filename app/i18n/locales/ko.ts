@@ -307,69 +307,16 @@ export const ko: Locale = {
       "브라우저 확장"
     ],
     skills: {
-      "언어": [
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "TypeScript",
-        "Handlebars",
-        "MDX"
-      ],
-      "프레임워크": [
-        "React.js",
-        "Next.js",
-        "Vue.js",
-        "Nuxt.js",
-        "Astro.js",
-        "Electron.js",
-        "React Native"
-      ],
-      "도서관": [
-        "Tailwind",
-        "DaisyUI",
-        "Shadcn",
-        "Element Plus",
-        "Chart.js",
-        "Pinia",
-        "Recoil",
-        "Clerk",
-        "Stripe"
-      ],
-      "데이터 베이스": [
-        "PostgreSQL",
-        "MongoDB"
-      ],
-      "백엔드": [
-        "Node.js",
-        "Express.js",
-        "Hasura",
-        "Directus",
-        "RESTful APIs",
-        "GraphQL APIs"
-      ],
-      "버전 관리": [
-        "Git",
-        "GitLab",
-        "GitHub"
-      ],
-      "플랫폼 및 도구": [
-        "Docker",
-        "Firebase",
-        "Datagrip",
-        "Pipedream",
-        "Vercel",
-        "Apify",
-        "Figma",
-        "AdobeXD"
-      ],
-      "다른": [
-        "Chrome Plugin",
-        "VS Code Extension",
-        "LTI Plugin",
-        "Jira Plugin",
-        "CI/CD",
-        "Shell Scripting"
-      ]
+      "언어": ["JavaScript", "TypeScript"],
+      "프레임워크": ["React.js", "Next.js", "React Native", "Node.js", "Express.js"],
+      "프런트엔드": ["Tailwind CSS", "Shadcn", "HTML/CSS", "Vue.js", "Nuxt.js", "Astro.js"],
+      "라이브러리": ["Zod", "Clerk", "Stripe"],
+      "AI, 클라우드 및 자동화": ["OpenAI API", "LLM Integration", "MCP", "AWS", "n8n"],
+      "데이터": ["PostgreSQL", "MongoDB", "Redis", "Prisma", "GraphQL", "REST APIs"],
+      "인프라": ["Hasura", "Directus", "Payload", "BullMQ", "WebSocket"],
+      "테스팅": ["Vitest", "Playwright"],
+      "DevOps 및 모니터링": ["Docker", "GitHub Actions", "Git", "GitHub", "GitLab", "Vercel", "Turborepo", "Sentry"],
+      "확장 프로그램 및 플러그인": ["VS Code Extension", "Chrome Extension", "LTI 1.3 Plugin", "Jira Plugin"]
     },
     experience: [
       {

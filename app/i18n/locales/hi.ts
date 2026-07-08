@@ -310,68 +310,71 @@ export const hi: Locale = {
       "ब्राउज़र एक्सटेंशन"
     ],
     skills: {
-      "बोली": [
-        "HTML",
-        "CSS",
+      "भाषाएँ": [
         "JavaScript",
-        "TypeScript",
-        "Handlebars",
-        "MDX"
+        "TypeScript"
       ],
       "फ़्रेमवर्क": [
         "React.js",
         "Next.js",
+        "React Native",
+        "Node.js",
+        "Express.js"
+      ],
+      "Frontend": [
+        "Tailwind CSS",
+        "Shadcn",
+        "HTML/CSS",
         "Vue.js",
         "Nuxt.js",
-        "Astro.js",
-        "Electron.js",
-        "React Native"
+        "Astro.js"
       ],
-      "पुस्तकालय": [
-        "Tailwind",
-        "DaisyUI",
-        "Shadcn",
-        "Element Plus",
-        "Chart.js",
-        "Pinia",
-        "Recoil",
+      "लाइब्रेरी": [
+        "Zod",
         "Clerk",
         "Stripe"
       ],
-      "डेटाबेस": [
-        "PostgreSQL",
-        "MongoDB"
+      "AI, क्लाउड और ऑटोमेशन": [
+        "OpenAI API",
+        "LLM Integration",
+        "MCP",
+        "AWS",
+        "n8n"
       ],
-      "पिछला अंत": [
-        "Node.js",
-        "Express.js",
+      "डेटा": [
+        "PostgreSQL",
+        "MongoDB",
+        "Redis",
+        "Prisma",
+        "GraphQL",
+        "REST APIs"
+      ],
+      "इंफ्रास्ट्रक्चर": [
         "Hasura",
         "Directus",
-        "RESTful APIs",
-        "GraphQL APIs"
+        "Payload",
+        "BullMQ",
+        "WebSocket"
       ],
-      "संस्करण नियंत्रण": [
-        "Git",
-        "GitLab",
-        "GitHub"
+      "परीक्षण": [
+        "Vitest",
+        "Playwright"
       ],
-      "प्लेटफार्म और उपकरण": [
+      "DevOps और मॉनिटरिंग": [
         "Docker",
-        "Firebase",
-        "Datagrip",
-        "Pipedream",
+        "GitHub Actions",
+        "Git",
+        "GitHub",
+        "GitLab",
         "Vercel",
-        "Apify",
-        "Figma",
-        "AdobeXD"
+        "Turborepo",
+        "Sentry"
       ],
-      "अन्य": [
-        "Chrome Plugin",
+      "एक्सटेंशन और प्लगइन्स": [
         "VS Code Extension",
-        "LTI Plugin",
-        "Jira Plugin",
-        "CI/CD",
-        "Shell Scripting"
+        "Chrome Extension",
+        "LTI 1.3 Plugin",
+        "Jira Plugin"
       ]
     },
     experience: [

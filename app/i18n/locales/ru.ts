@@ -308,68 +308,61 @@ export const ru: Locale = {
       "Расширения браузера"
     ],
     skills: {
-      "Языки": [
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "TypeScript",
-        "Handlebars",
-        "MDX"
-      ],
-      "Рамки": [
+      "Языки": ["JavaScript", "TypeScript"],
+      "Фреймворки": [
         "React.js",
         "Next.js",
+        "React Native",
+        "Node.js",
+        "Express.js"
+      ],
+      "Фронтенд": [
+        "Tailwind CSS",
+        "Shadcn",
+        "HTML/CSS",
         "Vue.js",
         "Nuxt.js",
-        "Astro.js",
-        "Electron.js",
-        "React Native"
+        "Astro.js"
       ],
-      "Библиотеки": [
-        "Tailwind",
-        "DaisyUI",
-        "Shadcn",
-        "Element Plus",
-        "Chart.js",
-        "Pinia",
-        "Recoil",
-        "Clerk",
-        "Stripe"
+      "Библиотеки": ["Zod", "Clerk", "Stripe"],
+      "ИИ, облако и автоматизация": [
+        "OpenAI API",
+        "LLM Integration",
+        "MCP",
+        "AWS",
+        "n8n"
       ],
-      "База данных": [
+      "Данные": [
         "PostgreSQL",
-        "MongoDB"
+        "MongoDB",
+        "Redis",
+        "Prisma",
+        "GraphQL",
+        "REST APIs"
       ],
-      "Задний конец": [
-        "Node.js",
-        "Express.js",
+      "Инфраструктура": [
         "Hasura",
         "Directus",
-        "RESTful APIs",
-        "GraphQL APIs"
+        "Payload",
+        "BullMQ",
+        "WebSocket"
       ],
-      "Контроль версий": [
-        "Git",
-        "GitLab",
-        "GitHub"
-      ],
-      "Платформы и инструменты": [
+      "Тестирование": ["Vitest", "Playwright"],
+      "DevOps и мониторинг": [
         "Docker",
-        "Firebase",
-        "Datagrip",
-        "Pipedream",
+        "GitHub Actions",
+        "Git",
+        "GitHub",
+        "GitLab",
         "Vercel",
-        "Apify",
-        "Figma",
-        "AdobeXD"
+        "Turborepo",
+        "Sentry"
       ],
-      "Другой": [
-        "Chrome Plugin",
+      "Расширения и плагины": [
         "VS Code Extension",
-        "LTI Plugin",
-        "Jira Plugin",
-        "CI/CD",
-        "Shell Scripting"
+        "Chrome Extension",
+        "LTI 1.3 Plugin",
+        "Jira Plugin"
       ]
     },
     experience: [

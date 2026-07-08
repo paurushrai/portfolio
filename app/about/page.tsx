@@ -1,4 +1,5 @@
 "use client";
+import { Fragment } from "react";
 import Link from "next/link";
 import { ArrowRight, Download } from "lucide-react";
 import { Navigation } from "../components/nav";
@@ -71,10 +72,12 @@ export default function AboutPage() {
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 duration-200" />
             </Link>
           </div>
-          <div className="space-y-6">
+          <div className="grid grid-cols-1 gap-x-6 gap-y-6 items-start sm:grid-cols-[max-content_1fr]">
             {Object.entries(a.skills).map(([category, items]) => (
-              <div key={category} className="grid grid-cols-[140px_1fr] gap-4 items-start">
-                <span className="text-sm font-medium text-zinc-400 pt-1">{category}</span>
+              <Fragment key={category}>
+                <span className="text-sm font-medium text-zinc-400 whitespace-nowrap sm:pt-1">
+                  {category}
+                </span>
                 <div className="flex flex-wrap gap-2">
                   {items.map((skill) => (
                     <span
@@ -85,7 +88,7 @@ export default function AboutPage() {
                     </span>
                   ))}
                 </div>
-              </div>
+              </Fragment>
             ))}
           </div>
         </section>
