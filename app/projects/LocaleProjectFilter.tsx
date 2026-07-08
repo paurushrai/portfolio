@@ -186,7 +186,7 @@ export function LocaleProjectFilter({ projects }: Props) {
                 label={t.projects.title}
               />
               {filteredSorted.length > 0 ? (
-                <div className="grid grid-cols-1 gap-4 mx-auto lg:mx-0 md:grid-cols-3">
+                <div className="grid items-start grid-cols-1 gap-4 mx-auto lg:mx-0 md:grid-cols-3">
                   {[0, 1, 2].map((col) => (
                     <div key={col} className="grid grid-cols-1 gap-4">
                       {filteredSorted
