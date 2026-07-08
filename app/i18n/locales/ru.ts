@@ -20,7 +20,8 @@ export const ru: Locale = {
     empty: "Проекты не найдены.",
     independent: "Независимый",
     personalProject: "Личный проект",
-    associatedWith: "Связано с"
+    associatedWith: "Связано с",
+    inProgress: "Ð Ð¿ÑÐ¾ÑÐµÑÑÐµ"
   },
   articles: {
     title: "Статьи",

@@ -20,7 +20,8 @@ export const ko: Locale = {
     empty: "프로젝트를 찾을 수 없습니다.",
     independent: "독립적인",
     personalProject: "개인 프로젝트",
-    associatedWith: "협력사"
+    associatedWith: "협력사",
+    inProgress: "ì§í ì¤"
   },
   articles: {
     title: "글",

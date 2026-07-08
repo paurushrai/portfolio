@@ -20,7 +20,8 @@ export const hi: Locale = {
     empty: "कोई प्रोजेक्ट नहीं मिला.",
     independent: "स्वतंत्र",
     personalProject: "व्यक्तिगत प्रोजेक्ट",
-    associatedWith: "इसके साथ संबद्ध"
+    associatedWith: "इसके साथ संबद्ध",
+    inProgress: "à¤à¤¾à¤°à¥à¤¯ à¤ªà¥à¤°à¤à¤¤à¤¿ à¤ªà¤° à¤¹à¥"
   },
   articles: {
     title: "लेख",

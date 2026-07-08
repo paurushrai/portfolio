@@ -22,6 +22,7 @@ export const ja: Locale = {
     independent: "個人",
     personalProject: "個人プロジェクト",
     associatedWith: "関連企業",
+    inProgress: "é²è¡ä¸­",
   },
   articles: {
     title: "記事",

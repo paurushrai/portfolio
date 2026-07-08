@@ -20,6 +20,7 @@ export const en = {
     independent: "Independent",
     personalProject: "Personal Project",
     associatedWith: "Associated with",
+    inProgress: "In progress",
   },
   articles: {
     title: "Articles",

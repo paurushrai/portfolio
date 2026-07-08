@@ -12,6 +12,7 @@ type Props = {
 		description: string;
 		repository?: string;
 		company?: string;
+		wip?: boolean;
 	};
 
 };
@@ -87,6 +88,15 @@ export const Header: React.FC<Props> = ({ project }) => {
 			<div className="container mx-auto relative isolate overflow-hidden  py-24 sm:py-32">
 				<div className="mx-auto max-w-7xl px-6 lg:px-8 text-center flex flex-col items-center">
 					<div className="mx-auto max-w-2xl lg:mx-0">
+						{project.wip ? (
+							<span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-3 py-1 mb-4 text-sm font-medium text-emerald-400 ring-1 ring-inset ring-emerald-500/20">
+								<span
+									className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"
+									aria-hidden="true"
+								/>
+								{t.projects.inProgress}
+							</span>
+						) : null}
 						<h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl font-display">
 							{project.title}
 						</h1>
