@@ -1,18 +1,20 @@
 ---
-title: "FuelBuddy Dubai - Piattaforma di franchising regionale"
-description: "Progettato e architettato un'applicazione di franchising greenfield su misura per il mercato degli Emirati Arabi Uniti, caratterizzata da una solida gestione dello stato tramite TanStack Query e protocolli di sicurezza aziendale elevati."
+title: "FuelBuddy Dubai - Piattaforma Franchising Regionale"
+description: "Ho costruito da zero un'app per il franchising per le operazioni di FuelBuddy negli Emirati Arabi Uniti — frontend più le mie API CRUD su Hasura GraphQL, con TanStack Query sul client e un flusso di autenticazione/sicurezza rielaborato per i requisiti regionali."
 date: 2024-10-01
 published: true
 company: FuelBuddy
 ---
-L'espansione delle operazioni di FuelBuddy negli Emirati Arabi Uniti richiedeva un'infrastruttura digitale su misura costruita partendo da zero. Riconoscendo che il mercato di Dubai aveva requisiti normativi, di sicurezza e di flusso commerciale completamente diversi, mi è stato assegnato il compito di progettare la **domanda di franchising di Dubai** da zero. 
 
-## Ambito tecnico e architettura 
+L'espansione di FuelBuddy negli Emirati Arabi Uniti richiedeva una propria app per il franchising: il mercato di Dubai aveva requisiti normativi, di sicurezza e di flusso di lavoro diversi rispetto alle piattaforme esistenti, al punto che riutilizzare la vecchia non era una buona soluzione. Ho costruito da zero la Dubai Franchise Application, sia sul frontend sia sulle API CRUD sottostanti.
 
-- **Ingegneria UI/UX Greenfield:** traduzione della logica aziendale regionale in un'interfaccia utente impeccabile e modernizzata. Costruendo il sistema di componenti in modo nativo da zero, l'applicazione ha ottenuto una reattività e una rifinitura visiva significativamente migliori rispetto alle sue controparti legacy. 
-- **Gestione avanzata dello stato e dei dati:** implementata **TanStack React Query** per rivedere il modo in cui il frontend gestisce le operazioni asincrone. Questo cambiamento architetturale ha fornito memorizzazione nella cache intelligente, sincronizzazione dei dati in background e aggiornamenti ottimistici dell'interfaccia utente, risultando in un livello di dati straordinariamente veloce e altamente resiliente. 
-- **Integrazione della sicurezza di livello aziendale:** ha progettato la piattaforma dando priorità a sicurezza e conformità elevate. Ho completamente riprogettato i livelli di autenticazione, i cicli di vita dei token e la sanificazione del payload dell'API per superare i requisiti di conformità regionali, rendendola l'applicazione più sicura all'interno dell'ecosistema aziendale. 
+## Cosa ho realizzato
 
-## Impatto aziendale 
+- **Nuovo frontend da zero:** Ho costruito il sistema di componenti da capo, il che ha reso l'app più reattiva e meglio strutturata rispetto alle versioni più vecchie che sostituiva.
+- **Le mie API CRUD su Hasura:** Ho costruito le API dati di backend su cui gira l'app, usando il motore GraphQL di Hasura sopra il database per esporre le operazioni CRUD di cui avevo bisogno — così da poter progettare il livello dati end-to-end invece di aspettare endpoint di backend separati.
+- **Livello dati su TanStack Query:** Ho usato TanStack React Query sul frontend per consumare quelle API — caching, refetch in background e aggiornamenti ottimistici — così che la UI restasse veloce e coerente senza troppa gestione manuale dello stato.
+- **Autenticazione e sicurezza:** Ho rielaborato l'autenticazione, la gestione dei token e la validazione dei payload delle API per soddisfare i requisiti di conformità della regione.
 
-Utilizzando i moderni strumenti React (TanStack) e applicando un approccio senza compromessi alla sicurezza, la piattaforma risultante non solo ha soddisfatto i severi requisiti del mercato di Dubai, ma ha stabilito un nuovo standard per gli strumenti interni. L'applicazione ha ridotto drasticamente il sovraccarico della rete e ha offerto un'esperienza utente di livello executive essenziale per i partner in franchising premium negli Emirati Arabi Uniti.
+## Perché è stato importante
+
+Il risultato ha soddisfatto i requisiti più stringenti del mercato di Dubai e ha stabilito uno standard interno più pulito su come costruire queste app. Il livello dati rivisto ha anche ridotto le chiamate di rete ridondanti, mantenendo l'esperienza rapida per i partner in franchising.

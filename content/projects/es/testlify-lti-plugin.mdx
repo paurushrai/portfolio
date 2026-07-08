@@ -1,22 +1,24 @@
 ---
-title: Complemento de ventaja Testlify LTI 1.3
-description: Solo diseñó una integración LTI 1.3 de pila completa que une de forma segura los sistemas de gestión de aprendizaje empresarial con Testlify, automatizando complejos protocolos de enlace OIDC, sincronizaciones de listas y transferencia de calificaciones.
+title: "Plugin Testlify LTI 1.3 Advantage"
+description: "Una integración LTI Advantage (1.3) certificada por 1EdTech que permite a los instructores asignar evaluaciones de Testlify a un curso y seguir las notas desde dentro de su LMS: handshake OIDC/JWT a medida, sincronización de listas y devolución de calificaciones, construida en Next.js 14."
 url: https://lti.testlify.com/
 date: 2026-03-01
 published: true
 company: Testlify
 ---
 
-Los sistemas de gestión del aprendizaje (LMS) como Canvas, Moodle y Blackboard son los centros operativos para las instituciones educativas y los sectores de formación corporativa. Para desbloquear las capacidades de evaluación de talentos de Testlify para estos ecosistemas masivos, se necesitaba un puente excepcionalmente seguro y compatible. Trabajando activamente como ingeniero completo en solitario, diseñé y envié el **Complemento LTI Testlify**, una integración perfecta diseñada para conectar Testlify directamente dentro del entorno LMS nativo del instructor.
+Los sistemas de gestión del aprendizaje como Canvas, Moodle y Blackboard son donde los colegios y los equipos de formación corporativa hacen su día a día. Para que las evaluaciones de Testlify fueran usables dentro de esos sistemas, necesitábamos un puente seguro y conforme a los estándares. Construí el Plugin Testlify LTI como único ingeniero full-stack: permite a los instructores asignar evaluaciones creadas en Testlify a los candidatos matriculados en un curso y seguir sus notas, todo desde dentro del LMS.
 
-![Testlify LTI 1.3 Plugin Demo](/projects/testlify-lti-plugin/plugin.gif)
+![Demo del Plugin Testlify LTI 1.3](/projects/testlify-lti-plugin/plugin.gif)
 
-## Alcance técnico y arquitectura
+La integración está **[certificada oficialmente por 1EdTech](https://site.imsglobal.org/certifications/testlify-inc/testlify#cert_pane_nid_626241)** para LTI Advantage (v1.3) —Names and Role Provisioning Services 2.0 y Assignment & Grade Services 2.0—. 1EdTech ejecuta las pruebas de conformidad, así que no son afirmaciones autodeclaradas: un organismo independiente verificó que la implementación sigue la especificación.
 
-- **Motor criptográfico LTI 1.3 personalizado:** Renunciando a pesadas bibliotecas LTI de terceros, diseñé una implementación personalizada y altamente segura desde cero dentro de Next.js 14. Implementé manualmente los estrictos protocolos de enlace OpenID Connect (OIDC), manejé verificaciones profundas de firmas JWT y establecí puntos finales de clave pública JWKS seguros para garantizar una confianza impenetrable entre el LMS y la plataforma.
-- **Sincronización de datos automatizada:** Diseñé una capa API sofisticada para automatizar tediosos flujos de trabajo administrativos. Integré los Servicios de aprovisionamiento de nombres y funciones (NRPS) para sincronizar listas masivas de estudiantes al instante y construí oyentes de webhooks sólidos que utilizan los Servicios de asignaciones y calificaciones (AGS) para enviar sin problemas las puntuaciones de las evaluaciones de los candidatos directamente al libro de calificaciones del LMS.
-- **Diseño de sistema de pila completa:** Enrutamiento API multiinquilino, complejo y unificado y una interfaz de usuario de panel React 18 pulida y accesible en una única arquitectura monolítica. Diseñé esquemas MongoDB escalables para manejar configuraciones seguras de la plataforma LMS y orquesté configuraciones avanzadas de Docker para simular entornos LMS aislados para pruebas locales.
+## Lo que construí
 
-## Impacto empresarial
+- **Implementación LTI 1.3 a medida:** En lugar de apoyarme en una pesada librería LTI de terceros, implementé la especificación directamente en Next.js 14: el handshake de OpenID Connect, la verificación de la firma JWT y los endpoints de clave pública JWKS que establecen la confianza entre el LMS y Testlify.
+- **Flujo de asignar y seguir:** Construí la capa de API detrás de todo el flujo: Deep Linking para que un instructor elija una evaluación de Testlify y la incorpore a un curso como una tarea, Names and Role Provisioning Services (NRPS) para traer a los candidatos matriculados en ese curso, y Assignment & Grade Services (AGS) para enviar la nota de cada candidato de vuelta al libro de calificaciones del LMS, de modo que los instructores vean los resultados donde ya trabajan.
+- **Sistema full-stack:** Combiné el enrutado de API multi-tenant con un panel en React 18 en una sola app, diseñé los esquemas de MongoDB para la configuración por plataforma, y usé Docker para simular entornos LMS aislados en las pruebas locales.
 
-Al diseñar con éxito una integración LTI sin fricciones y que cumple universalmente, este proyecto expandió agresivamente el mercado al que se dirige Testlify hacia los sectores de educación superior y capacitación empresarial. El inicio de sesión único (SSO) automatizado y la sincronización automática de calificaciones eliminaron por completo la fricción administrativa, lo que permitió a los instructores adoptar la plataforma sin esfuerzo e impulsó un compromiso institucional masivo.
+## Por qué importó
+
+Una integración LTI conforme a los estándares abrió Testlify a los mercados de la educación superior y la formación corporativa, y el plugin que construí acabó pasando las pruebas de conformidad de 1EdTech y obteniendo la certificación. Los instructores podían asignar evaluaciones a un curso entero y recibir las notas de vuelta en el libro de calificaciones de forma automática —sin exportar listas ni copiar resultados a mano—, que es el tipo de fricción que suele frenar la adopción de un LMS.

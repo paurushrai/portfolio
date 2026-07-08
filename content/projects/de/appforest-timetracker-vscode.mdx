@@ -1,19 +1,20 @@
 ---
-title: "AppForest Timetracker – VS-Code-Erweiterung"
-description: "Entwickelte im Alleingang eine native VS-Code-Erweiterung, um Entwickler-Workflow-Aktivitäten direkt mit Jira zu synchronisieren, wodurch Berichtsfehler um 80 % reduziert und Reibungsverluste bei der manuellen Zeiterfassung vermieden wurden."
+title: "AppForest Timetracker - VS Code Extension"
+description: "Ein VS-Code-Begleiter zum AppForest Timesheets Jira-Plugin – erfasst die Programmieraktivität im Editor und macht das Erfassen von Zeiten in Timesheets mühelos, ganz ohne die IDE zu verlassen."
 url: https://marketplace.visualstudio.com/items?itemName=AppforestTimetracker.appforest-timetracker
 date: 2025-07-01
 published: true
 company: Testlify
 ---
-Während unser internes Jira-Plugin die Zeiterfassung bei Testlify erfolgreich zentralisierte, sahen sich Entwickler immer noch mit der täglichen Hürde konfrontiert, den Kontext wechseln zu müssen, um ihre Stunden manuell zu protokollieren. Um diesen Verwaltungsaufwand vollständig zu beseitigen, habe ich im Alleingang den **AppForest Timetracker** entworfen, erstellt und ausgeliefert, eine native Visual Studio Code-Erweiterung, die den Protokollierungsprozess automatisiert, ohne dass Ingenieure jemals ihre IDE verlassen müssen. 
 
-## Technischer Umfang und Beiträge 
+Unser Jira-Plugin [Timesheets by AppForest](/projects/timesheets-appforest) hatte die Zeiterfassung bei Testlify zentralisiert – aber die Entwickler mussten trotzdem innehalten und umschalten, um ihre Stunden von Hand einzutragen. Der AppForest Timetracker schließt diese Lücke. Es ist eine VS-Code-Extension, die die Programmieraktivität direkt im Editor erfasst und das Erfassen der Zeit zu einer schnellen Aktion macht, sodass Entwickler ihre Zeiten in Timesheets eintragen können, ohne die IDE zu verlassen. Ich habe das Projekt von Anfang bis Ende verantwortet, von der Idee bis zur Veröffentlichung im Marketplace.
 
-- **VS-Code-Erweiterungsarchitektur:** Die Erweiterung wurde komplett von Grund auf unter Verwendung der offiziellen VS-Code-Erweiterungs-API erstellt. Ich habe schlanke Hintergrundprozesse entwickelt, um die aktive Editorzeit, Dateiübergänge und Arbeitsbereichsänderungen stillschweigend zu überwachen und so ein unterbrechungsfreies Erlebnis für den Endbenutzer zu gewährleisten. 
-- **Git Branch- und Jira-Synchronisierung:** Entwickelte eine intelligente Datenbrücke zwischen der lokalen Git-Umgebung des Entwicklers und sicheren Jira-REST-APIs. Die Erweiterung analysiert automatisch den aktuell aktiven Git-Zweig, extrahiert die relevante Ticket-ID und überträgt präzise, ​​kontextbezogene Zeitprotokolle direkt in unser Atlassian-Ökosystem. 
-- **End-to-End Solo Execution:** Betrieb als alleiniger Eigentümer des gesamten Produktlebenszyklus. Ich habe alles verwaltet, von der Konzeption der lokalen Konfigurations-UX über die sichere OAuth-Token-Verschlüsselung bis hin zur Verpackung und Veröffentlichung des endgültigen Builds auf dem Microsoft Visual Studio Marketplace. 
+## Was ich gebaut habe
 
-## Geschäftliche Auswirkungen 
+- **Die Extension selbst:** Aufgebaut auf der offiziellen VS Code Extension API, mit Hintergrundprozessen, die die aktive Editorzeit, Dateiwechsel und Änderungen am Workspace unauffällig erfassen – nichts unterbricht den Entwickler.
+- **Git-bewusstes Erfassen der Zeit:** Die Extension liest den aktuellen Git-Branch und zieht daraus die Ticket-ID, sodass die erfasste Zeit beim Eintragen ins Timesheets-Plugin bereits mit dem richtigen Issue verknüpft ist – kein Suchen nach dem Ticket, kein erneutes Eintippen.
+- **Vollständiger Lebenszyklus:** Ich habe die UX für die lokale Konfiguration, die sichere Ablage der Tokens sowie das Packaging und die Veröffentlichung des Builds im Visual Studio Marketplace übernommen.
 
-Durch die Umwandlung einer mühsamen organisatorischen Aufgabe in eine unsichtbare, automatisierte Datenpipeline hatte diese Erweiterung einen tiefgreifenden Einfluss auf die Entwicklungsgeschwindigkeit. Es konnte erfolgreich **den manuellen Zeiterfassungsaufwand um 60–70 % reduzieren** und **menschliche Fehler bei der Berichterstattung um unglaubliche 80 % reduzieren**. Der daraus resultierende Zustrom punktgenauer, reibungsloser Daten lieferte der Führung genau das, was sie brauchte, um sowohl die Präzision der Sprintplanung als auch die Abrechnungsgenauigkeit drastisch zu verbessern.
+## Warum es wichtig war
+
+Den manuellen Schritt aus dem Erfassen herauszunehmen bedeutete, dass die Zeitdaten, die in Timesheets flossen, sowohl vollständiger als auch genauer waren – etwa 60–70 % weniger Aufwand beim Erfassen der Stunden und deutlich weniger Fehler in den Auswertungen. Das gab der Führungsebene sauberere Daten, um Sprints zu planen und abzurechnen.

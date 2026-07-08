@@ -1,19 +1,20 @@
 ---
 title: FuelBuddy Dubai - Regional Franchise Platform
-description: Designed and architected a greenfield franchise application tailored for the UAE market, featuring robust state management via TanStack Query and elevated enterprise security protocols.
+description: Built a franchise app for FuelBuddy's UAE operations from scratch — frontend plus my own CRUD APIs on Hasura GraphQL, with TanStack Query on the client and an auth/security flow reworked for regional requirements.
 date: 2024-10-01
 published: true
 company: FuelBuddy
 ---
 
-Expanding FuelBuddy's operations into the UAE required a bespoke digital infrastructure built from a blank slate. Recognizing that the Dubai market had entirely different regulatory, security, and business flow requirements, I was tasked with engineering the **Dubai Franchise Application** from the ground up.
+FuelBuddy's UAE expansion needed its own franchise app — the Dubai market had different regulatory, security, and workflow requirements than the existing platforms, enough that reusing the old one wasn't a good fit. I built the Dubai Franchise Application from scratch, across both the frontend and the CRUD APIs behind it.
 
-## Technical Scope & Architecture
+## What I built
 
-- **Greenfield UI/UX Engineering:** Translated regional business logic into a flawless, modernized user interface. By building the component system natively from scratch, the application achieved significantly better responsiveness and visual polish than its legacy counterparts.
-- **Advanced State & Data Management:** Implemented **TanStack React Query** to overhaul how the frontend handled asynchronous operations. This architectural shift provided intelligent caching, background data synchronization, and optimistic UI updates, resulting in a blisteringly fast and highly resilient data layer.
-- **Enterprise-Grade Security Integration:** Engineered the platform with elevated security and compliance as a priority. I completely re-architected the authentication layers, token lifecycles, and API payload sanitization to exceed regional compliance requirements, making it the most secure application within the company's ecosystem.
+- **New frontend from scratch:** Built the component system fresh, which let the app be more responsive and better put-together than the older versions it replaced.
+- **My own CRUD APIs on Hasura:** Built the backend data APIs the app runs on, using Hasura's GraphQL engine over the database to expose the CRUD operations I needed — so I could design the data layer end to end instead of waiting on separate backend endpoints.
+- **Data layer on TanStack Query:** Used TanStack React Query on the frontend to consume those APIs — caching, background refetching, and optimistic updates — so the UI stayed fast and consistent without a lot of manual state wiring.
+- **Auth and security:** Reworked the authentication, token handling, and API payload validation to meet the region's compliance requirements.
 
-## Business Impact
+## Why it mattered
 
-By utilizing modern React tooling (TanStack) and enforcing a zero-compromise approach to security, the resulting platform not only met the stringent requirements of the Dubai market but set a new standard for internal tooling. The application dramatically reduced network overhead and delivered an executive-level user experience essential for premium franchise partners in the UAE.
+The result met the stricter requirements of the Dubai market and set a cleaner internal standard for how these apps get built. The revised data layer also cut down on redundant network calls, which kept the experience quick for franchise partners.

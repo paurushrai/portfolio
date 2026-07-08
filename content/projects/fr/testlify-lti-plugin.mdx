@@ -1,21 +1,24 @@
 ---
-title: "Plugin Avantage Testlify LTI 1.3"
-description: "Solo a architecturé une intégration LTI 1.3 full-stack qui relie en toute sécurité les systèmes de gestion de l'apprentissage d'entreprise avec Testlify, en automatisant les poignées de main OIDC complexes, les synchronisations des listes et la transmission des notes."
+title: "Plugin Testlify LTI 1.3 Advantage"
+description: "Une intégration LTI Advantage (1.3) certifiée 1EdTech qui permet aux formateurs d'attribuer des évaluations Testlify à un cours et de suivre les scores depuis leur LMS — handshake OIDC/JWT sur mesure, synchronisation des listes et remontée des notes, construit en Next.js 14."
 url: https://lti.testlify.com/
 date: 2026-03-01
 published: true
 company: Testlify
 ---
-Les systèmes de gestion de l'apprentissage (LMS) comme Canvas, Moodle et Blackboard sont les centres opérationnels des établissements d'enseignement et des secteurs de formation en entreprise. Pour débloquer les capacités d'évaluation des talents de Testlify pour ces écosystèmes massifs, un pont exceptionnellement sécurisé et conforme était nécessaire. Opérant activement en tant qu'ingénieur full-stack solo, j'ai architecturé et livré le **Plugin Testlify LTI**, une intégration transparente conçue pour connecter Testlify directement à l'environnement LMS natif de l'instructeur. 
 
-![Testlify LTI 1.3 Plugin Demo](/projects/testlify-lti-plugin/plugin.gif)
+Les systèmes de gestion de l'apprentissage comme Canvas, Moodle et Blackboard sont là où les écoles et les équipes de formation en entreprise mènent leur quotidien. Pour rendre les évaluations de Testlify utilisables au sein de ces systèmes, il nous fallait un pont sécurisé et conforme aux standards. J'ai construit le plugin Testlify LTI en tant qu'unique ingénieur full-stack — il permet aux formateurs d'attribuer des évaluations créées avec Testlify aux candidats inscrits à un cours et de suivre leurs scores, le tout depuis le LMS.
 
-## Portée technique et architecture 
+![Démo du plugin Testlify LTI 1.3](/projects/testlify-lti-plugin/plugin.gif)
 
-- **Moteur cryptographique LTI 1.3 personnalisé :** En renonçant aux bibliothèques LTI tierces lourdes et en boîte noire, j'ai conçu une implémentation personnalisée hautement sécurisée de A à Z dans Next.js 14. J'ai effectué manuellement les poignées de main strictes OpenID Connect (OIDC), géré des vérifications approfondies de signature JWT et établi des points de terminaison de clé publique JWKS sécurisés pour garantir une confiance impénétrable entre le LMS et la plate-forme. 
-- **Synchronisation automatisée des données :** Conception d'une couche API sophistiquée pour automatiser les flux de travail administratifs fastidieux. J'ai intégré les services de provisionnement de noms et de rôles (NRPS) pour synchroniser instantanément des listes massives d'étudiants et j'ai créé des écouteurs de webhook robustes qui utilisent les services d'affectation et de notes (AGS) pour transférer de manière transparente les résultats d'évaluation des candidats directement dans le carnet de notes LMS. 
-- **Conception de système Full-Stack :** Routage d'API complexe et multi-tenant unifié et interface utilisateur de tableau de bord React 18 raffinée et accessible dans une architecture monolithique unique. J'ai conçu des schémas MongoDB évolutifs pour gérer les configurations sécurisées de la plate-forme LMS et orchestré les configurations Docker avancées pour simuler des environnements LMS isolés pour les tests locaux. 
+L'intégration est **[officiellement certifiée par 1EdTech](https://site.imsglobal.org/certifications/testlify-inc/testlify#cert_pane_nid_626241)** pour LTI Advantage (v1.3) — Names and Role Provisioning Services 2.0 et Assignment & Grade Services 2.0. 1EdTech mène les tests de conformité, ce ne sont donc pas des affirmations auto-déclarées : un organisme indépendant a vérifié que l'implémentation suit la spécification.
 
-## Impact sur l'entreprise 
+## Ce que j'ai construit
 
-En concevant avec succès une intégration LTI sans friction et universellement conforme, ce projet a étendu de manière agressive le marché adressable de Testlify aux secteurs de l'enseignement supérieur et de la formation en entreprise. L'authentification unique (SSO) automatisée et la synchronisation automatique des notes ont complètement éliminé les frictions administratives, permettant aux instructeurs d'adopter la plateforme sans effort et de susciter un engagement institutionnel massif.
+- **Implémentation LTI 1.3 sur mesure :** Plutôt que de m'appuyer sur une lourde bibliothèque LTI tierce, j'ai implémenté la spécification directement en Next.js 14 — le handshake OpenID Connect, la vérification de signature JWT et les endpoints de clés publiques JWKS qui établissent la confiance entre le LMS et Testlify.
+- **Flux d'attribution et de suivi :** Construction de la couche API derrière tout le workflow — le Deep Linking pour qu'un formateur choisisse une évaluation Testlify et la dépose dans un cours comme un devoir, les Names and Role Provisioning Services (NRPS) pour récupérer les candidats inscrits à ce cours, et les Assignment & Grade Services (AGS) pour renvoyer le score de chaque candidat dans le carnet de notes du LMS afin que les formateurs voient les résultats là où ils travaillent déjà.
+- **Système full-stack :** Combinaison d'un routage d'API multi-tenant et d'un tableau de bord React 18 dans une seule app, conception des schémas MongoDB pour la configuration par plateforme, et utilisation de Docker pour simuler des environnements LMS isolés lors des tests locaux.
+
+## Pourquoi c'était important
+
+Une intégration LTI conforme aux standards a ouvert Testlify aux marchés de l'enseignement supérieur et de la formation en entreprise — et le plugin que j'ai construit a ensuite passé les tests de conformité de 1EdTech et obtenu la certification. Les formateurs pouvaient attribuer des évaluations à un cours entier et récupérer les scores dans le carnet de notes automatiquement — sans exporter de listes ni copier de résultats à la main — c'est le genre de friction qui freine habituellement l'adoption d'un LMS.

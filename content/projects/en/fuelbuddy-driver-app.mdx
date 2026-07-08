@@ -1,22 +1,21 @@
 ---
 title: FuelBuddy India - Driver Delivery App
-description: Developed end-to-end frontend features for FuelBuddy's core logistics driver application, focusing on real-time geolocation tracking, resilient offline-first UX, and high-stakes operational workflows.
+description: Built end-to-end features for FuelBuddy's driver app — offline-tolerant workflows, live location tracking, a field-ready UI, and the CRUD APIs behind them on Hasura GraphQL.
 url: https://play.google.com/store/apps/details?id=in.fuelbuddy.driver
 date: 2024-04-01
 published: true
 company: FuelBuddy
 ---
 
-The [FuelBuddy Driver App](https://play.google.com/store/apps/details?id=in.fuelbuddy.driver) is the operational engine that powers the physical delivery of fuel to ground consumers and B2B clients. Building software for active drivers requires a unique engineering mindset: the interface must be highly legible in glaring sunlight, interactions must be absolutely frictionless, and network reliability cannot be guaranteed while on the road.
+The [FuelBuddy Driver App](https://play.google.com/store/apps/details?id=in.fuelbuddy.driver) is what drivers use to actually deliver fuel to customers. Building for drivers is its own kind of problem: the screen has to be readable in direct sunlight, taps have to be forgiving, and the network can drop at any point on the road. I built a set of features end to end aimed squarely at those conditions — frontend and the data APIs behind them.
 
-I played a pivotal role in the frontend development of this mobile application, delivering targeted, end-to-end features designed specifically to survive the rigorous demands of active field operations.
+## What I built
 
-## Critical Frontend Engineering
+- **Offline-tolerant UI:** Drivers regularly lose signal, so I cached route and order data locally and let them keep working through dead zones. The app queues changes and syncs them back once the connection returns, instead of freezing.
+- **Location and maps:** Handled the frontend for live GPS tracking and map routing, keeping frequent location updates and map redraws efficient so they didn't drain the battery over a long shift.
+- **Field-friendly UX:** Owned several operational features end to end, designing them for real conditions — high-contrast layouts, large tap targets, and short forms so drivers can log a delivery quickly and safely.
+- **The APIs behind them:** Built the CRUD APIs these features read and write to on Hasura's GraphQL engine, so I could ship a feature end to end — the offline queue, order data, and delivery logging all talk to endpoints I owned.
 
-- **Resilient, Optimistic UI:** Understanding that delivery drivers frequently operate in cellular dead zones, I engineered frontend modules with high fault-tolerance. I leaned on robust state management patterns to temporarily cache critical route and order data locally. This allowed drivers to execute operational tasks without the UI freezing, silently syncing data to the servers once a network connection was re-established.
-- **Geolocation & Mapping Integrations:** Managed the complex frontend bindings for real-time GPS tracking and interactive map routing components. I ensured that frequent location broadcasts and map redraws were processed efficiently on the UI thread, preventing memory leaks and preserving device battery life during long delivery shifts.
-- **Ergonomic Field-Operations UX:** Completely owned the architecture and lifecycle of several new operational features. I translated strict business requirements into highly ergonomic interfaces—utilizing high-contrast visual hierarchies, oversized hit-boxes, and hyper-streamlined form validations so drivers could log fuel dispenses rapidly and safely.
+## Why it mattered
 
-## Business Impact
-
-By heavily optimizing the user flows for extreme, on-the-go environments, my frontend contributions directly accelerated the speed of field operations. The fault-tolerant, high-performance interface empowered drivers to focus on physical safety and route efficiency rather than fighting with a lagging application, fortifying the very backbone of FuelBuddy's logistical network.
+Designing for a phone-in-hand, on-the-move context made the app faster to use in the field. Drivers could focus on the road and the delivery instead of fighting a laggy screen, which kept deliveries moving.

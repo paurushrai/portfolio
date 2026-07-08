@@ -1,20 +1,20 @@
 ---
-title: FuelBuddy India - 客户应用程序 - React Native 迁移
-description: 将 FuelBuddy 的主要客户应用程序从 PWA 迁移到 React Native，确保无缝的 iOS 兼容性和自主的端到端功能交付。
+title: "FuelBuddy 印度 — 客户端 App（React Native 迁移）"
+description: "在 iOS 让 Web App 在 iPhone 上无法正常运行之后，协助把 FuelBuddy 的客户端 App 从 PWA 迁移到 React Native，跨栈工作以保证功能持续交付。"
 url: https://play.google.com/store/apps/details?id=in.fuelbuddy.app
 date: 2023-12-01
 published: true
 company: FuelBuddy
 ---
 
-当 iOS 生态系统限制开始限制 FuelBuddy 旧版渐进式 Web 应用程序 (PWA) 的功能时，该企业在留住 Apple 用户方面面临着关键障碍。 在我们技术主管的指导下，我是核心工程任务组的一员，负责将整个消费者平台迁移到强大的跨平台 **React Native** 应用程序。
+FuelBuddy 的客户端 App 最初是一个渐进式 Web 应用（PWA）。这在 Android 上没问题，但在 iPhone 上撞了墙：Apple 只允许 Web App 跑在自家的 WebKit 引擎上，并给它们二等待遇——添加到主屏幕不可靠、存储受限、推送通知也靠不住——甚至一度打算把主屏幕 Web App 从 iOS 里彻底拿掉。对 FuelBuddy 来说，这意味着 PWA 实际上没法服务 iPhone 用户，而原生 App 是触达他们唯一可靠的办法。我是把这个 App 用 React Native 重写的工程团队的一员。
 
-## 技术范围和贡献
+## 我参与了什么
 
-- **战略移动迁移：** 从 PWA 到已编译的 React Native 应用程序进行了大规模重写。 我主要负责设计复杂的移动界面，确保新应用程序在 iOS 和 Android 环境中实现流畅的本机级性能。
-- **自主功能交付：** 虽然我的主要任务是与开发团队一起推动移动前端，但我积极跨堆栈进行操作，以防止交付瓶颈。 每当新功能需要自定义数据结构时，我都会独立编写并集成必要的后端 API 端点。
-- **协作工程：** 在高度同步、跨职能的环境中蓬勃发展。 我与其他开发人员和产品所有者密切合作，快速发布端到端功能，将高级业务逻辑转化为完美的移动体验。
+- **从 PWA 到 React Native：** 把 App 重写为编译型的 React Native 应用，重点放在移动端 UI 上，确保它在 iOS 和 Android 上都像原生应用，而不是套壳的网页。
+- **跨栈协作：** 我主要负责移动端前端，但当某个功能需要新的数据接口时，我自己在 Hasura 的 GraphQL 引擎上把 CRUD API 建了起来，这样工作就不会卡在等别的团队上。
+- **和团队一起交付：** 与其他开发者和产品负责人紧密配合，把需求变成完整的功能，让发布持续推进。
 
-## 业务影响
+## 为什么它有意义
 
-决定性地转向 React Native 成功消除了对 iOS 用户的平台级威胁，立即恢复并扩大了 FuelBuddy 的移动市场份额。 作为一名多才多艺的全栈贡献者，我帮助团队极大地加快了发布节奏，将统一的、高度完善的本机应用程序直接交付给最终消费者。
+改用原生让 FuelBuddy 摆脱了那个靠不住的平台，把一个统一、一致的 App 摆到了 iPhone 和 Android 客户面前。跨栈搭把手也帮团队保住了发布节奏。

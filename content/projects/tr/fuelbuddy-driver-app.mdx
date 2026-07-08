@@ -1,21 +1,21 @@
 ---
-title: "FuelBuddy India - Sürücü Teslimatı Uygulaması"
-description: "FuelBuddy'nin temel lojistik sürücü uygulaması için uçtan uca ön uç özellikleri geliştirildi; gerçek zamanlı coğrafi konum takibi, dayanıklı çevrimdışı öncelikli kullanıcı deneyimi ve yüksek riskli operasyonel iş akışlarına odaklanıldı."
+title: "FuelBuddy Hindistan - Sürücü Teslimat Uygulaması"
+description: "FuelBuddy'nin sürücü uygulaması için uçtan uca özellikler geliştirdim — çevrimdışına dayanıklı iş akışları, canlı konum takibi, sahaya hazır bir arayüz ve arkalarındaki CRUD API'lerini Hasura GraphQL üzerinde."
 url: https://play.google.com/store/apps/details?id=in.fuelbuddy.driver
 date: 2024-04-01
 published: true
 company: FuelBuddy
 ---
-[FuelBuddy Driver Uygulaması](https://play.google.com/store/apps/details?id=in.fuelbuddy.driver), yakıtın karadaki tüketicilere ve B2B müşterilerine fiziksel olarak dağıtılmasını sağlayan operasyonel motordur. Aktif sürücülere yönelik yazılım oluşturmak benzersiz bir mühendislik zihniyeti gerektirir: Arayüz parlak güneş ışığında son derece okunabilir olmalıdır, etkileşimler kesinlikle sürtünmesiz olmalıdır ve yoldayken ağ güvenilirliği garanti edilemez. 
 
-Aktif saha operasyonlarının zorlu taleplerini karşılamak için özel olarak tasarlanmış, hedefe yönelik, uçtan uca özellikler sunarak bu mobil uygulamanın ön uç geliştirilmesinde çok önemli bir rol oynadım. 
+[FuelBuddy Sürücü Uygulaması](https://play.google.com/store/apps/details?id=in.fuelbuddy.driver), sürücülerin müşterilere gerçekten yakıt teslim etmek için kullandığı şey. Sürücüler için geliştirme yapmak kendine özgü bir problem: ekranın doğrudan güneş ışığında okunabilir olması, dokunuşların hoşgörülü olması ve ağın yolda herhangi bir noktada kesilebilmesi gerekiyor. Tam olarak bu koşullara yönelik uçtan uca bir dizi özellik geliştirdim — frontend ve arkalarındaki veri API'leri.
 
-## Kritik Ön Uç Mühendisliği 
+## Ne geliştirdim
 
-- **Esnek, İyimser Kullanıcı Arayüzü:** Teslimat sürücülerinin sıklıkla hücresel ölü bölgelerde çalıştığını bilerek, hata toleransı yüksek ön uç modülleri tasarladım. Kritik rotayı geçici olarak önbelleğe almak ve verileri yerel olarak sipariş etmek için güçlü durum yönetimi modellerinden yararlandım. Bu, sürücülerin kullanıcı arayüzü donmadan operasyonel görevleri yürütmesine ve ağ bağlantısı yeniden kurulduğunda verileri sunucularla sessizce senkronize etmesine olanak tanıdı. 
-- **Coğrafi Konum ve Haritalama Entegrasyonları:** Gerçek zamanlı GPS izleme ve etkileşimli harita yönlendirme bileşenleri için karmaşık ön uç bağlantılarını yönetti. Sık yapılan konum yayınlarının ve harita yeniden çizimlerinin UI iş parçacığında verimli bir şekilde işlenmesini sağlayarak bellek sızıntılarını önledim ve uzun teslimat vardiyaları sırasında cihazın pil ömrünü korudum. 
-- **Ergonomik Saha Operasyonları UX:** Çeşitli yeni operasyonel özelliklerin mimarisine ve yaşam döngüsüne tamamen sahip olundu. Sürücülerin yakıt dağıtımlarını hızlı ve güvenli bir şekilde kaydedebilmesi için yüksek kontrastlı görsel hiyerarşiler, büyük boyutlu isabet kutuları ve son derece kolaylaştırılmış form doğrulamaları kullanarak katı iş gereksinimlerini son derece ergonomik arayüzlere dönüştürdüm. 
+- **Çevrimdışına dayanıklı arayüz:** Sürücüler düzenli olarak sinyal kaybettiği için rota ve sipariş verilerini yerel olarak önbelleğe aldım ve ölü bölgelerde çalışmaya devam edebilmelerini sağladım. Uygulama donmak yerine değişiklikleri kuyruğa alıyor ve bağlantı geri geldiğinde geri senkronize ediyor.
+- **Konum ve haritalar:** Canlı GPS takibi ve harita rotalaması için frontend'i üstlendim; sık konum güncellemelerini ve harita yeniden çizimlerini verimli tutarak uzun bir vardiya boyunca pili tüketmemelerini sağladım.
+- **Sahaya uygun deneyim:** Birkaç operasyonel özelliği uçtan uca sahiplendim ve bunları gerçek koşullar için tasarladım — yüksek kontrastlı düzenler, büyük dokunma hedefleri ve kısa formlar; böylece sürücüler bir teslimatı hızlı ve güvenli bir şekilde kaydedebiliyor.
+- **Arkalarındaki API'ler:** Bu özelliklerin okuyup yazdığı CRUD API'lerini Hasura'nın GraphQL motoru üzerinde geliştirdim; böylece bir özelliği uçtan uca teslim edebildim — çevrimdışı kuyruk, sipariş verisi ve teslimat kaydı hepsi benim sahiplendiğim uç noktalarla konuşuyor.
 
-## İş Etkisi 
+## Neden önemliydi
 
-Kullanıcı akışlarını ekstrem, hareket halindeki ortamlar için yoğun şekilde optimize ederek, ön uç katkılarım saha operasyonlarının hızını doğrudan artırdı. Hataya dayanıklı, yüksek performanslı arayüz, sürücülerin geciken bir uygulamayla uğraşmak yerine fiziksel güvenliğe ve rota verimliliğine odaklanmasını sağlayarak FuelBuddy'nin lojistik ağının omurgasını güçlendirdi.
+Elde-telefon, hareket halindeki bir bağlam için tasarlamak, uygulamanın sahada kullanımını hızlandırdı. Sürücüler gecikmeli bir ekranla boğuşmak yerine yola ve teslimata odaklanabildi; bu da teslimatları hareket halinde tuttu.

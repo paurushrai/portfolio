@@ -1,18 +1,20 @@
 ---
-title: "FuelBuddy Dubai - Bölgesel Bayilik Platformu"
-description: "TanStack Query aracılığıyla sağlam durum yönetimi ve yükseltilmiş kurumsal güvenlik protokolleri içeren, BAE pazarı için özel olarak tasarlanmış, sıfırdan bir franchise uygulaması tasarladı ve tasarladı."
+title: "FuelBuddy Dubai - Bölgesel Franchise Platformu"
+description: "FuelBuddy'nin BAE operasyonları için sıfırdan bir franchise uygulaması geliştirdim — frontend ve Hasura GraphQL üzerinde kendi CRUD API'lerim, istemcide TanStack Query ve bölgesel gereksinimler için yeniden düzenlenmiş bir kimlik doğrulama/güvenlik akışı."
 date: 2024-10-01
 published: true
 company: FuelBuddy
 ---
-FuelBuddy'nin operasyonlarını BAE'ye genişletmek, sıfırdan inşa edilmiş özel bir dijital altyapı gerektirdi. Dubai pazarının tamamen farklı düzenleme, güvenlik ve iş akışı gereksinimlerine sahip olduğunun bilincinde olarak, **Dubai Bayilik Başvurusunu** sıfırdan tasarlamakla görevlendirildim. 
 
-## Teknik Kapsam ve Mimari 
+FuelBuddy'nin BAE genişlemesi kendi franchise uygulamasına ihtiyaç duyuyordu — Dubai pazarının mevcut platformlardan farklı düzenleyici, güvenlik ve iş akışı gereksinimleri vardı; öyle ki eskisini yeniden kullanmak iyi bir seçenek değildi. Dubai Franchise Uygulamasını sıfırdan geliştirdim, hem frontend hem de arkasındaki CRUD API'leri boyunca.
 
-- **Greenfield UI/UX Mühendisliği:** Bölgesel iş mantığını kusursuz, modernleştirilmiş bir kullanıcı arayüzüne dönüştürdü. Uygulama, bileşen sistemini sıfırdan yerel olarak oluşturarak, eski emsallerine göre önemli ölçüde daha iyi yanıt verme ve görsel cila elde etti. 
-- **Gelişmiş Durum ve Veri Yönetimi:** Ön ucun eşzamansız işlemleri yürütme biçimini elden geçirmek için **TanStack React Query** uygulandı. Bu mimari değişim, akıllı önbelleğe alma, arka plan veri senkronizasyonu ve iyimser kullanıcı arayüzü güncellemeleri sağlayarak son derece hızlı ve son derece dayanıklı bir veri katmanı sağladı. 
-- **Kurumsal Düzeyde Güvenlik Entegrasyonu:** Platformu, öncelikli olarak yüksek güvenlik ve uyumlulukla tasarladık. Bölgesel uyumluluk gereksinimlerini aşmak için kimlik doğrulama katmanlarını, belirteç yaşam döngülerini ve API yükünün temizlenmesini tamamen yeniden tasarladım ve bu da onu şirketin ekosistemindeki en güvenli uygulama haline getirdi. 
+## Ne geliştirdim
 
-## İş Etkisi 
+- **Sıfırdan yeni frontend:** Bileşen sistemini baştan geliştirdim; bu, uygulamanın yerini aldığı eski sürümlerden daha duyarlı ve daha derli toplu olmasını sağladı.
+- **Hasura üzerinde kendi CRUD API'lerim:** Uygulamanın üzerinde çalıştığı arka uç veri API'lerini geliştirdim; ihtiyaç duyduğum CRUD işlemlerini açığa çıkarmak için veritabanının üzerinde Hasura'nın GraphQL motorunu kullandım — böylece ayrı arka uç uç noktalarını beklemek yerine veri katmanını uçtan uca tasarlayabildim.
+- **TanStack Query üzerinde veri katmanı:** Bu API'leri tüketmek için frontend'de TanStack React Query kullandım — önbelleğe alma, arka planda yeniden getirme ve iyimser güncellemeler — böylece arayüz çok fazla manuel durum bağlantısı olmadan hızlı ve tutarlı kaldı.
+- **Kimlik doğrulama ve güvenlik:** Bölgenin uyumluluk gereksinimlerini karşılamak için kimlik doğrulamayı, token işlemeyi ve API yük doğrulamasını yeniden düzenledim.
 
-Modern React araçlarını (TanStack) kullanarak ve güvenlik konusunda sıfır taviz yaklaşımını uygulayarak ortaya çıkan platform, yalnızca Dubai pazarının katı gereksinimlerini karşılamakla kalmadı, aynı zamanda dahili araçlar için yeni bir standart belirledi. Uygulama, ağ yükünü önemli ölçüde azalttı ve BAE'deki premium franchise ortakları için gerekli olan yönetici düzeyinde bir kullanıcı deneyimi sundu.
+## Neden önemliydi
+
+Sonuç, Dubai pazarının daha katı gereksinimlerini karşıladı ve bu uygulamaların nasıl inşa edildiğine dair daha temiz bir dahili standart belirledi. Yenilenen veri katmanı ayrıca gereksiz ağ çağrılarını azalttı; bu da deneyimi franchise ortakları için hızlı tuttu.

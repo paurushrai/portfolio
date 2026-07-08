@@ -1,33 +1,31 @@
 ---
-title: Portafolio Personal — paurushrai.in
-description: Desarrollé un portafolio multilingüe de nivel productivo que alcanza 99/100 en rendimiento Lighthouse para escritorio — con un sistema i18n de 12 idiomas, accesibilidad WCAG 2.1 AA y un proxy de analíticas propio para eludir bloqueadores de anuncios.
+title: "Portafolio Personal — paurushrai.in"
+description: "El propio sitio del portafolio: un proyecto en Next.js 14 con soporte para 12 idiomas, un proxy de analíticas propio que sobrevive a los bloqueadores de anuncios y una puntuación de 99/100 en Lighthouse. Código abierto."
 url: https://paurushrai.in
 repository: paurushrai/portfolio
 date: 2026-04-01
 published: true
-company: Personal Project
+company: Proyecto Personal
 ---
 
-Este portafolio es una aplicación **Next.js 14 App Router** construida para funcionar como un artefacto de ingeniería en producción — no como una plantilla. Cada decisión arquitectónica refleja el mismo razonamiento de nivel productivo que se aplica en sistemas empresariales: corrección, observabilidad y rendimiento medible. El sitio alcanza **99/100 en rendimiento Lighthouse para escritorio y 97/100 en móvil**, junto con puntuaciones perfectas de 100 en Accesibilidad y SEO.
+Este es el sitio en el que estás ahora mismo. Es un proyecto de Next.js 14 construido y mantenido como un pequeño producto y no como una plantilla; el código es público, así que todos los detalles de abajo son verificables. Obtiene 99/100 en escritorio y 97/100 en móvil en Lighthouse, con 100 en Accesibilidad y SEO.
 
-![Personal Portfolio — paurushrai.in](/projects/portfolio/portfolio.gif)
+![Portafolio Personal — paurushrai.in](/projects/portfolio/portfolio.gif)
 
-## Alcance Técnico y Contribuciones
+## Qué tiene
 
-- **Arquitectura i18n de 12 Idiomas:** Diseñé e implementé un sistema de internacionalización completamente personalizado desde cero — sin librerías de terceros. Construí un `LanguageContext` con tipado seguro y un mapa de traducciones fuertemente tipado en inglés, alemán, español, francés, hindi, italiano, japonés, coreano, portugués, ruso, turco y chino. El selector de idioma persiste la preferencia del usuario mediante `localStorage` y actualiza el atributo `<html lang>` de forma dinámica, garantizando que los lectores de pantalla y los rastreadores consuman siempre el idioma correcto. Cada cadena visible para el usuario — incluyendo etiquetas de formularios de contacto, estados de error y textos de CTA — está completamente localizada en los 12 idiomas.
+- **12 idiomas:** El sitio está disponible en inglés, alemán, español, francés, hindi, italiano, japonés, coreano, portugués, ruso, turco y chino. Un contexto de idioma tipado y un mapa de traducciones alimentan el selector, que recuerda tu elección y actualiza el atributo `lang` de la página para que los lectores de pantalla y los buscadores lean el idioma correcto. Cada cadena está cubierta, incluido el formulario de contacto.
 
-- **Animación en Canvas y Optimización de Rendimiento:** Desarrollé un sistema de partículas de calidad WebGL usando directamente la Canvas 2D API, con magnetismo controlado por el ratón, física de desvanecimiento alfa y suavizado en los bordes. Identifiqué y eliminé un cuello de botella crítico de reflow forzado — moví las llamadas a `getBoundingClientRect()` fuera del ciclo crítico de `mousemove` hacia una `ref` cacheada que solo se actualiza en eventos de redimensionado, reduciendo el thrash del DOM por fotograma de O(n) a O(1). Combinado con actualizaciones del estado del ratón limitadas por RAF y carga diferida con `next/dynamic` para mantener las partículas completamente fuera del camino crítico de renderizado, elevando la puntuación de rendimiento Lighthouse en escritorio a **99/100**.
+- **Un fondo de partículas que se mantiene rápido:** Los puntos que siguen al cursor se dibujan en un canvas. Una versión temprana daba tirones porque medía la posición del canvas en cada movimiento del ratón, forzando un recálculo constante del layout. Cachear esa medición eliminó los tirones, y cargar las partículas de forma diferida las mantiene fuera del primer pintado, que es la mayor parte de lo que llevó la puntuación de escritorio a 99.
 
-- **Stack de Analíticas Sin Puntos Ciegos por Bloqueadores de Anuncios:** Implementé una configuración de analíticas dual (Umami + Google Tag Manager) y construí un proxy de reescritura en Next.js que enruta toda la telemetría a través del dominio propio (`/um/script.js` → `cloud.umami.is`, `/um/api/send` → `api-gateway.umami.dev`). Esto elimina la pérdida silenciosa de eventos del 20–40% que ocurre cuando los scripts de analíticas se cargan desde orígenes de terceros bloqueados por uBlock Origin y Brave. GTM gestiona la etiqueta GA4 en el servidor, centralizando toda la gobernanza de etiquetas en un único lugar.
+- **Analíticas que los bloqueadores de anuncios no rompen sin avisar:** Los scripts de analíticas cargados desde dominios de terceros son descartados en silencio por bloqueadores como uBlock y Brave, perdiendo entre el 20 y el 40 % de los eventos sin ningún aviso. Enrutar las analíticas a través del propio dominio del sitio mantiene los datos como propios e intactos. Umami se encarga de las estadísticas respetuosas con la privacidad; Google Tag Manager se encarga del resto.
 
-- **Suite de SEO y Datos Estructurados:** Implementé el esquema JSON-LD `Person`, enlaces hreflang alternativos para los 12 idiomas, URLs canónicas por ruta y `generateMetadata` dinámico en cada slug de proyecto. Configuré `generateMetadata` para generar Open Graph y JSON-LD de tipo `SoftwareApplication` por proyecto, satisfaciendo el validador de datos estructurados de Google y eliminando señales de contenido duplicado en las rutas localizadas.
+- **Lo básico del SEO hecho como es debido:** Datos estructurados para la persona y cada proyecto, etiquetas de idioma correctas en las 12 versiones de cada página, URLs canónicas para que las traducciones no compitan entre sí, y tarjetas de vista previa social generadas por proyecto.
 
-- **Accesibilidad WCAG 2.1 AA:** Realicé una auditoría de accesibilidad completa y corregí todos los fallos — implementé un enlace de salto al contenido principal visualmente oculto, apliqué globalmente los anillos de foco con `:focus-visible` mediante una única regla CSS, corregí las relaciones de contraste entre primer plano y fondo en todo el texto del cuerpo (zinc-500 → zinc-400 sobre superficies oscuras supera el contraste AA a 4.5:1+), y apliqué `aria-hidden` a los elementos decorativos del canvas. Refactoricé el selector de idioma de un `listbox` no semántico a una estructura ARIA `menu` correcta.
+- **Accesibilidad:** Un enlace de salto al contenido, contornos de foco visibles para usuarios de teclado, contraste de texto que pasa AA, animaciones decorativas ocultas a los lectores de pantalla y un menú de idioma construido como marcado navegable en condiciones en lugar de un div con estilos.
 
-- **Pipeline de Contenido con Tipado Seguro:** Configuré Contentlayer para procesar archivos MDX de proyectos en JSON estático con tipos completos en tiempo de compilación, con campos `slug` y `locale` calculados exclusivamente a partir de la estructura de rutas de archivos. Los nuevos proyectos no requieren ningún cambio de código — basta con colocar un archivo MDX en la carpeta de idioma correcta para que aparezca en el sitio en el siguiente despliegue. Se eliminó completamente la sobrecarga de análisis en tiempo de ejecución.
+- **El contenido es solo Markdown:** Añadir un proyecto significa dejar un archivo Markdown en la carpeta del idioma correcto: aparece en el siguiente despliegue, totalmente tipado y sin cambios de código. Las visitas a las páginas las cuenta una pequeña función serverless que hashea las IPs en lugar de guardarlas, así que no hay cookies ni datos personales.
 
-- **Seguimiento de Visitas sin Servidor:** Construí una Edge Function serverless para el recuento anónimo de visitas a páginas, usando direcciones IP hasheadas con SHA-256 para la deduplicación — sin cookies, sin almacenamiento de PII. Los recuentos se revalidan en una ventana ISR de 60 segundos, haciendo que las vistas de los proyectos parezcan en tiempo real sin sacrificar el modelo de entrega estática.
+## Por qué importa
 
-## Impacto en el Negocio
-
-El portafolio es una demostración deliberada de calidad de ingeniería. Cada optimización — desde eliminar un cuello de botella de reflow forzado en el sistema de partículas hasta construir un proxy de analíticas propio y completar una migración de contenido a 12 idiomas — fue impulsada por el mismo rigor de ingeniería que se aplica en sistemas productivos a escala. El resultado: puntuaciones perfectas en Accesibilidad y SEO, Rendimiento casi perfecto, una superficie de contenido completamente internacionalizada accesible para miles de millones de hablantes no nativos del inglés, y un pipeline de analíticas que captura datos que otras implementaciones descartan silenciosamente. El código es abierto — las decisiones arquitectónicas son auditables, no solo declaradas.
+El sitio hace las veces de ejemplo real de cómo están construidos el resto de estos proyectos: rendimiento, analíticas respetuosas con la privacidad, soporte multilingüe y accesibilidad, todo en un solo lugar que puedes inspeccionar. Como el repositorio es abierto, el código se puede contrastar con la descripción.

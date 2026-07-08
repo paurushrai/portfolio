@@ -1,19 +1,20 @@
 ---
-title: "AppForest Timetracker - VS Kod Uzantısı"
-description: "Geliştirici iş akışı etkinliğini doğrudan Jira ile senkronize etmek için yerel bir VS Code uzantısını tek başına tasarlayarak raporlama hatalarını %80 oranında azalttı ve manuel zaman izleme sorunlarını ortadan kaldırdı."
+title: "AppForest Timetracker - VS Code Eklentisi"
+description: "AppForest Timesheets Jira eklentisinin VS Code eşlikçisi — editör içindeki kodlama etkinliğini takip eder ve IDE'den çıkmadan Timesheets'e zaman kaydetmeyi zahmetsiz hale getirir."
 url: https://marketplace.visualstudio.com/items?itemName=AppforestTimetracker.appforest-timetracker
 date: 2025-07-01
 published: true
 company: Testlify
 ---
-Dahili Jira eklentimiz Testlify'da zaman takibini başarılı bir şekilde merkezileştirirken, geliştiriciler saatlerini manuel olarak kaydetmek için hâlâ bağlam değiştirmenin günlük zorluklarıyla karşı karşıya kalıyordu. Bu idari yükü tamamen ortadan kaldırmak için, mühendislerin IDE'lerinden ayrılmalarına gerek kalmadan günlük kaydı sürecini otomatikleştiren yerel bir Visual Studio Code uzantısı olan **AppForest Timetracker**'ı tek başıma tasarladım, oluşturdum ve gönderdim. 
 
-## Teknik Kapsam ve Katkılar 
+Jira eklentimiz [Timesheets by AppForest](/projects/timesheets-appforest), Testlify'da zaman takibini tek bir yerde toplamıştı — ama geliştiricilerin yine de durup saatlerini elle kaydetmek için başka bir yere geçmesi gerekiyordu. AppForest Timetracker bu boşluğu kapatıyor. Editörün tam içinde kodlama etkinliğini takip eden ve zaman kaydını hızlı bir eyleme dönüştüren bir VS Code eklentisi; böylece mühendisler IDE'den çıkmadan Timesheets'e kayıt yapabiliyor. Fikirden Marketplace'te yayınlamaya kadar uçtan uca sahibiydim.
 
-- **VS Code Extension Architecture:** Resmi VS Code Extension API'sini kullanarak uzantıyı tamamen sıfırdan oluşturduk. Aktif düzenleyici süresini, dosya geçişlerini ve çalışma alanı değişikliklerini sessizce izlemek için hafif arka plan işlemleri geliştirdim ve son kullanıcıya sıfır kesinti deneyimi sağladım. 
-- **Git Şubesi ve Jira Senkronizasyonu:** Geliştiricinin yerel Git ortamı ile güvenli Jira REST API'leri arasında akıllı bir veri köprüsü tasarlandı. Uzantı, mevcut aktif Git şubesini otomatik olarak ayrıştırır, ilgili bilet kimliğini çıkarır ve hassas, bağlama duyarlı zaman günlüklerini doğrudan Atlassian ekosistemimize aktarır. 
-- **Uçtan Uca Tek Başına Yürütme:** Tüm ürün yaşam döngüsünün tek sahibi olarak çalıştırılır. Yerel yapılandırma UX'ini kavramsallaştırmaktan ve güvenli OAuth belirteci şifrelemesinden, son yapıyı paketleyip Microsoft Visual Studio Marketplace'te yayınlamaya kadar her şeyi yönettim. 
+## Ne geliştirdim
 
-## İş Etkisi 
+- **Eklentinin kendisi:** Resmi VS Code Extension API üzerine inşa edildi; aktif editör süresini, dosya geçişlerini ve çalışma alanı değişikliklerini sessizce takip eden arka plan süreçleriyle — hiçbir şey geliştiriciyi bölmüyor.
+- **Git farkında zaman kaydı:** Eklenti mevcut Git dalını okuyor ve bilet kimliğini ondan çıkarıyor; böylece yakaladığı süre Timesheets eklentisine kaydedildiğinde zaten doğru sorunla ilişkilendirilmiş oluyor — bilet aramak, yeniden yazmak yok.
+- **Tam yaşam döngüsü:** Yerel yapılandırma deneyimini, güvenli token depolamayı ve derlemenin Visual Studio Marketplace'e paketlenip yayınlanmasını ben üstlendim.
 
-Sıkıcı bir organizasyonel işi görünmez, otomatik bir veri hattına dönüştüren bu uzantının mühendislik hızı üzerinde derin bir etkisi oldu. Başarılı bir şekilde **manuel zaman takibi çalışmalarını %60-70 oranında azalttı** ve **insan raporlama hatalarını şaşırtıcı bir şekilde %80 oranında azalttı**. Sonuçta ortaya çıkan kesin doğrulukta, sürtünmesiz veri akışı, liderliğe hem sprint planlama hassasiyetini hem de faturalandırma doğruluğunu büyük ölçüde iyileştirmek için tam olarak ihtiyaç duydukları şeyi sağladı.
+## Neden önemliydi
+
+Kayıt işlemindeki manuel adımı kaldırmak, Timesheets'e akan zaman verisinin hem daha eksiksiz hem de daha doğru olması anlamına geldi — saat kaydına harcanan çabada kabaca %60-70'lik bir düşüş ve çok daha az raporlama hatası. Bu, liderliğe sprint planlaması ve faturalandırma için daha temiz veri sağladı.

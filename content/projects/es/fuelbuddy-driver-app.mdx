@@ -1,22 +1,21 @@
 ---
-title: FuelBuddy India - Aplicación de entrega al conductor
-description: Desarrollé funciones de interfaz de extremo a extremo para la aplicación de controlador de logística principal de FuelBuddy, centrándose en el seguimiento de geolocalización en tiempo real, una experiencia de usuario resistente fuera de línea y flujos de trabajo operativos de alto riesgo.
+title: "FuelBuddy India - App de Entregas para Conductores"
+description: "Construí funcionalidades de principio a fin para la app de conductores de FuelBuddy: flujos tolerantes al modo sin conexión, seguimiento de ubicación en vivo, una interfaz lista para el campo y las APIs CRUD detrás de ellas sobre Hasura GraphQL."
 url: https://play.google.com/store/apps/details?id=in.fuelbuddy.driver
 date: 2024-04-01
 published: true
 company: FuelBuddy
 ---
 
-El [Aplicación FuelBuddy Driver](https://play.google.com/store/apps/details?id=in.fuelbuddy.driver) es el motor operativo que impulsa la entrega física de combustible a los consumidores terrestres y a los clientes B2B. Crear software para conductores activos requiere una mentalidad de ingeniería única: la interfaz debe ser muy legible bajo la luz del sol deslumbrante, las interacciones deben ser absolutamente fluidas y no se puede garantizar la confiabilidad de la red mientras se está en la carretera.
+La [App de Conductores de FuelBuddy](https://play.google.com/store/apps/details?id=in.fuelbuddy.driver) es lo que usan los conductores para entregar combustible a los clientes. Construir para conductores es un problema con su propia naturaleza: la pantalla tiene que ser legible bajo la luz directa del sol, los toques tienen que ser tolerantes y la red puede caerse en cualquier punto de la carretera. Construí un conjunto de funcionalidades de principio a fin pensadas justamente para esas condiciones: el frontend y las APIs de datos que hay detrás.
 
-Desempeñé un papel fundamental en el desarrollo frontend de esta aplicación móvil, entregando funciones específicas de extremo a extremo diseñadas específicamente para sobrevivir a las rigurosas demandas de las operaciones de campo activas.
+## Lo que construí
 
-## Ingeniería Frontend Crítica
+- **Interfaz tolerante al modo sin conexión:** Los conductores pierden señal con frecuencia, así que cacheé localmente los datos de rutas y pedidos y les permití seguir trabajando en las zonas sin cobertura. La app pone en cola los cambios y los sincroniza de vuelta en cuanto vuelve la conexión, en lugar de congelarse.
+- **Ubicación y mapas:** Me encargué del frontend para el seguimiento GPS en vivo y el trazado de rutas en el mapa, manteniendo eficientes las frecuentes actualizaciones de ubicación y los redibujados del mapa para que no agotaran la batería durante un turno largo.
+- **Experiencia pensada para el campo:** Fui dueño de varias funcionalidades operativas de principio a fin, diseñándolas para condiciones reales: diseños de alto contraste, zonas de toque grandes y formularios cortos para que los conductores puedan registrar una entrega de forma rápida y segura.
+- **Las APIs que hay detrás:** Construí las APIs CRUD que estas funcionalidades leen y escriben sobre el motor GraphQL de Hasura, para poder entregar una funcionalidad de principio a fin: la cola sin conexión, los datos de pedidos y el registro de entregas hablan todos con endpoints que yo controlaba.
 
-- **Interfaz de usuario resistente y optimista:** Entendiendo que los repartidores operan con frecuencia en zonas muertas de telefonía celular, diseñé módulos frontales con alta tolerancia a fallas. Me apoyé en patrones sólidos de gestión de estado para almacenar en caché temporalmente rutas críticas y ordenar datos localmente. Esto permitió a los controladores ejecutar tareas operativas sin que la interfaz de usuario se congelara, sincronizando datos silenciosamente con los servidores una vez que se restableció la conexión de red.
-- **Integraciones de geolocalización y mapeo:** Gestioné los complejos enlaces de interfaz para el seguimiento GPS en tiempo real y los componentes de enrutamiento de mapas interactivos. Me aseguré de que las frecuentes transmisiones de ubicación y los rediseños de mapas se procesaran de manera eficiente en el subproceso de la interfaz de usuario, evitando pérdidas de memoria y preservando la vida útil de la batería del dispositivo durante turnos de entrega prolongados.
-- **UX ergonómica de operaciones de campo:** Poseía completamente la arquitectura y el ciclo de vida de varias características operativas nuevas. Traduje estrictos requisitos comerciales en interfaces altamente ergonómicas, utilizando jerarquías visuales de alto contraste, hitboxes de gran tamaño y validaciones de formularios hipersimplificadas para que los conductores pudieran registrar los despachos de combustible de manera rápida y segura.
+## Por qué importó
 
-## Impacto empresarial
-
-Al optimizar en gran medida los flujos de usuarios para entornos extremos y en movimiento, mis contribuciones de frontend aceleraron directamente la velocidad de las operaciones de campo. La interfaz de alto rendimiento y tolerante a fallos permitió a los conductores centrarse en la seguridad física y la eficiencia de la ruta en lugar de luchar con una aplicación retrasada, fortaleciendo la columna vertebral de la red logística de FuelBuddy.
+Diseñar para un contexto de teléfono en mano y en movimiento hizo la app más rápida de usar sobre el terreno. Los conductores podían concentrarse en la carretera y en la entrega en lugar de pelearse con una pantalla lenta, lo que mantuvo las entregas en marcha.
