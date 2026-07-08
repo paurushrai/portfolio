@@ -19,6 +19,18 @@ type Props = {
 
 const FEATURED_PROJECTS = ["metanotes", "timesheets-appforest", "monostart-chrome-extension"];
 
+/**
+ * Bento span classes for the project list (lg+ only). A repeating 6-item
+ * rhythm — one 2x2 hero tile and one wide tile per cycle — combined with
+ * `grid-flow-dense` on the container so gaps backfill at any item count.
+ */
+function bentoSpan(index: number): string {
+  const pos = index % 6;
+  if (pos === 0) return "lg:col-span-2 lg:row-span-2";
+  if (pos === 3) return "lg:col-span-2";
+  return "";
+}
+
 export function LocaleProjectFilter({ projects }: Props) {
   const { language, t } = useLanguage();
 
@@ -186,38 +198,38 @@ export function LocaleProjectFilter({ projects }: Props) {
                 label={t.projects.title}
               />
               {filteredSorted.length > 0 ? (
-                <div className="grid items-start grid-cols-1 gap-4 mx-auto lg:mx-0 md:grid-cols-3">
-                  {[0, 1, 2].map((col) => (
-                    <div key={col} className="grid grid-cols-1 gap-4">
-                      {filteredSorted
-                        .filter((_, i) => i % 3 === col)
-                        .map((project) => (
-                          <Card key={project.slug}>
-                            <Link href={`/projects/${project.slug}`}>
-                              <article className="p-4 md:p-8">
-                                <div className="flex justify-between gap-2 items-center">
-                                  <span className="flex items-center gap-1.5 text-xs font-semibold tracking-wide uppercase duration-1000 text-zinc-400 group-hover:text-zinc-200">
-                                    <Briefcase className="w-4 h-4" />
-                                    <span>
-                                      {project.company
-                                        ? project.company
-                                        : t.projects.independent}
-                                    </span>
-                                  </span>
-                                  {wipPill(project.wip)}
-                                </div>
-                                <h2 className="z-20 mt-4 text-xl font-medium duration-1000 lg:text-3xl text-zinc-200 group-hover:text-white font-display">
-                                  {project.title}
-                                </h2>
-                                <p className="z-20 mt-4 text-sm duration-1000 text-zinc-400 group-hover:text-zinc-200">
-                                  {project.description}
-                                </p>
-                              </article>
-                            </Link>
-                          </Card>
-                        ))}
-                    </div>
-                  ))}
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:auto-rows-[14rem] lg:grid-flow-dense">
+                  {filteredSorted.map((project, i) => {
+                    const span = bentoSpan(i);
+                    return (
+                      <Card key={project.slug} className={`h-full ${span}`}>
+                        <Link
+                          href={`/projects/${project.slug}`}
+                          className="block h-full"
+                        >
+                          <article className="flex flex-col h-full p-4 md:p-8">
+                            <div className="flex justify-between gap-2 items-center">
+                              <span className="flex items-center gap-1.5 text-xs font-semibold tracking-wide uppercase duration-1000 text-zinc-400 group-hover:text-zinc-200">
+                                <Briefcase className="w-4 h-4" />
+                                <span>
+                                  {project.company
+                                    ? project.company
+                                    : t.projects.independent}
+                                </span>
+                              </span>
+                              {wipPill(project.wip)}
+                            </div>
+                            <h2 className="z-20 mt-4 text-xl font-medium duration-1000 lg:text-3xl text-zinc-200 group-hover:text-white font-display line-clamp-2">
+                              {project.title}
+                            </h2>
+                            <p className="z-20 mt-4 text-sm duration-1000 text-zinc-400 group-hover:text-zinc-200 line-clamp-3">
+                              {project.description}
+                            </p>
+                          </article>
+                        </Link>
+                      </Card>
+                    );
+                  })}
                 </div>
               ) : (
                 <p className="py-12 text-center text-zinc-400">{t.projects.empty}</p>
