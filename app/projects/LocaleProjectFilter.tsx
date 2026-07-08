@@ -10,7 +10,7 @@ type Props = {
   projects: ProjectMeta[];
 };
 
-const FEATURED_PROJECTS = ["metanotes", "testlify-app", "fuelbuddy-customer-app"];
+const FEATURED_PROJECTS = ["metanotes", "testlify-lti-plugin", "monostart-chrome-extension"];
 
 export function LocaleProjectFilter({ projects }: Props) {
   const { language, t } = useLanguage();
