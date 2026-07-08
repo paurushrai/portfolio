@@ -1,21 +1,24 @@
 ---
-title: "Testlify LTI 1.3 Avantaj Eklentisi"
-description: "Kurumsal Öğrenim Yönetim Sistemlerini Testlify ile güvenli bir şekilde birleştiren, karmaşık OIDC anlaşmalarını, öğrenci listesi senkronizasyonlarını ve geri verilen notları otomatikleştiren, Solo mimarisine sahip tam kapsamlı bir LTI 1.3 entegrasyonu."
+title: "Testlify LTI 1.3 Advantage Eklentisi"
+description: "Eğitmenlerin Testlify değerlendirmelerini bir derse atamasına ve puanları LMS'lerinin içinden takip etmesine olanak tanıyan, 1EdTech sertifikalı bir LTI Advantage (1.3) entegrasyonu — özel OIDC/JWT el sıkışması, liste senkronizasyonu ve not geri gönderimi, Next.js 14 ile inşa edildi."
 url: https://lti.testlify.com/
 date: 2026-03-01
 published: true
 company: Testlify
 ---
-Canvas, Moodle ve Blackboard gibi Öğrenme Yönetim Sistemleri (LMS), eğitim kurumları ve kurumsal eğitim sektörleri için operasyonel merkezlerdir. Bu devasa ekosistemler için Testlify'ın yetenek değerlendirme yeteneklerinin kilidini açmak amacıyla son derece güvenli ve uyumlu bir köprü gerekiyordu. Aktif olarak tek başına tam yığın mühendisi olarak çalışarak, Testlify'ı doğrudan eğitmenin yerel LMS ortamına bağlamak için tasarlanmış kusursuz bir entegrasyon olan **Testlify LTI Eklentisi**'ni tasarladım ve gönderdim. 
 
-![Testlify LTI 1.3 Plugin Demo](/projects/testlify-lti-plugin/plugin.gif)
+Canvas, Moodle ve Blackboard gibi Öğrenme Yönetim Sistemleri, okulların ve kurumsal eğitim ekiplerinin günlük işlerini yürüttüğü yerler. Testlify'ın değerlendirmelerini bu sistemlerin içinde kullanılabilir hale getirmek için güvenli, standartlara uygun bir köprüye ihtiyacımız vardı. Testlify LTI Eklentisini tek tam yığın mühendis olarak geliştirdim — eğitmenlerin Testlify'da oluşturulan değerlendirmeleri bir derse kayıtlı adaylara atamasına ve puanlarını takip etmesine olanak tanıyor, hepsi LMS'nin içinden.
 
-## Teknik Kapsam ve Mimari 
+![Testlify LTI 1.3 Eklenti Demosu](/projects/testlify-lti-plugin/plugin.gif)
 
-- **Özel LTI 1.3 Şifreleme Motoru:** Ağır, kara kutulu üçüncü taraf LTI kitaplıklarından yola çıkarak, Next.js 14'ün içinde sıfırdan son derece güvenli, özel bir uygulama tasarladım. Katı OpenID Connect (OIDC) anlaşmalarını elle gerçekleştirdim, derin JWT imza doğrulamalarını gerçekleştirdim ve LMS ile platform arasında aşılamaz güveni garanti etmek için güvenli JWKS genel anahtar uç noktaları oluşturdum. 
-- **Otomatik Veri Senkronizasyonu:** Sıkıcı idari iş akışlarını otomatikleştirmek için gelişmiş bir API katmanı tasarlandı. Çok sayıda öğrenci listesini anında senkronize etmek için Adlar ve Rol Sağlama Hizmetlerini (NRPS) entegre ettim ve aday değerlendirme puanlarını sorunsuz bir şekilde doğrudan LMS not defterine geri göndermek için Ödev ve Not Hizmetlerini (AGS) kullanan güçlü webhook dinleyicileri oluşturdum. 
-- **Tam Yığın Sistem Tasarımı:** Tek bir yekpare mimaride birleştirilmiş karmaşık, çok kiracılı API yönlendirme ve gösterişli, erişilebilir React 18 Kontrol Paneli kullanıcı arayüzü. Güvenli LMS platformu yapılandırmalarını yönetmek için ölçeklenebilir MongoDB şemaları tasarladım ve yerel testler için yalıtılmış LMS ortamlarını simüle etmek üzere gelişmiş Docker kurulumlarını düzenledim. 
+Entegrasyon, LTI Advantage (v1.3) için **[1EdTech tarafından resmi olarak sertifikalandırıldı](https://site.imsglobal.org/certifications/testlify-inc/testlify#cert_pane_nid_626241)** — Names and Role Provisioning Services 2.0 ve Assignment & Grade Services 2.0. Uyumluluk testlerini 1EdTech yürütüyor, yani bunlar kendi beyan ettiğimiz iddialar değil: bağımsız bir kurum, uygulamanın spesifikasyona uyduğunu doğruladı.
 
-## İş Etkisi 
+## Ne geliştirdim
 
-Sorunsuz, evrensel olarak uyumlu bir LTI entegrasyonunu başarıyla tasarlayan bu proje, Testlify'ın adreslenebilir pazarını agresif bir şekilde Yüksek Öğrenim ve Kurumsal Eğitim sektörlerine genişletti. Otomatik Tek Oturum Açma (SSO) ve otomatik not senkronizasyonu, idari anlaşmazlıkları tamamen ortadan kaldırarak eğitmenlerin platformu zahmetsizce benimsemesine olanak tanıdı ve büyük kurumsal katılımı teşvik etti.
+- **Özel LTI 1.3 uygulaması:** Ağır bir üçüncü taraf LTI kütüphanesine yaslanmak yerine, spesifikasyonu doğrudan Next.js 14 içinde uyguladım — LMS ile Testlify arasında güveni kuran OpenID Connect el sıkışması, JWT imza doğrulaması ve JWKS genel anahtar uç noktaları.
+- **Atama ve takip akışı:** Tüm iş akışının arkasındaki API katmanını geliştirdim — bir eğitmenin bir Testlify değerlendirmesini seçip bir derse ödev olarak eklemesi için Deep Linking, o derse kayıtlı adayları çekmek için Names and Role Provisioning Services (NRPS) ve her adayın puanını LMS not defterine geri göndermek için Assignment & Grade Services (AGS) — böylece eğitmenler sonuçları zaten çalıştıkları yerde görüyor.
+- **Tam yığın sistem:** Çok kiracılı API yönlendirmesini tek bir uygulamada React 18 panosuyla birleştirdim, platform başına yapılandırma için MongoDB şemalarını tasarladım ve yerel testler için yalıtılmış LMS ortamlarını simüle etmek üzere Docker kullandım.
+
+## Neden önemliydi
+
+Standartlara uygun bir LTI entegrasyonu, Testlify'ı yükseköğretim ve kurumsal eğitim pazarlarına açtı — ve geliştirdiğim eklenti 1EdTech'in uyumluluk testinden geçip sertifika kazandı. Eğitmenler, değerlendirmeleri tüm bir derse atayıp puanları not defterine otomatik olarak geri alabildi — liste dışa aktarmak veya sonuçları elle kopyalamak yok — ki bu, genellikle LMS benimsemesini takan türden bir sürtünme.

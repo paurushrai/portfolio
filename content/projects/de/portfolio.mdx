@@ -1,33 +1,31 @@
 ---
-title: Persönliches Portfolio — paurushrai.in
-description: Ein produktionsreifes, mehrsprachiges Portfolio mit 99/100 Lighthouse-Desktop-Performance — mit einem 12-Sprachen-i18n-System, WCAG 2.1 AA-Barrierefreiheit und einem First-Party-Analytics-Proxy zum Umgehen von Werbeblockern.
+title: "Persönliches Portfolio — paurushrai.in"
+description: "Die Portfolio-Website selbst — ein Next.js-14-Build mit Unterstützung für 12 Sprachen, einem First-Party-Analytics-Proxy, der Werbeblocker übersteht, und einem Lighthouse-Score von 99/100. Open Source."
 url: https://paurushrai.in
 repository: paurushrai/portfolio
 date: 2026-04-01
 published: true
-company: Personal Project
+company: Persönliches Projekt
 ---
 
-Dieses Portfolio ist eine **Next.js 14 App Router**-Anwendung, die als lebendiges Engineering-Artefakt konzipiert wurde — kein Template. Jede Architekturentscheidung spiegelt dasselbe produktionsreife Denken wider, das in Enterprise-Systemen zur Anwendung kommt: Korrektheit, Beobachtbarkeit und messbare Performance. Die Website erreicht **99/100 Desktop- und 97/100 Mobile-Lighthouse-Performance** sowie perfekte 100-Punkte in Barrierefreiheit und SEO.
+Das ist die Seite, auf der du gerade bist. Es ist ein Next.js-14-Projekt, gebaut und gepflegt als kleines Produkt statt als Template – die Codebasis ist öffentlich, die Details unten sind also alle nachprüfbar. Sie erreicht bei Lighthouse 99/100 auf dem Desktop und 97/100 auf dem Mobilgerät, mit 100 bei Barrierefreiheit und SEO.
 
-![Personal Portfolio — paurushrai.in](/projects/portfolio/portfolio.gif)
+![Persönliches Portfolio — paurushrai.in](/projects/portfolio/portfolio.gif)
 
-## Technischer Umfang & Beiträge
+## Was drinsteckt
 
-- **12-Sprachen-i18n-Architektur:** Vollständig eigenentwickeltes Internationalisierungssystem ohne Drittanbieter-Bibliotheken. Implementiert wurde ein typsicherer `LanguageContext` mit einer stark typisierten Übersetzungszuordnung für Englisch, Deutsch, Spanisch, Französisch, Hindi, Italienisch, Japanisch, Koreanisch, Portugiesisch, Russisch, Türkisch und Chinesisch. Der Sprachumschalter speichert die Nutzerpräferenz via `localStorage` und aktualisiert das `<html lang>`-Attribut dynamisch — sodass Screenreader und Crawler jederzeit die korrekte Sprachvariante erhalten. Jeder nutzerorientierte Text — einschließlich Kontaktformular-Labels, Fehlerzustände und CTA-Texte — ist in allen 12 Sprachvarianten vollständig lokalisiert.
+- **12 Sprachen:** Die Website ist auf Englisch, Deutsch, Spanisch, Französisch, Hindi, Italienisch, Japanisch, Koreanisch, Portugiesisch, Russisch, Türkisch und Chinesisch verfügbar. Ein typisierter Sprachkontext und eine Übersetzungszuordnung steuern den Umschalter, der sich deine Wahl merkt und das `lang`-Attribut der Seite aktualisiert, sodass Screenreader und Suchmaschinen die richtige Sprache lesen. Jeder Text ist abgedeckt, einschließlich des Kontaktformulars.
 
-- **Canvas-Animation & Performance-Engineering:** Entwickelt wurde ein WebGL-artiges Partikelsystem auf Basis der nativen Canvas 2D API mit mausgesteuertem Magnetismus, Alpha-Fade-Physik und sanftem Rand-Wrapping. Ein kritischer Forced-Reflow-Engpass wurde identifiziert und beseitigt — `getBoundingClientRect()`-Aufrufe wurden aus dem heißen `mousemove`-Pfad in ein gecachtes `ref` verschoben, das nur bei Resize-Ereignissen aktualisiert wird. Dadurch sank der DOM-Overhead pro Frame von O(n) auf O(1). Kombiniert mit RAF-gedrosselten Maus-State-Updates und `next/dynamic` Lazy Loading bleiben die Partikel vollständig außerhalb des kritischen Renderpfads — was den Desktop-Lighthouse-Performance-Score auf **99/100** treibt.
+- **Ein Partikel-Hintergrund, der schnell bleibt:** Die dem Cursor folgenden Punkte werden auf einem Canvas gezeichnet. Eine frühe Version ruckelte, weil sie bei jeder Mausbewegung die Canvas-Position maß und so eine ständige Layout-Neuberechnung erzwang. Das Zwischenspeichern dieser Messung entfernte das Ruckeln, und das Lazy-Loading der Partikel hält sie aus dem ersten Rendern heraus – was den Großteil dessen ausmacht, was den Desktop-Score auf 99 gebracht hat.
 
-- **Analytics-Stack ohne Werbeblocker-Blindstellen:** Aufgebaut wurde ein duales Analytics-Setup (Umami + Google Tag Manager) mit einem Next.js-Rewrite-Proxy, der den gesamten Telemetrie-Traffic über die First-Party-Domain leitet (`/um/script.js` → `cloud.umami.is`, `/um/api/send` → `api-gateway.umami.dev`). Damit entfällt der typische 20–40%ige stille Event-Verlust, der entsteht, wenn Analytics-Skripte von Drittanbieter-Domains laden, die von uBlock Origin und Brave blockiert werden. GTM verwaltet den GA4-Tag serverseitig und konsolidiert die gesamte Tag-Governance an einem Ort.
+- **Analytics, die Werbeblocker nicht heimlich kaputtmachen:** Analytics-Skripte, die von Drittanbieter-Domains geladen werden, werden von Blockern wie uBlock und Brave stillschweigend verworfen und verlieren so 20–40 % der Ereignisse ohne jede Warnung. Das Leiten der Analytics über die eigene Domain der Website hält die Daten First-Party und intakt. Umami übernimmt die datenschutzfreundlichen Statistiken; Google Tag Manager übernimmt den Rest.
 
-- **SEO & Structured-Data-Suite:** Implementiert wurden JSON-LD `Person`-Schema, hreflang-Alternate-Links für alle 12 Sprachvarianten, routenspezifische kanonische URLs sowie dynamisches `generateMetadata` für jeden Projekt-Slug. `generateMetadata` erzeugt projektspezifische Open-Graph-Daten und `SoftwareApplication`-JSON-LD, besteht Googles Structured-Data-Validator und eliminiert Duplicate-Content-Signale über lokalisierte Routen hinweg.
+- **SEO-Grundlagen sauber umgesetzt:** Strukturierte Daten für die Person und jedes Projekt, korrekte Sprach-Tags über alle 12 Versionen jeder Seite, kanonische URLs, damit Übersetzungen nicht miteinander konkurrieren, und pro Projekt erzeugte Social-Preview-Karten.
 
-- **WCAG 2.1 AA-Barrierefreiheit:** Durchgeführt wurde ein vollständiges Barrierefreiheits-Audit mit Behebung aller Mängel — implementiert wurde ein visuell versteckter Skip-to-Content-Link, globale `:focus-visible`-Tastatur-Fokusringe via einer einzigen CSS-Regel, korrigierte Vordergrund-/Hintergrund-Kontrastverhältnisse für den gesamten Fließtext (zinc-500 → zinc-400 auf dunklen Flächen erfüllt AA-Kontrast mit 4.5:1+) sowie `aria-hidden` für dekorative Canvas-Elemente. Der Sprachumschalter wurde von einer nicht-semantischen `listbox` in eine korrekte ARIA-`menu`-Struktur umgebaut.
+- **Barrierefreiheit:** Ein Skip-to-Content-Link, sichtbare Fokusumrandungen für Tastaturnutzer, AA-konformer Textkontrast, dekorative Animationen, die vor Screenreadern verborgen sind, und ein Sprachmenü, das als ordentlich navigierbares Markup statt als gestyltes div gebaut ist.
 
-- **Typsichere Content-Pipeline:** Contentlayer wurde so konfiguriert, dass MDX-Projektdateien zur Build-Zeit in vollständig typisiertes statisches JSON verarbeitet werden — mit berechneten `slug`- und `locale`-Feldern, die ausschließlich aus der Dateistruktur abgeleitet werden. Neue Projekte erfordern keinerlei Code-Änderungen — eine MDX-Datei im richtigen Locale-Ordner ablegen, und sie erscheint beim nächsten Deploy auf der Website. Runtime-Parsing-Overhead entfällt vollständig.
+- **Inhalte sind einfach Markdown:** Ein Projekt hinzuzufügen bedeutet, eine Markdown-Datei in den richtigen Sprachordner zu legen – es erscheint beim nächsten Deploy, vollständig typisiert, ohne Code-Änderungen. Seitenaufrufe werden von einer kleinen serverlosen Funktion gezählt, die IPs hasht, statt sie zu speichern, es gibt also keine Cookies oder personenbezogenen Daten.
 
-- **Serverless Pageview-Tracking:** Entwickelt wurde eine serverlose Edge Function für anonymes Seitenaufruf-Zählen mittels SHA-256-gehashter IP-Adressen zur Deduplizierung — keine Cookies, keine gespeicherten personenbezogenen Daten. Die Zähler revalidieren in einem 60-Sekunden-ISR-Fenster, sodass Projektaufrufe live wirken, ohne das statische Auslieferungsmodell zu kompromittieren.
+## Warum es wichtig ist
 
-## Geschäftlicher Mehrwert
-
-Das Portfolio ist ein bewusster Kompetenznachweis. Jede Optimierung — von der Beseitigung eines Forced-Reflow-Engpasses im Partikelsystem über den Aufbau eines First-Party-Analytics-Proxys bis zur vollständigen 12-Locale-Content-Migration — folgt derselben Engineering-Disziplin, die bei produktiven Systemen im großen Maßstab gilt. Das Ergebnis: perfekte Scores in Barrierefreiheit und SEO, nahezu perfekte Performance, eine vollständig internationalisierte Content-Oberfläche für Milliarden nicht-englischsprachiger Nutzer und eine Analytics-Pipeline, die Daten erfasst, die andere Implementierungen stillschweigend verlieren. Der Quellcode ist Open Source — Architekturentscheidungen sind nachvollziehbar, nicht nur behauptet.
+Die Website dient zugleich als funktionierendes Beispiel dafür, wie der Rest dieser Projekte gebaut ist – Performance, datenschutzfreundliche Analytics, Mehrsprachigkeit und Barrierefreiheit, alles an einem Ort, den man inspizieren kann. Da das Repository offen ist, lässt sich der Code gegen die Beschreibung prüfen.

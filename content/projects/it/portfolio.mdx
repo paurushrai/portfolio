@@ -1,33 +1,31 @@
 ---
-title: Portfolio Personale — paurushrai.in
-description: Sviluppato un portfolio multilingue di livello produzione con un punteggio Lighthouse desktop di 99/100 — con un sistema i18n a 12 lingue, accessibilità WCAG 2.1 AA e un proxy analytics first-party per aggirare i blocchi pubblicitari.
+title: "Portfolio Personale — paurushrai.in"
+description: "Il sito portfolio stesso — un progetto Next.js 14 con supporto a 12 lingue, un proxy analytics first-party che sopravvive agli ad blocker e un punteggio Lighthouse di 99/100. Open source."
 url: https://paurushrai.in
 repository: paurushrai/portfolio
 date: 2026-04-01
 published: true
-company: Personal Project
+company: Progetto Personale
 ---
 
-Questo portfolio è un'applicazione **Next.js 14 App Router** concepita come artefatto ingegneristico reale — non un template. Ogni scelta architetturale riflette lo stesso rigore applicato ai sistemi enterprise: correttezza, osservabilità e prestazioni misurabili. Il sito raggiunge **99/100 in performance Lighthouse su desktop e 97/100 su mobile**, con punteggi perfetti di 100 in Accessibilità e SEO.
+Questo è il sito su cui ti trovi in questo momento. È un progetto Next.js 14 costruito e mantenuto come un piccolo prodotto anziché come un template — il codice è pubblico, quindi i dettagli qui sotto sono tutti verificabili. Ottiene 99/100 su desktop e 97/100 su mobile in Lighthouse, con 100 su Accessibilità e SEO.
 
-![Personal Portfolio — paurushrai.in](/projects/portfolio/portfolio.gif)
+![Portfolio Personale — paurushrai.in](/projects/portfolio/portfolio.gif)
 
-## Ambito Tecnico e Contributi
+## Cosa contiene
 
-- **Architettura i18n a 12 Lingue:** Progettato e implementato da zero un sistema di internazionalizzazione completamente personalizzato — senza librerie di terze parti. Realizzato un `LanguageContext` type-safe con una mappa di traduzioni fortemente tipizzata in inglese, tedesco, spagnolo, francese, hindi, italiano, giapponese, coreano, portoghese, russo, turco e cinese. Il selettore di lingua persiste la preferenza dell'utente tramite `localStorage` e aggiorna dinamicamente l'attributo `<html lang>`, garantendo che screen reader e crawler ricevano sempre il locale corretto. Ogni stringa visibile all'utente — incluse le etichette del modulo di contatto, gli stati di errore e i testi CTA — è completamente localizzata in tutti i 12 locale.
+- **12 lingue:** Il sito è disponibile in inglese, tedesco, spagnolo, francese, hindi, italiano, giapponese, coreano, portoghese, russo, turco e cinese. Un contesto di lingua tipizzato e una mappa di traduzioni guidano il selettore, che ricorda la tua scelta e aggiorna l'attributo `lang` della pagina così che screen reader e motori di ricerca leggano la lingua corretta. Ogni stringa è coperta, incluso il modulo di contatto.
 
-- **Animazione Canvas e Ottimizzazione delle Prestazioni:** Sviluppato un sistema di particelle di qualità WebGL usando la raw Canvas 2D API, con magnetismo guidato dal mouse, fisica di dissolvenza alfa e wrapping fluido ai bordi. Identificato ed eliminato un collo di bottiglia critico di forced-reflow — spostati i `getBoundingClientRect()` fuori dal percorso hot di `mousemove` in una `ref` cached aggiornata solo sugli eventi di resize, riducendo il DOM thrash per frame da O(n) a O(1). Combinato con aggiornamenti dello stato mouse throttolati via RAF e lazy loading con `next/dynamic` per mantenere le particelle completamente fuori dal percorso di rendering critico, portando il punteggio Lighthouse desktop a **99/100**.
+- **Uno sfondo a particelle che resta veloce:** I puntini che seguono il cursore vengono disegnati su un canvas. Una prima versione scattava perché misurava la posizione del canvas a ogni movimento del mouse, forzando un ricalcolo continuo del layout. Mettere in cache quella misurazione ha eliminato lo scatto, e il lazy-loading delle particelle le tiene fuori dal primo rendering — che è gran parte di ciò che ha portato il punteggio desktop a 99.
 
-- **Stack Analytics Senza Punti Ciechi da Ad Blocker:** Progettato un setup analytics duale (Umami + Google Tag Manager) e costruito un proxy rewrite Next.js che instrada tutta la telemetria attraverso il dominio first-party (`/um/script.js` → `cloud.umami.is`, `/um/api/send` → `api-gateway.umami.dev`). Questo elimina la perdita silenziosa del 20–40% degli eventi tipica quando gli script analytics si caricano da origini di terze parti bloccate da uBlock Origin e Brave. GTM gestisce il tag GA4 lato server, centralizzando tutta la governance dei tag in un unico punto.
+- **Analytics che gli ad blocker non rompono silenziosamente:** Gli script analytics caricati da domini di terze parti vengono scartati in silenzio da blocker come uBlock e Brave, perdendo il 20–40% degli eventi senza alcun avviso. Instradare gli analytics attraverso il dominio del sito stesso mantiene i dati first-party e integri. Umami gestisce le statistiche rispettose della privacy; Google Tag Manager gestisce il resto.
 
-- **Suite SEO e Dati Strutturati:** Implementato lo schema JSON-LD `Person`, link hreflang alternativi per tutti i 12 locale, URL canonical per ogni route e `generateMetadata` dinamico su ogni slug di progetto. Configurato `generateMetadata` per produrre Open Graph per progetto e JSON-LD `SoftwareApplication`, soddisfacendo il validatore di dati strutturati di Google ed eliminando segnali di contenuto duplicato tra le route localizzate.
+- **Le basi SEO fatte come si deve:** Dati strutturati per la persona e per ogni progetto, tag di lingua corretti in tutte le 12 versioni di ogni pagina, URL canonici così che le traduzioni non competano tra loro, e card di anteprima social generate per ogni progetto.
 
-- **Accessibilità WCAG 2.1 AA:** Condotto un audit completo sull'accessibilità e risolto ogni problema riscontrato — implementato un link skip-to-content visivamente nascosto, applicato globalmente gli anelli di focus `:focus-visible` via una singola regola CSS, corretti i rapporti di contrasto tra primo piano e sfondo su tutto il corpo del testo (zinc-500 → zinc-400 su superfici scure supera il contrasto AA a 4.5:1+), e applicato `aria-hidden` agli elementi canvas decorativi. Refactoring del selettore lingua da un `listbox` non semantico a una struttura ARIA `menu` corretta.
+- **Accessibilità:** Un link salta-al-contenuto, contorni di focus visibili per chi usa la tastiera, contrasto del testo conforme al livello AA, animazioni decorative nascoste agli screen reader e un menu delle lingue costruito come markup navigabile corretto anziché come un div stilizzato.
 
-- **Pipeline di Contenuti Type-Safe:** Configurato Contentlayer per elaborare i file MDX dei progetti in JSON statico completamente tipizzato al momento della build, con campi `slug` e `locale` calcolati derivati puramente dalla struttura del percorso file. I nuovi progetti non richiedono modifiche al codice — basta inserire un file MDX nella cartella locale corretta e apparirà sul sito al prossimo deploy. Eliminato completamente il sovraccarico di parsing a runtime.
+- **I contenuti sono solo Markdown:** Aggiungere un progetto significa inserire un file Markdown nella cartella della lingua giusta — appare al deploy successivo, completamente tipizzato, senza modifiche al codice. Le visualizzazioni di pagina vengono contate da una piccola funzione serverless che fa l'hash degli IP invece di memorizzarli, quindi non ci sono cookie né dati personali.
 
-- **Tracciamento Pageview Serverless:** Realizzata una Edge Function serverless per il conteggio anonimo delle visualizzazioni di pagina, usando indirizzi IP con hash SHA-256 per la deduplicazione — nessun cookie, nessun dato personale memorizzato. I conteggi si aggiornano con una finestra ISR di 60 secondi, rendendo le visualizzazioni dei progetti quasi in tempo reale senza rinunciare al modello di delivery statico.
+## Perché è importante
 
-## Impatto sul Business
-
-Il portfolio è una prova deliberata di qualità ingegneristica. Ogni ottimizzazione — dall'eliminazione di un collo di bottiglia da forced-reflow nel sistema di particelle alla costruzione di un proxy analytics first-party fino alla migrazione completa dei contenuti in 12 locale — è stata guidata dallo stesso rigore ingegneristico applicato ai sistemi di produzione su larga scala. Il risultato: punteggi perfetti in Accessibilità e SEO, performance quasi perfette, una superficie di contenuti completamente internazionalizzata accessibile a miliardi di parlanti non inglesi e una pipeline analytics che cattura dati che altre implementazioni scartano silenziosamente. Il codebase è open source — le scelte architetturali sono verificabili, non solo dichiarate.
+Il sito funge anche da esempio funzionante di come sono costruiti gli altri progetti — prestazioni, analytics rispettosi della privacy, supporto multilingua e accessibilità, tutto in un unico posto che puoi ispezionare. Poiché il repository è aperto, il codice può essere confrontato con la descrizione.

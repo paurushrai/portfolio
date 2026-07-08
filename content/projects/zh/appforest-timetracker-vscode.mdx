@@ -1,20 +1,20 @@
 ---
-title: AppForest Timetracker - VS 代码扩展
-description: 单独设计了一个本机 VS Code 扩展，将开发人员工作流程活动直接与 Jira 同步，将报告错误减少 80%，并消除手动时间跟踪摩擦。
+title: "AppForest Timetracker — VS Code 扩展"
+description: "AppForest Timesheets Jira 插件的 VS Code 配套工具——它在编辑器里跟踪编码活动，让向 Timesheets 记录工时变得轻松，无需离开 IDE。"
 url: https://marketplace.visualstudio.com/items?itemName=AppforestTimetracker.appforest-timetracker
 date: 2025-07-01
 published: true
 company: Testlify
 ---
 
-虽然我们的内部 Jira 插件成功地在 Testlify 集中进行了时间跟踪，但开发人员仍然面临着上下文切换以手动记录时间的日常摩擦。 为了完全消除这种管理负担，我独自设计、构建并发布了 **AppForest Timetracker**，这是一个本机 Visual Studio Code 扩展，可以自动执行日志记录过程，而无需工程师离开他们的 IDE。
+我们的 Jira 插件 [Timesheets by AppForest](/projects/timesheets-appforest) 已经把 Testlify 的工时跟踪集中了起来——但开发者仍然得停下手头的活、切换过去手动填报工时。AppForest Timetracker 填补了这个空档。它是一个 VS Code 扩展，直接在编辑器里跟踪编码活动，把工时记录变成一个快捷操作，让工程师不用离开 IDE 就能记录到 Timesheets。从想法到发布上 Marketplace，我从头到尾都负责。
 
-## 技术范围和贡献
+## 我做了什么
 
-- **VS Code 扩展架构：** 利用官方 VS Code 扩展 API 完全从头开始构建扩展。 我开发了轻量级后台进程来默默地监视活动编辑器时间、文件转换和工作区修改，确保最终用户的零中断体验。
-- **Git Branch 和 Jira 同步：** 在开发人员的本地 Git 环境和安全的 Jira REST API 之间设计了智能数据桥梁。 该扩展会自动解析当前活动的 Git 分支，提取相关的票证 ID，并将精确的、上下文感知的时间日志直接推送到我们的 Atlassian 生态系统中。
-- **端到端单独执行：** 作为整个产品生命周期的唯一所有者进行运营。 我负责管理一切事务，从概念化本地配置 UX 到处理安全 OAuth 令牌加密，一直到在 Microsoft Visual Studio Marketplace 上打包和发布最终版本。
+- **扩展本身：** 基于官方的 VS Code Extension API 构建，用后台进程安静地跟踪编辑器活跃时间、文件切换和工作区变动——不会打断开发者。
+- **感知 Git 的工时记录：** 扩展会读取当前的 Git 分支，从中提取工单 ID，因此它记录到 Timesheets 插件时，捕获的工时已经关联到了正确的 issue——不用去找工单，也不用重新输入。
+- **完整生命周期：** 我负责了本地配置的使用体验、令牌的安全存储，以及把构建打包并发布到 Visual Studio Marketplace。
 
-## 业务影响
+## 为什么它有意义
 
-通过将繁琐的组织工作转变为无形的自动化数据管道，这种扩展对工程速度产生了深远的影响。 它成功**将手动时间跟踪工作减少了 60-70%**，并**将人工报告错误减少了惊人的 80%**。 由此产生的精确、无摩擦的数据为领导层提供了大幅提高冲刺计划精度和计费准确性所需的信息。
+去掉记录工时的手动步骤，意味着流入 Timesheets 的工时数据更完整、也更准确——记录工时的投入大约减少了 60–70%，报表出错的情况也少了很多。这让管理层拿到了更干净的数据，用来排期和计费。

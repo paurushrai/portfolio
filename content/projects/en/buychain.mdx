@@ -1,22 +1,22 @@
 ---
-title: BuyChain - Headless Enterprise Architecture
-description: Engineered a highly scalable, decoupled web architecture from the ground up using Astro.js and Directus to serve dynamic B2B supply chain solutions with zero-latency UX.
+title: BuyChain - Headless Jamstack Site
+description: A decoupled marketing site for a B2B supply-chain company, built on Astro and a Directus headless CMS so the team can publish without developer help.
 url: https://www.buychain.co/
 date: 2023-04-01
 published: true
 company: Modocosm
 ---
 
-[BuyChain](https://www.buychain.co/) required a robust digital presence that could articulate their complex B2B supply chain solutions while maintaining absolute speed and reliability. As the lead engineer for this build, I completely designed the frontend infrastructure from scratch, adopting a modern Jamstack approach.
+[BuyChain](https://www.buychain.co/) needed a site that could explain a fairly complex B2B supply-chain product while staying fast and easy to update. I led the frontend build. After weighing the tradeoffs, I proposed a Jamstack approach — a static frontend with content managed separately — and owned it through to launch, walking the BuyChain team through how they'd run content day to day so the choice stuck after handoff.
 
 ![BuyChain](/projects/buychain/image.png)
 
-## Key Engineering Achievements
+## What I built
 
-- **Component-Driven Jamstack (Astro.js):** Engineered the entire frontend leveraging Astro. By hydrating interactive components only when necessary (island architecture), I delivered a zero-latency digital experience that handles complex UI rendering smoothly. 
-- **Dynamic Content Ecosystem:** Architected a sophisticated data layer via **Directus CMS**. I designed comprehensive SQL schemas from the ground up, mapping out relational data to feed localized pages and dynamic B2B marketing assets.
-- **API Orchestration & Security:** Built secure, read-only pipelines between the Astro build process and Directus endpoints. This ensures that sensitive content delivery is insulated from frontend vulnerabilities while guaranteeing 100% uptime through static builds.
+- **Astro frontend:** Built with Astro's island architecture, so interactive pieces hydrate only where they're needed and the rest ships as static HTML. That keeps pages quick to load.
+- **Directus CMS:** Set up Directus as the content layer, including the SQL schemas behind it, so localized pages and marketing content are all driven from one place.
+- **Static build pipeline:** Content is pulled from Directus at build time into read-only static pages, which keeps the live site insulated from the CMS and cheap to host.
 
-## Business Impact
+## Why it mattered
 
-The decoupled system empowers the stakeholder team to iterate rapidly on new landing pages and business verticals without developer intervention. This eliminated engineering bottlenecks, slashed ongoing server computation costs, and provided BuyChain with an enterprise-grade web foundation ready for massive scale.
+Because content lives in the CMS and the site rebuilds statically, the BuyChain team can spin up new landing pages and verticals without waiting on a developer. That removed a recurring bottleneck and kept hosting costs low.

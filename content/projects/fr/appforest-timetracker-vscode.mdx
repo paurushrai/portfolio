@@ -1,19 +1,20 @@
 ---
-title: "AppForest Timetracker - Extension de code VS"
-description: "J'ai conçu à moi seul une extension VS Code native pour synchroniser l'activité du flux de travail des développeurs directement avec Jira, réduisant ainsi les erreurs de reporting de 80 % et éliminant les frictions liées au suivi manuel du temps."
+title: "AppForest Timetracker - Extension VS Code"
+description: "Un compagnon VS Code pour le plugin Jira AppForest Timesheets — il suit l'activité de codage dans l'éditeur et rend le report du temps dans Timesheets sans effort, sans quitter l'IDE."
 url: https://marketplace.visualstudio.com/items?itemName=AppforestTimetracker.appforest-timetracker
 date: 2025-07-01
 published: true
 company: Testlify
 ---
-Alors que notre plugin Jira interne a réussi à centraliser le suivi du temps chez Testlify, les développeurs étaient toujours confrontés aux frictions quotidiennes du changement de contexte pour enregistrer manuellement leurs heures. Pour éliminer complètement cette charge administrative, j'ai conçu, construit et livré à lui seul **AppForest Timetracker**, une extension native de Visual Studio Code qui automatise le processus de journalisation sans obliger les ingénieurs à quitter leur IDE. 
 
-## Portée technique et contributions 
+Notre plugin Jira, [Timesheets by AppForest](/projects/timesheets-appforest), avait centralisé le suivi du temps chez Testlify — mais les développeurs devaient toujours s'interrompre et basculer d'outil pour saisir leurs heures à la main. AppForest Timetracker comble ce manque. C'est une extension VS Code qui suit l'activité de codage directement dans l'éditeur et transforme le report du temps en une action rapide, pour que les ingénieurs puissent l'enregistrer dans Timesheets sans quitter l'IDE. Je l'ai porté de bout en bout, de l'idée jusqu'à la publication sur le Marketplace.
 
-- **Architecture d'extension VS Code :** Construit l'extension entièrement à partir de zéro en utilisant l'API officielle d'extension VS Code. J'ai développé des processus d'arrière-plan légers pour surveiller silencieusement le temps d'activité de l'éditeur, les transitions de fichiers et les modifications de l'espace de travail, garantissant ainsi une expérience sans interruption pour l'utilisateur final. 
-- **Git Branch & Jira Synchronisation :** Conception d'un pont de données intelligent entre l'environnement Git local du développeur et les API REST Jira sécurisées. L'extension analyse automatiquement la branche Git active actuelle, extrait l'ID de ticket correspondant et transmet des journaux de temps précis et contextuels directement dans notre écosystème Atlassian. 
-- **Exécution solo de bout en bout :** Exploité en tant qu'unique propriétaire de l'ensemble du cycle de vie du produit. J'ai tout géré, depuis la conceptualisation de la configuration locale UX et la gestion du cryptage sécurisé des jetons OAuth, jusqu'au packaging et à la publication de la version finale sur Microsoft Visual Studio Marketplace. 
+## Ce que j'ai construit
 
-## Impact sur l'entreprise 
+- **L'extension elle-même :** Construite sur l'API officielle des extensions VS Code, avec des processus en arrière-plan qui suivent discrètement le temps passé dans l'éditeur actif, les changements de fichier et les modifications du workspace — rien n'interrompt le développeur.
+- **Report du temps sensible à Git :** L'extension lit la branche Git courante et en extrait l'identifiant du ticket, si bien que le temps capturé est déjà rattaché au bon ticket au moment de l'enregistrer dans le plugin Timesheets — aucune recherche de ticket, aucune ressaisie.
+- **Cycle de vie complet :** J'ai pris en charge l'UX de la configuration locale, le stockage sécurisé des jetons, ainsi que l'empaquetage et la publication du build sur le Visual Studio Marketplace.
 
-En transformant une tâche organisationnelle fastidieuse en un pipeline de données invisible et automatisé, cette extension a eu un effet profond sur la vitesse d'ingénierie. Il a réussi à **réduire les efforts manuels de suivi du temps de 60 à 70 %** et à **réduire les erreurs de reporting humain de 80 %**. L’afflux de données précises et fluides qui en a résulté a fourni aux dirigeants exactement ce dont ils avaient besoin pour améliorer considérablement à la fois la précision de la planification des sprints et celle de la facturation.
+## Pourquoi c'était important
+
+Supprimer l'étape manuelle du report a rendu les données de temps qui alimentent Timesheets à la fois plus complètes et plus exactes — environ 60 à 70 % d'effort en moins pour saisir les heures et bien moins d'erreurs de reporting. Cela a donné à la direction des données plus propres pour planifier les sprints et facturer.

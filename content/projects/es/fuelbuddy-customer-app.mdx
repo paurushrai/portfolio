@@ -1,20 +1,20 @@
 ---
-title: FuelBuddy India - Aplicación para clientes - React Native Migration
-description: Se migró la aplicación de cliente principal de FuelBuddy de una PWA a React Native, lo que garantiza una perfecta compatibilidad con iOS y una entrega autónoma de funciones de un extremo a otro.
+title: "FuelBuddy India - App de Cliente (Migración a React Native)"
+description: "Ayudé a migrar la app de cliente de FuelBuddy de una PWA a React Native después de que iOS hiciera inviables las web apps en el iPhone, trabajando en todo el stack para no dejar de entregar funcionalidades."
 url: https://play.google.com/store/apps/details?id=in.fuelbuddy.app
 date: 2023-12-01
 published: true
 company: FuelBuddy
 ---
 
-Cuando las restricciones del ecosistema iOS comenzaron a limitar la funcionalidad de la aplicación web progresiva (PWA) heredada de FuelBuddy, la empresa enfrentó un obstáculo crítico para retener a los usuarios de Apple. Bajo la dirección de nuestro líder tecnológico, formé parte del grupo de trabajo de ingeniería principal responsable de migrar toda la plataforma del consumidor a una aplicación **React Native** robusta y multiplataforma.
+La app de cliente de FuelBuddy empezó como una Progressive Web App. Eso funcionaba en Android, pero en el iPhone chocó con un muro: Apple solo permite que las web apps se ejecuten en su propio motor WebKit y les da un trato de segunda clase —instalación en la pantalla de inicio poco fiable, almacenamiento limitado y sin notificaciones push fiables—, hasta el punto de moverse para eliminar por completo las web apps de la pantalla de inicio de iOS. Para FuelBuddy eso significaba que la PWA prácticamente no podía dar servicio a los usuarios de iPhone, y una app nativa era la única forma fiable de llegar a ellos. Formé parte del equipo de ingeniería que reescribió la app en React Native.
 
-## Alcance técnico y contribuciones
+## En lo que trabajé
 
-- **Migración móvil estratégica:** Ejecuté una reescritura masiva desde una PWA a una aplicación React Native compilada. Fui en gran parte responsable de diseñar interfaces móviles complejas, asegurándome de que la nueva aplicación lograra un rendimiento fluido y de nivel nativo en entornos iOS y Android.
-- **Entrega de funciones autónomas:** Si bien mi mandato principal era impulsar la interfaz móvil junto con un equipo de desarrolladores, operaba activamente en toda la pila para evitar cuellos de botella en la entrega. Siempre que una nueva función requería estructuras de datos personalizadas, escribía e integraba de forma independiente los puntos finales API de backend necesarios.
-- **Ingeniería colaborativa:** Prosperó en un entorno multifuncional altamente sincronizado. Colaboré íntimamente con otros desarrolladores y propietarios de productos para ofrecer rápidamente funciones de extremo a extremo, traduciendo la lógica empresarial de alto nivel en una experiencia móvil impecable.
+- **De PWA a React Native:** Reescribí la app como una aplicación compilada de React Native, centrándome en la interfaz móvil y asegurándome de que se sintiera nativa tanto en iOS como en Android, en lugar de como una página web envuelta.
+- **Trabajar en todo el stack:** Mi foco principal era el frontend móvil, pero cuando una funcionalidad necesitaba nuevos endpoints de datos, yo mismo construía las APIs CRUD sobre el motor GraphQL de Hasura, para que el trabajo no se estancara esperando a otro equipo.
+- **Entregar con el equipo:** Trabajé de cerca con los demás desarrolladores y los product owners para convertir los requisitos en funcionalidades terminadas y mantener el ritmo de las releases.
 
-## Impacto empresarial
+## Por qué importó
 
-El giro decisivo hacia React Native neutralizó con éxito la amenaza a nivel de plataforma para los usuarios de iOS, recuperando y expandiendo instantáneamente la participación de mercado móvil de FuelBuddy. Al funcionar como colaborador versátil y completo, ayudé al equipo a acelerar drásticamente la cadencia de lanzamiento, logrando que una aplicación nativa unificada y altamente pulida llegara directamente a las manos de los consumidores finales.
+Pasar a nativo sacó a FuelBuddy de la plataforma en la que no podía confiar y puso una app única y consistente frente a los clientes tanto en iPhone como en Android. Arrimar el hombro en todo el stack ayudó al equipo a mantener el ritmo de entregas.

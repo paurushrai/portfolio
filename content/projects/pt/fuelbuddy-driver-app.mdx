@@ -1,22 +1,21 @@
 ---
-title: FuelBuddy Índia - aplicativo de entrega de motorista
-description: Desenvolveu recursos de front-end ponta a ponta para o principal aplicativo de driver de logística do FuelBuddy, com foco no rastreamento de geolocalização em tempo real, UX offline resiliente e fluxos de trabalho operacionais de alto risco.
+title: "FuelBuddy Índia - App de Entrega para Motoristas"
+description: "Construí features de ponta a ponta para o app de motoristas da FuelBuddy — fluxos tolerantes a falta de conexão, rastreamento de localização ao vivo, uma UI pronta para o campo e as APIs CRUD por trás delas sobre GraphQL da Hasura."
 url: https://play.google.com/store/apps/details?id=in.fuelbuddy.driver
 date: 2024-04-01
 published: true
 company: FuelBuddy
 ---
 
-O [Aplicativo de driver FuelBuddy](https://play.google.com/store/apps/details?id=in.fuelbuddy.driver) é o mecanismo operacional que impulsiona a entrega física de combustível para consumidores terrestres e clientes B2B. Construir software para motoristas ativos requer uma mentalidade de engenharia única: a interface deve ser altamente legível sob luz solar intensa, as interações devem ser absolutamente sem atrito e a confiabilidade da rede não pode ser garantida durante a viagem.
+O [App de Motoristas da FuelBuddy](https://play.google.com/store/apps/details?id=in.fuelbuddy.driver) é o que os motoristas usam para de fato entregar combustível aos clientes. Construir para motoristas é um tipo de problema à parte: a tela precisa ser legível sob luz solar direta, os toques precisam ser tolerantes e a rede pode cair a qualquer ponto da estrada. Construí um conjunto de features de ponta a ponta voltadas exatamente para essas condições — o frontend e as APIs de dados por trás delas.
 
-Desempenhei um papel fundamental no desenvolvimento front-end deste aplicativo móvel, fornecendo recursos direcionados e completos, projetados especificamente para sobreviver às rigorosas demandas de operações ativas em campo.
+## O que construí
 
-## Engenharia de front-end crítica
+- **UI tolerante a falta de conexão:** Os motoristas perdem sinal com frequência, então armazenei em cache os dados de rota e de pedido localmente e deixei que continuassem trabalhando em áreas mortas. O app enfileira as mudanças e as sincroniza de volta assim que a conexão retorna, em vez de travar.
+- **Localização e mapas:** Cuidei do frontend do rastreamento GPS ao vivo e do roteamento no mapa, mantendo as atualizações frequentes de localização e as redesenhagens do mapa eficientes para que não drenassem a bateria ao longo de um turno longo.
+- **UX pronta para o campo:** Cuidei de várias features operacionais de ponta a ponta, desenhando-as para condições reais — layouts de alto contraste, áreas de toque grandes e formulários curtos para que os motoristas possam registrar uma entrega de forma rápida e segura.
+- **As APIs por trás delas:** Construí as APIs CRUD das quais essas features leem e escrevem sobre o motor GraphQL da Hasura, para que eu pudesse entregar uma feature de ponta a ponta — a fila offline, os dados de pedido e o registro de entrega conversam todos com endpoints dos quais eu era dono.
 
-- **IU resiliente e otimista:** Entendendo que os drivers de entrega operam frequentemente em zonas mortas de celular, projetei módulos de front-end com alta tolerância a falhas. Apoiei-me em padrões robustos de gerenciamento de estado para armazenar temporariamente rotas críticas e solicitar dados localmente. Isso permitiu que os drivers executassem tarefas operacionais sem o congelamento da interface do usuário, sincronizando silenciosamente os dados com os servidores assim que a conexão de rede fosse restabelecida.
-- **Integrações de geolocalização e mapeamento:** Gerenciei as complexas ligações de front-end para rastreamento GPS em tempo real e componentes de roteamento de mapas interativos. Garanti que as transmissões frequentes de localização e os redesenhos de mapas fossem processados ​​de forma eficiente no thread da UI, evitando vazamentos de memória e preservando a vida útil da bateria do dispositivo durante longos turnos de entrega.
-- **UX ergonômico de operações de campo:** Possuir totalmente a arquitetura e o ciclo de vida de vários novos recursos operacionais. Traduzi requisitos de negócios rigorosos em interfaces altamente ergonômicas, utilizando hierarquias visuais de alto contraste, hit-boxes superdimensionadas e validações de formulários hiper-simplificadas para que os motoristas pudessem registrar os fornecimentos de combustível com rapidez e segurança.
+## Por que importou
 
-## Impacto nos negócios
-
-Ao otimizar fortemente os fluxos de usuários para ambientes extremos e em movimento, minhas contribuições de front-end aceleraram diretamente a velocidade das operações de campo. A interface tolerante a falhas e de alto desempenho permitiu que os motoristas se concentrassem na segurança física e na eficiência da rota, em vez de lutar com um aplicativo atrasado, fortalecendo a espinha dorsal da rede logística do FuelBuddy.
+Desenhar para um contexto de telefone-na-mão e em movimento tornou o app mais rápido de usar no campo. Os motoristas podiam se concentrar na estrada e na entrega em vez de brigar com uma tela lenta, o que manteve as entregas em movimento.

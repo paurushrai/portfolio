@@ -1,21 +1,21 @@
 ---
-title: "FuelBuddy India - Application de livraison de chauffeurs"
-description: "Développement de fonctionnalités frontales de bout en bout pour l'application principale de pilote logistique de FuelBuddy, en se concentrant sur le suivi de géolocalisation en temps réel, une UX résiliente hors ligne et des flux de travail opérationnels à enjeux élevés."
+title: "FuelBuddy India - App de Livraison Chauffeur"
+description: "J'ai construit des fonctionnalités de bout en bout pour l'app chauffeur de FuelBuddy — des workflows tolérants au hors ligne, le suivi de position en temps réel, une UI adaptée au terrain, et les API CRUD sous-jacentes sur Hasura GraphQL."
 url: https://play.google.com/store/apps/details?id=in.fuelbuddy.driver
 date: 2024-04-01
 published: true
 company: FuelBuddy
 ---
-L'[FuelBuddy Driver App](https://play.google.com/store/apps/details?id=in.fuelbuddy.driver) est le moteur opérationnel qui alimente la livraison physique de carburant aux consommateurs au sol et aux clients B2B. La création d'un logiciel pour les conducteurs actifs nécessite une mentalité d'ingénierie unique : l'interface doit être très lisible en plein soleil, les interactions doivent être absolument fluides et la fiabilité du réseau ne peut pas être garantie sur la route. 
 
-J'ai joué un rôle central dans le développement front-end de cette application mobile, en fournissant des fonctionnalités ciblées de bout en bout conçues spécifiquement pour survivre aux exigences rigoureuses des opérations actives sur le terrain. 
+La [FuelBuddy Driver App](https://play.google.com/store/apps/details?id=in.fuelbuddy.driver) est ce que les chauffeurs utilisent pour livrer concrètement le carburant aux clients. Concevoir pour des chauffeurs pose ses propres problèmes : l'écran doit être lisible en plein soleil, les appuis doivent être tolérants, et le réseau peut lâcher à tout moment sur la route. J'ai construit un ensemble de fonctionnalités de bout en bout visant précisément ces conditions — le frontend et les API de données sous-jacentes.
 
-## Ingénierie frontale critique 
+## Ce que j'ai construit
 
-- **Interface utilisateur résiliente et optimiste :** Comprenant que les chauffeurs-livreurs opèrent fréquemment dans des zones mortes cellulaires, j'ai conçu des modules frontaux avec une tolérance aux pannes élevée. Je me suis appuyé sur des modèles de gestion d'état robustes pour mettre temporairement en cache les itinéraires critiques et les données de commande localement. Cela a permis aux pilotes d'exécuter des tâches opérationnelles sans que l'interface utilisateur ne se fige, en synchronisant silencieusement les données avec les serveurs une fois la connexion réseau rétablie. 
-- **Intégrations de géolocalisation et de cartographie :** Gestion des liaisons frontales complexes pour le suivi GPS en temps réel et les composants de routage cartographique interactif. Je me suis assuré que les diffusions de localisation fréquentes et les redessins de cartes étaient traités efficacement sur le thread de l'interface utilisateur, évitant ainsi les fuites de mémoire et préservant la durée de vie de la batterie de l'appareil pendant les longues périodes de livraison. 
-- **Ergonomic Field-Operations UX :** Maîtrise complète de l'architecture et du cycle de vie de plusieurs nouvelles fonctionnalités opérationnelles. J'ai traduit des exigences commerciales strictes en interfaces hautement ergonomiques, en utilisant des hiérarchies visuelles à contraste élevé, des hit-box surdimensionnées et des validations de formulaires hyper rationalisées afin que les conducteurs puissent enregistrer les distributions de carburant rapidement et en toute sécurité. 
+- **UI tolérante au hors ligne :** Les chauffeurs perdent régulièrement le signal, j'ai donc mis en cache localement les données d'itinéraire et de commande pour qu'ils puissent continuer à travailler dans les zones blanches. L'app met les modifications en file d'attente et les synchronise une fois la connexion revenue, au lieu de se figer.
+- **Localisation et cartes :** Prise en charge du frontend pour le suivi GPS en temps réel et le routage sur carte, en gardant efficaces les mises à jour fréquentes de position et les redessins de carte pour ne pas vider la batterie sur une longue journée.
+- **UX adaptée au terrain :** J'ai piloté plusieurs fonctionnalités opérationnelles de bout en bout, en les concevant pour des conditions réelles — mises en page à fort contraste, grandes zones d'appui et formulaires courts pour que les chauffeurs enregistrent une livraison rapidement et en sécurité.
+- **Les API sous-jacentes :** J'ai construit les API CRUD que ces fonctionnalités lisent et écrivent sur le moteur GraphQL de Hasura, pour livrer une fonctionnalité de bout en bout — la file d'attente hors ligne, les données de commande et l'enregistrement des livraisons dialoguent tous avec des points d'accès dont j'avais la charge.
 
-## Impact sur l'entreprise 
+## Pourquoi c'était important
 
-En optimisant fortement les flux d'utilisateurs pour les environnements extrêmes en déplacement, mes contributions frontend ont directement accéléré la vitesse des opérations sur le terrain. L'interface hautes performances, tolérante aux pannes, a permis aux conducteurs de se concentrer sur la sécurité physique et l'efficacité des itinéraires plutôt que de se battre avec une application en retard, renforçant ainsi l'épine dorsale du réseau logistique de FuelBuddy.
+Concevoir pour un contexte téléphone-en-main, en déplacement, a rendu l'app plus rapide à utiliser sur le terrain. Les chauffeurs pouvaient se concentrer sur la route et la livraison plutôt que de se battre avec un écran lent, ce qui a fait avancer les livraisons.

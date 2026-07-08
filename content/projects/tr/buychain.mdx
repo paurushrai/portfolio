@@ -1,21 +1,22 @@
 ---
-title: "BuyChain - Başsız Kurumsal Mimari"
-description: "Sıfır gecikmeli UX ile dinamik B2B tedarik zinciri çözümleri sunmak için Astro.js ve Directus'u kullanarak sıfırdan ölçeklenebilir, ayrıştırılmış bir web mimarisi tasarladık."
+title: "BuyChain - Headless Jamstack Site"
+description: "B2B bir tedarik zinciri şirketi için ayrık bir pazarlama sitesi; Astro ve Directus headless CMS üzerine inşa edildi, böylece ekip geliştirici yardımı olmadan yayın yapabiliyor."
 url: https://www.buychain.co/
 date: 2023-04-01
 published: true
 company: Modocosm
 ---
-[BuyChain](https://www.buychain.co/), mutlak hız ve güvenilirliği korurken karmaşık B2B tedarik zinciri çözümlerini ifade edebilecek güçlü bir dijital varlığa ihtiyaç duyuyordu. Bu yapının baş mühendisi olarak, modern Jamstack yaklaşımını benimseyerek ön uç altyapısını tamamen sıfırdan tasarladım. 
 
-![BuyChain](/projects/buychain/image.png) 
+[BuyChain](https://www.buychain.co/), oldukça karmaşık bir B2B tedarik zinciri ürününü anlatabilen, aynı zamanda hızlı ve güncellemesi kolay bir siteye ihtiyaç duyuyordu. Frontend yapımına ben liderlik ettim. Ödünleşimleri tarttıktan sonra Jamstack yaklaşımı önerdim — ayrı yönetilen içerikle statik bir frontend — ve lansmana kadar sahiplendim; seçimin devir teslimden sonra da yerinde kalması için BuyChain ekibine içeriği günlük olarak nasıl yöneteceklerini anlattım.
 
-## Temel Mühendislik Başarıları 
+![BuyChain](/projects/buychain/image.png)
 
-- **Bileşen Odaklı Jamstack (Astro.js):** Ön ucun tamamını Astro'dan yararlanarak tasarladı. Etkileşimli bileşenleri yalnızca gerektiğinde (ada mimarisi) nemlendirerek, karmaşık kullanıcı arayüzü oluşturma işlemini sorunsuz bir şekilde gerçekleştiren sıfır gecikmeli bir dijital deneyim sundum. 
-- **Dinamik İçerik Ekosistemi:** **Directus CMS** aracılığıyla gelişmiş bir veri katmanı tasarlandı. Yerelleştirilmiş sayfaları ve dinamik B2B pazarlama varlıklarını beslemek için ilişkisel verileri haritalandırarak, baştan sona kapsamlı SQL şemaları tasarladım. 
-- **API Düzenleme ve Güvenlik:** Astro derleme süreci ile Directus uç noktaları arasında güvenli, salt okunur işlem hatları oluşturuldu. Bu, hassas içerik dağıtımının ön uçtaki güvenlik açıklarından korunmasını sağlarken statik yapılar aracılığıyla %100 çalışma süresini garanti eder. 
+## Ne geliştirdim
 
-## İş Etkisi 
+- **Astro frontend:** Astro'nun ada mimarisiyle inşa edildi; böylece etkileşimli parçalar yalnızca ihtiyaç duyulan yerde hidrate oluyor ve geri kalanı statik HTML olarak gönderiliyor. Bu, sayfaların hızlı yüklenmesini sağlıyor.
+- **Directus CMS:** İçerik katmanı olarak Directus'u kurdum, arkasındaki SQL şemaları dahil; böylece yerelleştirilmiş sayfalar ve pazarlama içeriği tek bir yerden yönetiliyor.
+- **Statik derleme hattı:** İçerik derleme zamanında Directus'tan çekilerek salt okunur statik sayfalara dönüştürülüyor; bu da canlı siteyi CMS'ten yalıtıyor ve barındırmayı ucuz tutuyor.
 
-Ayrıştırılmış sistem, paydaş ekibinin geliştirici müdahalesine gerek kalmadan yeni açılış sayfalarında ve iş sektörlerinde hızlı bir şekilde yineleme yapmasına olanak tanır. Bu, mühendislik darboğazlarını ortadan kaldırdı, devam eden sunucu hesaplama maliyetlerini düşürdü ve BuyChain'e büyük ölçeğe hazır, kurumsal düzeyde bir web temeli sağladı.
+## Neden önemliydi
+
+İçerik CMS'te yaşadığı ve site statik olarak yeniden derlendiği için BuyChain ekibi bir geliştiriciyi beklemeden yeni açılış sayfaları ve dikeyler oluşturabiliyor. Bu, tekrar eden bir darboğazı ortadan kaldırdı ve barındırma maliyetlerini düşük tuttu.

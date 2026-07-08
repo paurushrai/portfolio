@@ -1,19 +1,20 @@
 ---
-title: FuelBuddy Dubai - Plataforma regional de franquicias
-description: Diseñé y diseñé una aplicación de franquicia totalmente nueva adaptada al mercado de los Emiratos Árabes Unidos, que presenta una gestión estatal sólida a través de TanStack Query y protocolos de seguridad empresarial elevados.
+title: "FuelBuddy Dubái - Plataforma Regional de Franquicias"
+description: "Construí desde cero una app de franquicias para las operaciones de FuelBuddy en los Emiratos Árabes Unidos: el frontend más mis propias APIs CRUD sobre Hasura GraphQL, con TanStack Query en el cliente y un flujo de autenticación y seguridad rehecho para los requisitos regionales."
 date: 2024-10-01
 published: true
 company: FuelBuddy
 ---
 
-La expansión de las operaciones de FuelBuddy en los Emiratos Árabes Unidos requirió una infraestructura digital personalizada construida a partir de una pizarra en blanco. Al reconocer que el mercado de Dubai tenía requisitos regulatorios, de seguridad y de flujo de negocios completamente diferentes, se me asignó la tarea de diseñar la **Solicitud de Franquicia de Dubai** desde cero.
+La expansión de FuelBuddy en los Emiratos Árabes Unidos necesitaba su propia app de franquicias: el mercado de Dubái tenía requisitos regulatorios, de seguridad y de flujo de trabajo distintos a los de las plataformas existentes, lo suficiente como para que reutilizar la antigua no encajara bien. Construí la Aplicación de Franquicias de Dubái desde cero, tanto en el frontend como en las APIs CRUD que hay detrás.
 
-## Alcance técnico y arquitectura
+## Lo que construí
 
-- **Ingeniería Greenfield UI/UX:** Tradujo la lógica empresarial regional en una interfaz de usuario impecable y modernizada. Al crear el sistema de componentes de forma nativa desde cero, la aplicación logró una capacidad de respuesta y un pulido visual significativamente mejores que sus contrapartes heredadas.
-- **Administración avanzada de datos y estado:** Se implementó **TanStack React Query** para revisar cómo la interfaz maneja las operaciones asincrónicas. Este cambio de arquitectura proporcionó almacenamiento en caché inteligente, sincronización de datos en segundo plano y actualizaciones optimistas de la interfaz de usuario, lo que dio como resultado una capa de datos increíblemente rápida y altamente resistente.
-- **Integración de seguridad de nivel empresarial:** Diseñé la plataforma con seguridad y cumplimiento elevados como prioridad. Rediseñé completamente las capas de autenticación, los ciclos de vida de los tokens y la desinfección de la carga útil de API para superar los requisitos de cumplimiento regionales, convirtiéndola en la aplicación más segura dentro del ecosistema de la empresa.
+- **Nuevo frontend desde cero:** Construí el sistema de componentes desde el principio, lo que permitió que la app fuera más responsive y estuviera mejor armada que las versiones anteriores a las que reemplazaba.
+- **Mis propias APIs CRUD sobre Hasura:** Construí las APIs de datos del backend sobre las que funciona la app, usando el motor GraphQL de Hasura sobre la base de datos para exponer las operaciones CRUD que necesitaba, de modo que pude diseñar la capa de datos de principio a fin en lugar de esperar a endpoints de backend separados.
+- **Capa de datos con TanStack Query:** Usé TanStack React Query en el frontend para consumir esas APIs —caché, refetch en segundo plano y actualizaciones optimistas— para que la interfaz se mantuviera rápida y consistente sin mucho cableado manual de estado.
+- **Autenticación y seguridad:** Rehíce la autenticación, el manejo de tokens y la validación de los payloads de la API para cumplir los requisitos de conformidad de la región.
 
-## Impacto empresarial
+## Por qué importó
 
-Al utilizar herramientas React modernas (TanStack) y aplicar un enfoque de seguridad sin compromisos, la plataforma resultante no solo cumplió con los estrictos requisitos del mercado de Dubai, sino que también estableció un nuevo estándar para herramientas internas. La aplicación redujo drásticamente la sobrecarga de la red y brindó una experiencia de usuario de nivel ejecutivo esencial para los socios de franquicia premium en los Emiratos Árabes Unidos.
+El resultado cumplió los requisitos más estrictos del mercado de Dubái y estableció un estándar interno más limpio sobre cómo se construyen estas apps. La capa de datos revisada también redujo las llamadas de red redundantes, lo que mantuvo la experiencia ágil para los socios de franquicia.

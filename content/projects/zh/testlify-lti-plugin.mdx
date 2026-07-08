@@ -1,22 +1,24 @@
 ---
-title: Testlify LTI 1.3 优势插件
-description: 独立架构的全栈 LTI 1.3 集成可安全地将企业学习管理系统与 Testlify 连接起来，自动执行复杂的 OIDC 握手、名册同步和成绩回传。
+title: "Testlify LTI 1.3 Advantage 插件"
+description: "一个通过 1EdTech 认证的 LTI Advantage（1.3）集成，让讲师能把 Testlify 测评布置到某门课程，并在自己的 LMS 里查看成绩——自定义 OIDC/JWT 握手、名册同步和成绩回传，用 Next.js 14 构建。"
 url: https://lti.testlify.com/
 date: 2026-03-01
 published: true
 company: Testlify
 ---
 
-Canvas、Moodle 和 Blackboard 等学习管理系统 (LMS) 是教育机构和企业培训部门的运营中心。 为了释放 Testlify 对这些庞大生态系统的人才评估功能，需要一个异常安全、合规的桥梁。 作为一名独立的全栈工程师，我积极运作，构建并发布了 **Testlify LTI 插件**，这是一个无缝集成，旨在将 Testlify 直接连接到教师的本机 LMS 环境中。
+Canvas、Moodle、Blackboard 这类学习管理系统（LMS）是学校和企业培训团队日常运转的地方。要让 Testlify 的测评能在这些系统里用起来，我们需要一座安全、符合标准的桥梁。我作为唯一的全栈工程师构建了 Testlify LTI 插件——它让讲师能把用 Testlify 创建的测评布置给某门课程里的学员，并跟踪他们的成绩，全都在 LMS 里完成。
 
-![Testlify LTI 1.3 Plugin Demo](/projects/testlify-lti-plugin/plugin.gif)
+![Testlify LTI 1.3 插件演示](/projects/testlify-lti-plugin/plugin.gif)
 
-## 技术范围和架构
+这个集成已经**[由 1EdTech 正式认证](https://site.imsglobal.org/certifications/testlify-inc/testlify#cert_pane_nid_626241)**，符合 LTI Advantage（v1.3）——Names and Role Provisioning Services 2.0 和 Assignment & Grade Services 2.0。一致性测试由 1EdTech 来跑，所以这些不是自说自话：有一个独立机构核实了实现符合规范。
 
-- **自定义 LTI 1.3 加密引擎：** 放弃繁重的黑盒第三方 LTI 库，我在 Next.js 14 中从头开始设计了高度安全的自定义实现。我手动执行了严格的 OpenID Connect (OIDC) 握手，处理深度 JWT 签名验证，并建立了安全的 JWKS 公钥端点，以保证 LMS 和平台之间坚不可摧的信任。
-- **自动数据同步：** 构建了复杂的 API 层来自动化繁琐的管理工作流程。 我集成了姓名和角色配置服务 (NRPS) 以立即同步大量学生名册，并构建了强大的 Webhook 侦听器，利用作业和成绩服务 (AGS) 将考生评估分数直接无缝推回到 LMS 成绩簿中。
-- **全栈系统设计：** 将复杂的多租户 API 路由和精美的、可访问的 React 18 仪表板 UI 统一到单个整体架构中。 我设计了可扩展的 MongoDB 模式来处理安全的 LMS 平台配置，并精心策划了高级 Docker 设置来模拟隔离的 LMS 环境以进行本地测试。
+## 我做了什么
 
-## 业务影响
+- **自定义的 LTI 1.3 实现：** 我没有依赖某个笨重的第三方 LTI 库，而是在 Next.js 14 里直接实现了规范——OpenID Connect 握手、JWT 签名校验，以及在 LMS 和 Testlify 之间建立信任的 JWKS 公钥端点。
+- **布置与跟踪流程：** 构建了整个工作流背后的 API 层——用 Deep Linking 让讲师选一个 Testlify 测评、作为作业放进课程里，用 Names and Role Provisioning Services（NRPS）拉取选了这门课的学员，用 Assignment & Grade Services（AGS）把每个学员的成绩推回 LMS 成绩册，让讲师在自己本来就用的地方看到结果。
+- **全栈系统：** 在一个应用里把多租户 API 路由和一个 React 18 仪表盘结合起来，为每个平台的配置设计了 MongoDB 数据结构，并用 Docker 模拟隔离的 LMS 环境来做本地测试。
 
-通过成功设计无摩擦、普遍兼容的 LTI 集成，该项目积极地将 Testlify 的目标市场扩展到高等教育和企业培训领域。 自动单点登录 (SSO) 和自动成绩同步完全消除了管理摩擦，使教师能够轻松采用该平台并推动大规模机构参与。
+## 为什么它有意义
+
+一个符合标准的 LTI 集成把 Testlify 打开到了高等教育和企业培训市场——而我做的这个插件后来通过了 1EdTech 的一致性测试、拿到了认证。讲师可以把测评布置给一整门课，并自动在成绩册里拿回成绩——不用导出名册、也不用手动抄结果——而这类摩擦通常正是拖住 LMS 采用的原因。
