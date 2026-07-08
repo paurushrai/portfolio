@@ -21,7 +21,9 @@ export const ko: Locale = {
     independent: "독립적인",
     personalProject: "개인 프로젝트",
     associatedWith: "협력사",
-    inProgress: "ì§í ì¤"
+    inProgress: "ì§í ì¤",
+    all: "ì ì²´",
+    personal: "ê°ì¸"
   },
   articles: {
     title: "글",

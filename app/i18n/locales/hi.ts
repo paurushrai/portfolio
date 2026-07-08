@@ -21,7 +21,9 @@ export const hi: Locale = {
     independent: "स्वतंत्र",
     personalProject: "व्यक्तिगत प्रोजेक्ट",
     associatedWith: "इसके साथ संबद्ध",
-    inProgress: "à¤à¤¾à¤°à¥à¤¯ à¤ªà¥à¤°à¤à¤¤à¤¿ à¤ªà¤° à¤¹à¥"
+    inProgress: "à¤à¤¾à¤°à¥à¤¯ à¤ªà¥à¤°à¤à¤¤à¤¿ à¤ªà¤° à¤¹à¥",
+    all: "à¤¸à¤­à¥",
+    personal: "à¤µà¥à¤¯à¤à¥à¤¤à¤¿à¤à¤¤"
   },
   articles: {
     title: "लेख",

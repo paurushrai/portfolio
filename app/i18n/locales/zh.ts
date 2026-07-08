@@ -23,6 +23,8 @@ export const zh: Locale = {
     personalProject: "个人项目",
     associatedWith: "关联公司",
     inProgress: "è¿è¡ä¸­",
+    all: "å¨é¨",
+    personal: "ä¸ªäºº"
   },
   articles: {
     title: "文章",

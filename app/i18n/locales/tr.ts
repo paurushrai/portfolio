@@ -21,7 +21,9 @@ export const tr: Locale = {
     independent: "Bağımsız",
     personalProject: "Kişisel Proje",
     associatedWith: "İlişkili",
-    inProgress: "Devam ediyor"
+    inProgress: "Devam ediyor",
+    all: "TÃ¼mÃ¼",
+    personal: "KiÅisel"
   },
   articles: {
     title: "Makaleler",
