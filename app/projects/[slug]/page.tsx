@@ -10,6 +10,11 @@ type Props = {
   };
 };
 
+export function generateStaticParams() {
+  const slugs = new Set(allProjects.map((project) => project.slug));
+  return Array.from(slugs, (slug) => ({ slug }));
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = allProjects.find(
     (p) => p.slug === params.slug && p.locale === "en",
