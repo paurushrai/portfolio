@@ -285,9 +285,9 @@ export const tr: Locale = {
     title: "Hakkımda",
     subtitle: "Kim olduğum ve ne yaptığım hakkında küçük bir arka plan.",
     bio: [
-      "Ben Paurush Rai; kurumsal web platformları, yapay zeka destekli uygulamalar ve geliştirici üretkenlik araçları tasarımında 5+ yıllık deneyime sahip, Hindistan merkezli, ön uç eğilimli, tam yığın mühendisiyim. Çalışmalarım karmaşık B2B kontrol panellerini, sağlam LMS entegrasyonlarını, özel Jira ve VS Code eklentilerini ve aradaki her şeyi kapsamaktadır.",
-      "Performansa, temiz mimariye ve gerçekten önemli olan şeylerin nakliyesine çok önem veriyorum. İster sıfırdan yeni bir franchise portalı oluşturmak, ister gerçek zamanlı yapay zeka mülakat iş akışları tasarlamak, ister işletmeye yılda binlerce dolar tasarruf sağlayacak dahili araçlar geliştirmek olsun, odak noktam her zaman ölçülebilir şekilde ibreyi hareket ettiren işlerdir.",
-      "İş dışında genellikle bir yan proje üzerinde çalışıyorum, sıkıcı bir iş akışını otomatikleştiriyorum veya daha önce hiç dokunmadığım bir kütüphaneye ulaşıyorum; gerçek bağlamlarda yeni araçlar öğrenmenin sürtünmesini seviyorum."
+      "Ben Paurush Rai — Hindistan merkezli bir Senior Product Engineer: tam yığın kapsamına sahip bir ön uç çekirdeği ve kurumsal web platformları, AI odaklı uygulamalar ile geliştirici üretkenlik araçları geliştiren 5+ yıllık deneyim. Çalışmalarım karmaşık B2B kontrol panellerini, 1EdTech sertifikalı bir LMS entegrasyonunu ve özel Jira ile VS Code eklentilerini kapsıyor.",
+      "Performansa, temiz mimariye ve gerçekten önemli olan şeyleri hayata geçirmeye derinden önem veriyorum. İster sıfırdan yepyeni bir franchise portalı oluşturmak, ister gerçek zamanlı AI mülakat iş akışları geliştirmek, ister işletmeye yılda binlerce dolar tasarruf sağlayan dahili araçlar geliştirmek olsun, odak noktam her zaman ibreyi ölçülebilir şekilde hareket ettiren işlerdir.",
+      "İş dışında genellikle bir yan proje başlatıyor, sıkıcı bir iş akışını otomatikleştiriyor ya da daha önce hiç dokunmadığım bir kütüphaneye uzanıyorum — gerçek bağlamlarda yeni araçlar öğrenmenin sürtünmesini seviyorum."
     ],
     whatIBuild: "Ne İnşa Ediyorum",
     technicalSkills: "Teknik Beceriler",
@@ -376,43 +376,40 @@ export const tr: Locale = {
       {
         company: "Testlify",
         role: "Kıdemli Yazılım Mühendisi",
-        location: "Mumbai, Hindistan",
+        location: "Mumbai, Hindistan (Uzaktan)",
         period: "Ocak 2025 – Şu Anda",
         highlights: [
-          "Testlify'ı büyük LMS platformlarıyla entegre eden LTI uyumlu bir eklenti tasarladı ve kurumsal benimsemede %20-30 oranında büyümeye katkıda bulundu.",
-          "6'dan fazla Testlify deposunda benimsenen özel bir npm bileşen kütüphanesi yayınlayarak yinelenen arayüz kodunu ortadan kaldırdım ve özellik teslimatını %30 hızlandırdım.",
-          "Otomatik kayıt, transkripsiyon ve özetler sunan bir yapay zeka toplantı not alma aracı olan MetaNotes'u geliştirdik ve yılda 24 bin dolar tasarruf ettik.",
-          "Pazarlama sitesinde ön uç performans optimizasyonunu yöneterek Lighthouse puanlarını mobil/masaüstünde 49/53'ten 87/91'e yükseltti.",
-          "Git şubesine göre kodlama süresini otomatik olarak izlemek ve Jira'da oturum açmak için bir VS Code uzantısı tasarlandı ve manuel izlemeyi %60-70 oranında azalttı.",
-          "Zaman çizelgeleri ve maliyet tahsisi için dahili bir Jira eklentisi oluşturuldu ve yılda 9 bin dolardan fazla tasarruf sağlandı.",
-          "Yapay zeka odaklı röportaj iş akışları (Sohbet, Ses, Video Yapay Zeka) uygulanarak görüşmecinin çabası %40'ın üzerinde azaltıldı ve %20-30 gelir artışı sağlandı."
+          "11.000'den fazla sayfalık bir pazarlama sitesi için WordPress yerine Jamstack mimarisini seçerek daha hızlı yüklemelerle hemen çıkma oranlarını düşürmeyi ve içerik sunumunu CMS üzerinden hızlandırmayı hedefledim; sayfa yükleme sürelerini %60 azaltması öngörülüyor.",
+          "Testlify'ı Canvas ve Moodle gibi LMS platformlarına bağlayan 1EdTech sertifikalı bir LTI 1.3 entegrasyonu tasarlayıp geliştirdim; eğitmenlerin değerlendirme atamasına ve notları not defterine geri senkronize etmesine olanak tanıdım.",
+          "AI mühendisleri ve tasarımcılarla iş birliği içinde, AI destekli bir toplantı not alma aracının ön ucunu tasarlayarak yıllık 24.000 $ operasyonel maliyeti ortadan kaldırdım.",
+          "Şirket genelinde ve dış müşteriler tarafından kullanılan bir zaman çizelgesi platformunu hayata geçirerek üçüncü taraf bir aracın yerini aldım ve yıllık 9.000 $'ın üzerinde lisans maliyetini azalttım.",
+          "Git dallarından gelen Jira sürelerini Appforest Timesheets'e otomatik kaydeden, ekip genelinde bir VS Code uzantısı geliştirerek manuel takip çabasını %70 azalttım.",
+          "4 uygulamadan oluşan bir pakette tutarlı, yeniden kullanılabilir bir kullanıcı arayüzü için uygulama başına yinelemeye karşı durumsuz bir bileşen kütüphanesine karar verdim; özel bir npm paketi olarak yayımlayarak özellik teslimatını %30 kısalttım."
         ]
       },
       {
-        company: "YakıtBuddy",
+        company: "FuelBuddy",
         role: "Yazılım Mühendisi",
         location: "Gurugram, Hindistan",
         period: "Eylül 2023 – Aralık 2024",
         highlights: [
-          "Sıfırdan bir kiosk uygulaması ön ucu oluşturarak yakıt dağıtım süresini %60 oranında azalttık.",
-          "Müşteriler, yöneticiler, franchise'lar ve sürücüler için 6 üretim web uygulaması geliştirildi ve ölçeklendirildi.",
-          "Veri doğrulama ve tutarsızlık çözümü için 8 yönetici kontrol paneli tasarlandı ve çözüm süresi %60-70 oranında kısaltıldı.",
-          "Kaliteyi ve işe başlama hızını artıran kod inceleme uygulamaları oluşturarak 3 geliştiriciye ve 5 stajyere danışmanlık yaptı.",
-          "Birden fazla platformda uçtan uca 100'den fazla özellik sunuldu.",
-          "Entegre Sentry ve Clarity, sorun çözme süresini %30 azaltır ve eyleme geçirilebilir kullanıcı içgörülerini %20 artırır."
+          "Gömülü, arka uç ve operasyon ekipleriyle sıfırdan bir kiosk uygulaması geliştirerek yakıt dağıtım süresini %60 azalttım.",
+          "Bir Progressive Web App'i React Native'e taşıyarak 8 haftada 14 kullanıcı akışında %100 özellik eşitliğine ulaştım.",
+          "Birden fazla üründe TanStack Query'yi standartlaştırarak ön uç ekiplerini birleşik bir sunucu-durumu mimarisinde hizaladım ve eski veri hatalarını %50 azalttım.",
+          "Playwright'ı ekibin E2E çerçevesi olarak belirleyerek manuel QA çabasını %40 azalttım.",
+          "Kod incelemesi ve eşli programlama yoluyla yedi mühendise mentorluk yaparak yeni işe alımların uyum süresini %25 azalttım."
         ]
       },
       {
-        company: "Modokonizm",
+        company: "Modocosm",
         role: "Yazılım Mühendisi",
         location: "New York City, ABD (Uzaktan)",
-        period: "Temmuz 2021 – Ekim 2023",
+        period: "Temmuz 2021 – Ağustos 2023",
         highlights: [
-          "Sürdürülebilir trafik büyümesini destekleyen 4 CMS odaklı duyarlı web sitesi tasarladı ve sürdürdü.",
-          "Yeniden yapılandırılmış Directus CMS ve PostgreSQL sorgularıyla kolaylaştırılmış şema kurulumu, önyükleme süresini %70'in üzerinde azalttı.",
-          "Google E-Tablolar ve Python kazıma kullanarak otomatik bir bahis projeksiyon sistemi tasarladı ve doğruluğu %15-20 oranında artırdı.",
-          "Teslimatı hızlandıran 100'den fazla yeniden kullanılabilir kullanıcı arayüzü bileşeni ve tasarım sistemi oluşturuldu.",
-          "Astro.js Jamstack + başsız CMS'ye geçiş yaparak 7 eski web sitesini modernize ederek içerik başlatma süresini %50 kısalttı."
+          "PostgreSQL şema sağlamayı kolaylaştırmak için Directus'un iç yapısını tersine mühendislik yaparak yeni proje önyükleme süresini %70'in üzerinde azalttım.",
+          "Bir haber medyası müşterisi için çapraz platform video metriklerini birleştiren bir sosyal analitik kontrol paneli geliştirerek raporlama çabasını %60 azalttım.",
+          "7 eski web sitesini Astro.js ve başsız bir CMS ile modernleştirerek içerik yayınlama hızını iki katına çıkardım.",
+          "Üretime gönderilen ve bugün hâlâ yayında olan 4 CMS odaklı duyarlı web sitesini teslim edip optimize ettim."
         ]
       }
     ]
