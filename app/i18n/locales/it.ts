@@ -308,69 +308,25 @@ export const it: Locale = {
       "Estensioni del browser"
     ],
     skills: {
-      Lingue: [
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "TypeScript",
-        "Handlebars",
-        "MDX"
-      ],
-      Quadri: [
-        "React.js",
-        "Next.js",
-        "Vue.js",
-        "Nuxt.js",
-        "Astro.js",
-        "Electron.js",
-        "React Native"
-      ],
-      Biblioteche: [
-        "Tailwind",
-        "DaisyUI",
-        "Shadcn",
-        "Element Plus",
-        "Chart.js",
-        "Pinia",
-        "Recoil",
-        "Clerk",
-        "Stripe"
-      ],
-      "Banca dati": [
-        "PostgreSQL",
-        "MongoDB"
-      ],
-      "Fine posteriore": [
-        "Node.js",
-        "Express.js",
-        "Hasura",
-        "Directus",
-        "RESTful APIs",
-        "GraphQL APIs"
-      ],
-      "Controllo della versione": [
-        "Git",
-        "GitLab",
-        "GitHub"
-      ],
-      "Piattaforme e strumenti": [
+      Linguaggi: ["JavaScript", "TypeScript"],
+      Framework: ["React.js", "Next.js", "React Native", "Node.js", "Express.js"],
+      Frontend: ["Tailwind CSS", "Shadcn", "HTML/CSS", "Vue.js", "Nuxt.js", "Astro.js"],
+      Librerie: ["Zod", "Clerk", "Stripe"],
+      "IA, Cloud e automazione": ["OpenAI API", "LLM Integration", "MCP", "AWS", "n8n"],
+      Dati: ["PostgreSQL", "MongoDB", "Redis", "Prisma", "GraphQL", "REST APIs"],
+      Infrastruttura: ["Hasura", "Directus", "Payload", "BullMQ", "WebSocket"],
+      Test: ["Vitest", "Playwright"],
+      "DevOps e monitoraggio": [
         "Docker",
-        "Firebase",
-        "Datagrip",
-        "Pipedream",
+        "GitHub Actions",
+        "Git",
+        "GitHub",
+        "GitLab",
         "Vercel",
-        "Apify",
-        "Figma",
-        "AdobeXD"
+        "Turborepo",
+        "Sentry"
       ],
-      Altra: [
-        "Chrome Plugin",
-        "VS Code Extension",
-        "LTI Plugin",
-        "Jira Plugin",
-        "CI/CD",
-        "Shell Scripting"
-      ]
+      "Estensioni e plugin": ["VS Code Extension", "Chrome Extension", "LTI 1.3 Plugin", "Jira Plugin"]
     },
     experience: [
       {

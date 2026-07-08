@@ -308,68 +308,29 @@ export const tr: Locale = {
       "Tarayıcı Uzantıları"
     ],
     skills: {
-      Diller: [
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "TypeScript",
-        "Handlebars",
-        "MDX"
-      ],
-      "Çerçeveler": [
-        "React.js",
-        "Next.js",
-        "Vue.js",
-        "Nuxt.js",
-        "Astro.js",
-        "Electron.js",
-        "React Native"
-      ],
-      "Kütüphaneler": [
-        "Tailwind",
-        "DaisyUI",
-        "Shadcn",
-        "Element Plus",
-        "Chart.js",
-        "Pinia",
-        "Recoil",
-        "Clerk",
-        "Stripe"
-      ],
-      "Veritabanı": [
-        "PostgreSQL",
-        "MongoDB"
-      ],
-      "Arka Uç": [
-        "Node.js",
-        "Express.js",
-        "Hasura",
-        "Directus",
-        "RESTful APIs",
-        "GraphQL APIs"
-      ],
-      "Sürüm Kontrolü": [
-        "Git",
-        "GitLab",
-        "GitHub"
-      ],
-      "Platformlar ve Araçlar": [
+      Diller: ["JavaScript", "TypeScript"],
+      "Çerçeveler": ["React.js", "Next.js", "React Native", "Node.js", "Express.js"],
+      "Ön Uç": ["Tailwind CSS", "Shadcn", "HTML/CSS", "Vue.js", "Nuxt.js", "Astro.js"],
+      "Kütüphaneler": ["Zod", "Clerk", "Stripe"],
+      "Yapay Zekâ, Bulut ve Otomasyon": ["OpenAI API", "LLM Integration", "MCP", "AWS", "n8n"],
+      Veri: ["PostgreSQL", "MongoDB", "Redis", "Prisma", "GraphQL", "REST APIs"],
+      "Altyapı": ["Hasura", "Directus", "Payload", "BullMQ", "WebSocket"],
+      Test: ["Vitest", "Playwright"],
+      "DevOps ve İzleme": [
         "Docker",
-        "Firebase",
-        "Datagrip",
-        "Pipedream",
+        "GitHub Actions",
+        "Git",
+        "GitHub",
+        "GitLab",
         "Vercel",
-        "Apify",
-        "Figma",
-        "AdobeXD"
+        "Turborepo",
+        "Sentry"
       ],
-      "Diğer": [
-        "Chrome Plugin",
+      "Uzantılar ve Eklentiler": [
         "VS Code Extension",
-        "LTI Plugin",
-        "Jira Plugin",
-        "CI/CD",
-        "Shell Scripting"
+        "Chrome Extension",
+        "LTI 1.3 Plugin",
+        "Jira Plugin"
       ]
     },
     experience: [
