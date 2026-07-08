@@ -1,0 +1,19 @@
+---
+title: Testlify - Shared Component Library
+description: Made the call to build one stateless component library instead of duplicating UI across four apps, shipped it as a private npm package, and cut feature delivery time by about 30%.
+date: 2025-05-01
+published: true
+company: Testlify
+---
+
+Testlify runs as a suite of four separate applications, and each one had been rebuilding the same buttons, forms, modals, and tables its own way. That meant the same work done four times and a UI that drifted out of sync between products. I made the case for a single shared component library instead of per-app duplication, then built and shipped it.
+
+## What I built
+
+- **The decision:** Argued for consolidating UI into one library rather than letting each app keep its own copy — weighing the upfront cost against the drift and duplicated effort we were already paying. Once it was agreed, I owned the build.
+- **Stateless by design:** Kept the components stateless and presentational, so they carry no app-specific logic and drop cleanly into any of the four products. Each app wires in its own data and behavior; the library just owns how things look and feel.
+- **Shipped as a private npm package:** Published it as a versioned private npm package, so every app pulls the same components through a normal dependency and picks up fixes and improvements with a version bump — no copy-paste, no forks.
+
+## Why it mattered
+
+Building UI once and reusing it across all four apps cut feature delivery time by roughly **30%** — teams stopped rebuilding the same primitives and started composing from a shared set. It also gave the whole suite a consistent look, since a change in the library lands everywhere at once instead of being reapplied by hand in four places.

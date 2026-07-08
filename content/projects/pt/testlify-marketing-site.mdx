@@ -1,0 +1,20 @@
+---
+title: "Testlify - Migração do Site de Marketing para Jamstack"
+description: "Escolhi Jamstack em vez de WordPress para o site de marketing da Testlify, com mais de 11.000 páginas, para acelerar os carregamentos e a entrega de conteúdo — uma migração em andamento, com previsão de reduzir os tempos de carregamento das páginas em 60%."
+url: https://testlify.com/
+date: 2026-07-01
+published: true
+company: Testlify
+---
+
+O [site de marketing](https://testlify.com/) da Testlify é grande — mais de 11.000 páginas — e rodava em WordPress, onde os carregamentos de página eram lentos o suficiente para prejudicar as taxas de rejeição, e publicar mudanças era mais pesado do que deveria. Tomei a decisão de movê-lo para uma arquitetura Jamstack, e a migração está atualmente em andamento.
+
+## A decisão
+
+- **Jamstack em vez de WordPress:** Com mais de 11.000 páginas, a configuração WordPress pagava um custo de renderização e de plugins a cada requisição. Mover para uma build estática Jamstack passa a servir páginas pré-renderizadas, que é de onde vem a maior parte da velocidade — e carregamentos mais rápidos ajudam diretamente a taxa de rejeição num site de marketing.
+- **Conteúdo gerido por CMS:** O conteúdo migra para um CMS headless, para que a equipe de marketing publique e atualize as páginas através dele e o site se reconstrua a partir dessa fonte — mais rápido para publicar conteúdo do que o fluxo antigo, e mais limpo de manter com essa quantidade de páginas.
+- **Migração em escala:** O trabalho consiste em mover mais de 11.000 páginas existentes para a nova arquitetura sem perder o valor de SEO nem quebrar URLs — a parte difícil de qualquer migração desse tamanho, e a razão pela qual é uma implantação em etapas em vez de uma virada de chave.
+
+## Por que importou
+
+A migração tem previsão de reduzir os tempos de carregamento das páginas em cerca de **60%**. Num site de marketing isso não é uma métrica de vaidade: páginas mais rápidas significam menor rejeição e melhor posicionamento de busca, e o pipeline gerido por CMS permite que a equipe de marketing coloque conteúdo no ar sem esperar pela engenharia.

@@ -1,0 +1,19 @@
+---
+title: "Testlify - Gemeinsame Komponentenbibliothek"
+description: "Ich habe entschieden, eine zustandslose Komponentenbibliothek zu bauen, statt die UI über vier Apps hinweg zu duplizieren, sie als privates npm-Paket ausgeliefert und die Zeit bis zur Fertigstellung von Features um rund 30 % gesenkt."
+date: 2025-05-01
+published: true
+company: Testlify
+---
+
+Testlify läuft als Verbund aus vier separaten Anwendungen, und jede davon hatte dieselben Buttons, Formulare, Modals und Tabellen auf ihre eigene Weise neu gebaut. Das bedeutete dieselbe Arbeit viermal und eine UI, die zwischen den Produkten auseinanderdriftete. Ich habe für eine einzige gemeinsame Komponentenbibliothek statt der Duplizierung pro App argumentiert und sie dann gebaut und ausgeliefert.
+
+## Was ich gebaut habe
+
+- **Die Entscheidung:** Ich habe dafür plädiert, die UI in einer Bibliothek zusammenzuführen, statt jede App ihre eigene Kopie behalten zu lassen — und dabei den anfänglichen Aufwand gegen die Drift und die doppelte Arbeit abgewogen, die wir ohnehin schon bezahlten. Nachdem das beschlossen war, habe ich den Bau verantwortet.
+- **Zustandslos von Grund auf:** Ich habe die Komponenten zustandslos und rein darstellend gehalten, sodass sie keine app-spezifische Logik tragen und sich sauber in jedes der vier Produkte einfügen. Jede App bindet ihre eigenen Daten und ihr eigenes Verhalten an; die Bibliothek verantwortet nur, wie Dinge aussehen und sich anfühlen.
+- **Als privates npm-Paket ausgeliefert:** Ich habe sie als versioniertes privates npm-Paket veröffentlicht, sodass jede App dieselben Komponenten über eine gewöhnliche Abhängigkeit bezieht und Fixes und Verbesserungen mit einem Versionssprung übernimmt — kein Copy-and-paste, keine Forks.
+
+## Warum es wichtig war
+
+Die UI einmal zu bauen und über alle vier Apps hinweg wiederzuverwenden, senkte die Zeit bis zur Fertigstellung von Features um rund **30 %** — die Teams hörten auf, dieselben Primitive neu zu bauen, und begannen, aus einem gemeinsamen Baukasten zu komponieren. Es gab dem gesamten Verbund außerdem ein einheitliches Erscheinungsbild, da eine Änderung in der Bibliothek überall auf einmal ankommt, statt an vier Stellen von Hand nachgezogen zu werden.

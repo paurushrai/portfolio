@@ -1,0 +1,19 @@
+---
+title: "Testlify - Ortak Bileşen Kütüphanesi"
+description: "UI'ı dört uygulamada tekrar tekrar yazmak yerine tek bir durumsuz bileşen kütüphanesi kurma kararını verdim, onu özel bir npm paketi olarak yayınladım ve özellik teslim süresini yaklaşık %30 azalttım."
+date: 2025-05-01
+published: true
+company: Testlify
+---
+
+Testlify, dört ayrı uygulamadan oluşan bir paket olarak çalışıyor ve her biri aynı butonları, formları, modalları ve tabloları kendi tarzında yeniden yazıyordu. Bu, aynı işin dört kez yapılması ve ürünler arasında birbiriyle uyumsuz hale gelen bir UI anlamına geliyordu. Her uygulamada tekrara düşmek yerine tek bir ortak bileşen kütüphanesi olması gerektiğini savundum, sonra da onu kurup yayınladım.
+
+## Ne yaptım
+
+- **Karar:** Her uygulamanın kendi kopyasını tutmasına izin vermek yerine UI'ı tek bir kütüphanede birleştirmeyi savundum — ön maliyeti, halihazırda ödediğimiz uyumsuzluk ve tekrarlanan emeğe karşı tarttım. Üzerinde anlaşıldıktan sonra kurulumunu ben üstlendim.
+- **Tasarım gereği durumsuz:** Bileşenleri durumsuz ve sunum odaklı tuttum; böylece uygulamaya özel hiçbir mantık taşımıyorlar ve dört ürünün herhangi birine sorunsuzca yerleşiyorlar. Her uygulama kendi verisini ve davranışını bağlıyor; kütüphane yalnızca şeylerin nasıl göründüğünü ve hissettirdiğini üstleniyor.
+- **Özel npm paketi olarak yayınlandı:** Onu sürümlenmiş özel bir npm paketi olarak yayınladım; böylece her uygulama aynı bileşenleri normal bir bağımlılık üzerinden çekiyor ve düzeltmeleri ile iyileştirmeleri bir sürüm yükseltmesiyle alıyor — kopyala-yapıştır yok, çatallanma yok.
+
+## Neden önemliydi
+
+UI'ı bir kez kurup dört uygulamanın tamamında yeniden kullanmak, özellik teslim süresini yaklaşık **%30** azalttı — ekipler aynı temel parçaları tekrar tekrar yazmayı bıraktı ve ortak bir setten birleştirmeye başladı. Ayrıca tüm pakete tutarlı bir görünüm kazandırdı; çünkü kütüphanedeki bir değişiklik dört yerde elle yeniden uygulanmak yerine tek seferde her yere iniyor.
