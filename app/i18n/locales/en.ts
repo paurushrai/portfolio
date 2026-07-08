@@ -21,6 +21,8 @@ export const en = {
     personalProject: "Personal Project",
     associatedWith: "Associated with",
     inProgress: "In progress",
+    all: "All",
+    personal: "Personal",
   },
   articles: {
     title: "Articles",

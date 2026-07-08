@@ -1,10 +1,17 @@
 "use client";
 
+import { useState } from "react";
 import { useLanguage } from "../i18n/LanguageContext";
 import { Card } from "../components/card";
 import Link from "next/link";
 import { Briefcase } from "lucide-react";
 import type { ProjectMeta } from "./page";
+import {
+  type CompanyTabId,
+  type ProjectTab,
+  companyToTabId,
+  ProjectTabs,
+} from "./ProjectTabs";
 
 type Props = {
   projects: ProjectMeta[];
@@ -46,6 +53,29 @@ export function LocaleProjectFilter({ projects }: Props) {
     );
 
   const hasFeaturedSection = featured || top2 || top3;
+
+  // Map each slug to a stable filter tab id, keyed on the English company so
+  // filtering is consistent regardless of the active locale.
+  const tabBySlug = new Map<string, CompanyTabId | null>();
+  bySlug.forEach((localeMap, slug) => {
+    const englishCompany = (localeMap.en ?? Object.values(localeMap)[0])?.company;
+    tabBySlug.set(slug, companyToTabId(englishCompany));
+  });
+
+  const [activeTab, setActiveTab] = useState<CompanyTabId>("all");
+
+  const tabs: readonly ProjectTab[] = [
+    { id: "all", label: t.projects.all },
+    { id: "testlify", label: "Testlify" },
+    { id: "fuelbuddy", label: "FuelBuddy" },
+    { id: "modocosm", label: "Modocosm" },
+    { id: "personal", label: t.projects.personal },
+  ];
+
+  const filteredSorted =
+    activeTab === "all"
+      ? sorted
+      : sorted.filter((p) => tabBySlug.get(p.slug) === activeTab);
 
   const wipPill = (show?: boolean) =>
     show ? (
@@ -148,38 +178,50 @@ export function LocaleProjectFilter({ projects }: Props) {
           )}
 
           {sorted.length > 0 && (
-            <div className="grid grid-cols-1 gap-4 mx-auto lg:mx-0 md:grid-cols-3">
-              {[0, 1, 2].map((col) => (
-                <div key={col} className="grid grid-cols-1 gap-4">
-                  {sorted
-                    .filter((_, i) => i % 3 === col)
-                    .map((project) => (
-                      <Card key={project.slug}>
-                        <Link href={`/projects/${project.slug}`}>
-                          <article className="p-4 md:p-8">
-                            <div className="flex justify-between gap-2 items-center">
-                              <span className="flex items-center gap-1.5 text-xs font-semibold tracking-wide uppercase duration-1000 text-zinc-400 group-hover:text-zinc-200">
-                                <Briefcase className="w-4 h-4" />
-                                <span>
-                                  {project.company
-                                    ? project.company
-                                    : t.projects.independent}
-                                </span>
-                              </span>
-                              {wipPill(project.wip)}
-                            </div>
-                            <h2 className="z-20 mt-4 text-xl font-medium duration-1000 lg:text-3xl text-zinc-200 group-hover:text-white font-display">
-                              {project.title}
-                            </h2>
-                            <p className="z-20 mt-4 text-sm duration-1000 text-zinc-400 group-hover:text-zinc-200">
-                              {project.description}
-                            </p>
-                          </article>
-                        </Link>
-                      </Card>
-                    ))}
+            <div className="space-y-8">
+              <ProjectTabs
+                tabs={tabs}
+                active={activeTab}
+                onChange={setActiveTab}
+                label={t.projects.title}
+              />
+              {filteredSorted.length > 0 ? (
+                <div className="grid grid-cols-1 gap-4 mx-auto lg:mx-0 md:grid-cols-3">
+                  {[0, 1, 2].map((col) => (
+                    <div key={col} className="grid grid-cols-1 gap-4">
+                      {filteredSorted
+                        .filter((_, i) => i % 3 === col)
+                        .map((project) => (
+                          <Card key={project.slug}>
+                            <Link href={`/projects/${project.slug}`}>
+                              <article className="p-4 md:p-8">
+                                <div className="flex justify-between gap-2 items-center">
+                                  <span className="flex items-center gap-1.5 text-xs font-semibold tracking-wide uppercase duration-1000 text-zinc-400 group-hover:text-zinc-200">
+                                    <Briefcase className="w-4 h-4" />
+                                    <span>
+                                      {project.company
+                                        ? project.company
+                                        : t.projects.independent}
+                                    </span>
+                                  </span>
+                                  {wipPill(project.wip)}
+                                </div>
+                                <h2 className="z-20 mt-4 text-xl font-medium duration-1000 lg:text-3xl text-zinc-200 group-hover:text-white font-display">
+                                  {project.title}
+                                </h2>
+                                <p className="z-20 mt-4 text-sm duration-1000 text-zinc-400 group-hover:text-zinc-200">
+                                  {project.description}
+                                </p>
+                              </article>
+                            </Link>
+                          </Card>
+                        ))}
+                    </div>
+                  ))}
                 </div>
-              ))}
+              ) : (
+                <p className="py-12 text-center text-zinc-400">{t.projects.empty}</p>
+              )}
             </div>
           )}
         </>

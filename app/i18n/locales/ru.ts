@@ -21,7 +21,9 @@ export const ru: Locale = {
     independent: "Независимый",
     personalProject: "Личный проект",
     associatedWith: "Связано с",
-    inProgress: "Ð Ð¿ÑÐ¾ÑÐµÑÑÐµ"
+    inProgress: "Ð Ð¿ÑÐ¾ÑÐµÑÑÐµ",
+    all: "ÐÑÐµ",
+    personal: "ÐÐ¸ÑÐ½Ð¾Ðµ"
   },
   articles: {
     title: "Статьи",

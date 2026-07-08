@@ -23,6 +23,8 @@ export const pt: Locale = {
     personalProject: "Projeto Pessoal",
     associatedWith: "Associado a",
     inProgress: "Em andamento",
+    all: "Todos",
+    personal: "Pessoal"
   },
   articles: {
     title: "Artigos",

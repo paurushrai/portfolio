@@ -21,7 +21,9 @@ export const fr: Locale = {
     independent: "Indépendante",
     personalProject: "Projet Personnel",
     associatedWith: "Associé à",
-    inProgress: "En cours"
+    inProgress: "En cours",
+    all: "Tous",
+    personal: "Personnel"
   },
   articles: {
     title: "Articles",
