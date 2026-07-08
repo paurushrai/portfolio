@@ -72,24 +72,39 @@ export default function AboutPage() {
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 duration-200" />
             </Link>
           </div>
-          <div className="grid grid-cols-1 gap-x-6 gap-y-6 items-start sm:grid-cols-[max-content_1fr]">
-            {Object.entries(a.skills).map(([category, items]) => (
-              <Fragment key={category}>
-                <span className="text-sm font-medium text-zinc-400 whitespace-nowrap sm:pt-1">
-                  {category}
-                </span>
-                <div className="flex flex-wrap gap-2">
-                  {items.map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-3 py-1 text-xs rounded-full bg-zinc-800 text-zinc-300 border border-zinc-700 hover:border-zinc-500 hover:text-zinc-100 duration-200"
+          <div className="overflow-hidden border rounded-xl border-zinc-800 bg-zinc-900/20">
+            <div className="grid grid-cols-1 sm:grid-cols-[max-content_1fr] sm:gap-x-10">
+              {Object.entries(a.skills).map(([category, items], i, arr) => {
+                const notLast = i < arr.length - 1;
+                return (
+                  <Fragment key={category}>
+                    <div
+                      className={`px-5 pt-5 pb-2 sm:px-6 sm:py-5 ${
+                        notLast ? "sm:border-b sm:border-zinc-800" : ""
+                      }`}
                     >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </Fragment>
-            ))}
+                      <span className="text-xs font-semibold tracking-wider uppercase text-zinc-500 whitespace-nowrap">
+                        {category}
+                      </span>
+                    </div>
+                    <div
+                      className={`flex flex-wrap gap-2 px-5 pb-5 sm:px-6 sm:py-5 ${
+                        notLast ? "border-b border-zinc-800" : ""
+                      }`}
+                    >
+                      {items.map((skill) => (
+                        <span
+                          key={skill}
+                          className="px-3 py-1 text-xs rounded-full bg-zinc-800 text-zinc-300 border border-zinc-700 hover:border-zinc-500 hover:text-zinc-100 duration-200"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </Fragment>
+                );
+              })}
+            </div>
           </div>
         </section>
 
