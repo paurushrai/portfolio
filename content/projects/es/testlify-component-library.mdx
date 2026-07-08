@@ -1,0 +1,19 @@
+---
+title: "Testlify - Biblioteca de componentes compartida"
+description: "Tomé la decisión de construir una única biblioteca de componentes sin estado en lugar de duplicar la interfaz en cuatro aplicaciones, la publiqué como paquete privado de npm y reduje el tiempo de entrega de funcionalidades en cerca de un 30%."
+date: 2025-05-01
+published: true
+company: Testlify
+---
+
+Testlify funciona como un conjunto de cuatro aplicaciones separadas, y cada una había estado reconstruyendo los mismos botones, formularios, modales y tablas a su manera. Eso significaba hacer el mismo trabajo cuatro veces y una interfaz que se desincronizaba entre productos. Defendí la idea de una única biblioteca de componentes compartida en lugar de la duplicación por aplicación, y luego la construí y la lancé.
+
+## Lo que construí
+
+- **La decisión:** Argumenté a favor de consolidar la interfaz en una sola biblioteca en vez de dejar que cada aplicación mantuviera su propia copia, sopesando el costo inicial frente a la desincronización y el esfuerzo duplicado que ya estábamos pagando. Una vez acordado, me hice cargo de la construcción.
+- **Sin estado por diseño:** Mantuve los componentes sin estado y presentacionales, de modo que no cargan lógica específica de ninguna aplicación y encajan limpiamente en cualquiera de los cuatro productos. Cada aplicación conecta sus propios datos y comportamiento; la biblioteca solo se encarga de cómo se ven y se sienten las cosas.
+- **Publicada como paquete privado de npm:** La publiqué como un paquete privado de npm con versiones, de modo que cada aplicación obtiene los mismos componentes a través de una dependencia normal y recibe correcciones y mejoras con solo subir la versión: sin copiar y pegar, sin forks.
+
+## Por qué importó
+
+Construir la interfaz una sola vez y reutilizarla en las cuatro aplicaciones redujo el tiempo de entrega de funcionalidades en aproximadamente un **30%**: los equipos dejaron de reconstruir las mismas primitivas y empezaron a componer a partir de un conjunto compartido. También le dio a todo el conjunto un aspecto coherente, ya que un cambio en la biblioteca llega a todas partes a la vez en lugar de tener que reaplicarse a mano en cuatro lugares.
