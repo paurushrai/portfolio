@@ -285,9 +285,9 @@ export const fr: Locale = {
     title: "Sur moi",
     subtitle: "Un petit aperçu de qui je suis et de ce que je fais.",
     bio: [
-      "Je m'appelle Paurush Rai, un ingénieur full-stack orienté front-end basé en Inde, avec plus de 5 ans d'expérience dans l'architecture de plates-formes Web d'entreprise, d'applications basées sur l'IA et d'outils de productivité pour les développeurs. Mon travail couvre des tableaux de bord B2B complexes, des intégrations LMS robustes, des plugins Jira et VS Code personnalisés, et tout le reste.",
-      "Je me soucie profondément des performances, de l'architecture épurée et de l'expédition des éléments qui comptent réellement. Qu'il s'agisse de créer un nouveau portail de franchise à partir de zéro, de concevoir des flux de travail d'entretien d'IA en temps réel ou de développer des outils internes qui permettent à l'entreprise d'économiser des milliers de dollars par an, je me concentre toujours sur un travail qui fait bouger les choses de manière mesurable.",
-      "En dehors du travail, je suis généralement en train de lancer un projet parallèle, d'automatiser un flux de travail fastidieux ou d'accéder à une bibliothèque à laquelle je n'ai jamais touché auparavant. J'aime la friction liée à l'apprentissage de nouveaux outils dans des contextes réels."
+      "Je m'appelle Paurush Rai — un Senior Product Engineer basé en Inde : un socle front-end doublé d'une portée full-stack, et plus de 5 ans passés à construire des plates-formes web d'entreprise, des applications pilotées par l'IA et des outils de productivité pour les développeurs. Mon travail couvre des tableaux de bord B2B complexes, une intégration LMS certifiée 1EdTech, ainsi que des plugins Jira et VS Code sur mesure.",
+      "J'accorde une grande importance à la performance, à une architecture propre et à la livraison de choses qui comptent réellement. Qu'il s'agisse de créer un portail de franchise de toutes pièces, de concevoir des flux de travail d'entretien IA en temps réel ou de développer des outils internes qui font économiser à l'entreprise des milliers de dollars par an, je me concentre toujours sur un travail qui fait bouger les lignes de façon mesurable.",
+      "En dehors du travail, je suis généralement en train de lancer un projet parallèle, d'automatiser un flux de travail fastidieux ou d'essayer une bibliothèque à laquelle je n'avais jamais touché — j'aime la friction de l'apprentissage de nouveaux outils dans des contextes réels."
     ],
     whatIBuild: "Ce que je construis",
     technicalSkills: "Compétences techniques",
@@ -374,45 +374,42 @@ export const fr: Locale = {
     },
     experience: [
       {
-        company: "Testez",
+        company: "Testlify",
         role: "Ingénieur logiciel senior",
-        location: "Bombay, Inde",
+        location: "Bombay, Inde (à distance)",
         period: "Janvier 2025 – Aujourd’hui",
         highlights: [
-          "Conception d'un plugin compatible LTI intégrant Testlify aux principales plates-formes LMS, contribuant à une croissance de 20 à 30 % de l'adoption par les entreprises.",
-          "Déployé une bibliothèque privée de composants npm adoptée dans plus de 6 dépôts Testlify, éliminant le code d'interface dupliqué et accélérant la livraison des fonctionnalités de 30 %.",
-          "Création de MetaNotes, un outil de prise de notes de réunion IA avec enregistrement, transcription et résumés automatisés, ce qui permet d'économiser 24 000 $ par an.",
-          "Pilotage de l'optimisation des performances frontend sur le site marketing, augmentant les scores Lighthouse de 49/53 à 87/91 sur mobile/ordinateur de bureau.",
-          "Conception d'une extension VS Code pour suivre automatiquement le temps de codage par la branche Git et se connecter à Jira, réduisant ainsi le suivi manuel de 60 à 70 %.",
-          "Création d'un plugin Jira interne pour les feuilles de temps et la répartition des coûts, économisant plus de 9 000 $ par an.",
-          "Mise en œuvre de flux de travail d'entretien basés sur l'IA (Chat, Voice, Video AI), réduisant les efforts des intervieweurs de plus de 40 % et générant une croissance des revenus de 20 à 30 %."
+          "Choix d'une architecture Jamstack plutôt que WordPress pour un site marketing de plus de 11 000 pages afin de réduire les taux de rebond grâce à des chargements plus rapides et d'accélérer la diffusion du contenu via le CMS ; réduction projetée de 60 % des temps de chargement des pages.",
+          "Conception et développement d'une intégration LTI 1.3 certifiée 1EdTech reliant Testlify à des plates-formes LMS comme Canvas et Moodle, permettant aux formateurs d'attribuer des évaluations et de synchroniser les notes vers le carnet de notes.",
+          "Conception de l'architecture frontend d'un outil de prise de notes de réunion propulsé par l'IA, en collaboration avec des ingénieurs IA et des designers, éliminant 24 000 $ de coûts opérationnels annuels.",
+          "Livraison d'une plate-forme de feuilles de temps utilisée dans toute l'entreprise et par des clients externes, remplaçant un outil tiers et réduisant de plus de 9 000 $ les coûts de licence annuels.",
+          "Développement d'une extension VS Code à l'échelle de l'équipe qui enregistre automatiquement le temps Jira à partir des branches Git dans Appforest Timesheets, réduisant de 70 % l'effort de suivi manuel.",
+          "Décision d'opter pour une bibliothèque de composants sans état plutôt que la duplication par application afin d'obtenir une UI cohérente et réutilisable sur une suite de 4 applications ; publiée en tant que package npm privé, raccourcissant la livraison des fonctionnalités de 30 %."
         ]
       },
       {
-        company: "Copain de carburant",
+        company: "FuelBuddy",
         role: "Ingénieur logiciel",
         location: "Gurugram, Inde",
         period: "Septembre 2023 – décembre 2024",
         highlights: [
-          "Création d'une interface d'application de kiosque à partir de zéro, réduisant le temps de distribution de carburant de 60 %.",
-          "Développement et mise à l'échelle de 6 applications Web de production pour les clients, les administrateurs, les franchises et les chauffeurs.",
-          "Conception de 8 tableaux de bord d'administration pour la validation des données et la résolution des écarts, réduisant ainsi le temps de résolution de 60 à 70 %.",
-          "Encadrement de 3 développeurs et 5 stagiaires, établissant des pratiques de révision de code qui ont amélioré la qualité et la vitesse d'intégration.",
-          "Plus de 100 fonctionnalités fournies de bout en bout sur plusieurs plates-formes.",
-          "Sentry et Clarity intégrés, réduisant le temps de résolution des problèmes de 30 % et augmentant les informations exploitables sur les utilisateurs de 20 %."
+          "Création d'une application de kiosque de toutes pièces avec les équipes embarquée, back-end et opérations, réduisant le temps de distribution de carburant de 60 %.",
+          "Migration d'une application Web progressive vers React Native, atteignant 100 % de parité fonctionnelle sur 14 flux utilisateur en 8 semaines.",
+          "Standardisation de TanStack Query sur plusieurs produits, alignant les équipes frontend sur une architecture d'état serveur unifiée et réduisant de 50 % les défauts liés aux données obsolètes.",
+          "Établissement de Playwright comme framework E2E de l'équipe, réduisant l'effort de QA manuelle de 40 %.",
+          "Encadrement de sept ingénieurs par la revue de code et le pair programming, réduisant de 25 % le temps de montée en compétence des nouvelles recrues."
         ]
       },
       {
-        company: "Modocosme",
+        company: "Modocosm",
         role: "Ingénieur logiciel",
         location: "New York, États-Unis (à distance)",
-        period: "Juillet 2021 – octobre 2023",
+        period: "Juillet 2021 – août 2023",
         highlights: [
-          "Conception et maintenance de 4 sites Web réactifs basés sur CMS supportant une croissance soutenue du trafic.",
-          "CMS Directus déconstruit et configuration de schéma rationalisée avec des requêtes PostgreSQL, réduisant le temps de démarrage de plus de 70 %.",
-          "Conception d'un système de projection de paris automatisé à l'aide de Google Sheets et du scraping Python, améliorant ainsi la précision de 15 à 20 %.",
-          "Création de plus de 100 composants d'interface utilisateur et systèmes de conception réutilisables, accélérant ainsi la livraison.",
-          "Modernisation de 7 sites Web existants en migrant vers Astro.js Jamstack + CMS sans tête, réduisant ainsi le temps de lancement du contenu de 50 %."
+          "Rétro-ingénierie des rouages internes de Directus pour rationaliser le provisionnement de schémas PostgreSQL, réduisant de plus de 70 % le temps d'amorçage des nouveaux projets.",
+          "Développement d'un tableau de bord d'analyse sociale consolidant les métriques vidéo multi-plateformes pour un client de médias d'information, réduisant l'effort de reporting de 60 %.",
+          "Modernisation de 7 sites Web existants avec Astro.js et un CMS sans tête, doublant la vitesse de publication du contenu.",
+          "Livraison et optimisation de 4 sites Web réactifs basés sur un CMS, mis en production et toujours en ligne aujourd'hui."
         ]
       }
     ]

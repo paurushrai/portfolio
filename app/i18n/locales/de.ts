@@ -285,9 +285,9 @@ export const de: Locale = {
     title: "Über mich",
     subtitle: "Ein kleiner Hintergrund darüber, wer ich bin und was ich tue.",
     bio: [
-      "Ich bin Paurush Rai – ein Frontend-orientierter Full-Stack-Ingenieur mit Sitz in Indien und 5+ Jahren Erfahrung in der Architektur von Unternehmens-Webplattformen, KI-gesteuerten Anwendungen und Entwicklerproduktivitätstools. Meine Arbeit umfasst komplexe B2B-Dashboards, robuste LMS-Integrationen, benutzerdefinierte Jira- und VS-Code-Plugins und alles dazwischen.",
-      "Ich lege großen Wert auf Leistung, saubere Architektur und den Versand von Dingen, die wirklich wichtig sind. Ganz gleich, ob es darum geht, ein Greenfield-Franchise-Portal von Grund auf aufzubauen, KI-Interview-Workflows in Echtzeit zu entwickeln oder interne Tools zu entwickeln, die dem Unternehmen jährlich Tausende von Dollar einsparen, mein Fokus liegt immer auf der Arbeit, die messbar etwas bewegt.",
-      "Außerhalb der Arbeit starte ich normalerweise ein Nebenprojekt, automatisiere einen mühsamen Arbeitsablauf oder greife nach einer Bibliothek, die ich noch nie zuvor berührt habe – ich mag die Reibung, neue Tools in realen Kontexten zu lernen."
+      "Ich bin Paurush Rai – ein Senior Product Engineer mit Sitz in Indien: ein Frontend-Kern mit Full-Stack-Reichweite und 5+ Jahren Erfahrung im Aufbau von Unternehmens-Webplattformen, KI-gesteuerten Anwendungen und Tools zur Entwicklerproduktivität. Meine Arbeit umfasst komplexe B2B-Dashboards, eine 1EdTech-zertifizierte LMS-Integration sowie benutzerdefinierte Jira- und VS-Code-Plugins.",
+      "Ich lege großen Wert auf Leistung, saubere Architektur und das Ausliefern von Dingen, die wirklich wichtig sind. Ganz gleich, ob es darum geht, ein Greenfield-Franchise-Portal von Grund auf aufzubauen, KI-Interview-Workflows in Echtzeit zu entwickeln oder interne Tools zu entwickeln, die dem Unternehmen jährlich Tausende von Dollar einsparen – mein Fokus liegt immer auf Arbeit, die messbar etwas bewegt.",
+      "Außerhalb der Arbeit starte ich meist ein Nebenprojekt, automatisiere einen mühsamen Arbeitsablauf oder greife nach einer Bibliothek, die ich noch nie zuvor angefasst habe – ich mag die Reibung, neue Tools in realen Kontexten zu erlernen."
     ],
     whatIBuild: "Was ich baue",
     technicalSkills: "Technische Fähigkeiten",
@@ -374,18 +374,17 @@ export const de: Locale = {
     },
     experience: [
       {
-        company: "Testen Sie",
+        company: "Testlify",
         role: "Leitender Software-Ingenieur",
-        location: "Mumbai, Indien",
+        location: "Mumbai, Indien (Remote)",
         period: "Januar 2025 – Heute",
         highlights: [
-          "Entwicklung eines LTI-kompatiblen Plugins, das Testlify in die wichtigsten LMS-Plattformen integriert und so zu einem Wachstum der Unternehmensakzeptanz um 20–30 % beiträgt.",
-          "Eine private npm-Komponentenbibliothek bereitgestellt, die in über 6 Testlify-Repositorys übernommen wurde, doppelten UI-Code eliminiert und die Feature-Auslieferung um 30 % beschleunigt.",
-          "Entwickelte MetaNotes, einen KI-Meeting-Notizierer mit automatischer Aufzeichnung, Transkription und Zusammenfassungen – wodurch jährlich 24.000 US-Dollar eingespart werden.",
-          "Leitete die Optimierung der Frontend-Leistung auf der Marketing-Website und steigerte die Lighthouse-Bewertung von 49/53 auf 87/91 auf Mobilgeräten/Desktops.",
-          "Entwickelte eine VS-Code-Erweiterung zur automatischen Verfolgung der Codierungszeit durch Git-Zweig und Protokollierung in Jira, wodurch die manuelle Nachverfolgung um 60–70 % reduziert wurde.",
-          "Es wurde ein internes Jira-Plugin für Arbeitszeittabellen und Kostenzuordnung erstellt, das jährlich über 9.000 US-Dollar einspart.",
-          "Implementierung von KI-gesteuerten Interview-Workflows (Chat, Sprache, Video-KI), wodurch der Aufwand der Interviewer um mehr als 40 % reduziert und ein Umsatzwachstum von 20–30 % erzielt wurde."
+          "Entschied mich für eine Jamstack-Architektur anstelle von WordPress für eine Marketing-Website mit über 11.000 Seiten, um durch schnellere Ladezeiten die Absprungrate zu senken und die Inhaltsauslieferung über das CMS zu beschleunigen; voraussichtliche Reduzierung der Seitenladezeiten um 60 %.",
+          "Konzipierte und entwickelte eine 1EdTech-zertifizierte LTI 1.3-Integration, die Testlify mit LMS-Plattformen wie Canvas und Moodle verbindet und es Dozenten ermöglicht, Assessments zuzuweisen und Noten zurück in das Notenbuch zu synchronisieren.",
+          "Konzipierte das Frontend für einen KI-gestützten Meeting-Notizierer in Zusammenarbeit mit KI-Ingenieuren und Designern und eliminierte damit jährliche Betriebskosten in Höhe von 24.000 US-Dollar.",
+          "Lieferte eine unternehmensweit und von externen Kunden genutzte Zeiterfassungsplattform aus, die ein Drittanbieter-Tool ersetzte und jährliche Lizenzkosten von über 9.000 US-Dollar einsparte.",
+          "Entwickelte eine teamweite VS-Code-Erweiterung, die Jira-Zeiten aus Git-Branches automatisch in Appforest Timesheets protokolliert und den manuellen Erfassungsaufwand um 70 % reduziert.",
+          "Entschied mich für eine zustandslose Komponentenbibliothek anstelle von Duplizierung pro App, um eine konsistente, wiederverwendbare Benutzeroberfläche über eine Suite von 4 Anwendungen hinweg zu gewährleisten; als privates npm-Paket veröffentlicht, wodurch die Feature-Auslieferung um 30 % verkürzt wurde."
         ]
       },
       {
@@ -394,25 +393,23 @@ export const de: Locale = {
         location: "Gurugram, Indien",
         period: "September 2023 – Dezember 2024",
         highlights: [
-          "Von Grund auf ein Kiosk-Anwendungs-Frontend entwickelt, das die Zeit für die Kraftstoffausgabe um 60 % verkürzt.",
-          "Entwickelte und skalierte 6 Produktions-Webanwendungen für Kunden, Administratoren, Franchise-Unternehmen und Fahrer.",
-          "Entwickelte 8 Admin-Dashboards zur Datenvalidierung und Lösung von Diskrepanzen, wodurch die Lösungszeit um 60–70 % verkürzt wurde.",
-          "Betreuung von drei Entwicklern und fünf Praktikanten, Einführung von Code-Review-Praktiken, die die Qualität und die Onboarding-Geschwindigkeit verbesserten.",
-          "Über 100 End-to-End-Funktionen auf mehreren Plattformen bereitgestellt.",
-          "Integrierte Sentry- und Clarity-Lösungen reduzieren die Problemlösungszeit um 30 % und erhöhen die umsetzbaren Benutzereinblicke um 20 %."
+          "Entwickelte von Grund auf eine Kiosk-Anwendung gemeinsam mit den Embedded-, Backend- und Ops-Teams und verkürzte die Zeit für die Kraftstoffausgabe um 60 %.",
+          "Migrierte eine Progressive Web App zu React Native und erreichte in 8 Wochen 100 % Funktionsparität über 14 Benutzerflüsse hinweg.",
+          "Standardisierte TanStack Query über mehrere Produkte hinweg, brachte die Frontend-Teams auf eine einheitliche Server-State-Architektur und reduzierte Fehler durch veraltete Daten um 50 %.",
+          "Etablierte Playwright als E2E-Framework des Teams und senkte den manuellen QA-Aufwand um 40 %.",
+          "Betreute sieben Entwickler durch Code-Reviews und Pair-Programming und verkürzte die Einarbeitungszeit neuer Mitarbeiter um 25 %."
         ]
       },
       {
-        company: "Modokosmos",
+        company: "Modocosm",
         role: "Softwareentwickler",
         location: "New York City, USA (Remote)",
-        period: "Juli 2021 – Oktober 2023",
+        period: "Juli 2021 – August 2023",
         highlights: [
-          "Entworfen und gepflegt von 4 CMS-gesteuerten responsiven Websites, die ein nachhaltiges Traffic-Wachstum unterstützen.",
-          "Dekonstruiertes Directus CMS und optimiertes Schema-Setup mit PostgreSQL-Abfragen, wodurch die Bootstrapping-Zeit um mehr als 70 % reduziert wird.",
-          "Entwickelte ein automatisiertes Wettprojektionssystem mit Google Sheets und Python-Scraping, das die Genauigkeit um 15–20 % verbesserte.",
-          "Über 100 wiederverwendbare UI-Komponenten und Designsysteme wurden erstellt, um die Bereitstellung zu beschleunigen.",
-          "Modernisierung von 7 älteren Websites durch Migration auf Astro.js Jamstack + Headless CMS, wodurch die Zeit für die Veröffentlichung von Inhalten um 50 % verkürzt wurde."
+          "Analysierte die Interna von Directus durch Reverse Engineering, um die Bereitstellung von PostgreSQL-Schemata zu optimieren, und verkürzte die Bootstrap-Zeit für neue Projekte um über 70 %.",
+          "Entwickelte ein Social-Analytics-Dashboard, das plattformübergreifende Videometriken für einen Nachrichtenmedienkunden konsolidierte und den Reporting-Aufwand um 60 % reduzierte.",
+          "Modernisierte 7 ältere Websites mit Astro.js und einem Headless CMS und verdoppelte die Geschwindigkeit der Inhaltsveröffentlichung.",
+          "Lieferte und optimierte 4 CMS-gesteuerte responsive Websites, die in Produktion gingen und bis heute live sind."
         ]
       }
     ]
