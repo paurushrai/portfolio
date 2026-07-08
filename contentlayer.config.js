@@ -59,6 +59,9 @@ export const Project = defineDocumentType(() => ({
 		company: {
 			type: "string",
 		},
+		wip: {
+			type: "boolean",
+		},
 	},
 	computedFields,
 }));

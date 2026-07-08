@@ -10,7 +10,7 @@ type Props = {
   projects: ProjectMeta[];
 };
 
-const FEATURED_PROJECTS = ["metanotes", "testlify-lti-plugin", "monostart-chrome-extension"];
+const FEATURED_PROJECTS = ["metanotes", "timesheets-appforest", "monostart-chrome-extension"];
 
 export function LocaleProjectFilter({ projects }: Props) {
   const { language, t } = useLanguage();
@@ -47,6 +47,17 @@ export function LocaleProjectFilter({ projects }: Props) {
 
   const hasFeaturedSection = featured || top2 || top3;
 
+  const wipPill = (show?: boolean) =>
+    show ? (
+      <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-xs font-medium normal-case tracking-normal text-emerald-400 ring-1 ring-inset ring-emerald-500/20">
+        <span
+          className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"
+          aria-hidden="true"
+        />
+        {t.projects.inProgress}
+      </span>
+    ) : null;
+
   return (
     <main className="px-6 pt-20 mx-auto space-y-8 max-w-7xl lg:px-8 md:space-y-16 md:pt-24 lg:pt-32">
       <div className="max-w-2xl mx-auto lg:mx-0">
@@ -78,6 +89,7 @@ export function LocaleProjectFilter({ projects }: Props) {
                               : t.projects.independent}
                           </span>
                         </div>
+                        {wipPill(featured.wip)}
                       </div>
                       <h2
                         id="featured-post"
@@ -115,6 +127,7 @@ export function LocaleProjectFilter({ projects }: Props) {
                                   : t.projects.independent}
                               </span>
                             </span>
+                            {wipPill(project.wip)}
                           </div>
                           <h2 className="z-20 mt-4 text-xl font-medium duration-1000 lg:text-3xl text-zinc-200 group-hover:text-white font-display">
                             {project.title}
@@ -153,6 +166,7 @@ export function LocaleProjectFilter({ projects }: Props) {
                                     : t.projects.independent}
                                 </span>
                               </span>
+                              {wipPill(project.wip)}
                             </div>
                             <h2 className="z-20 mt-4 text-xl font-medium duration-1000 lg:text-3xl text-zinc-200 group-hover:text-white font-display">
                               {project.title}

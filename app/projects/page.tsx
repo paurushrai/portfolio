@@ -42,6 +42,7 @@ export type ProjectMeta = {
   repository?: string;
   company?: string;
   published?: boolean;
+  wip?: boolean;
   path: string;
 };
 
@@ -57,6 +58,7 @@ export default function ProjectsPage() {
     repository: p.repository,
     company: p.company,
     published: p.published,
+    wip: p.wip,
     path: p.path,
   }));
 
