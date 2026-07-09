@@ -7,6 +7,7 @@ export const ja: Locale = {
     articles: "記事",
     services: "サービス",
     contact: "お問い合わせ",
+    privacy: "プライバシーポリシー",
   },
   home: {
     tagline:

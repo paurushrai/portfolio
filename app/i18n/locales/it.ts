@@ -6,7 +6,8 @@ export const it: Locale = {
     projects: "Progetti",
     articles: "Articoli",
     services: "Servizi",
-    contact: "Contatto"
+    contact: "Contatto",
+    privacy: "Privacy",
   },
   home: {
     tagline: "Senior Product Engineer: crea prodotti, strumenti e integrazioni che vengono spediti velocemente e durano a lungo.",

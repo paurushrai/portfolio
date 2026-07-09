@@ -1,6 +1,7 @@
 "use client";
 
-import { ErrorState } from "./components/ErrorState";
+import { ErrorState } from "../components/ErrorState";
+import { useLanguage } from "../i18n/LanguageContext";
 
 export default function GlobalError({
 	error,
@@ -9,10 +10,11 @@ export default function GlobalError({
 	error: Error & { digest?: string };
 	reset: () => void;
 }) {
+	const { localePath } = useLanguage();
 	return (
 		<ErrorState
 			description="An unexpected error occurred."
-			backHref="/"
+			backHref={localePath("/")}
 			backLabel="Back to home"
 			digest={error.digest}
 			reset={reset}

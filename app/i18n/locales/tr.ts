@@ -6,7 +6,8 @@ export const tr: Locale = {
     projects: "Projeler",
     articles: "Makaleler",
     services: "Hizmetler",
-    contact: "Temas etmek"
+    contact: "Temas etmek",
+    privacy: "Gizlilik",
   },
   home: {
     tagline: "Kıdemli Ürün Mühendisi — hızlı gönderilen ve uzun süre dayanan ürünler, araçlar ve entegrasyonlar oluşturur.",

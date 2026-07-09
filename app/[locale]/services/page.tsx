@@ -1,8 +1,8 @@
 "use client";
-import { Navigation } from "../components/nav";
+import { Navigation } from "../../components/nav";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
-import { useLanguage } from "../i18n/LanguageContext";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 export default function ServicesPage() {
   const { t } = useLanguage();

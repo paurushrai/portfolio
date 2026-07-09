@@ -2,16 +2,16 @@
 
 import { Briefcase } from "lucide-react";
 import Link from "next/link";
-import { Card } from "../components/card";
-import { useLanguage } from "../i18n/LanguageContext";
+import { Card } from "../../components/card";
+import { useLanguage } from "../../i18n/LanguageContext";
 import type { ProjectMeta } from "./page";
 
 /** Standard project card used across the featured secondaries and the main grid. */
 export function ProjectCard({ project }: { project: ProjectMeta }) {
-  const { t } = useLanguage();
+  const { t, localePath } = useLanguage();
   return (
     <Card>
-      <Link href={`/projects/${project.slug}`}>
+      <Link href={localePath(`/projects/${project.slug}`)}>
         <article className="p-4 md:p-8">
           <div className="flex justify-between gap-2 items-center">
             <span className="flex items-center gap-1.5 text-xs font-semibold tracking-wide uppercase duration-1000 text-zinc-400 group-hover:text-zinc-200">

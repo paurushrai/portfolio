@@ -5,6 +5,7 @@ export const en = {
     articles: "Articles",
     services: "Services",
     contact: "Contact",
+    privacy: "Privacy Policy",
   },
   home: {
     tagline:

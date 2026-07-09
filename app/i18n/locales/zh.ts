@@ -7,6 +7,7 @@ export const zh: Locale = {
     articles: "文章",
     services: "服务",
     contact: "联系我",
+    privacy: "隐私政策",
   },
   home: {
     tagline:

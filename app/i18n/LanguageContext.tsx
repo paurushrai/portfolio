@@ -1,63 +1,65 @@
 "use client";
 
 import { polyfillCountryFlagEmojis } from "country-flag-emoji-polyfill";
+import { usePathname, useRouter } from "next/navigation";
 import type React from "react";
+import { createContext, useCallback, useContext, useEffect } from "react";
 import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  useCallback,
-} from "react";
-import { translations, type Language, type Locale } from "./translations";
+  type AppLocale,
+  DEFAULT_LOCALE,
+  localizedPath,
+  stripLocale,
+} from "./config";
+import { type Locale, translations } from "./translations";
 
 type LanguageContextType = {
-  language: Language;
-  setLanguage: (lang: Language) => void;
+  language: AppLocale;
+  setLanguage: (lang: AppLocale) => void;
+  /** Prefix an app path for the active locale (default locale stays unprefixed). */
+  localePath: (path: string) => string;
   t: Locale;
 };
 
 const LanguageContext = createContext<LanguageContextType>({
-  language: "en",
+  language: DEFAULT_LOCALE,
   setLanguage: () => {},
+  localePath: (path) => path,
   t: translations.en,
 });
 
-const SUPPORTED: Language[] = ["en", "de", "fr", "es", "ja", "zh", "pt", "hi", "ko", "it", "ru", "tr"];
-
-function detectBrowserLanguage(): Language {
-  if (typeof window === "undefined") return "en";
-  for (const lang of navigator.languages ?? [navigator.language]) {
-    const code = lang.toLowerCase().split("-")[0] as Language;
-    if (SUPPORTED.includes(code)) return code;
-  }
-  return "en";
-}
-
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguageState] = useState<Language>("en");
-  const [mounted, setMounted] = useState(false);
+export function LanguageProvider({
+  locale,
+  children,
+}: {
+  locale: AppLocale;
+  children: React.ReactNode;
+}) {
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
-    // Windows has no native flag emoji glyphs; this injects a Twemoji
-    // flags-only font on platforms where flags don't render.
+    // Windows has no native flag emoji glyphs; inject a Twemoji flags-only font.
     polyfillCountryFlagEmojis();
-    const stored = localStorage.getItem("lang") as Language | null;
-    const lang =
-      stored && SUPPORTED.includes(stored) ? stored : detectBrowserLanguage();
-    setLanguageState(lang);
-    setMounted(true);
   }, []);
 
-  const setLanguage = useCallback((lang: Language) => {
-    setLanguageState(lang);
-    localStorage.setItem("lang", lang);
-  }, []);
+  // Switching language navigates to the same page under the target locale.
+  const setLanguage = useCallback(
+    (lang: AppLocale) => {
+      const basePath = stripLocale(pathname ?? "/");
+      router.push(localizedPath(basePath, lang));
+    },
+    [pathname, router],
+  );
 
-  const t = mounted ? translations[language] : translations.en;
+  const localePath = useCallback(
+    (path: string) => localizedPath(path, locale),
+    [locale],
+  );
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider
+      value={{ language: locale, setLanguage, localePath, t: translations[locale] }}
+    >
       {children}
     </LanguageContext.Provider>
   );

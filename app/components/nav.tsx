@@ -7,7 +7,7 @@ import { useLanguage } from "../i18n/LanguageContext";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
 export const Navigation: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, localePath } = useLanguage();
   const [isIntersecting, setIsIntersecting] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -52,7 +52,11 @@ export const Navigation: React.FC = () => {
           <div className="flex items-center gap-4 md:gap-7">
             <nav className="items-center hidden gap-4 md:flex md:gap-7">
               {links.map((link) => (
-                <Link key={link.href} href={link.href} className={linkClass}>
+                <Link
+                  key={link.href}
+                  href={localePath(link.href)}
+                  className={linkClass}
+                >
                   {link.label}
                 </Link>
               ))}
@@ -75,7 +79,7 @@ export const Navigation: React.FC = () => {
           </div>
 
           <Link
-            href="/"
+            href={localePath("/")}
             aria-label="Back to home"
             className="duration-200 rounded-sm text-zinc-300 hover:text-zinc-100"
           >
@@ -88,7 +92,7 @@ export const Navigation: React.FC = () => {
             {links.map((link) => (
               <Link
                 key={link.href}
-                href={link.href}
+                href={localePath(link.href)}
                 onClick={() => setMenuOpen(false)}
                 className="px-2 py-3 text-base duration-200 border-b text-zinc-300 hover:text-zinc-100 border-zinc-800/60"
               >

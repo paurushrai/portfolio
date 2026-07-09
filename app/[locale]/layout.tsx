@@ -1,97 +1,101 @@
-import "../global.css";
+import "../../global.css";
+import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import LocalFont from "next/font/local";
-import type { Metadata } from "next";
 import Script from "next/script";
-import { ProgressBar } from "./components/progress-bar";
-import ClickSpark from "./components/click-spark";
-import { LanguageProvider } from "./i18n/LanguageContext";
+import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { ProgressBar } from "../components/progress-bar";
+import ClickSpark from "../components/click-spark";
+import { LanguageProvider } from "../i18n/LanguageContext";
+import { LOCALES, DEFAULT_LOCALE, isLocale, localizedPath } from "../i18n/config";
 
 const BASE_URL = "https://paurushrai.in";
 
-export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:3000"
-      : BASE_URL,
-  ),
-  title: {
-    default: "Paurush Rai — Senior Product Engineer & Full-Stack Developer",
-    template: "%s | Paurush Rai",
-  },
-  description: "Paurush Rai is a Senior Product Engineer and Full-Stack Developer with 5+ years of experience building enterprise SaaS, AI-integrated platforms, and developer tools. Available for Senior Product Engineer, Senior Frontend Developer, and Senior Software Engineer roles.",
-  keywords: [
-    "Senior Product Engineer",
-    "Senior Software Engineer",
-    "Senior Frontend Developer",
-    "Full-Stack Developer",
-    "React Developer",
-    "Next.js Developer",
-    "React Native Developer",
-    "TypeScript Engineer",
-    "AI Integration Engineer",
-    "Enterprise Web Development",
-    "Developer Tools Engineer",
-    "Paurush Rai",
-  ],
-  alternates: {
-    canonical: BASE_URL,
-    languages: {
-      "x-default": BASE_URL,
-      en: BASE_URL,
-      de: BASE_URL,
-      es: BASE_URL,
-      fr: BASE_URL,
-      hi: BASE_URL,
-      it: BASE_URL,
-      ja: BASE_URL,
-      ko: BASE_URL,
-      pt: BASE_URL,
-      ru: BASE_URL,
-      tr: BASE_URL,
-      zh: BASE_URL,
+export function generateStaticParams() {
+  return LOCALES.map((locale) => ({ locale }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const locale = isLocale(params.locale) ? params.locale : DEFAULT_LOCALE;
+  const languages: Record<string, string> = { "x-default": BASE_URL };
+  for (const l of LOCALES) {
+    languages[l] = `${BASE_URL}${localizedPath("/", l)}`;
+  }
+  const canonical = `${BASE_URL}${localizedPath("/", locale)}`;
+
+  return {
+    metadataBase: new URL(
+      process.env.NODE_ENV === "development" ? "http://localhost:3000" : BASE_URL,
+    ),
+    title: {
+      default: "Paurush Rai — Senior Product Engineer & Full-Stack Developer",
+      template: "%s | Paurush Rai",
     },
-  },
-  openGraph: {
-    title: "Paurush Rai — Senior Product Engineer & Full-Stack Developer",
-    description: "Senior Product Engineer & Full-Stack Developer specializing in AI integration, enterprise SaaS, and developer tools. 5+ years building scalable web platforms.",
-    url: BASE_URL,
-    siteName: "paurushrai.in",
-    images: [
-      {
-        url: `${BASE_URL}/og.png`,
-        width: 1920,
-        height: 1080,
-        alt: "Paurush Rai — Senior Product Engineer & Full-Stack Developer",
-      },
+    description:
+      "Paurush Rai is a Senior Product Engineer and Full-Stack Developer with 5+ years of experience building enterprise SaaS, AI-integrated platforms, and developer tools. Available for Senior Product Engineer, Senior Frontend Developer, and Senior Software Engineer roles.",
+    keywords: [
+      "Senior Product Engineer",
+      "Senior Software Engineer",
+      "Senior Frontend Developer",
+      "Full-Stack Developer",
+      "React Developer",
+      "Next.js Developer",
+      "React Native Developer",
+      "TypeScript Engineer",
+      "AI Integration Engineer",
+      "Enterprise Web Development",
+      "Developer Tools Engineer",
+      "Paurush Rai",
     ],
-    locale: "en-US",
-    type: "website",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+    alternates: { canonical, languages },
+    openGraph: {
+      title: "Paurush Rai — Senior Product Engineer & Full-Stack Developer",
+      description:
+        "Senior Product Engineer & Full-Stack Developer specializing in AI integration, enterprise SaaS, and developer tools. 5+ years building scalable web platforms.",
+      url: canonical,
+      siteName: "paurushrai.in",
+      images: [
+        {
+          url: `${BASE_URL}/og.png`,
+          width: 1920,
+          height: 1080,
+          alt: "Paurush Rai — Senior Product Engineer & Full-Stack Developer",
+        },
+      ],
+      locale,
+      type: "website",
+    },
+    robots: {
       index: true,
       follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
-  },
-  twitter: {
-    title: "Paurush Rai — Senior Product Engineer & Full-Stack Developer",
-    description: "Senior Product Engineer & Full-Stack Developer specializing in AI integration, enterprise SaaS, and developer tools. 5+ years building scalable web platforms.",
-    card: "summary_large_image",
-    images: [`${BASE_URL}/og.png`],
-  },
-  icons: {
-    shortcut: "/favicon.ico",
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
-  },
-};
+    twitter: {
+      title: "Paurush Rai — Senior Product Engineer & Full-Stack Developer",
+      description:
+        "Senior Product Engineer & Full-Stack Developer specializing in AI integration, enterprise SaaS, and developer tools. 5+ years building scalable web platforms.",
+      card: "summary_large_image",
+      images: [`${BASE_URL}/og.png`],
+    },
+    icons: {
+      shortcut: "/favicon.ico",
+      icon: "/favicon.ico",
+      apple: "/apple-touch-icon.png",
+    },
+  };
+}
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -99,18 +103,23 @@ const inter = Inter({
 });
 
 const calSans = LocalFont({
-  src: "../public/fonts/CalSans-SemiBold.ttf",
+  src: "../../public/fonts/CalSans-SemiBold.ttf",
   variable: "--font-calsans",
   display: "swap",
 });
 
-export default function RootLayout({
+export default function LocaleLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: { locale: string };
 }) {
+  if (!isLocale(params.locale)) notFound();
+  const locale = params.locale;
+
   return (
-    <html lang="en" className={[inter.variable, calSans.variable].join(" ")}>
+    <html lang={locale} className={[inter.variable, calSans.variable].join(" ")}>
       {process.env.GTM_ID && (
         <Script id="gtm" strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -159,7 +168,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               name: "Paurush Rai",
               url: BASE_URL,
               jobTitle: "Senior Product Engineer",
-              description: "Senior Product Engineer and Full-Stack Developer specializing in AI integration, enterprise SaaS platforms, and developer productivity tools.",
+              description:
+                "Senior Product Engineer and Full-Stack Developer specializing in AI integration, enterprise SaaS platforms, and developer productivity tools.",
               image: `${BASE_URL}/og.png`,
               sameAs: [
                 "https://github.com/paurushrai",
@@ -187,7 +197,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   "@type": "Country",
                   name: "India",
                 },
-                skills: "React, Next.js, TypeScript, Node.js, AI Integration, Full-Stack Development",
+                skills:
+                  "React, Next.js, TypeScript, Node.js, AI Integration, Full-Stack Development",
               },
             }),
           }}
@@ -195,7 +206,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
-        <LanguageProvider>
+        <LanguageProvider locale={locale}>
           <Suspense fallback={null}>
             <ProgressBar />
           </Suspense>

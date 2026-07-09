@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useLanguage } from "../i18n/LanguageContext";
-import { Card } from "../components/card";
+import { useLanguage } from "../../i18n/LanguageContext";
+import { Card } from "../../components/card";
 import Link from "next/link";
 import { Briefcase } from "lucide-react";
 import type { ProjectMeta } from "./page";
@@ -23,7 +23,7 @@ type Props = {
 const FEATURED_PROJECTS = ["metanotes", "timesheets-appforest", "monostart-chrome-extension"];
 
 export function LocaleProjectFilter({ projects }: Props) {
-  const { language, t } = useLanguage();
+  const { language, t, localePath } = useLanguage();
 
   // Group by slug → { locale → project }
   const bySlug = new Map<string, Record<string, ProjectMeta>>();
@@ -111,7 +111,7 @@ export function LocaleProjectFilter({ projects }: Props) {
             <div className="grid grid-cols-1 gap-8 mx-auto lg:grid-cols-2">
               {featured ? (
                 <Card>
-                  <Link href={`/projects/${featured.slug}`}>
+                  <Link href={localePath(`/projects/${featured.slug}`)}>
                     <article className="relative w-full h-full p-4 md:p-8">
                       <div className="flex items-center justify-between gap-2">
                         <div className="flex items-center gap-1.5 text-xs text-zinc-400 font-medium tracking-wide uppercase group-hover:text-zinc-200 duration-150">

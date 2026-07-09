@@ -6,7 +6,8 @@ export const de: Locale = {
     projects: "Projekte",
     articles: "Artikel",
     services: "Dienstleistungen",
-    contact: "Kontakt"
+    contact: "Kontakt",
+    privacy: "Datenschutz",
   },
   home: {
     tagline: "Senior Product Engineer – Entwicklung von Produkten, Tools und Integrationen, die schnell geliefert werden und lange halten.",
