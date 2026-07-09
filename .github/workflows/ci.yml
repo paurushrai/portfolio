@@ -30,6 +30,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Fail on critical advisories in shipped (prod) dependencies. Kept at
+      # `critical` (not `high`) because Next 14 carries high advisories fixable
+      # only by the Next 16 major upgrade (tracked in docs/IMPROVEMENTS.md);
+      # gating at `high` would make CI permanently red on an unpatchable dep.
+      - name: Audit dependencies
+        run: npm audit --omit=dev --audit-level=critical
+
       # Cheap gate first: fail fast on lint before the expensive build.
       - name: Lint
         run: npm run lint
