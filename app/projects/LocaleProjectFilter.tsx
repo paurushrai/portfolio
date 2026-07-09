@@ -6,12 +6,15 @@ import { Card } from "../components/card";
 import Link from "next/link";
 import { Briefcase } from "lucide-react";
 import type { ProjectMeta } from "./page";
+import { ProjectCard } from "./ProjectCard";
 import {
   type CompanyTabId,
   type ProjectTab,
   companyToTabId,
   ProjectTabs,
 } from "./ProjectTabs";
+
+const PROJECT_PANEL_ID = "project-list-panel";
 
 type Props = {
   projects: ProjectMeta[];
@@ -145,29 +148,7 @@ export function LocaleProjectFilter({ projects }: Props) {
                 {[top2, top3]
                   .filter((project): project is ProjectMeta => Boolean(project))
                   .map((project) => (
-                    <Card key={project.slug}>
-                      <Link href={`/projects/${project.slug}`}>
-                        <article className="p-4 md:p-8">
-                          <div className="flex justify-between gap-2 items-center">
-                            <span className="flex items-center gap-1.5 text-xs font-semibold tracking-wide uppercase duration-1000 text-zinc-400 group-hover:text-zinc-200">
-                              <Briefcase className="w-4 h-4" />
-                              <span>
-                                {project.company
-                                  ? project.company
-                                  : t.projects.independent}
-                              </span>
-                            </span>
-                            {wipPill(project.wip)}
-                          </div>
-                          <h2 className="z-20 mt-4 text-xl font-medium duration-1000 lg:text-3xl text-zinc-200 group-hover:text-white font-display">
-                            {project.title}
-                          </h2>
-                          <p className="z-20 mt-4 text-sm duration-1000 text-zinc-400 group-hover:text-zinc-200">
-                            {project.description}
-                          </p>
-                        </article>
-                      </Link>
-                    </Card>
+                    <ProjectCard key={project.slug} project={project} />
                   ))}
               </div>
             </div>
@@ -184,37 +165,21 @@ export function LocaleProjectFilter({ projects }: Props) {
                 active={activeTab}
                 onChange={setActiveTab}
                 label={t.projects.title}
+                panelId={PROJECT_PANEL_ID}
               />
               {filteredSorted.length > 0 ? (
-                <div className="grid items-start grid-cols-1 gap-4 mx-auto lg:mx-0 md:grid-cols-3">
+                <div
+                  id={PROJECT_PANEL_ID}
+                  role="tabpanel"
+                  aria-labelledby={`project-tab-${activeTab}`}
+                  className="grid items-start grid-cols-1 gap-4 mx-auto lg:mx-0 md:grid-cols-3"
+                >
                   {[0, 1, 2].map((col) => (
                     <div key={col} className="grid grid-cols-1 gap-4">
                       {filteredSorted
                         .filter((_, i) => i % 3 === col)
                         .map((project) => (
-                          <Card key={project.slug}>
-                            <Link href={`/projects/${project.slug}`}>
-                              <article className="p-4 md:p-8">
-                                <div className="flex justify-between gap-2 items-center">
-                                  <span className="flex items-center gap-1.5 text-xs font-semibold tracking-wide uppercase duration-1000 text-zinc-400 group-hover:text-zinc-200">
-                                    <Briefcase className="w-4 h-4" />
-                                    <span>
-                                      {project.company
-                                        ? project.company
-                                        : t.projects.independent}
-                                    </span>
-                                  </span>
-                                  {wipPill(project.wip)}
-                                </div>
-                                <h2 className="z-20 mt-4 text-xl font-medium duration-1000 lg:text-3xl text-zinc-200 group-hover:text-white font-display">
-                                  {project.title}
-                                </h2>
-                                <p className="z-20 mt-4 text-sm duration-1000 text-zinc-400 group-hover:text-zinc-200">
-                                  {project.description}
-                                </p>
-                              </article>
-                            </Link>
-                          </Card>
+                          <ProjectCard key={project.slug} project={project} />
                         ))}
                     </div>
                   ))}

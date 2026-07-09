@@ -321,7 +321,7 @@ export const hi: Locale = {
         "Node.js",
         "Express.js"
       ],
-      "Frontend": [
+      "फ्रंटएंड": [
         "Tailwind CSS",
         "Shadcn",
         "HTML/CSS",

@@ -81,8 +81,10 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: "Paurush Rai",
+    title: "Paurush Rai — Senior Product Engineer & Full-Stack Developer",
+    description: "Senior Product Engineer & Full-Stack Developer specializing in AI integration, enterprise SaaS, and developer tools. 5+ years building scalable web platforms.",
     card: "summary_large_image",
+    images: [`${BASE_URL}/og.png`],
   },
   icons: {
     shortcut: "/favicon.ico",

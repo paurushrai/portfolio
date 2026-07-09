@@ -1,5 +1,6 @@
 "use client";
 
+import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext";
@@ -24,6 +25,40 @@ export function LanguageSwitcher() {
   const { language, setLanguage } = useLanguage();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const itemsRef = useRef<(HTMLButtonElement | null)[]>([]);
+
+  // On open, move focus into the menu at the current language (APG menu pattern).
+  useEffect(() => {
+    if (!open) return;
+    const currentIndex = Math.max(
+      0,
+      languages.findIndex((l) => l.code === language),
+    );
+    itemsRef.current[currentIndex]?.focus();
+  }, [open, language]);
+
+  const handleMenuKeyDown = (e: React.KeyboardEvent, index: number) => {
+    const lastIndex = languages.length - 1;
+    let nextIndex: number | null = null;
+    switch (e.key) {
+      case "ArrowDown":
+        nextIndex = index === lastIndex ? 0 : index + 1;
+        break;
+      case "ArrowUp":
+        nextIndex = index === 0 ? lastIndex : index - 1;
+        break;
+      case "Home":
+        nextIndex = 0;
+        break;
+      case "End":
+        nextIndex = lastIndex;
+        break;
+      default:
+        return;
+    }
+    e.preventDefault();
+    itemsRef.current[nextIndex]?.focus();
+  };
 
   // Close on outside click or Escape
   useEffect(() => {
@@ -73,16 +108,21 @@ export function LanguageSwitcher() {
           aria-label="Language options"
           className="absolute right-0 top-full mt-2 w-38 rounded-xl border border-zinc-800 bg-zinc-950 shadow-2xl shadow-black/60 overflow-hidden z-60"
         >
-          {languages.map((lang) => (
+          {languages.map((lang, index) => (
             <button
               type="button"
               key={lang.code}
+              ref={(el) => {
+                itemsRef.current[index] = el;
+              }}
               role="menuitem"
+              tabIndex={-1}
               aria-current={language === lang.code ? "true" : undefined}
               onClick={() => {
                 setLanguage(lang.code);
                 setOpen(false);
               }}
+              onKeyDown={(e) => handleMenuKeyDown(e, index)}
               className={`w-full flex items-center gap-2.5 px-3.5 py-2 text-sm text-left transition-colors duration-150 ${
                 language === lang.code
                   ? "text-zinc-100 bg-zinc-800"
