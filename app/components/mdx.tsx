@@ -1,13 +1,12 @@
-// @ts-nocheck
-import type * as React from "react";
+import type { MDXComponents } from "mdx/types";
 import Image from "next/image";
 import Link from "next/link";
 import { useMDXComponent } from "next-contentlayer2/hooks";
 
-function clsx(...args: unknown[]) {
+function clsx(...args: unknown[]): string {
 	return args.filter(Boolean).join(" ");
 }
-const components = {
+const components: MDXComponents = {
 	h1: ({ className, children, ...props }) => (
 		<h1
 			className={clsx(
@@ -74,8 +73,9 @@ const components = {
 			{children}
 		</h6>
 	),
-	a: ({ className, children, ...props }) => (
+	a: ({ className, children, href, ...props }) => (
 		<Link
+			href={href ?? "#"}
 			className={clsx(
 				"font-medium text-zinc-900 underline underline-offset-4",
 				className,
@@ -109,11 +109,7 @@ const components = {
 			{...props}
 		/>
 	),
-	img: ({
-		className,
-		alt,
-		...props
-	}: React.ImgHTMLAttributes<HTMLImageElement>) => (
+	img: ({ className, alt, ...props }) => (
 		// biome-ignore lint/performance/noImgElement: MDX content images have arbitrary sources; next/image is impractical here
 		<img
 			className={clsx("rounded-md border border-zinc-200 w-full", className)}
@@ -124,14 +120,14 @@ const components = {
 	hr: ({ ...props }) => (
 		<hr className="my-4 border-zinc-200 md:my-8" {...props} />
 	),
-	table: ({ className, children, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
+	table: ({ className, children, ...props }) => (
 		<div className="w-full my-6 overflow-y-auto">
 			<table className={clsx("w-full", className)} {...props}>
 				{children}
 			</table>
 		</div>
 	),
-	tr: ({ className, children, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
+	tr: ({ className, children, ...props }) => (
 		<tr
 			className={clsx(
 				"m-0 border-t border-zinc-300 p-0 even:bg-zinc-100",
