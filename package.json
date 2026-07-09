@@ -39,7 +39,7 @@
     "contentlayer2": "^0.5.8",
     "country-flag-emoji-polyfill": "^0.1.8",
     "framer-motion": "^10.16.4",
-    "lucide-react": "^0.284.0",
+    "lucide-react": "^1.23.0",
     "next": "^14.2.35",
     "next-contentlayer2": "^0.5.8",
     "react": "^18.2.0",
