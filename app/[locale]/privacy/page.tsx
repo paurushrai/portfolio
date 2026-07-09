@@ -1,18 +1,34 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Navigation } from "../components/nav";
+import { Navigation } from "../../components/nav";
+import {
+  type AppLocale,
+  DEFAULT_LOCALE,
+  alternatesFor,
+  isLocale,
+  localizedPath,
+} from "../../i18n/config";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy",
-  description:
-    "Privacy policy for paurushrai.in — how analytics tools, contact form data, and third-party services are used.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const locale: AppLocale = isLocale(params.locale) ? params.locale : DEFAULT_LOCALE;
+  return {
+    title: "Privacy Policy",
+    description:
+      "Privacy policy for paurushrai.in — how analytics tools, contact form data, and third-party services are used.",
+    alternates: alternatesFor("/privacy", locale),
+  };
+}
 
 const LAST_UPDATED = "May 1, 2025";
 const CONTACT_EMAIL = "paurushrai96@gmail.com";
 const BASE_URL = "https://paurushrai.in";
 
-export default function PrivacyPage() {
+export default function PrivacyPage({ params }: { params: { locale: string } }) {
+  const locale: AppLocale = isLocale(params.locale) ? params.locale : DEFAULT_LOCALE;
   return (
     <div className="min-h-screen bg-linear-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0">
       <Navigation />
@@ -107,7 +123,7 @@ export default function PrivacyPage() {
               <p className="text-zinc-400 leading-relaxed">
                 When you submit the contact form at{" "}
                 <Link
-                  href="/contact"
+                  href={localizedPath("/contact", locale)}
                   className="text-zinc-300 hover:text-white underline underline-offset-4 duration-150"
                 >
                   /contact

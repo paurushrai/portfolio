@@ -3,9 +3,9 @@ import { Github, LinkedinIcon, Mail, MessageCircle, Send, CheckCircle, AlertCirc
 import Link from "next/link";
 import type React from "react";
 import { useState } from "react";
-import { Navigation } from "../components/nav";
-import { Card } from "../components/card";
-import { useLanguage } from "../i18n/LanguageContext";
+import { Navigation } from "../../components/nav";
+import { Card } from "../../components/card";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 const socials = [
   {

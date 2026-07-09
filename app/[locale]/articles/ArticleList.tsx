@@ -1,5 +1,5 @@
 "use client";
-import { useLanguage } from "../i18n/LanguageContext";
+import { useLanguage } from "../../i18n/LanguageContext";
 import { ArticleCard } from "./ArticleCard";
 import { ARTICLE_FEEDS } from "./feeds";
 import type { ArticleMeta } from "./types";

@@ -2,16 +2,16 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { Download } from "lucide-react";
-import { useLanguage } from "./i18n/LanguageContext";
-import { LanguageSwitcher } from "./components/LanguageSwitcher";
+import { useLanguage } from "../i18n/LanguageContext";
+import { LanguageSwitcher } from "../components/LanguageSwitcher";
 
-const Particles = dynamic(() => import("./components/particles"), {
+const Particles = dynamic(() => import("../components/particles"), {
   ssr: false,
   loading: () => null,
 });
 
 export default function Home() {
-  const { t } = useLanguage();
+  const { t, localePath } = useLanguage();
 
   const navigation = [
     { name: t.nav.about, href: "/about" },
@@ -31,10 +31,10 @@ export default function Home() {
       {/* Privacy link — bottom right */}
       <div className="absolute bottom-6 right-6 z-50">
         <Link
-          href="/privacy"
+          href={localePath("/privacy")}
           className="text-xs text-zinc-600 hover:text-zinc-400 duration-300 transition-colors"
         >
-          Privacy Policy
+          {t.nav.privacy}
         </Link>
       </div>
 
@@ -43,7 +43,7 @@ export default function Home() {
           {navigation.map((item) => (
             <li key={item.href}>
               <Link
-                href={item.href}
+                href={localePath(item.href)}
                 className="text-sm duration-500 text-zinc-500 hover:text-zinc-300"
               >
                 {item.name}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useLanguage } from "../../i18n/LanguageContext";
+import { useLanguage } from "../../../i18n/LanguageContext";
 import { Header } from "./header";
 import { Mdx } from "@/app/components/mdx";
 import type { Project } from "@/.contentlayer/generated";

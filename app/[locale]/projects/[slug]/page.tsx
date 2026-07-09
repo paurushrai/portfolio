@@ -2,10 +2,20 @@ import { notFound } from "next/navigation";
 import { allProjects } from "contentlayer/generated";
 import type { Metadata } from "next";
 import "./mdx.css";
+import {
+  type AppLocale,
+  DEFAULT_LOCALE,
+  isLocale,
+  LOCALES,
+  localizedPath,
+} from "../../../i18n/config";
 import { LocaleProjectClient } from "./LocaleProjectClient";
+
+const BASE_URL = "https://paurushrai.in";
 
 type Props = {
   params: {
+    locale: string;
     slug: string;
   };
 };
@@ -16,19 +26,27 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const project = allProjects.find(
-    (p) => p.slug === params.slug && p.locale === "en",
-  );
+  const locale: AppLocale = isLocale(params.locale) ? params.locale : DEFAULT_LOCALE;
+  const project =
+    allProjects.find((p) => p.slug === params.slug && p.locale === locale) ??
+    allProjects.find((p) => p.slug === params.slug && p.locale === DEFAULT_LOCALE);
   if (!project) return {};
-  const url = `https://paurushrai.in/projects/${params.slug}`;
+  const path = `/projects/${params.slug}`;
+  const canonical = `${BASE_URL}${localizedPath(path, locale)}`;
+  const languages: Record<string, string> = {
+    "x-default": `${BASE_URL}${localizedPath(path, DEFAULT_LOCALE)}`,
+  };
+  for (const l of LOCALES) {
+    languages[l] = `${BASE_URL}${localizedPath(path, l)}`;
+  }
   return {
     title: project.title,
     description: project.description,
-    alternates: { canonical: url },
+    alternates: { canonical, languages },
     openGraph: {
       title: project.title,
       description: project.description,
-      url,
+      url: canonical,
       type: "article",
     },
   };
@@ -61,6 +79,7 @@ export default async function PostPage({ params }: Props) {
       {/* JSON-LD structured data, serialized from trusted app constants (no user input). */}
       <script
         type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD from trusted app constants, no user input
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <LocaleProjectClient projectLocales={projectLocales} />

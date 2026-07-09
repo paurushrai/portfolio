@@ -6,7 +6,8 @@ export const ko: Locale = {
     projects: "프로젝트",
     articles: "글",
     services: "서비스",
-    contact: "연락하다"
+    contact: "연락하다",
+    privacy: "개인정보 처리방침",
   },
   home: {
     tagline: "수석 프로덕트 엔지니어 — 빠르고 오래 지속되는 제품, 도구 및 통합을 구축합니다.",

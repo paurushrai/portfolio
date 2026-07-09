@@ -6,7 +6,8 @@ export const fr: Locale = {
     projects: "Projets",
     articles: "Articles",
     services: "Services",
-    contact: "Contact"
+    contact: "Contact",
+    privacy: "Confidentialité",
   },
   home: {
     tagline: "Ingénieur produit senior – créer des produits, des outils et des intégrations qui sont livrés rapidement et durent longtemps.",

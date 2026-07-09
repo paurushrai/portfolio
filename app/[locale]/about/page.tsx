@@ -2,8 +2,8 @@
 import { Fragment } from "react";
 import Link from "next/link";
 import { ArrowRight, Download } from "lucide-react";
-import { Navigation } from "../components/nav";
-import { useLanguage } from "../i18n/LanguageContext";
+import { Navigation } from "../../components/nav";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 
 export default function AboutPage() {

@@ -20,7 +20,7 @@ type Props = {
 export const Header: React.FC<Props> = ({ project }) => {
 	const ref = useRef<HTMLElement>(null);
 	const [isIntersecting, setIsIntersecting] = useState(true);
-	const { t } = useLanguage();
+	const { t, localePath } = useLanguage();
 
 	const links: { label: string; href: string }[] = [];
 	if (project.repository) {
@@ -73,7 +73,7 @@ export const Header: React.FC<Props> = ({ project }) => {
 					</div>
 
 					<Link
-						href="/projects"
+						href={localePath("/projects")}
 						aria-label="Back to projects"
 						className={`duration-200 hover:font-medium ${
 							isIntersecting

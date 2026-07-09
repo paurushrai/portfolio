@@ -1,13 +1,12 @@
 "use client";
 import { BookOpen } from "lucide-react";
 import { useState } from "react";
-import { Card } from "../components/card";
+import { Card } from "../../components/card";
+import { useLanguage } from "../../i18n/LanguageContext";
 import type { ArticleMeta } from "./types";
 
-const DATE_LOCALE = "en-US";
-
-function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString(DATE_LOCALE, {
+function formatDate(iso: string, locale: string): string {
+  return new Date(iso).toLocaleDateString(locale, {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -31,6 +30,7 @@ function CoverPlaceholder({ title }: { title: string }) {
 }
 
 export function ArticleCard({ article }: { article: ArticleMeta }) {
+  const { language } = useLanguage();
   const [imageFailed, setImageFailed] = useState(false);
   const showImage = Boolean(article.imageUrl) && !imageFailed;
 
@@ -65,7 +65,7 @@ export function ArticleCard({ article }: { article: ArticleMeta }) {
                 dateTime={article.publishedAt}
                 className="text-xs text-zinc-500 duration-1000 group-hover:text-zinc-300"
               >
-                {formatDate(article.publishedAt)}
+                {formatDate(article.publishedAt, language)}
               </time>
             </div>
             <h2 className="z-20 mt-4 text-xl font-medium duration-1000 lg:text-2xl text-zinc-200 group-hover:text-white font-display line-clamp-2">

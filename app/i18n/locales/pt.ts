@@ -7,6 +7,7 @@ export const pt: Locale = {
     articles: "Artigos",
     services: "Serviços",
     contact: "Contato",
+    privacy: "Privacidade",
   },
   home: {
     tagline:

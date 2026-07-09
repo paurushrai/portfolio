@@ -7,6 +7,7 @@ export const es: Locale = {
     articles: "Artículos",
     services: "Servicios",
     contact: "Contacto",
+    privacy: "Privacidad",
   },
   home: {
     tagline:
