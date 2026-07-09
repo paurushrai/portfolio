@@ -39,7 +39,12 @@ type FormState = "idle" | "loading" | "success" | "error";
 export default function ContactPage() {
   const { t } = useLanguage();
   const c = t.contact;
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    message: "",
+    company: "",
+  });
   const [status, setStatus] = useState<FormState>("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -61,7 +66,7 @@ export default function ContactPage() {
 
       if (res.ok) {
         setStatus("success");
-        setForm({ name: "", email: "", message: "" });
+        setForm({ name: "", email: "", message: "", company: "" });
       } else {
         const text = await res.text();
         setErrorMsg(text || c.error.generic);
@@ -114,6 +119,19 @@ export default function ContactPage() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} noValidate className="space-y-4">
+              {/* Honeypot: hidden from real users, catches bots that fill every field. */}
+              <div className="absolute -left-[9999px]" aria-hidden="true">
+                <label htmlFor="company">Company</label>
+                <input
+                  id="company"
+                  name="company"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={form.company}
+                  onChange={handleChange}
+                />
+              </div>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="space-y-1.5">
                   <label htmlFor="name" className="text-xs font-medium text-zinc-400 uppercase tracking-widest">
