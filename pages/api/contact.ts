@@ -3,6 +3,10 @@ import type { NextApiRequest, NextApiResponse } from "next";
 const TO_EMAIL = "paurushrai96@gmail.com";
 const FROM_EMAIL = "contact@paurushrai.in";
 
+const MAX_NAME_LENGTH = 100;
+const MAX_EMAIL_LENGTH = 254;
+const MAX_MESSAGE_LENGTH = 5000;
+
 const HTML_ESCAPES: Record<string, string> = {
 	"&": "&amp;",
 	"<": "&lt;",
@@ -24,14 +28,49 @@ export default async function handler(
 		return;
 	}
 
-	const { name, email, message } = req.body as {
+	// Same-origin check: block cross-site POSTs. Skipped when no Origin header
+	// is present (some non-browser clients), and always passes same-origin
+	// requests, so it holds across prod, Netlify previews, and localhost.
+	const origin = req.headers.origin;
+	if (origin) {
+		let originHost: string;
+		try {
+			originHost = new URL(origin).host;
+		} catch {
+			res.status(403).send("Invalid origin");
+			return;
+		}
+		if (originHost !== req.headers.host) {
+			res.status(403).send("Cross-origin requests are not allowed");
+			return;
+		}
+	}
+
+	const { name, email, message, company } = req.body as {
 		name?: string;
 		email?: string;
 		message?: string;
+		company?: string;
 	};
+
+	// Honeypot: real users never fill the hidden `company` field. Bots do.
+	// Pretend success so the bot gets no signal to adapt.
+	if (company?.trim()) {
+		res.status(200).end();
+		return;
+	}
 
 	if (!name?.trim() || !email?.trim() || !message?.trim()) {
 		res.status(422).send("name, email, and message are required");
+		return;
+	}
+
+	if (
+		name.length > MAX_NAME_LENGTH ||
+		email.length > MAX_EMAIL_LENGTH ||
+		message.length > MAX_MESSAGE_LENGTH
+	) {
+		res.status(422).send("One or more fields exceed the maximum length");
 		return;
 	}
 
@@ -51,19 +90,21 @@ export default async function handler(
 	const safeEmail = escapeHtml(email);
 	const safeMessage = escapeHtml(message);
 
-	const resendRes = await fetch("https://api.resend.com/emails", {
-		method: "POST",
-		headers: {
-			Authorization: `Bearer ${apiKey}`,
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({
-			from: FROM_EMAIL,
-			to: TO_EMAIL,
-			reply_to: email,
-			subject: `Portfolio message from ${name}`,
-			text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
-			html: `
+	let resendRes: Response;
+	try {
+		resendRes = await fetch("https://api.resend.com/emails", {
+			method: "POST",
+			headers: {
+				Authorization: `Bearer ${apiKey}`,
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				from: FROM_EMAIL,
+				to: TO_EMAIL,
+				reply_to: email,
+				subject: `Portfolio message from ${name}`,
+				text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
+				html: `
         <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#18181b">
           <h2 style="font-size:20px;font-weight:700;margin-bottom:4px">New message from your portfolio</h2>
           <p style="margin:0 0 24px;color:#71717a;font-size:14px">Sent via paurushrai.in/contact</p>
@@ -81,8 +122,13 @@ export default async function handler(
           <p style="margin-top:24px;font-size:12px;color:#a1a1aa">Reply directly to this email to respond to ${safeName}.</p>
         </div>
       `,
-		}),
-	});
+			}),
+		});
+	} catch (error) {
+		console.error("[Resend] network error:", error);
+		res.status(502).send("Failed to send message");
+		return;
+	}
 
 	if (!resendRes.ok) {
 		const errText = await resendRes.text();

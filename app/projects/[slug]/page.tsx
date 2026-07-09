@@ -61,6 +61,7 @@ export default async function PostPage({ params }: Props) {
       {/* JSON-LD structured data, serialized from trusted app constants (no user input). */}
       <script
         type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD from trusted app constants, no user input
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <LocaleProjectClient projectLocales={projectLocales} />
