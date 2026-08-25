@@ -4,7 +4,7 @@ export const zh: Locale = {
   nav: {
     about: "关于我",
     projects: "项目",
-    articles: "文章",
+    blogs: "博客",
     services: "服务",
     contact: "联系我",
     privacy: "隐私政策",
@@ -23,15 +23,18 @@ export const zh: Locale = {
     independent: "独立",
     personalProject: "个人项目",
     associatedWith: "关联公司",
-    inProgress: "è¿è¡ä¸­",
-    all: "å¨é¨",
-    personal: "ä¸ªäºº"
+    inProgress: "进行中",
+    all: "全部",
+    personal: "个人",
+    moreTitle: "更多项目"
   },
-  articles: {
-    title: "文章",
-    subtitle: "关于工程、工具和产品打造的思考 — 发布于 Medium。",
-    viewAll: "在 Medium 上查看全部",
-    empty: "暂无文章 — 请稍后再来。",
+  blogs: {
+    title: "博客",
+    subtitle: "关于工程、工具以及如何构建经久耐用产品的笔记。",
+    empty: "暂无文章 — 敬请期待。",
+    minRead: "分钟阅读",
+    moreTitle: "更多博客文章",
+    viewAll: "查看全部",
   },
   services: {
     badge: "接受自由职业项目",

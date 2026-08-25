@@ -4,7 +4,7 @@ export const ko: Locale = {
   nav: {
     about: "에 대한",
     projects: "프로젝트",
-    articles: "글",
+    blogs: "블로그",
     services: "서비스",
     contact: "연락하다",
     privacy: "개인정보 처리방침",
@@ -22,15 +22,18 @@ export const ko: Locale = {
     independent: "독립적인",
     personalProject: "개인 프로젝트",
     associatedWith: "협력사",
-    inProgress: "ì§í ì¤",
-    all: "ì ì²´",
-    personal: "ê°ì¸"
+    inProgress: "진행 중",
+    all: "전체",
+    personal: "개인",
+    moreTitle: "더 많은 프로젝트"
   },
-  articles: {
-    title: "글",
-    subtitle: "엔지니어링, 도구, 제품 개발에 대한 생각 — Medium에 게시.",
-    viewAll: "Medium에서 모두 보기",
-    empty: "아직 글이 없습니다 — 곧 다시 확인해 주세요.",
+  blogs: {
+    title: "블로그",
+    subtitle: "엔지니어링, 도구, 그리고 오래 가는 것을 만드는 방법에 대한 글.",
+    empty: "아직 게시물이 없습니다 — 곧 다시 확인해 주세요.",
+    minRead: "분 읽기",
+    moreTitle: "블로그 더 보기",
+    viewAll: "전체 보기",
   },
   services: {
     badge: "프리랜서로 이용 가능",

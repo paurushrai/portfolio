@@ -4,7 +4,7 @@ export const tr: Locale = {
   nav: {
     about: "Hakkında",
     projects: "Projeler",
-    articles: "Makaleler",
+    blogs: "Blog",
     services: "Hizmetler",
     contact: "Temas etmek",
     privacy: "Gizlilik",
@@ -23,15 +23,17 @@ export const tr: Locale = {
     personalProject: "Kişisel Proje",
     associatedWith: "İlişkili",
     inProgress: "Devam ediyor",
-    all: "TÃ¼mÃ¼",
-    personal: "KiÅisel"
+    all: "Tümü",
+    personal: "Kişisel",
+    moreTitle: "Diğer projeler"
   },
-  articles: {
-    title: "Makaleler",
-    subtitle:
-      "Mühendislik, araçlar ve ürün geliştirme üzerine düşünceler — Medium'da yayınlandı.",
-    viewAll: "Tümünü Medium'da gör",
-    empty: "Henüz makale yok — yakında tekrar kontrol edin.",
+  blogs: {
+    title: "Blog",
+    subtitle: "Mühendislik, araçlar ve kalıcı şeyler inşa etmek üzerine notlar.",
+    empty: "Henüz yazı yok — yakında tekrar bakın.",
+    minRead: "dk okuma",
+    moreTitle: "Blogdan daha fazlası",
+    viewAll: "Tümünü gör",
   },
   services: {
     badge: "Serbest çalışma için mevcut",

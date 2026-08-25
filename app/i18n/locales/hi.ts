@@ -4,7 +4,7 @@ export const hi: Locale = {
   nav: {
     about: "के बारे में",
     projects: "परियोजनाओं",
-    articles: "लेख",
+    blogs: "ब्लॉग",
     services: "सेवाएं",
     contact: "संपर्क",
     privacy: "गोपनीयता नीति",
@@ -22,16 +22,18 @@ export const hi: Locale = {
     independent: "स्वतंत्र",
     personalProject: "व्यक्तिगत प्रोजेक्ट",
     associatedWith: "इसके साथ संबद्ध",
-    inProgress: "à¤à¤¾à¤°à¥à¤¯ à¤ªà¥à¤°à¤à¤¤à¤¿ à¤ªà¤° à¤¹à¥",
-    all: "à¤¸à¤­à¥",
-    personal: "à¤µà¥à¤¯à¤à¥à¤¤à¤¿à¤à¤¤"
+    inProgress: "कार्य प्रगति पर है",
+    all: "सभी",
+    personal: "व्यक्तिगत",
+    moreTitle: "अधिक प्रोजेक्ट"
   },
-  articles: {
-    title: "लेख",
-    subtitle:
-      "इंजीनियरिंग, टूल्स और प्रोडक्ट बनाने पर विचार — Medium पर प्रकाशित।",
-    viewAll: "Medium पर सभी देखें",
-    empty: "अभी कोई लेख नहीं — जल्द ही फिर देखें।",
+  blogs: {
+    title: "ब्लॉग",
+    subtitle: "इंजीनियरिंग, टूल्स और लंबे समय तक चलने वाली चीज़ें बनाने पर नोट्स।",
+    empty: "अभी तक कोई पोस्ट नहीं — जल्द ही वापस आएं।",
+    minRead: "मिनट पढ़ें",
+    moreTitle: "ब्लॉग से और",
+    viewAll: "सभी देखें",
   },
   services: {
     badge: "फ्रीलांस के लिए उपलब्ध है",
