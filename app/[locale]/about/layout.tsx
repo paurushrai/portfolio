@@ -10,8 +10,8 @@ export async function generateMetadata({
   const locale: AppLocale = isLocale(params.locale) ? params.locale : DEFAULT_LOCALE;
   const alternates = alternatesFor("/about", locale);
   return {
-    title: "About — Paurush Rai | Senior Product Engineer & Frontend Developer",
-    description: "Meet Paurush Rai — Senior Product Engineer with 5+ years building enterprise SaaS, AI-integrated platforms, and developer tools using React, Next.js, TypeScript, and Node.js. Based in India.",
+    title: "About Paurush Rai | Senior Product Engineer",
+    description: "Meet Paurush Rai — Senior Product Engineer with 5+ years building enterprise SaaS, AI platforms, and developer tools. Based in India.",
     keywords: [
       "Senior Product Engineer",
       "Senior Software Engineer",
