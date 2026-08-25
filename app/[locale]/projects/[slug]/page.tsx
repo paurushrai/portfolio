@@ -10,6 +10,7 @@ import {
   localizedPath,
 } from "../../../i18n/config";
 import { LocaleProjectClient } from "./LocaleProjectClient";
+import { RelatedProjects } from "./RelatedProjects";
 
 const BASE_URL = "https://paurushrai.in";
 
@@ -75,14 +76,17 @@ export default async function PostPage({ params }: Props) {
   };
 
   return (
-    <div className="bg-zinc-50 min-h-screen">
-      {/* JSON-LD structured data, serialized from trusted app constants (no user input). */}
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD from trusted app constants, no user input
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <LocaleProjectClient projectLocales={projectLocales} />
-    </div>
+    <>
+      <div className="bg-zinc-50 min-h-screen">
+        {/* JSON-LD structured data, serialized from trusted app constants (no user input). */}
+        <script
+          type="application/ld+json"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD from trusted app constants, no user input
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <LocaleProjectClient projectLocales={projectLocales} />
+      </div>
+      <RelatedProjects otherProjects={allProjects.filter((project) => project.slug !== slug)} />
+    </>
   );
 }
