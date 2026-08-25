@@ -25,6 +25,7 @@ export const Navigation: React.FC = () => {
     { href: "/about", label: t.nav.about },
     { href: "/projects", label: t.nav.projects },
     { href: "/blogs", label: t.nav.blogs },
+    { href: "/services", label: t.nav.services },
     { href: "/contact", label: t.nav.contact },
   ];
 
