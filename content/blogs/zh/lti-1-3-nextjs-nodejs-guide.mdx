@@ -1,0 +1,143 @@
+---
+title: 用 Next.js 和 Node.js 搭建一套现代 LTI 1.3 工具
+description: 一套生产可用的 LTI 1.3 LMS 集成架构,把 Node.js/ltijs 安全层和 Next.js 前端分开,用一套无状态 token 流程扛住第三方 cookie 被拦截的问题。
+date: 2026-01-26
+published: true
+coverImage: /blogs/lti-1-3-nextjs-nodejs-guide/1.png
+tags: ["LTI", "LMS", "Next.js", "Node.js"]
+---
+
+![LTI 1.3 架构:Node.js 安全层挡在 Next.js 前端之前](/blogs/lti-1-3-nextjs-nodejs-guide/1.png)
+
+如果你曾经尝试为 Canvas、Moodle 或 Blackboard 这类学习管理系统(LMS)搭建集成,你一定知道那种痛。具体来说,是 **LTI 1.3(Learning Tools Interoperability)** 带来的痛。
+
+它涉及一整套复杂的流程:OIDC 登录、JWKS 密钥集、RSA 签名、私钥。它的设计初衷是安全,但对一个只想"把一个网页应用嵌进 Canvas"的开发者来说,这感觉就像一场噩梦。
+
+在这篇指南里,我会带你走一遍构建 LTI 1.3 工具的一套**生产可用架构**,使用现代化的安全实践。我们会用 **Node.js** 做安全层,用 **Next.js** 做前端,在不牺牲安全性的前提下,保证顺畅的开发体验。
+
+**🔗 GitHub 仓库**: [github.com/paurushrai/lti-1.3-node-nextjs-template](https://www.github.com/paurushrai/lti-1.3-node-nextjs-template)
+
+## 🧐 什么是 LTI 1.3,为什么你该关心它?
+
+LTI(Learning Tools Interoperability)是一套标准,让外部工具(比如你的应用)能和 LMS(比如 Canvas)通信。
+
+在过去,**LTI 1.1** 很简单:你共享一个"secret key"和"consumer key"。但它并不安全。**LTI 1.3** 转向了现代信息安全模型:
+
+1. **OIDC(OpenID Connect)** 负责登录流程。
+2. **JWT(JSON Web Token)** 负责数据交换。
+3. **公钥/私钥加密**(RSA256)取代共享密钥。
+
+这让它变得极其安全,但也让从零实现变得更难。
+
+## 🏗 架构设计
+
+为了解决这个问题,我们不会去搭一个单体应用。我们会把**安全提供层**和**应用界面**分开。
+
+### 技术栈
+
+- **后端(安全守卫)**: Node.js + Express + `ltijs`(Cvmcosta 开发的一个稳健的库)。
+- **前端(体验层)**: Next.js 14+(App Router)+ React + Tailwind CSS。
+- **数据库**: PostgreSQL(存储加密密钥和平台注册信息)。
+- **基础设施**: Docker Compose。
+
+### 问题:"第三方 Cookie"的末日
+
+LTI 工具面临的一大挑战是,它们运行在 LMS 内部的一个 `<iframe>` 里。现代浏览器(Safari、Chrome 隐身模式)默认会拦截**第三方 cookie**。
+
+如果你的网页应用依赖会话 cookie(`connect.sid`)?**它在 Safari 里会直接失败。**
+
+### 解决方案:"LTIaaS" Token 流程
+
+这个项目实现了一套"无状态"的 token 模式来绕开 cookie 的限制:
+
+1. **LMS 启动**:LMS 向我们的 Node.js 后端发起请求。
+2. **握手**:后端验证签名。如果有效,生成一个短生命周期、一次性使用的 **ltik(LTI key)**。
+3. **重定向**:后端把 iframe 重定向到 Next.js 前端,把 token 放进 URL:`https://myapp.com/app?ltik=eyJhb...`
+4. **注水**:Next.js 应用从 URL 里取出这个 token。
+5. **API 调用**:前端把这个 token 当作 Bearer token,放进后续所有 API 调用的 `Authorization` 头里。
+
+**不需要任何 cookie!**
+
+## 🚀 怎么搭建这套系统(手把手教程)
+
+下面是如何在五分钟内让它在你本地机器上跑起来。
+
+### 1. 前置条件
+
+你需要装好 **Docker**。你还需要 **ngrok**(或类似的隧道服务),因为 LTI 工具**必须**通过 HTTPS 提供服务。你不能简单地用 localhost。
+
+### 2. 克隆仓库
+
+```bash
+git clone https://github.com/paurushrai/lti-1.3-node-nextjs-template.git
+cd lti-1.3-node-nextjs-template
+```
+
+### 3. 配置环境变量
+
+复制示例环境文件:
+
+```bash
+cp lti-server/.env.example lti-server/.env
+```
+
+生成一个随机的安全密钥,粘贴到 `.env` 里的 `LTI_KEY`。
+
+### 4. 启动隧道
+
+在 3000 端口启动 ngrok(这是我们 Node 服务器所在的端口)。
+
+```bash
+ngrok http 3000
+```
+
+复制你的 https 网址(例如 `https://my-tool.ngrok-free.app`)。
+
+### 5. 运行应用
+
+再次打开 `lti-server/.env`,把 `UI_URL` 设置为你的 ngrok 网址。
+
+现在,用 Docker 把一切启动起来:
+
+```bash
+docker-compose up --build
+```
+
+现在你有了:
+
+- **LTI 服务器**: `http://localhost:4000`
+- **Next.js 客户端**: `http://localhost:3000`
+- **Postgres**: 自动连接。
+
+## 🔌 连接到 LMS(那个"魔法"链接)
+
+在过去,你得手动复制粘贴公钥和 URL。这个项目支持 **LTI 动态注册**。
+
+1. 复制你的**注册 URL**: `https://<your-ngrok-domain>/lti/register`
+2. 打开你的 LMS(例如 Canvas Admin → Developer Keys)。
+3. 选择 **"Dynamic Registration"**。
+4. 粘贴 URL,点击 **Register**。
+
+**搞定。** 💥 工具和 LMS 会自动交换公钥。工具现在已经安装完成。
+
+## 🧪 测试整个流程
+
+1. 在你的 LMS 课程里创建一个通用的作业或模块项。
+2. 选择"External Tool",然后选中你的新工具。
+3. **启动它。**
+4. 你会看到 **Next.js 应用**在 iframe 里加载出来。
+5. 它会显示:"Welcome, [Your Name]" 以及你的角色(Instructor/Student)。
+
+这个应用成功地:
+
+1. 验证了启动请求。
+2. 从 LTI 启动数据里解码出了你的用户资料。
+3. 把它安全地传递给了前端。
+
+## 📝 结语
+
+搭建 LTI 工具不必是一件神秘的事。通过把**协议逻辑**(Node/ltijs)和**应用逻辑**(Next.js)分开,你能同时拿到两者的好处:稳健的安全性,和一个现代化的、基于 React 的用户界面。
+
+去看看代码,fork 这个仓库,开始搭建你自己的集成吧!
+
+[**在 GitHub 上查看代码**](https://github.com/paurushrai/lti-1.3-node-nextjs-template)

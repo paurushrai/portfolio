@@ -1,0 +1,143 @@
+---
+title: Next.js と Node.js でモダンな LTI 1.3 ツールを構築する
+description: LTI 1.3 の LMS 連携のための本番運用対応アーキテクチャ。Node.js/ltijs のセキュリティ層と Next.js のフロントエンドを分離し、サードパーティ Cookie ブロックにも耐えるステートレスなトークンフローを備える。
+date: 2026-01-26
+published: true
+coverImage: /blogs/lti-1-3-nextjs-nodejs-guide/1.png
+tags: ["LTI", "LMS", "Next.js", "Node.js"]
+---
+
+![Next.js フロントエンドの前に Node.js セキュリティ層を配置した LTI 1.3 アーキテクチャ](/blogs/lti-1-3-nextjs-nodejs-guide/1.png)
+
+Canvas、Moodle、Blackboard のような LMS(学習管理システム)向けの連携を作ろうとしたことがあるなら、その痛みを知っているはずだ。具体的には、**LTI 1.3(Learning Tools Interoperability)**の痛みだ。
+
+OIDC ログイン、JWKS キーセット、RSA 署名、秘密鍵の複雑なダンスが絡んでくる。安全であることを意図した仕組みだが、「Canvas に Web アプリを埋め込みたい」だけの開発者にとっては、悪夢のように感じられることがある。
+
+このガイドでは、モダンで安全なプラクティスを使って LTI 1.3 ツールを構築するための**本番運用対応のアーキテクチャ**を案内する。セキュリティ層には **Node.js**、フロントエンドには **Next.js** を使い、セキュリティを妥協することなく、滑らかな開発体験を実現する。
+
+**🔗 GitHub リポジトリ**: [github.com/paurushrai/lti-1.3-node-nextjs-template](https://www.github.com/paurushrai/lti-1.3-node-nextjs-template)
+
+## 🧐 LTI 1.3 とは何で、なぜ気にすべきなのか
+
+LTI(Learning Tools Interoperability)は、外部ツール(あなたのアプリのような)が LMS(Canvas のような)と通信できるようにする標準規格だ。
+
+かつて **LTI 1.1** は簡単だった。「secret key」と「consumer key」を共有するだけだ。だがそれは安全ではなかった。**LTI 1.3** は、モダンな情報セキュリティモデルへと移行する。
+
+1. ログインフローのための **OIDC(OpenID Connect)**。
+2. データ交換のための **JWT(JSON Web Tokens)**。
+3. 共有シークレットの代わりの**公開鍵・秘密鍵暗号**(RSA256)。
+
+これにより非常に安全になるが、ゼロから実装するのはより難しくなる。
+
+## 🏗 アーキテクチャ
+
+これを解決するために、モノリスは作らない。**セキュリティプロバイダー**と**アプリケーション UI** を分離する。
+
+### 技術スタック
+
+- **バックエンド(セキュリティガード)**: Node.js + Express + `ltijs`(Cvmcosta による堅牢なライブラリ)。
+- **フロントエンド(体験)**: Next.js 14+(App Router)+ React + Tailwind CSS。
+- **データベース**: PostgreSQL(暗号鍵とプラットフォーム登録情報を保存)。
+- **インフラ**: Docker Compose。
+
+### 問題:「サードパーティ Cookie」の終末
+
+LTI ツールにまつわる大きな課題は、それが LMS 内の `<iframe>` の中で動くということだ。モダンなブラウザ(Safari、Chrome シークレットモード)はデフォルトで**サードパーティ Cookie** をブロックする。
+
+もしあなたの Web アプリがセッション Cookie(`connect.sid`)に依存しているなら?**Safari では失敗する。**
+
+### 解決策:「LTIaaS」トークンフロー
+
+このプロジェクトは、Cookie の制約を回避するために「ステートレス」なトークンパターンを実装している。
+
+1. **LMS の起動**: LMS が自分たちの Node.js バックエンドにリクエストを送る。
+2. **ハンドシェイク**: バックエンドが署名を検証する。有効であれば、短命で使い捨ての **ltik(LTI key)** を生成する。
+3. **リダイレクト**: バックエンドは iframe を Next.js フロントエンドへリダイレクトし、URL にトークンを渡す。`https://myapp.com/app?ltik=eyJhb...`
+4. **ハイドレーション**: Next.js アプリが URL からこのトークンを取得する。
+5. **API 呼び出し**: フロントエンドは、以後のすべての API 呼び出しで、この トークンを `Authorization` ヘッダーの Bearer トークンとして使う。
+
+**Cookie は一切不要!**
+
+## 🚀 セットアップの方法(ステップバイステップ)
+
+これをローカルマシンで5分で動かす方法はこうだ。
+
+### 1. 前提条件
+
+**Docker** がインストールされている必要がある。また **ngrok**(または同様のトンネリングサービス)も必要だ。LTI ツールは HTTPS で配信され**なければならない**からだ。単純に localhost を使うことはできない。
+
+### 2. リポジトリをクローンする
+
+```bash
+git clone https://github.com/paurushrai/lti-1.3-node-nextjs-template.git
+cd lti-1.3-node-nextjs-template
+```
+
+### 3. 環境を設定する
+
+環境変数のサンプルファイルをコピーする。
+
+```bash
+cp lti-server/.env.example lti-server/.env
+```
+
+ランダムで安全なキーを生成し、`.env` の中の `LTI_KEY` に貼り付ける。
+
+### 4. トンネルを起動する
+
+ポート3000で ngrok を起動する(自分たちの Node サーバーが動いている場所だ)。
+
+```bash
+ngrok http 3000
+```
+
+https の URL をコピーする(例:`https://my-tool.ngrok-free.app`)。
+
+### 5. アプリを起動する
+
+`lti-server/.env` をもう一度開き、`UI_URL` を自分の ngrok URL に設定する。
+
+さあ、Docker ですべてを起動する。
+
+```bash
+docker-compose up --build
+```
+
+これで次が手に入る。
+
+- **LTI サーバー**: `http://localhost:4000`
+- **Next.js クライアント**: `http://localhost:3000`
+- **Postgres**: 自動的に接続済み。
+
+## 🔌 LMS への接続(「マジック」リンク)
+
+昔は、公開鍵と URL を手動でコピー&ペーストする必要があった。このプロジェクトは **LTI Dynamic Registration** をサポートしている。
+
+1. 自分の**登録用 URL** をコピーする。`https://<your-ngrok-domain>/lti/register`
+2. 自分の LMS(例:Canvas の管理画面 → Developer Keys)を開く。
+3. **「Dynamic Registration」**を選択する。
+4. URL を貼り付けて **Register** をクリックする。
+
+**完了。** 💥 ツールと LMS が自動的に公開鍵を交換する。ツールはこれでインストール済みだ。
+
+## 🧪 フローをテストする
+
+1. 自分の LMS のコース内に、汎用の課題またはモジュール項目を作成する。
+2. 「External Tool」を選択し、新しいツールを選ぶ。
+3. **起動する。**
+4. iframe の中に **Next.js アプリ**が読み込まれるのが見える。
+5. こう表示される。「Welcome, [Your Name]」と、あなたのロール(Instructor/Student)。
+
+アプリは正常に次のことをやり遂げている。
+
+1. 起動を認証した。
+2. LTI の起動データから、あなたのユーザープロファイルをデコードした。
+3. それを安全にフロントエンドへ渡した。
+
+## 📝 結論
+
+LTI ツールの構築は、謎めいたものである必要はない。**プロトコルロジック**(Node/ltijs)を**アプリケーションロジック**(Next.js)から分離することで、両方のいいとこ取りができる。堅牢なセキュリティと、モダンな React ベースの UI だ。
+
+コードをチェックし、リポジトリをフォークして、自分自身の連携の構築を始めよう!
+
+[**GitHub でコードを見る**](https://github.com/paurushrai/lti-1.3-node-nextjs-template)

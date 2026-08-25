@@ -1,0 +1,311 @@
+---
+title: Meu Notebook Agora Faz Commit da Própria Configuração
+description: Um setup de dotfiles que se conserta sozinho — configs de git e shell com symlink, um agente launchd que observa o Homebrew, e roteamento de identidade que sobrevive a migrações de máquina sem backups manuais.
+date: 2026-06-12
+published: true
+coverImage: /blogs/laptop-commits-own-config/1.png
+tags: ["macOS", "Automation", "Dotfiles", "Git", "launchd"]
+---
+
+*Publiquei um artigo sobre como sobreviver a migrações de máquina. Uma semana depois, descobri que meu próprio setup já tinha falhado — e consertá-lo exigiu git, symlinks, launchd e uma tarde bem humilhante.*
+
+Uma semana atrás, publiquei um artigo sobre arquitetura de workspace.
+
+A tese era confiante:
+
+> Se minha máquina morresse hoje, eu deveria conseguir reconstruir tudo a partir de um único diretório.
+
+Tudo dentro de `~/Developer/`. Repositórios. Infraestrutura. Dados. Um diretório, totalmente portátil.
+
+Eu estava me sentindo bem satisfeito com isso.
+
+Então, alguns dias depois, pedi ao meu assistente de IA para fazer backup da minha pasta de skills do Claude Code na nova estrutura.
+
+Ele voltou com algo que eu não esperava:
+
+```bash
+ls: /Users/paurushrai/.claude/skills/: No such file or directory
+```
+
+A pasta não existia.
+
+Mas eu *tinha* skills. Uma customizada chamada graphify — eu tinha construído, usava todo dia, e minha config global ainda fazia referência a ela. Então onde ela estava?
+
+```bash
+/Users/paurushrai/Downloads/mac-restore/dot-claude/skills/graphify/
+```
+
+Lá estava ela. Na minha pasta de Downloads. Dentro de um diretório chamado `mac-restore`.
+
+Parada ali desde o dia em que migrei de máquina. Nunca restaurada. Esquecida.
+
+![a skill graphify encontrada morta em ~/Downloads/mac-restore, nunca restaurada após a migração](/blogs/laptop-commits-own-config/1.png)
+
+Eu tinha escrito um artigo inteiro sobre exatamente esse tipo de falha — e minha própria máquina estava vivendo isso silenciosamente o tempo todo.
+
+## 🔍 O Ponto Cego
+
+Aqui está o que eu tinha deixado passar.
+
+Minha arquitetura organizava tudo *dentro* de `~/Developer/`. Mas a configuração que faz uma máquina parecer **minha** não vive lá:
+
+- Identidade e comportamento do git — `~/.gitconfig`
+- Setup do shell — `~/.zshrc`, `~/.zprofile`
+- Ignores globais — `~/.gitignore_global`
+- Regras de IA para código — `~/.claude/CLAUDE.md`
+- Skills de IA customizadas — `~/.claude/skills/`
+- E a mais invisível de todas: a lista de pacotes instalados, que não vive *em lugar nenhum*
+
+Tudo isso espalhado por `$HOME`. Sem versionamento. Sem backup. Invisível para minha bela estrutura de diretórios.
+
+Quando checei `~/.gitconfig` para avaliar o estrago, era pior do que eu pensava:
+
+```bash
+cat ~/.gitconfig
+# → no such file
+```
+
+O arquivo não existia. Na máquina antiga eu tinha configurado roteamento de e-mail — e-mail pessoal para meus projetos, e-mail de trabalho para repositórios da empresa. Nada disso tinha sobrevivido. Eu vinha commitando há meses sem perceber.
+
+O código tinha migrado. A *configuração*, não.
+
+## 🔗 O Truque Mais Antigo do Unix
+
+Meu primeiro instinto foi o óbvio: criar uma pasta de backup, copiar os dotfiles para lá, subir no GitHub.
+
+Mas cópias derivam. No momento em que existem duas versões do `.gitconfig`, uma delas é mentira — e você só vai descobrir qual quando algo quebrar.
+
+A solução é mais antiga do que eu: **symlinks**.
+
+Existe apenas um arquivo. Ele vive no repositório. O diretório home recebe um ponteiro:
+
+```bash
+~/.gitconfig  ──symlink──▶  ~/Developer/infra/dotfiles/.gitconfig
+                            └── o ÚNICO arquivo real
+```
+
+![um único arquivo real no repositório, com o diretório home guardando apenas um ponteiro symlink](/blogs/laptop-commits-own-config/2.png)
+
+Quando perguntei se isso significava que eu teria que ficar sincronizando mudanças de volta, veio a resposta que faz esse design inteiro funcionar:
+
+**As escritas passam pelo symlink.**
+
+Rode `git config --global` para mudar uma configuração — o git segue o ponteiro e escreve direto no arquivo do repositório. Edite `~/.zshrc` — você está editando o arquivo do repositório. Não há nada para sincronizar, porque não há nada de onde sincronizar. Um arquivo, dois endereços.
+
+Foi isso que construí. Um repositório de dotfiles dentro da minha camada de infraestrutura, guardando os arquivos reais, com um `install.sh` idempotente que recria todos os symlinks em uma máquina nova — fazendo backup do que encontrar primeiro, seguro para rodar duas vezes.
+
+Config do git, config do shell, ignores globais, minhas regras de IA, a skill graphify resgatada. Commitado. Enviado. Permanente.
+
+Uma regra, aprendida ao inspecionar o que quase entrou no repositório: **nunca commitar segredos**. Meu `.zshrc` agora carrega um `~/.zshrc.local` que o git nunca vê. O repositório fica com a estrutura; a máquina fica com os segredos.
+
+![o repositório de dotfiles guardando os arquivos de config reais, com o install.sh recriando cada symlink](/blogs/laptop-commits-own-config/3.png)
+
+Achei que tinha terminado.
+
+## 🍺 O Homebrew Não Guarda um Diário
+
+Então tentei responder a uma pergunta simples: *se essa máquina morresse, o que eu reinstalaria?*
+
+A config do git tem uma propriedade bonita — a ferramenta escreve no próprio arquivo de configuração, então o repositório sempre sabe a verdade. O Homebrew não tem essa educação. `brew install jq` instala o pacote e não registra a decisão **em lugar nenhum**. A lista de pacotes existe só implicitamente, como pastas em `/opt/homebrew/Cellar`.
+
+O Homebrew consegue exportar um manifesto sob demanda:
+
+```bash
+brew bundle dump --global --force
+# → escreve .Brewfile: brew "gh", brew "git", brew "tree"...
+```
+
+Então fiz o symlink de um `.Brewfile` no repositório, como tudo o mais. Mas havia uma pegadinha, e ela me incomodava:
+
+O Brewfile só atualiza **quando você lembra de exportá-lo**.
+
+Todo o meu design foi construído sobre a premissa de que eu *não* lembro. É por isso que os symlinks existem. Um manifesto que depende da minha disciplina é um manifesto que já está três meses desatualizado quando eu precisar dele.
+
+## 🧪 Minha Primeira Tentativa Estava Errada
+
+A primeira solução parecia esperta: envolver o comando `brew` numa função de shell. Interceptar toda instalação e desinstalação, reexportar o manifesto, commitar automaticamente, enviar automaticamente.
+
+Eu construí. Funcionou na primeira tentativa:
+
+```bash
+$ brew install jq
+...
+$ git log --oneline -1
+df053cb chore(brew): install jq
+```
+
+Lindo. A mensagem de commit nomeia o pacote e tudo mais.
+
+E então olhei de novo e vi o buraco.
+
+Um wrapper de shell só captura comandos digitados no *meu shell interativo*. Um script de setup instalando dependências? Invisível. Um agente de IA rodando `brew` dentro de uma sessão? Invisível. Qualquer contexto que não seja meu zsh com minha config carregada? Invisível.
+
+Eu tinha automatizado a **interface** quando precisava automatizar o **evento**.
+
+A instalação do pacote em si é o evento — e acontece no sistema de arquivos, não no meu shell.
+
+## ⚙️ O Sistema Operacional Já Tinha a Resposta
+
+Perguntei: será que dá para usar o launchd para isso?
+
+launchd é o gerenciador de serviços do macOS — a coisa que inicia todo daemon do sistema, a resposta da Apple ao systemd. Todo desenvolvedor de Mac já viu. Quase ninguém usa a sua melhor funcionalidade:
+
+**WatchPaths** — o launchd observa um caminho no nível do sistema operacional e dispara um job no exato momento em que ele muda.
+
+```xml
+<key>WatchPaths</key>
+<array>
+    <string>/opt/homebrew/Cellar</string>
+    <string>/opt/homebrew/Caskroom</string>
+</array>
+```
+
+Agora não importa *quem* instala o pacote — meu shell, um script, um agente, qualquer coisa. O Cellar muda, o sistema percebe, meu script de sincronização roda:
+
+```bash
+# sync.sh — o motor inteiro
+brew bundle dump --global --force    # tira um retrato dos pacotes
+git add -A                           # registra qualquer mudança nos dotfiles
+git diff --cached --quiet && exit 0  # nada mudou? sai em silêncio
+git commit -q -m "chore: auto-sync ${CHANGED}"
+git push -q                          # offline? commita local, envia depois
+```
+
+Mais uma execução diária ao meio-dia como rede de segurança, e um throttle de 60 segundos para que instalar cinco pacotes gere um commit em vez de cinco.
+
+Então o teste. Instalar um pacote, não tocar em mais nada, observar:
+
+```bash
+$ brew install jq
+... 8 segundos depois, zero envolvimento do shell:
+67ba27e chore: auto-sync .Brewfile
+→ pushed to GitHub ✅
+```
+
+Oito segundos. A máquina documentou sua própria mudança, commitou e enviou enquanto eu estava sentado ali.
+
+![o fluxo de sincronização: um brew install muda o Cellar, o launchd dispara o sync.sh, que commita e envia](/blogs/laptop-commits-own-config/4.png)
+
+Deletei o wrapper de shell no mesmo minuto. Sem ferramentas de terceiros, sem cron fazendo polling num timer, sem daemon para instalar. O sistema operacional já tinha entregado a resposta o tempo todo.
+
+Depois que isso funcionou para os pacotes, o próximo passo foi óbvio: observar os próprios dotfiles. Agora editar o `.zshrc` ou minhas regras de IA gera um commit automático em até um minuto, com o nome do arquivo na mensagem do commit.
+
+## 🔁 A Armadilha Que Quase Construí
+
+Uma decisão aqui vai morder qualquer um que construir isso, então vale a confissão.
+
+A versão preguiçosa é observar o diretório raiz do repositório — uma única entrada de observação, cobrindo tudo.
+
+Mas todo commit do git **modifica `.git/`**. Observe a raiz do repositório e você construiu um ouroboro: a mudança dispara o agente → o agente commita → o commit muda `.git/` → que dispara o agente → para sempre.
+
+Então o agente observa **arquivos individuais**, nunca o diretório que contém o `.git`. A troca: um arquivo novo em folha, numa subpasta profunda, não é capturado instantaneamente — a execução diária recolhe isso depois. Está documentado no README, e é um preço justo.
+
+Automação que dispara a si mesma é o tipo de bug que você encontra às 2 da manhã.
+
+## 🔔 Ensinando-o a Falar
+
+Restava um problema, e ele era sobre confiança.
+
+O agente agora commitava em meu nome, silenciosamente. Um daemon silencioso é um daemon em que você para de confiar — ou pior, esquece que existe.
+
+O script ganhou duas linhas de notificação nativa do macOS:
+
+```bash
+osascript -e 'display notification "Committed & pushed: .Brewfile" with title "dotfiles sync"'
+```
+
+Primeiro teste: eu nunca vi. Os banners desaparecem em cinco segundos, e eu estava olhando para outro lugar.
+
+A solução não foi código — foi uma configuração. As notificações do macOS têm dois estilos, e quase ninguém muda o padrão: **Ajustes do Sistema → Notificações → Script Editor → Alertas**. Notificações estilo alerta *permanecem na tela até você dispensá-las*.
+
+Agora cada sincronização espera no canto até eu confirmar, com os nomes dos arquivos alterados na mensagem. O histórico de configuração da minha máquina, entregue como recibos.
+
+E só fala quando algo de fato mudou — uma sincronização sem alterações fica em silêncio. Uma notificação que aparece a cada minuto é uma notificação que você já aprendeu a ignorar.
+
+## 🎭 A Pergunta Paranoica
+
+Bem quando tudo funcionava, pensei na pergunta que quebra a maioria dos setups como esse:
+
+*O que acontece quando eu faço login no GitHub com minha conta de* ***trabalho***?
+
+Fui investigar, e descobri que "estar logado no GitHub" na verdade são três camadas independentes que quase ninguém separa:
+
+**Camada 1 — quem escreveu o commit?** Decidido pela config do git, ponto final. Um commit é uma escrita local de arquivo; o GitHub nem é contatado. Minha regra `includeIf` roteia repositórios da empresa para meu e-mail de trabalho, tudo o mais para o pessoal. Logins via CLI não conseguem tocar nisso.
+
+**Camada 2 — quem tem permissão para dar push?** Decidido pela credencial no keychain do macOS. E aqui está a parte frágil: o keychain guarda credenciais *por host*. Duas contas, um único github.com — o segundo login pode sobrescrever silenciosamente o primeiro, e de repente meu agente de sincronização está fazendo push com a identidade errada e colecionando erros 403.
+
+**Camada 3 — como quem a CLI `gh` age?** Qualquer que seja a conta ativa. Irrelevante para minha sincronização, que fala git puro.
+
+![as três camadas de identidade: quem escreveu o commit, quem pode dar push, e como quem a CLI gh age](/blogs/laptop-commits-own-config/5.png)
+
+A Camada 2 era a exposição real, e a correção é uma única linha:
+
+```bash
+git remote set-url origin https://paurushrai@github.com/paurushrai/dotfiles.git
+```
+
+Esse `paurushrai@` não é um e-mail — é sintaxe de URL, o mesmo `user@host` do ssh. Com um nome de usuário na URL, o keychain arquiva as credenciais por **host + usuário**. Contas separadas, gavetas separadas, nenhuma sobrescrita possível.
+
+O princípio é o mesmo por trás do roteamento de e-mail, e vale a pena resumir assim:
+
+> Identidade deveria ser uma propriedade do repositório — não de um estado global mutável.
+
+## 🚀 A Máquina de Dez Minutos
+
+É aqui que a história termina.
+
+Na próxima vez que eu desembalar um Mac, esse é o procedimento inteiro:
+
+```bash
+# 1. Homebrew, depois as duas ferramentas de bootstrap
+brew install gh git
+gh auth login
+```
+
+```bash
+# 2. Clona a config, faz o link de tudo, reinstala cada pacote
+gh repo clone paurushrai/dotfiles ~/Developer/infra/dotfiles
+~/Developer/infra/dotfiles/install.sh
+brew bundle --global
+```
+
+```bash
+# 3. Reautentica — credenciais nunca migram, de propósito
+claude login
+```
+
+E a parte que acho genuinamente satisfatória: o `install.sh` não só restaura a configuração. Ele também inicializa o agente launchd.
+
+A máquina nova não recebe um retrato do meu setup. Ela recebe o **sistema que mantém meu setup** — e já começa a se manter sozinha a partir do primeiro minuto.
+
+O que deixei de fora, de propósito, importa tanto quanto:
+
+- **Credenciais** — o backup de um segredo é logar de novo. Dez segundos, de propósito.
+- **Caches, estado de sessão, artefatos de build** — reconstruídos naturalmente. Fazer backup deles é acumular lixo.
+- **A camada de dados** — os volumes do Postgres e do Redis são binários grandes, vivos, mutantes. Git é a ferramenta errada, e copiar um banco de dados em execução produz lixo corrompido. Dados precisam de backups de snapshot de verdade — esse é o próximo artigo.
+
+## 🎯 O Que Eu Realmente Aprendi
+
+A lição do artigo anterior foi: sua estação de trabalho é um sistema — arquitete-a.
+
+Esta semana me ensinou o corolário: **um sistema mantido por disciplina decai. Um sistema que se mantém sozinho se acumula.**
+
+Olhe para o formato de cada correção nesta história:
+
+- Eu *iria* esquecer de copiar os arquivos de config → então existe um único arquivo, com symlink, sem cópias
+- Eu *iria* esquecer de atualizar o manifesto de pacotes → então o sistema operacional observa o sistema de arquivos
+- Eu *iria* esquecer de commitar → então o agente commita
+- Eu *iria* perder falhas silenciosas → então as notificações esperam até eu dispensá-las
+- Eu *iria* esquecer de configurar tudo isso de novo na próxima vez → então o instalador reinstala a própria automação
+
+Cada uma dessas troca "lembrar de" por "simplesmente acontece".
+
+Aquele arquivo de skill ficou morto na minha pasta de Downloads por meses porque restaurá-lo dependia de eu lembrar que ele existia. Nada na minha máquina depende mais da minha memória.
+
+E, sinceramente, essa é a melhor funcionalidade que já entreguei para mim mesmo.
+
+## Como é a sua camada de configuração?
+
+Repositórios de dotfiles são uma ideia antiga. Mas a maioria para em "arquivos num repositório com um script de instalação" — a parte que mantém o repositório *verdadeiro* depois do primeiro dia é onde fica interessante.
+
+As ferramentas vão continuar mudando. A arquitetura deveria sobreviver a isso.

@@ -1,0 +1,311 @@
+---
+title: Dizüstü Bilgisayarım Artık Kendi Yapılandırmasını Commit'liyor
+description: Kendi kendini düzelten bir dotfiles kurulumu — symlink'lenmiş git ve shell yapılandırması, Homebrew'u izleyen bir launchd ajanı ve makine göçlerinden manuel yedeksiz sağ çıkan kimlik yönlendirmesi.
+date: 2026-06-12
+published: true
+coverImage: /blogs/laptop-commits-own-config/1.png
+tags: ["macOS", "Automation", "Dotfiles", "Git", "launchd"]
+---
+
+*Makine göçlerinden sağ çıkmakla ilgili bir yazı yayınladım. Bir hafta sonra, kendi kurulumumun çoktan başarısız olduğunu keşfettim — düzeltmek git, symlink'ler, launchd ve bir alçakgönüllülük öğleden sonrası aldı.*
+
+Bir hafta önce, çalışma alanı mimarisi hakkında bir yazı yayınladım.
+
+Tez kendinden emindi:
+
+> Makinem bugün ölseydi, her şeyi tek bir dizinden yeniden inşa edebilmeliydim.
+
+Her şey `~/Developer/` altında. Depolar. Altyapı. Veri. Tek dizin, tamamen taşınabilir.
+
+Kendimi bayağı iyi hissediyordum.
+
+Sonra, birkaç gün sonra, yapay zeka asistanımdan Claude Code becerileri klasörümü yeni yapıya yedeklemesini istedim.
+
+Beklemediğim bir şeyle geri döndü:
+
+```bash
+ls: /Users/paurushrai/.claude/skills/: No such file or directory
+```
+
+Klasör yoktu.
+
+Ama benim becerilerim *vardı*. graphify adında özel bir tane — onu kendim yapmıştım, her gün kullanıyordum ve global yapılandırmam hâlâ ona referans veriyordu. Peki nerede kalmıştı?
+
+```bash
+/Users/paurushrai/Downloads/mac-restore/dot-claude/skills/graphify/
+```
+
+İşte oradaydı. İndirilenler klasörümde. `mac-restore` adında bir dizinin içinde.
+
+Makine göçü yaptığım günden beri orada oturuyordu. Hiç geri yüklenmemiş. Unutulmuş.
+
+![graphify becerisi, göçten sonra hiç geri yüklenmemiş halde ~/Downloads/mac-restore içinde ölü bulundu](/blogs/laptop-commits-own-config/1.png)
+
+Tam olarak bu başarısızlık modu hakkında koca bir yazı yazmıştım — ve kendi makinem, tüm bu süre boyunca sessizce onu yaşıyordu.
+
+## 🔍 Kör Nokta
+
+İşte gözden kaçırdığım şey.
+
+Mimarim her şeyi `~/Developer/` *içinde* organize ediyordu. Ama bir makineyi **benim** hissettiren yapılandırma orada yaşamıyor:
+
+- Git kimliği ve davranışı — `~/.gitconfig`
+- Shell kurulumu — `~/.zshrc`, `~/.zprofile`
+- Global ignore'lar — `~/.gitignore_global`
+- Yapay zeka kodlama kuralları — `~/.claude/CLAUDE.md`
+- Özel yapay zeka becerileri — `~/.claude/skills/`
+- Ve hepsinin en görünmezi: hiçbir yerde yaşamayan, kurulu paketlerin listesi
+
+Hepsi `$HOME` içine dağılmıştı. Sürüm kontrolsüz. Yedeklenmemiş. Benim güzel dizin yapıma görünmez.
+
+Hasarı değerlendirmek için `~/.gitconfig`'i kontrol ettiğimde, düşündüğümden daha kötüydü:
+
+```bash
+cat ~/.gitconfig
+# → no such file
+```
+
+Dosya yoktu. Eski makinede e-posta yönlendirmesi kurmuştum — projelerim için kişisel e-posta, şirket depoları için iş e-postası. Hiçbiri hayatta kalmamıştı. Aylardır fark etmeden commit atıyordum.
+
+Kod göç etmişti. *Yapılandırma* etmemişti.
+
+## 🔗 Unix'in En Eski Numarası
+
+İlk içgüdüm bariz olandı: bir yedek klasör oluştur, dotfile'ları içine kopyala, GitHub'a push et.
+
+Ama kopyalar kayar. `.gitconfig`'in iki versiyonu olduğu an, biri yalan söylüyordur — ve bir şey bozulana kadar hangisi olduğunu bilemezsiniz.
+
+Çözüm benden daha eski: **symlink'ler**.
+
+Yalnızca bir dosya var. Depoda yaşıyor. Ev dizini bir işaretçi alıyor:
+
+```bash
+~/.gitconfig  ──symlink──▶  ~/Developer/infra/dotfiles/.gitconfig
+                            └── TEK gerçek dosya
+```
+
+![depoda tek bir gerçek dosya, ev dizini yalnızca bir symlink işaretçisi tutuyor](/blogs/laptop-commits-own-config/2.png)
+
+Bunun değişiklikleri geri senkronize etmeye devam etmem anlamına gelip gelmediğini sorduğumda, bu tüm tasarımı işe yarar hale getiren cevabı aldım:
+
+**Yazmalar symlink üzerinden geçer.**
+
+Bir ayarı değiştirmek için `git config --global` çalıştırın — git işaretçiyi takip eder ve doğrudan depo dosyasına yazar. `~/.zshrc`'yi düzenleyin — depo dosyasını düzenliyorsunuz demektir. Senkronize edilecek hiçbir şey yok, çünkü senkronize edilecek bir *kaynak* yok. Tek dosya, iki adres.
+
+İşte bunu inşa ettim. Altyapı katmanımın içinde, gerçek dosyaları tutan bir dotfiles deposu, yeni bir makinede her symlink'i yeniden oluşturan idempotent bir `install.sh` ile — bulduğu her şeyi önce yedekleyerek, iki kez çalıştırmak güvenli.
+
+Git yapılandırması, shell yapılandırması, global ignore'lar, yapay zeka kurallarım, kurtarılan graphify becerisi. Commit'lendi. Push'landı. Kalıcı.
+
+Depoya girmek üzere olan şeyi incelerken öğrendiğim tek kural: **asla gizli bilgi commit'lemeyin**. `.zshrc`'im artık git'in hiç görmediği bir `~/.zshrc.local`'ı kaynak gösteriyor. Depo yapıyı alır; makine gizli bilgilerini saklar.
+
+![gerçek yapılandırma dosyalarını tutan dotfiles deposu, install.sh her symlink'i yeniden oluşturuyor](/blogs/laptop-commits-own-config/3.png)
+
+Bittiğimi sanıyordum.
+
+## 🍺 Homebrew Günlük Tutmuyor
+
+Sonra basit bir soruyu yanıtlamaya çalıştım: *bu makine ölseydi, neyi yeniden kururdum?*
+
+Git yapılandırmasının güzel bir özelliği var — araç kendi yapılandırma dosyasına yazıyor, yani depo her zaman gerçeği biliyor. Homebrew'un böyle bir görgüsü yok. `brew install jq`, paketi kurar ve kararı **hiçbir yere** kaydetmez. Paket listesi yalnızca örtük olarak, `/opt/homebrew/Cellar` içindeki klasörler olarak var olur.
+
+Homebrew, talep üzerine bir manifesto döküp verebiliyor:
+
+```bash
+brew bundle dump --global --force
+# → .Brewfile yazar: brew "gh", brew "git", brew "tree"...
+```
+
+Ben de her şey gibi bir `.Brewfile`'ı depoya symlink'ledim. Ama bir sorun vardı ve içimi kemiriyordu:
+
+Brewfile yalnızca **onu dökmeyi hatırladığınızda** güncelleniyor.
+
+Tüm tasarımım, hatırla*madığım* önermesi üzerine kurulmuştu. symlink'lerin var olma sebebi tam olarak bu. Disiplinime bağlı bir manifesto, ihtiyacım olana kadar üç ay bayatlamış bir manifesto demektir.
+
+## 🧪 İlk Denemem Yanlıştı
+
+İlk çözüm zekice hissettirdi: `brew` komutunu bir shell fonksiyonuna sarmak. Her kurulumu ve kaldırmayı yakala, manifestoyu yeniden dök, otomatik commit'le, otomatik push'la.
+
+İnşa ettim. İlk denemede çalıştı:
+
+```bash
+$ brew install jq
+...
+$ git log --oneline -1
+df053cb chore(brew): install jq
+```
+
+Güzel. Commit mesajı paketin adını da veriyor.
+
+Sonra tekrar baktım ve deliği gördüm.
+
+Bir shell sarmalayıcı yalnızca *interaktif shell'ime* yazılan komutları yakalar. Bağımlılık kuran bir kurulum betiği? Görünmez. Bir oturum içinde `brew` çalıştıran bir yapay zeka ajanı? Görünmez. zsh'im ve yapılandırmam yüklü olmayan herhangi bir bağlam? Görünmez.
+
+**Arayüzü** otomatikleştirmiştim, oysa ihtiyacım olan **olayı** otomatikleştirmekti.
+
+Paket kurulumunun kendisi olaydır — ve shell'imde değil, dosya sisteminde gerçekleşir.
+
+## ⚙️ İşletim Sistemi Cevabı Zaten Biliyordu
+
+Sordum: bunun için launchd kullanabilir miyiz?
+
+launchd, macOS'un servis yöneticisidir — sistemdeki her daemon'u başlatan şey, Apple'ın systemd'ye cevabı. Her Mac geliştiricisi onu görmüştür. Neredeyse hiç kimse en iyi özelliğini kullanmaz:
+
+**WatchPaths** — launchd, işletim sistemi seviyesinde bir yolu izler ve değiştiği anda bir işi tetikler.
+
+```xml
+<key>WatchPaths</key>
+<array>
+    <string>/opt/homebrew/Cellar</string>
+    <string>/opt/homebrew/Caskroom</string>
+</array>
+```
+
+Artık paketi *kimin* kurduğu önemli değil — shell'im, bir betik, bir ajan, ne olursa olsun. Cellar değişiyor, işletim sistemi fark ediyor, senkronizasyon betiğim çalışıyor:
+
+```bash
+# sync.sh — tüm motor
+brew bundle dump --global --force    # paketlerin anlık görüntüsü
+git add -A                           # herhangi bir dotfile kaymasını sahneye al
+git diff --cached --quiet && exit 0  # hiçbir şey değişmedi mi? sessizce çık
+git commit -q -m "chore: auto-sync ${CHANGED}"
+git push -q                          # çevrimdışı mı? yerel olarak commit'ler, bir sonrakinde push'lar
+```
+
+Artı, tümünü yakalayan öğlen saat 12'de günlük bir çalışma ve beş paket kurmanın beş yerine tek bir commit üretmesi için 60 saniyelik bir kısıtlama.
+
+Sonra test. Bir paket kur, başka hiçbir şeye dokunma, izle:
+
+```bash
+$ brew install jq
+... 8 saniye sonra, sıfır shell müdahalesi:
+67ba27e chore: auto-sync .Brewfile
+→ GitHub'a push'landı ✅
+```
+
+Sekiz saniye. Makine kendi değişikliğini belgeledi, commit'ledi ve ben otururken push'ladı.
+
+![senkronizasyon akışı: bir brew install Cellar'ı değiştirir, launchd sync.sh'yi tetikler, o da commit'ler ve push'lar](/blogs/laptop-commits-own-config/4.png)
+
+Shell sarmalayıcısını aynı dakika sildim. Üçüncü taraf araç yok, bir zamanlayıcıda cron yoklaması yok, kurulacak bir daemon yok. İşletim sistemi cevabı zaten sunuyordu.
+
+Bu paketler için çalışınca, bir sonraki adım bariz oldu: dotfile'ların kendisini izle. Şimdi `.zshrc`'yi veya yapay zeka kurallarımı düzenlemek, commit mesajında dosya adıyla birlikte bir dakika içinde otomatik commit'leniyor.
+
+## 🔁 Neredeyse Kurduğum Tuzak
+
+Burada bir karar, bunu kuran herkesi ısıracak, yani itiraf etmeye değer.
+
+Tembel versiyon, deponun kök dizinini izlemektir — her şeyi kapsayan tek bir izleme girişi.
+
+Ama her git commit'i `.git/`'i **değiştirir**. Depo kökünü izleyin ve bir ouroboros inşa etmiş olursunuz: değişiklik ajanı tetikler → ajan commit'ler → commit `.git/`'i değiştirir → bu ajanı tetikler → sonsuza kadar.
+
+Bu yüzden ajan **tek tek dosyaları** izliyor, `.git`'i içeren dizini asla. Ödünleşim: derin bir alt dizindeki yepyeni bir dosya anında yakalanmıyor — bunun yerine günlük çalışma onu topluyor. Bu README'de belgelenmiş ve adil bir bedel.
+
+Kendini tetikleyen bir otomasyon, sabah saat ikide bulacağınız türden bir hata.
+
+## 🔔 Konuşmayı Öğretmek
+
+Geriye bir sorun kalmıştı ve güvenle ilgiliydi.
+
+Ajan artık benim adıma, sessizce commit'liyordu. Sessiz bir daemon, güvenmeyi bırakacağınız — ya da daha kötüsü, var olduğunu unutacağınız bir daemondur.
+
+Betiğe iki satırlık yerel macOS bildirimi eklendi:
+
+```bash
+osascript -e 'display notification "Committed & pushed: .Brewfile" with title "dotfiles sync"'
+```
+
+İlk test: hiç görmedim. Banner'lar beş saniyede kayboluyor ve ben başka yere bakıyordum.
+
+Çözüm kod değildi — bir ayardı. macOS bildirimlerinin iki stili var ve neredeyse hiç kimse varsayılanı değiştirmiyor: **Sistem Ayarları → Bildirimler → Script Editor → Uyarılar**. Uyarı tarzı bildirimler *siz kapatana kadar ekranda kalır*.
+
+Şimdi her senkronizasyon, değişen dosya adlarıyla birlikte, kabul edeceğim ana kadar köşede bekliyor. Makinemin yapılandırma tarihçesi, makbuz olarak teslim ediliyor.
+
+Ve yalnızca gerçekten bir şey değiştiğinde konuşuyor — hiçbir şey yapmayan bir senkronizasyon sessiz kalıyor. Her dakika aldığınız bir bildirim, zaten görmezden gelmeyi öğrendiğiniz bir bildirimdir.
+
+## 🎭 Paranoyak Soru
+
+Tam her şey çalışırken, bu tür kurulumların çoğunu bozan soruyu düşündüm:
+
+*GitHub'a* ***iş*** *hesabımla giriş yaptığımda ne olur?*
+
+Araştırdım ve "GitHub'a giriş yapmış olmanın" aslında çoğu kişinin hiç ayırmadığı üç bağımsız katman olduğunu buldum:
+
+**1. Katman — commit'i kim yazdı?** Tamamen git yapılandırması tarafından belirlenir. Bir commit yerel bir dosya yazmasıdır; GitHub'a temas bile edilmez. `includeIf` kuralım şirket depolarını iş e-postama, geri kalan her şeyi kişisel olana yönlendiriyor. CLI girişleri buna dokunamaz.
+
+**2. Katman — kim push edebilir?** macOS anahtar zincirindeki kimlik bilgisi tarafından belirlenir. Ve kırılgan olan kısım burası: anahtar zinciri kimlik bilgilerini *host başına* saklar. İki hesap, tek bir github.com — ikinci giriş sessizce ilkinin üzerine yazabilir ve aniden senkronizasyon ajanım yanlış kimlikle push yapıp 403'ler toplamaya başlar.
+
+**3. Katman — `gh` CLI'si kim olarak davranıyor?** Hangi hesap aktifse o. Saf git konuşan senkronizasyonum için önemsiz.
+
+![üç kimlik katmanı: commit'i kim yazdı, kim push edebilir ve gh CLI kim olarak davranıyor](/blogs/laptop-commits-own-config/5.png)
+
+2. Katman gerçek risk kaynağıydı ve çözümü tek satır:
+
+```bash
+git remote set-url origin https://paurushrai@github.com/paurushrai/dotfiles.git
+```
+
+O `paurushrai@` bir e-posta değil — URL sözdizimi, ssh'deki gibi aynı `user@host`. URL'de bir kullanıcı adı olduğunda, anahtar zinciri kimlik bilgilerini **host + kullanıcı adı** altında dosyalıyor. Ayrı hesaplar, ayrı çekmeceler, üzerine yazma imkansız.
+
+İlke, e-posta yönlendirmesinin arkasındakiyle aynı ve çerçevelenmeye değer:
+
+> Kimlik, deponun bir özelliği olmalı — global, değişebilir durumun değil.
+
+## 🚀 On Dakikalık Makine
+
+İşte hikayenin vardığı yer.
+
+Bir sonraki sefer bir Mac kutusundan çıkardığımda, tüm prosedür şu:
+
+```bash
+# 1. Homebrew, sonra iki bootstrap aracı
+brew install gh git
+gh auth login
+```
+
+```bash
+# 2. Yapılandırmayı klonla, her şeyi bağla, her paketi yeniden kur
+gh repo clone paurushrai/dotfiles ~/Developer/infra/dotfiles
+~/Developer/infra/dotfiles/install.sh
+brew bundle --global
+```
+
+```bash
+# 3. Yeniden kimlik doğrula — kimlik bilgileri tasarım gereği asla göç etmez
+claude login
+```
+
+Ve gerçekten tatmin edici bulduğum kısım: `install.sh` yalnızca yapılandırmayı geri yüklemiyor. launchd ajanını da bootstrap ediyor.
+
+Yeni makine, kurulumumun bir anlık görüntüsünü almıyor. **Kurulumumu sürdüren sistemi** alıyor — ve ilk dakikadan itibaren kendini sürdürmeye başlıyor.
+
+Bilinçli olarak dışarıda bıraktığım şey de en az bu kadar önemli:
+
+- **Kimlik bilgileri** — bir gizli bilginin yedeği, yeniden giriş yapmaktır. Tasarım gereği on saniye.
+- **Önbellekler, oturum durumu, build çıktıları** — doğal olarak yeniden inşa edilir. Bunları yedeklemek biriktirmektir.
+- **Veri katmanı** — Postgres ve Redis volume'leri büyük, canlı, değişen ikili verilerdir. Git yanlış araçtır ve çalışan bir veritabanını kopyalamak bozuk çöp üretir. Veri gerçek anlık görüntü yedeklerine ihtiyaç duyar — bu bir sonraki yazı.
+
+## 🎯 Gerçekten Öğrendiğim Şey
+
+Önceki yazının dersi şuydu: iş istasyonunuz bir sistemdir — onu mimarileştirin.
+
+Bu hafta bana bunun bir doğal sonucunu öğretti: **disiplinle sürdürülen bir sistem çürür. Kendini sürdüren bir sistem birikir.**
+
+Bu hikayedeki her düzeltmenin şekline bakın:
+
+- Yapılandırma dosyalarını kopyalamayı *unuturdum* → bu yüzden tek bir dosya var, symlink'lenmiş, kopya yok
+- Paket manifestosunu güncellemeyi *unuturdum* → bu yüzden işletim sistemi dosya sistemini izliyor
+- Commit yapmayı *unuturdum* → bu yüzden ajan commit'liyor
+- Sessiz başarısızlıkları *kaçırırdım* → bu yüzden bildirimler ben kapatana kadar bekliyor
+- Bir dahaki sefere tüm bunları yeniden kurmayı *unuturdum* → bu yüzden kurulum betiği otomasyonun kendisini yeniden kuruyor
+
+Her biri "hatırlamayı" "kendiliğinden oluyor" ile değiştiriyor.
+
+O beceri dosyası, aylarca Downloads klasörümde ölü yattı çünkü onu geri yüklemek, var olduğunu hatırlamama bağlıydı. Artık makinemde hiçbir şey hafızama bağlı değil.
+
+Ve dürüst olmak gerekirse — bu, kendime gönderdiğim en iyi özellik.
+
+## Sizin yapılandırma katmanınız neye benziyor?
+
+Dotfiles depoları eski bir fikir. Ama çoğu "kurulum betiğiyle bir depodaki dosyalar"da kalıyor — deponun ilk günden sonra *doğru* kalmasını sağlayan kısım, işin ilginçleştiği yer.
+
+Araçlar değişmeye devam edecek. Mimari buna dayanmalı.
