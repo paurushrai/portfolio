@@ -14,7 +14,7 @@ export async function generateMetadata({
   const alternates = alternatesFor("/projects", locale);
   return {
     title: "Projects — Paurush Rai | Senior Product Engineer",
-    description: "Explore projects by Paurush Rai — a Senior Product Engineer & Full-Stack Developer. Includes enterprise SaaS platforms, AI-integrated applications, logistics platforms, and developer productivity tools built with React, Next.js, and TypeScript.",
+    description: "Enterprise SaaS, AI-integrated apps, and developer tools by Paurush Rai — a Senior Product Engineer building with React, Next.js, and TypeScript.",
     keywords: [
       "Senior Product Engineer Portfolio",
       "Full-Stack Developer Projects",

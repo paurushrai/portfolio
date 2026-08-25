@@ -62,6 +62,9 @@ export const Project = defineDocumentType(() => ({
 		wip: {
 			type: "boolean",
 		},
+		coverImage: {
+			type: "string",
+		},
 	},
 	computedFields,
 }));
