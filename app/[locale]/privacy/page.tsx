@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Footer } from "../../components/footer";
 import { Navigation } from "../../components/nav";
 import {
   type AppLocale,
@@ -288,6 +289,7 @@ export default function PrivacyPage({ params }: { params: { locale: string } }) 
 
         </div>
       </main>
+      <Footer />
     </div>
   );
 }

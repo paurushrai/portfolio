@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Footer } from "../../components/footer";
 import { type AppLocale, DEFAULT_LOCALE, alternatesFor, isLocale } from "../../i18n/config";
 
 export async function generateMetadata({
@@ -36,5 +37,10 @@ export async function generateMetadata({
 
 
 export default function AboutLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <Footer />
+    </>
+  );
 }
