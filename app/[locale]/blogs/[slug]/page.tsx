@@ -101,6 +101,20 @@ export default async function BlogPostPage({ params }: Props) {
       url: BASE_URL,
     },
   };
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Blog",
+        item: `${BASE_URL}${localizedPath("/blogs", DEFAULT_LOCALE)}`,
+      },
+      { "@type": "ListItem", position: 3, name: enBlog.title, item: canonical },
+    ],
+  };
 
   return (
     <>
@@ -110,6 +124,11 @@ export default async function BlogPostPage({ params }: Props) {
           type="application/ld+json"
           // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD from trusted app constants, no user input
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD from trusted app constants, no user input
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
         />
         <LocaleBlogClient blogLocales={blogLocales} />
       </div>
