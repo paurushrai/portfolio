@@ -1,0 +1,304 @@
+---
+title: Keşke Yıllar Önce Kurmuş Olsaydım Dediğim Geliştirme Çalışma Alanı Mimarisi
+description: İşverenler, yan projeler ve müşteri işleri arasında koşuşturan geliştiriciler için kaynak kodu, altyapı ve veriyi ayıran, ölçeklenebilir bir klasör yapısı; makine göçünü artık acı verici olmaktan çıkarıyor.
+date: 2026-06-06
+published: true
+coverImage: /blogs/development-workspace-architecture/1.png
+tags: ["Software Engineering", "Docker", "Productivity"]
+---
+
+Kodunuz darboğaz değil. Ortamınız darboğaz.
+
+Çoğu geliştirici saatlerini şunları tartışarak geçiriyor:
+
+- React mi Vue mu
+- Docker mu Podman mı
+- Claude Code mu Cursor mu
+- PostgreSQL mi MySQL mi
+
+Bu arada, **her gün** etkileşime girdikleri şey neredeyse hiç ilgi görmüyor:
+
+> Geliştirme çalışma alanları.
+
+Birkaç ay önce, neredeyse bir yıldır dokunmadığım bir projeye geri dönmem gerekti.
+
+Birkaç şey hatırlıyordum:
+
+- PostgreSQL kullanıyordu.
+- Bir yerlerde Redis vardı.
+- Uygulama Docker içinde çalışıyordu.
+- İş akışında yapay zeka araçları vardı.
+
+Hatırlamadığım şey, bunların herhangi birinin nerede yaşadığıydı.
+
+Kod sorun değildi. Mimari sorun değildi.
+
+**Geliştirme ortamım sorundu.**
+
+Startup'larda çalışmak, yan projeler yapmak, yapay zeka araçlarıyla denemeler yapmak ve müşteri işlerini yönetmek arasında bir yerde, makinem birbirinden kopuk projelerin, çoğaltılmış ortamların ve unutulmuş altyapının bir yığınına dönüşmüştü.
+
+Her yeni proje anlık bir sorunu çözdü. Hiçbiri uzun vadeli olanı çözmedi:
+
+> Kariyerinizle birlikte ölçeklenen bir geliştirme ortamını nasıl organize edersiniz?
+
+Bu soru, çalışma alanımı nasıl yapılandırdığımı tamamen yeniden tasarlamama yol açtı.
+
+## 🚨 Çoğu Geliştiricinin Görmezden Geldiği Sorun
+
+Kariyerimizin başlarında, proje organizasyonu genellikle şuna benzer:
+
+![Varsayılan: bir yıl sonra kimsenin açıklayamadığı bir klasör yığını](/blogs/development-workspace-architecture/1.png)
+
+İlk başta işe yarar.
+
+Sonra hayat araya girer.
+
+Bir şirkete katılırsınız. Serbest çalışmaya başlarsınız. Bir startup kurarsınız. Açık kaynak projeler yaparsınız. Yapay zeka araçlarıyla denemeler yapmaya başlarsınız. PostgreSQL, Redis, Docker konteynerleri ve yerel servisler çalıştırmaya başlarsınız.
+
+Proje sayısı sorun değil. **Yapı eksikliği sorun.**
+
+Depolar çoğaldıkça, zihinsel yük de çoğalır:
+
+- O depo nerede?
+- Hangi PostgreSQL örneği hangi projeye ait?
+- Docker yapılandırması nerede?
+- Bu klasörü güvenle silebilir miyim?
+- Neden üç farklı Node.js sürümüm kurulu?
+
+Bu sorular küçük geliyor. Ama yıllar süren geliştirme boyunca, devasa bir üretkenlik kaybına dönüşüyorlar.
+
+## 🧠 Bir Sistem Mühendisi Gibi Düşünmek
+
+Dönüm noktası, iş istasyonuma bir proje koleksiyonu gibi davranmayı bırakıp ona bir yazılım sistemi gibi davranmaya başladığımda geldi.
+
+Kendime tek bir soru sordum:
+
+> Önümüzdeki on yıl içinde yüzlerce depoyu yönetmem gerekseydi, geliştirme ortamım nasıl görünürdü?
+
+Bu soru yaklaşımımı tamamen değiştirdi.
+
+Bugünün projelerine göre optimize etmek yerine, şunlara göre optimize ettim:
+
+- Birden fazla işveren
+- Startup girişimleri
+- Müşteri işleri
+- Açık kaynak katkıları
+- Docker öncelikli geliştirme
+- Yapay zeka destekli geliştirme
+- Kolay makine göçü
+- Uzun vadeli sürdürülebilirlik
+
+Sonuç şuna dönüştü:
+
+![Tek kök. Dört sahiplik alanı. İlk sınıf katmanlar olarak altyapı ve veri.](/blogs/development-workspace-architecture/2.png)
+
+Basit. Öngörülebilir. Ölçeklenebilir.
+
+## 🧱 Kaynak Kodu Altyapı Değildir
+
+Geliştiricilerin yaptığını gördüğüm en büyük hatalardan biri, kaynak kodunu altyapıyla karıştırmak.
+
+Depolar şunları içermeli:
+
+- İş mantığı
+- Uygulama kodu
+- Testler
+- Dokümantasyon
+
+Şunların çöplüğü **olmamalı**:
+
+- Yerel betikler
+- Docker denemeleri
+- Veritabanı depolaması
+- Yapay zeka araçları
+- Makineye özgü yapılandırma
+
+Bu yüzden özel bir altyapı katmanı ekledim:
+
+```bash
+infra/
+├── docker/
+├── ai/
+├── scripts/
+└── templates/
+```
+
+Altyapı, uygulamalardan bağımsız olarak gelişir. Onları ayırmak depoları temiz ve odaklı tutar.
+
+## 🐳 Her Şeyi Basitleştiren Docker Kuralı
+
+Docker öncelikli bir geliştirme ortamı istiyordum. Ama her depoya aynı şekilde davranılmamalı.
+
+Vardığım kural şaşırtıcı derecede basit.
+
+### ✅ Depoyu değiştirebiliyorsam
+
+```text
+1 Proje = 1 Konteynerize Geliştirme Ortamı
+```
+
+![İki kural, klonlayacağınız her depoyu kapsıyor](/blogs/development-workspace-architecture/3.png)
+
+Her proje kendi izole ortamını alır.
+
+Faydaları:
+
+- Bağımlılık izolasyonu
+- Tekrarlanabilirlik
+- Daha kolay onboarding
+- CI/CD hizalaması
+- Daha iyi yapay zeka araçları desteği
+
+Proje kendi kendine yeten hale gelir. Yarın biri onu klonlarsa, tıpatıp aynı ortamı alır.
+
+### 🔒 Depoyu değiştiremiyorsam
+
+```text
+1 Organizasyon = 1 Çalışma Alanı Konteyneri
+```
+
+Bu, özellikle şirket depoları için kullanışlı.
+
+Kontrol edemediğim depolara Docker dosyaları eklemek yerine, harici bir çalışma alanı konteyneri oluşturuyorum:
+
+```bash
+infra/docker/workspaces/acme/
+```
+
+Çalışma alanı, o organizasyona ait her depoyu bağlıyor:
+
+```yaml
+volumes:
+  - ~/Developer/company/acme:/workspace
+```
+
+Bu, şirkete ait koda dokunmadan Docker öncelikli bir iş akışı sürdürmemi sağlıyor.
+
+Küçük bir ayrım — ama çok fazla sürtünmeyi ortadan kaldırıyor.
+
+## 💾 Veriyi Her Şeyden Neden Ayırıyorum
+
+Bu muhtemelen en önemli mimari karardı.
+
+Çoğu geliştirici ya:
+
+1. Veriyi depoların içinde saklar, ya da
+2. Tamamen Docker'ın yönettiği volume'lere güvenir.
+
+İkisini de sevmedim. Bunun yerine, özel bir veri katmanı oluşturdum:
+
+![Veri kaynak ağacını yansıtır — sahiplik hiçbir zaman belirsiz değildir](/blogs/development-workspace-architecture/4.png)
+
+Bu yapı sahipliği bariz hale getiriyor. Hemen biliyorum:
+
+- Veriye hangi proje sahip
+- Hangi veritabanı hangi uygulamaya ait
+- Ne arşivlenebilir
+- Neyin yedeğe ihtiyacı var
+
+Faydaları önemli:
+
+- Daha temiz depolar
+- Daha kolay yedekleme
+- Daha basit göç
+- Daha hızlı Git işlemleri
+- Depolama kullanımına daha iyi görünürlük
+
+En önemlisi:
+
+**Verimin nerede yaşadığını her zaman biliyorum.**
+
+## 🤖 Yapay Zeka Odaklı Bir Gelecek İçin İnşa Etmek
+
+Yazılım yazma şeklimiz değişiyor. Yapay zeka araçları geliştirme ortamının kendisinin bir parçası haline geliyor:
+
+- Claude Code
+- Codex
+- Gemini CLI
+- Yerel modeller
+- Gelecekteki otonom ajanlar
+
+Çoğu geliştirici bunlara hâlâ proje düzeyinde araçlar gibi davranıyor.
+
+Ben bunlara **altyapı** olarak davranmaya karar verdim:
+
+![Yapay zeka araçları depolarınızda değil, altyapıda yaşar](/blogs/development-workspace-architecture/5.png)
+
+Bu, her projede işe yarayan yeniden kullanılabilir bir yapay zeka katmanı yaratıyor.
+
+Araçlar geliştikçe, depolarım temiz kalıyor. Yapay zeka yığını, uygulamaların kendisinden bağımsız olarak değişiyor.
+
+Bu ayrım, önümüzdeki birkaç yıl içinde giderek daha değerli hale gelecek.
+
+## ⚡ En Büyük Üretkenlik Kazancı Docker Değildi
+
+Yapay zeka değildi. Otomasyon değildi.
+
+**Bilişsel yükü azaltmaktı.**
+
+Her proje öngörülebilir bir yapıyı takip ettiğinde:
+
+```text
+company/
+startup/
+clients/
+personal/
+```
+
+Artık şu tür sorular sormuyorum:
+
+- Bu depoyu nereye klonlamıştım?
+- Bu projeye hangi veritabanı ait?
+- Bu kod tabanına hangi şirket sahip?
+- Docker yapılandırması nerede?
+- Bunu güvenle arşivleyebilir miyim?
+
+Cevap bariz.
+
+Ve bu tutarlılık birikiyor. Her bağlam değişimi daha hızlı hale geliyor. Her yeni proje daha kolay onboard ediliyor. Her gelecekteki karar daha basit hale geliyor.
+
+## 📦 Makine Göçü Sıradanlaşıyor
+
+Çoğu geliştirici, yeni bir dizüstü bilgisayar alana kadar göçü düşünmüyor.
+
+Sonra acı başlıyor: Docker volume'leri. Yapılandırma dosyaları. Betikler. Veritabanları. Ortam değişkenleri. Her şeyin nerede yaşadığını kimse hatırlamıyor.
+
+Amacım basitti:
+
+> Makinem bugün ölseydi, her şeyi tek bir dizinden yeniden inşa edebilmeliydim.
+
+Önemli olan her şey şunun altında yaşıyor:
+
+```text
+Developer/
+```
+
+Depolar. Altyapı. Kalıcı veri. Hepsi bu.
+
+Geliştirme ortamı taşınabilir hale geliyor.
+
+Ve taşınabilirlik, yatırım yapabileceğiniz en hafife alınan üretkenlik özelliklerinden biri.
+
+## 🎯 Asıl Ders
+
+Klasör yapısının kendisi önemli olan kısım değil. Arkasındaki zihniyet önemli olan.
+
+İyi mühendisler sadece uygulamaları mimarileştirmez. **Sistemleri** mimarileştirirler.
+
+İş istasyonunuz bir sistemdir. Geliştirme iş akışınız bir sistemdir. Üretkenliğiniz bir sistemdir.
+
+Bu sistemleri tasarlarken ne kadar bilinçli olursanız, onlarla savaşarak o kadar az enerji harcarsınız — ve gerçek mühendislik sorunlarını çözmek için o kadar fazla enerjiniz olur.
+
+İyi tasarlanmış bir geliştirme ortamı sizi bir gecede daha iyi bir geliştirici yapmayacak.
+
+Ama binlerce saatlik çalışma boyunca, dokunduğunuz her projeden sessizce sürtünmeyi kaldırıyor.
+
+**Gerçek üretkenlik kazançları buradan geliyor.**
+
+## 💬 Sizin Geliştirme Çalışma Alanınız Nasıl Görünüyor?
+
+Diğer mühendislerin ortamlarını nasıl organize ettiğini her zaman merak ediyorum — özellikle şimdi Docker, Dev Containers ve yapay zeka destekli geliştirme standart iş akışının bir parçası haline gelirken.
+
+Araç ekosistemi her yıl değişiyor.
+
+İyi bir çalışma alanı mimarisi bunların hepsine dayanmalı.

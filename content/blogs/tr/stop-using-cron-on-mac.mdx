@@ -1,0 +1,215 @@
+---
+title: Mac'inizde cron Kullanmayı Bırakın — Yerine launchd Kullanın
+description: cron bir zamanlamaya göre yoklama yapar ve dizüstü bilgisayarınız uyurken işleri kaçırır. launchd'nin WatchPaths özelliği bunun yerine dosya sistemi olaylarına tepki verir ve cron'un yerini kalıcı olarak alan otomasyon budur.
+date: 2026-06-09
+published: true
+coverImage: /blogs/stop-using-cron-on-mac/1.png
+tags: ["macOS", "launchd", "Automation", "DevOps"]
+---
+
+*Makinemin değişikliklere yoklama yapmasını değil, tepki vermesini istiyordum. Cevap neredeyse kimsenin kullanmadığı 20 yıllık bir macOS özelliğiydi — ve önemli olan her yönden cron'u geride bıraktı.*
+
+Geçen hafta makinemin yapılandırmasını otomatik olarak commit'leyen bir sistem kurdum: bir Homebrew paketi kur, sekiz saniye sonra GitHub'da bunu kaydeden bir git commit'i var.
+
+İşe başladığımda, kas hafızam her geliştiricinin kas hafızasının söylediğini söyledi:
+
+> *Sadece cron'a koy.*
+
+Koymadım. Ve nedenleri, yıllardır öğrendiğim en yararlı macOS dersine dönüştü.
+
+## ⏰ Yoklamanın Sorunu
+
+İşte otomasyonumun cron versiyonu şöyle görünüyor:
+
+```bash
+*/5 * * * * /Users/me/sync.sh
+```
+
+![cron'un beş dakikada bir yoklaması ile launchd'nin dosya sistemi olaylarında tetiklenmesi](/blogs/stop-using-cron-on-mac/1.png)
+
+Her beş dakikada bir, sonsuza kadar, makinem bir süreci uyandırıp şunu soruyor: *bir şey değişti mi?*
+
+Neredeyse her seferinde cevap hayır.
+
+Bu, cron'un temel şekli: **yoklama**. Olaylardan haberi yok. Sadece zamandan haberi var. Yani kötü bir ödünleşime zorlanıyorsunuz:
+
+- Sık yokla → günde yüzlerce anlamsız çalıştırma, ne olur ne olmaz diye
+- Nadiren yokla → değişiklikler bir saat boyunca commit'lenmeden bekler, amacı boşa çıkarır
+
+Ve dizüstü bilgisayarda cron'un ikinci, daha sinsi bir sorunu var. cron, makinenin *açık* olduğunu varsayar. Kapağı 23:58'de kapatın, öğlen işi basitçe gerçekleşmez. Yeniden deneme yok, telafi yok, hiçbir şey yok. Sunucular her zaman açıktır; dizüstü bilgisayarlar uyur. cron sunucular için tasarlanmıştı.
+
+Gerçekten istediğim şeyi söylemek basitti:
+
+> *Dosya sistemi değiştiğinde, betiğimi çalıştır. Aksi halde, hiçbir şey yapma.*
+
+Bu bir zamanlama değil. Bu bir **olay**.
+
+## ⚙️ Zaten Sahip Olduğunuz Daemon
+
+macOS launchd ile birlikte gelir — kelimenin tam anlamıyla süreç 1, sisteminizdeki her servisi başlatan şey. Apple, cron'un yerini yıllar önce dahili olarak launchd ile değiştirdi (Mac'inizdeki cron işleri aslında launchd *tarafından* çalıştırılır).
+
+Çoğu geliştirici launchd'nin var olduğunu bilir. Neredeyse hiç kimse en iyi özelliğini kullanmaz:
+
+**WatchPaths** — launchd, işletim sistemi seviyesinde bir dosya sistemi yolunu izler ve değiştiği anda işinizi tetikler.
+
+```xml
+<key>WatchPaths</key>
+<array>
+    <string>/opt/homebrew/Cellar</string>
+    <string>/opt/homebrew/Caskroom</string>
+</array>
+```
+
+Bütün numara bu. Homebrew her paketi `/opt/homebrew/Cellar` içine kurar — yani herhangi bir kabuktan, betikten, araçtan yapılan *herhangi* bir kurulum veya kaldırma o dizini değiştirir. İşletim sistemi fark eder. Betiğim çalışır.
+
+Yoklama yok. Boşa çalıştırma yok. Boştayken sıfır CPU. İş, *kayıtlı bir niyet* olarak var oluyor ve izlemeyi çekirdek yapıyor.
+
+Tam iş tanımı tek bir plist dosyası:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.paurushrai.dotfiles-sync</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/paurushrai/Developer/infra/dotfiles/sync.sh</string>
+    </array>
+
+    <key>WatchPaths</key>
+    <array>
+        <string>/opt/homebrew/Cellar</string>
+    </array>
+
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key><integer>12</integer>
+        <key>Minute</key><integer>0</integer>
+    </dict>
+
+    <key>ThrottleInterval</key>
+    <integer>60</integer>
+
+    <key>StandardOutPath</key>
+    <string>/Users/paurushrai/Library/Logs/dotfiles-sync.log</string>
+</dict>
+</plist>
+```
+
+`~/Library/LaunchAgents/` içine bırakın, bir kez kaydedin:
+
+```bash
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.paurushrai.dotfiles-sync.plist
+```
+
+Yeniden başlatmalara dayanıyor. Bir terminal açık olsun ya da olmasın çalışıyor. Artık işletim sisteminin bir parçası.
+
+Bunu dürüst yoldan test ettim — bir paket kurdum ve başka hiçbir şeye dokunmadım:
+
+```bash
+$ brew install jq
+... 8 saniye sonra, sıfır kabuk müdahalesi:
+67ba27e chore: auto-sync .Brewfile  → GitHub'a gönderildi ✅
+```
+
+![brew install jq'nun sekiz saniye içinde GitHub'a gönderilen bir otomatik commit'i tetiklemesi](/blogs/stop-using-cron-on-mac/2.png)
+
+## 🧩 Ağır İşi Yapan Üç Anahtar
+
+Yukarıdaki plist'te üç tasarım kararı gömülü ve her biri aksi halde yazmam gereken kodun yerini aldı.
+
+![üç launchd anahtarı: ThrottleInterval, StartCalendarInterval ve StandardOutPath](/blogs/stop-using-cron-on-mac/3.png)
+
+**ThrottleInterval: 60, bedava bir debouncer.** Arka arkaya beş paket kurun, dosya sistemi beş olay tetikler — ama launchd işi 60 saniyede birden fazla çalıştırmaz, yani beşini birden kapsayan *tek* bir commit alırım. cron dünyasında böyle bir gruplama, kendinizin yazıp test etmesi gereken bir mantıktır. Burada tek bir tam sayı.
+
+**StartCalendarInterval, cron'un zamanlaması — cron'un dizüstü sorunu olmadan.** Bana izlemelerin kaçırdığı her şey için günlük bir öğlen çalışması, geri dönüş olarak veriyor. Ve cron'un aksine, makine öğlende uykudaysa **launchd işi uyandığında çalıştırır**. Kaçırılan zamanlamalar hiç değil, geç çalışır. Bir dizüstü bilgisayar için, tek bu davranış bile karşılaştırmayı bitiriyor.
+
+**StandardOutPath, bedava gözlemlenebilirlik.** Her çalıştırmanın çıktısı seçtiğim bir log dosyasına ekleniyor. Bir şeyin neden tetiklenmediğini merak ettiğimde, cevap zaten yazılıydı.
+
+## 🔁 Herkesi Isıran Tuzak
+
+Şimdi itiraf. Betiğim bir git deposuna commit yapıyor — ve ilk içgüdüm deponun kendisini izlemek oldu. Tek bir izleme girişi, her dosyayı kapsar. Zarif.
+
+Aynı zamanda sonsuz bir döngü.
+
+![geri besleme döngüsü: bir commit .git'i değiştirir, bu ajanı tetikler, o da tekrar commit yapar](/blogs/stop-using-cron-on-mac/4.png)
+
+Her git commit'i `.git/`'i **değiştirir**. Yani: bir değişiklik ajanı tetikler → ajan commit yapar → commit `.git/`'i değiştirir → bu izlenen dizinin içindedir → bu ajanı tekrar tetikler. Sonsuza kadar.
+
+Çözüm, ezberlemeye değer bir kural:
+
+> *İşinizin yazdığı bir dizini asla izlemeyin.*
+
+Bunun yerine **tek tek dosyaları** izliyorum — her izlenen dotfile kendi WatchPaths girişini alıyor, depo kökü ise bilinçli olarak yok. Ödünleşim: derin bir alt dizindeki yepyeni bir dosya anında fark edilmiyor; günlük öğlen çalışması onu topluyor. Kendi kuyruğunu kovalayamayan bir sistem için adil bir bedel.
+
+Aynı öğleden sonradan iki tuzak daha, benim ödediğim bedeli siz ödemeyin diye:
+
+- **plist'i symlink yapmayın.** plist'i dotfiles deposunda tutuyorum ve `~/Library/LaunchAgents/` içine *kopyalıyorum* — launchd, modern macOS'te symlink'lenmiş iş tanımlarında güvenilmez. Depo, gerçeğin kaynağını tutar; kurulum betiği bir kopya dağıtır.
+- **launchd işleri minimal bir ortam alır.** Sizin kabuğunuzun `PATH`'i yok, takma adlar yok, `.zshrc`'niz yok. Betiğim ilk satırda kendi `PATH`'ini ayarlıyor. İşiniz "terminalde çalışıyor ama launchd'de çalışmıyorsa," neredeyse her zaman sebep budur.
+
+## 🔔 Önce Konuşturun, Sonra Bekletin
+
+Göremediğiniz bir arka plan işi, güvenmeyi bırakacağınız bir arka plan işidir.
+
+Betiğim her commit'i tek bir yerel macOS satırıyla duyuruyor:
+
+```bash
+osascript -e 'display notification "Committed & pushed: .Brewfile" with title "dotfiles sync"'
+```
+
+İlk test: hiç görmedim. Banner bildirimleri beş saniyede kayboluyor.
+
+Çözüm kod değildi — neredeyse kimsenin değiştirmediği bir ayardı: **Sistem Ayarları → Bildirimler → Script Editor → Uyarılar.** Uyarı tarzı bildirimler kapatılana kadar ekranda kalır. Şimdi her senkronizasyon, değişen dosya adlarıyla birlikte köşede beni bekliyor.
+
+Önemli bir tasarım detayı: betik yalnızca gerçekten bir şey commit'lendiğinde bildirim gönderiyor. Hiçbir şey yapmayan bir çalıştırma sessiz kalıyor. Sürekli tetiklenen bir bildirim, zaten görmezden gelmeyi öğrendiğiniz bir bildirimdir — alarm yorgunluğu, hiç uyarı olmamasından daha hızlı gözlemlenebilirliği öldürür.
+
+## 🛠 Kopyala-Yapıştır Kılavuzu
+
+Kendinizinkini çalıştırmak için gereken her şey:
+
+```bash
+# kayıt (bir kez, veya plist'i düzenledikten sonra)
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.example.myjob.plist
+```
+
+```bash
+# kaydı kaldır
+launchctl bootout gui/$(id -u)/com.example.myjob
+```
+
+```bash
+# yüklü mü?
+launchctl list | grep myjob
+```
+
+```bash
+# ne oldu?
+tail -f ~/Library/Logs/myjob.log
+```
+
+Ve keşke daha önce sahip olsaydım dediğim karar tablosu:
+
+- İş bir **dosya veya dizin değişikliğine** tepki vermeli → `WatchPaths`
+- İş bir **zamanlamaya göre, dizüstü-güvenli** çalışmalı → `StartCalendarInterval`
+- İş **patlamalar** halinde tetikleniyor ve gruplanmalı → `ThrottleInterval`
+- İş **kaydedildiği anda** çalışmalı → `RunAtLoad`
+- Bir Mac'te `crontab -e` yazmak üzeresiniz → durun, bir plist yazın
+
+## 🎯 Dersin Altındaki Ders
+
+Kurduğum otomasyon küçük. İlke öyle değil.
+
+Neredeyse cron'a başvuracaktım çünkü cron *bildiğim* şeydi — ve neredeyse bir dosya izleyici npm paketine başvuracaktım çünkü arama sonuçlarının önerdiği bu. İkisi de çalışırdı, ama kötü şekilde: biri bir zamanlayıcı üzerinde yoklayarak, diğeri işletim sisteminin yerel olarak yaptığı şeyi yapmak için bir bağımlılık ekleyerek.
+
+Sıkıcı, yerleşik, yirmi yaşındaki araç ikisinden de daha iyiydi. Yoklanan yerine olay güdümlü. Sunucu varsayan yerine dizüstü bilgisayardan haberdar. Kurulacak bir şey daha yerine sıfır bağımlılık.
+
+Bir araç eklemeden önce, işletim sisteminin zaten neyi gönderdiğini sorun.
+
+Cevap düşündüğünüzden daha sık şu oluyor: **ihtiyacınız olan her şey, 2005'ten beri bekleyen süreç 1'in içinde oturuyor.**
+
+## LaunchAgents Klasörünüzde Ne Çalışıyor?
+
+Başkalarının işletim sistemi seviyesinde neyi otomatikleştirdiğini ve bunu yaparken hangi tuzaklara düştüğünüzü merak ediyorum. WatchPaths geri besleme döngüsü tek tuzak olamaz.

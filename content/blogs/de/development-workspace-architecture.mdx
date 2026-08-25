@@ -1,0 +1,304 @@
+---
+title: Die Development-Workspace-Architektur, die ich mir Jahre früher gewünscht hätte
+description: Eine skalierbare Ordnerstruktur für Entwickler, die zwischen Arbeitgebern, Nebenprojekten und Kundenarbeit jonglieren — Quellcode, Infrastruktur und Daten getrennt, damit ein Rechnerwechsel aufhört, schmerzhaft zu sein.
+date: 2026-06-06
+published: true
+coverImage: /blogs/development-workspace-architecture/1.png
+tags: ["Software Engineering", "Docker", "Productivity"]
+---
+
+Dein Code ist nicht der Flaschenhals. Deine Umgebung ist es.
+
+Die meisten Entwickler verbringen Stunden mit Debatten über:
+
+- React vs. Vue
+- Docker vs. Podman
+- Claude Code vs. Cursor
+- PostgreSQL vs. MySQL
+
+Währenddessen bekommt das, womit sie **jeden einzelnen Tag** interagieren, kaum Aufmerksamkeit:
+
+> Ihr Development-Workspace.
+
+Vor ein paar Monaten musste ich ein Projekt wieder aufgreifen, das ich fast ein Jahr lang nicht angerührt hatte.
+
+Ich erinnerte mich an ein paar Dinge:
+
+- Es benutzte PostgreSQL.
+- Redis war irgendwo im Spiel.
+- Die Anwendung lief in Docker.
+- Es gab KI-Tools im Workflow.
+
+Woran ich mich nicht erinnerte, war, wo irgendetwas davon lag.
+
+Der Code war nicht das Problem. Die Architektur war nicht das Problem.
+
+**Meine Entwicklungsumgebung war es.**
+
+Irgendwo zwischen der Arbeit bei Startups, dem Bauen von Nebenprojekten, dem Experimentieren mit KI-Tooling und dem Verwalten von Kundenarbeit hatte sich mein Rechner in eine Sammlung unzusammenhängender Projekte, doppelter Umgebungen und vergessener Infrastruktur verwandelt.
+
+Jedes neue Projekt löste ein unmittelbares Problem. Keines löste das langfristige:
+
+> Wie organisiert man eine Entwicklungsumgebung, die mit der eigenen Karriere mitwächst?
+
+Diese Frage führte dazu, dass ich die Struktur meines Workspace komplett neu entworfen habe.
+
+## 🚨 Das Problem, das die meisten Entwickler ignorieren
+
+Früh in der Karriere sieht die Projektorganisation meist so aus:
+
+![Der Standard: ein Haufen Ordner, den ein Jahr später niemand mehr erklären kann](/blogs/development-workspace-architecture/1.png)
+
+Anfangs funktioniert es.
+
+Dann passiert das Leben.
+
+Man tritt einer Firma bei. Man fängt an zu freelancen. Man gründet ein Startup. Man baut Open-Source-Projekte. Man beginnt, mit KI-Tooling zu experimentieren. Man fängt an, PostgreSQL, Redis, Docker-Container und lokale Dienste laufen zu lassen.
+
+Die Anzahl der Projekte ist nicht das Problem. **Der Mangel an Struktur ist es.**
+
+Mit wachsender Zahl an Repositories wächst auch der mentale Overhead:
+
+- Wo ist dieses Repository?
+- Welche PostgreSQL-Instanz gehört zu welchem Projekt?
+- Wo ist die Docker-Konfiguration?
+- Kann ich diesen Ordner gefahrlos löschen?
+- Warum habe ich drei verschiedene Node.js-Versionen installiert?
+
+Diese Fragen klingen klein. Aber über Jahre der Entwicklung summieren sie sich zu einem massiven Produktivitätsverlust.
+
+## 🧠 Denken wie ein Systems Engineer
+
+Der Durchbruch kam, als ich aufhörte, meinen Arbeitsplatz wie eine Sammlung von Projekten zu behandeln — und anfing, ihn wie ein Softwaresystem zu behandeln.
+
+Ich stellte mir eine Frage:
+
+> Wie würde meine Entwicklungsumgebung aussehen, wenn ich in den nächsten zehn Jahren Hunderte von Repositories verwalten müsste?
+
+Diese Frage veränderte meinen Ansatz komplett.
+
+Statt für die heutigen Projekte zu optimieren, optimierte ich für:
+
+- Mehrere Arbeitgeber
+- Startup-Unternehmungen
+- Kundenarbeit
+- Open-Source-Beiträge
+- Docker-first-Entwicklung
+- KI-unterstützte Entwicklung
+- Einfachen Rechnerwechsel
+- Langfristige Wartbarkeit
+
+Das Ergebnis wurde dies:
+
+![Eine Wurzel. Vier Eigentümer-Domänen. Infra und Daten als First-Class-Schichten.](/blogs/development-workspace-architecture/2.png)
+
+Einfach. Vorhersehbar. Skalierbar.
+
+## 🧱 Quellcode ist keine Infrastruktur
+
+Einer der größten Fehler, die ich bei Entwicklern sehe, ist das Vermischen von Quellcode mit Infrastruktur.
+
+Repositories sollten enthalten:
+
+- Geschäftslogik
+- Anwendungscode
+- Tests
+- Dokumentation
+
+Sie sollten **nicht** zur Abladestelle werden für:
+
+- Lokale Skripte
+- Docker-Experimente
+- Datenbankspeicher
+- KI-Tooling
+- Rechnerspezifische Konfiguration
+
+Deshalb habe ich eine dedizierte Infrastruktur-Schicht eingeführt:
+
+```bash
+infra/
+├── docker/
+├── ai/
+├── scripts/
+└── templates/
+```
+
+Infrastruktur entwickelt sich unabhängig von Anwendungen. Die Trennung hält Repositories sauber und fokussiert.
+
+## 🐳 Die Docker-Regel, die alles vereinfacht hat
+
+Ich wollte eine Docker-first-Entwicklungsumgebung. Aber nicht jedes Repository sollte gleich behandelt werden.
+
+Die Regel, bei der ich gelandet bin, ist überraschend einfach.
+
+### ✅ Wenn ich das Repository ändern kann
+
+```text
+1 Projekt = 1 Containerisierte Entwicklungsumgebung
+```
+
+![Zwei Regeln decken jedes Repository ab, das du je klonen wirst](/blogs/development-workspace-architecture/3.png)
+
+Jedes Projekt bekommt seine eigene isolierte Umgebung.
+
+Die Vorteile:
+
+- Isolation der Abhängigkeiten
+- Reproduzierbarkeit
+- Einfacheres Onboarding
+- CI/CD-Ausrichtung
+- Bessere Unterstützung für KI-Tooling
+
+Das Projekt wird in sich geschlossen. Klont es morgen jemand, bekommt er exakt dieselbe Umgebung.
+
+### 🔒 Wenn ich das Repository nicht ändern kann
+
+```text
+1 Organisation = 1 Workspace-Container
+```
+
+Das ist besonders nützlich für Firmen-Repositories.
+
+Statt Docker-Dateien zu Repositories hinzuzufügen, die ich nicht kontrolliere, erstelle ich einen externen Workspace-Container:
+
+```bash
+infra/docker/workspaces/acme/
+```
+
+Der Workspace mountet jedes Repository, das dieser Organisation gehört:
+
+```yaml
+volumes:
+  - ~/Developer/company/acme:/workspace
+```
+
+Das erlaubt mir, einen Docker-first-Workflow beizubehalten, ohne firmeneigenen Code anzufassen.
+
+Es ist eine kleine Unterscheidung — aber sie beseitigt eine Menge Reibung.
+
+## 💾 Warum ich Daten von allem anderen trenne
+
+Das war wahrscheinlich die wichtigste architektonische Entscheidung.
+
+Die meisten Entwickler entweder:
+
+1. Speichern Daten innerhalb von Repositories, oder
+2. Verlassen sich vollständig auf Docker-verwaltete Volumes.
+
+Mir gefiel keiner der beiden Ansätze. Stattdessen habe ich eine dedizierte Datenschicht geschaffen:
+
+![Daten spiegeln den Source-Tree — Eigentümerschaft ist nie mehrdeutig](/blogs/development-workspace-architecture/4.png)
+
+Diese Struktur macht Eigentümerschaft offensichtlich. Ich weiß sofort:
+
+- Welches Projekt gehört zu welchen Daten
+- Welche Datenbank zu welcher Anwendung gehört
+- Was archiviert werden kann
+- Was ein Backup braucht
+
+Die Vorteile sind erheblich:
+
+- Sauberere Repositories
+- Einfachere Backups
+- Einfachere Migration
+- Schnellere Git-Operationen
+- Bessere Übersicht über die Speichernutzung
+
+Am wichtigsten:
+
+**Ich weiß immer, wo meine Daten liegen.**
+
+## 🤖 Für eine KI-native Zukunft bauen
+
+Die Art, wie wir Software schreiben, ändert sich. KI-Tools werden Teil der Entwicklungsumgebung selbst:
+
+- Claude Code
+- Codex
+- Gemini CLI
+- Lokale Modelle
+- Zukünftige autonome Agenten
+
+Die meisten Entwickler behandeln diese immer noch als Tools auf Projektebene.
+
+Ich habe entschieden, sie als **Infrastruktur** zu behandeln:
+
+![KI-Tooling lebt in infra, nicht in deinen Repositories](/blogs/development-workspace-architecture/5.png)
+
+Das schafft eine wiederverwendbare KI-Schicht, die über jedes Projekt hinweg funktioniert.
+
+Während sich das Tooling weiterentwickelt, bleiben meine Repositories sauber. Der KI-Stack ändert sich unabhängig von den Anwendungen selbst.
+
+Diese Trennung wird in den nächsten Jahren zunehmend wertvoller werden.
+
+## ⚡ Der größte Produktivitätsgewinn war nicht Docker
+
+Es war nicht KI. Es war nicht Automatisierung.
+
+**Es war die Reduzierung der kognitiven Last.**
+
+Wenn jedes Projekt einer vorhersehbaren Struktur folgt:
+
+```text
+company/
+startup/
+clients/
+personal/
+```
+
+Stelle ich mir keine Fragen mehr wie:
+
+- Wo habe ich dieses Repository geklont?
+- Welche Datenbank gehört zu diesem Projekt?
+- Welcher Firma gehört diese Codebasis?
+- Wo ist die Docker-Konfiguration?
+- Kann ich das gefahrlos archivieren?
+
+Die Antwort liegt auf der Hand.
+
+Und diese Konsistenz summiert sich. Jeder Kontextwechsel wird schneller. Jedes neue Projekt wird leichter ans Laufen zu bringen. Jede zukünftige Entscheidung wird einfacher.
+
+## 📦 Rechnerwechsel wird langweilig
+
+Die meisten Entwickler denken nicht über Migration nach, bis sie einen neuen Laptop kaufen.
+
+Dann beginnt der Schmerz: Docker-Volumes. Konfigurationsdateien. Skripte. Datenbanken. Umgebungsvariablen. Niemand erinnert sich mehr, wo alles liegt.
+
+Mein Ziel war einfach:
+
+> Wenn mein Rechner heute stirbt, sollte ich alles aus einem einzigen Verzeichnis wiederherstellen können.
+
+Alles Wichtige liegt unter:
+
+```text
+Developer/
+```
+
+Repositories. Infrastruktur. Persistente Daten. Das war's.
+
+Die Entwicklungsumgebung wird portabel.
+
+Und Portabilität ist eines der am meisten unterschätzten Produktivitätsmerkmale, in die man investieren kann.
+
+## 🎯 Die eigentliche Lektion
+
+Die Ordnerstruktur selbst ist nicht der wichtige Teil. Die dahinterliegende Denkweise ist es.
+
+Gute Ingenieure architektieren nicht nur Anwendungen. Sie architektieren **Systeme**.
+
+Dein Arbeitsplatz ist ein System. Dein Entwicklungs-Workflow ist ein System. Deine Produktivität ist ein System.
+
+Je bewusster du diese Systeme gestaltest, desto weniger Energie verschwendest du im Kampf gegen sie — und desto mehr Energie bleibt dir, um tatsächliche technische Probleme zu lösen.
+
+Eine gut gestaltete Entwicklungsumgebung macht dich nicht über Nacht zu einem besseren Entwickler.
+
+Aber über Tausende von Arbeitsstunden hinweg entfernt sie still Reibung aus jedem Projekt, das du anfasst.
+
+**Daher kommen die echten Produktivitätsgewinne.**
+
+## 💬 Wie sieht dein Development-Workspace aus?
+
+Ich bin immer neugierig, wie andere Ingenieure ihre Umgebungen organisieren — besonders jetzt, wo Docker, Dev Containers und KI-unterstützte Entwicklung Teil des Standard-Workflows werden.
+
+Die Tooling-Landschaft ändert sich jedes Jahr.
+
+Eine gute Workspace-Architektur sollte sie alle überleben.

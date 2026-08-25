@@ -1,0 +1,143 @@
+---
+title: Next.js와 Node.js로 만드는 모던 LTI 1.3 툴
+description: LTI 1.3 LMS 연동을 위한 프로덕션급 아키텍처. Node.js/ltijs 보안 계층을 Next.js 프론트엔드와 분리하고, 서드파티 쿠키 차단에도 살아남는 무상태 토큰 흐름을 사용한다.
+date: 2026-01-26
+published: true
+coverImage: /blogs/lti-1-3-nextjs-nodejs-guide/1.png
+tags: ["LTI", "LMS", "Next.js", "Node.js"]
+---
+
+![Next.js 프론트엔드 앞단에 Node.js 보안 계층을 둔 LTI 1.3 아키텍처](/blogs/lti-1-3-nextjs-nodejs-guide/1.png)
+
+Canvas, Moodle, Blackboard 같은 학습관리시스템(LMS)용 연동을 만들어본 적이 있다면, 그 고통을 알 것이다. 구체적으로는 **LTI 1.3(Learning Tools Interoperability)**의 고통이다.
+
+OIDC 로그인, JWKS 키셋, RSA 서명, 프라이빗 키가 얽힌 복잡한 춤을 춰야 한다. 보안을 위해 설계된 건 맞지만, 그냥 "Canvas에 웹 앱 하나 넣고 싶다"는 개발자에게는 악몽처럼 느껴질 수 있다.
+
+이 가이드에서는 최신 보안 관행을 활용한 **프로덕션급 아키텍처**로 LTI 1.3 툴을 만드는 과정을 안내한다. 보안 계층에는 **Node.js**를, 프론트엔드에는 **Next.js**를 사용해서, 보안을 타협하지 않으면서도 매끄러운 개발자 경험을 확보한다.
+
+**🔗 GitHub 저장소**: [github.com/paurushrai/lti-1.3-node-nextjs-template](https://www.github.com/paurushrai/lti-1.3-node-nextjs-template)
+
+## 🧐 LTI 1.3이란 무엇이고 왜 신경 써야 하는가
+
+LTI(Learning Tools Interoperability)는 외부 툴(당신의 앱 같은)이 LMS(Canvas 같은)와 통신할 수 있게 해주는 표준이다.
+
+과거의 **LTI 1.1**은 쉬웠다. "secret key"와 "consumer key"를 공유하면 끝이었다. 하지만 안전하지 않았다. **LTI 1.3**은 현대적인 정보 보안 모델로 넘어간다.
+
+1. 로그인 흐름을 위한 **OIDC(OpenID Connect)**.
+2. 데이터 교환을 위한 **JWT(JSON Web Token)**.
+3. 공유 비밀 대신 **공개키/개인키 암호화(RSA256)**.
+
+이 덕분에 엄청나게 안전해지지만, 처음부터 구현하기는 더 어려워진다.
+
+## 🏗 아키텍처
+
+이 문제를 풀기 위해 모놀리스를 만들지는 않을 것이다. **보안 프로바이더**와 **애플리케이션 UI**를 분리할 것이다.
+
+### 기술 스택
+
+- **백엔드(경비원)**: Node.js + Express + `ltijs`(Cvmcosta가 만든 견고한 라이브러리).
+- **프론트엔드(경험)**: Next.js 14+(App Router) + React + Tailwind CSS.
+- **데이터베이스**: PostgreSQL(암호화 키와 플랫폼 등록 정보를 저장).
+- **인프라**: Docker Compose.
+
+### 문제: "서드파티 쿠키" 대재앙
+
+LTI 툴의 주요 난제는 LMS 안의 `<iframe>` 안에서 돌아간다는 점이다. 최신 브라우저(Safari, Chrome 시크릿 모드)는 기본적으로 **서드파티 쿠키**를 차단한다.
+
+당신의 웹 앱이 세션 쿠키(`connect.sid`)에 의존한다면? **Safari에서는 실패한다.**
+
+### 해결책: "LTIaaS" 토큰 흐름
+
+이 프로젝트는 쿠키 제약을 우회하기 위해 "무상태" 토큰 패턴을 구현한다.
+
+1. **LMS 실행**: LMS가 우리 Node.js 백엔드로 요청을 보낸다.
+2. **핸드셰이크**: 백엔드가 서명을 검증한다. 유효하면 짧은 수명의 일회용 **ltik(LTI key)**을 생성한다.
+3. **리다이렉트**: 백엔드가 iframe을 Next.js 프론트엔드로 리다이렉트하면서, URL에 토큰을 담아 전달한다. `https://myapp.com/app?ltik=eyJhb...`
+4. **하이드레이션**: Next.js 앱이 URL에서 이 토큰을 가져온다.
+5. **API 호출**: 프론트엔드는 이후 모든 API 호출의 `Authorization` 헤더에 이 토큰을 Bearer 토큰으로 사용한다.
+
+**쿠키가 필요 없다!**
+
+## 🚀 설정 방법 (단계별)
+
+로컬 머신에서 5분 안에 이걸 돌리는 방법이다.
+
+### 1. 사전 준비물
+
+**Docker**가 설치되어 있어야 한다. 그리고 **ngrok**(또는 비슷한 터널링 서비스)도 필요하다. LTI 툴은 HTTPS로 서빙되어야 **하기** 때문이다. localhost만으로는 안 된다.
+
+### 2. 저장소 클론
+
+```bash
+git clone https://github.com/paurushrai/lti-1.3-node-nextjs-template.git
+cd lti-1.3-node-nextjs-template
+```
+
+### 3. 환경 설정
+
+예시 환경 파일을 복사한다.
+
+```bash
+cp lti-server/.env.example lti-server/.env
+```
+
+무작위 보안 키를 생성해서 `.env`의 `LTI_KEY`에 붙여넣는다.
+
+### 4. 터널 시작
+
+3000번 포트에서 ngrok을 시작한다(우리 Node 서버가 있는 곳이다).
+
+```bash
+ngrok http 3000
+```
+
+https URL을 복사한다(예: `https://my-tool.ngrok-free.app`).
+
+### 5. 앱 실행
+
+`lti-server/.env`를 다시 열고 `UI_URL`을 ngrok URL로 설정한다.
+
+이제 Docker로 전부 부팅한다.
+
+```bash
+docker-compose up --build
+```
+
+이제 다음이 준비됐다.
+
+- **LTI 서버**: `http://localhost:4000`
+- **Next.js 클라이언트**: `http://localhost:3000`
+- **Postgres**: 자동으로 연결됨.
+
+## 🔌 LMS에 연결하기 ("마법" 링크)
+
+예전에는 공개키와 URL을 수동으로 복사-붙여넣기 해야 했다. 이 프로젝트는 **LTI Dynamic Registration**을 지원한다.
+
+1. **등록 URL**을 복사한다: `https://<your-ngrok-domain>/lti/register`
+2. LMS로 이동한다(예: Canvas Admin → Developer Keys).
+3. **"Dynamic Registration"**을 선택한다.
+4. URL을 붙여넣고 **Register**를 클릭한다.
+
+**끝.** 💥 툴과 LMS가 자동으로 공개키를 교환한다. 이제 툴이 설치됐다.
+
+## 🧪 흐름 테스트하기
+
+1. LMS 코스에서 일반 과제나 모듈 항목을 만든다.
+2. "External Tool"을 선택하고 새로 만든 툴을 고른다.
+3. **실행한다.**
+4. iframe 안에서 **Next.js 앱**이 로드되는 걸 볼 수 있다.
+5. "Welcome, [당신의 이름]"과 역할(Instructor/Student)이 표시된다.
+
+앱은 성공적으로 다음을 해냈다.
+
+1. 실행(launch)을 인증했다.
+2. LTI 실행 데이터에서 사용자 프로필을 디코딩했다.
+3. 이를 안전하게 프론트엔드로 전달했다.
+
+## 📝 결론
+
+LTI 툴을 만드는 게 신비로울 필요는 없다. **프로토콜 로직**(Node/ltijs)을 **애플리케이션 로직**(Next.js)에서 분리하면, 견고한 보안과 모던 React 기반 UI라는 두 마리 토끼를 모두 잡을 수 있다.
+
+코드를 확인하고, 저장소를 포크해서, 당신만의 연동을 만들어보라!
+
+[**GitHub에서 코드 보기**](https://github.com/paurushrai/lti-1.3-node-nextjs-template)

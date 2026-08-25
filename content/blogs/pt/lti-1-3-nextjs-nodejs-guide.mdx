@@ -1,0 +1,143 @@
+---
+title: Construindo uma Ferramenta LTI 1.3 Moderna com Next.js e Node.js
+description: Uma arquitetura pronta para produção para integrações LTI 1.3 com LMS, separando a camada de segurança Node.js/ltijs de um frontend Next.js com um fluxo de token stateless que sobrevive ao bloqueio de cookies de terceiros.
+date: 2026-01-26
+published: true
+coverImage: /blogs/lti-1-3-nextjs-nodejs-guide/1.png
+tags: ["LTI", "LMS", "Next.js", "Node.js"]
+---
+
+![Arquitetura LTI 1.3 com uma camada de segurança Node.js na frente de um frontend Next.js](/blogs/lti-1-3-nextjs-nodejs-guide/1.png)
+
+Se você já tentou construir uma integração para um Sistema de Gestão de Aprendizagem (LMS) como Canvas, Moodle ou Blackboard, conhece a dor. Especificamente, a dor do **LTI 1.3 (Learning Tools Interoperability)**.
+
+Envolve uma dança complexa de logins OIDC, keysets JWKS, assinaturas RSA e chaves privadas. É pensado para ser seguro, mas para um desenvolvedor que só quer "embutir um web app no Canvas", pode parecer um pesadelo.
+
+Neste guia, vou te mostrar uma **arquitetura pronta para produção** para construir ferramentas LTI 1.3 usando práticas modernas de segurança. Vamos usar **Node.js** para a camada de segurança e **Next.js** para o frontend, garantindo uma boa experiência de desenvolvimento sem abrir mão da segurança.
+
+**🔗 Repositório no GitHub**: [github.com/paurushrai/lti-1.3-node-nextjs-template](https://www.github.com/paurushrai/lti-1.3-node-nextjs-template)
+
+## 🧐 O Que É o LTI 1.3 e Por Que Você Deveria se Importar?
+
+LTI (Learning Tools Interoperability) é o padrão que permite que ferramentas externas (como seu app) se comuniquem com um LMS (como o Canvas).
+
+No passado, o **LTI 1.1** era fácil: você compartilhava uma "chave secreta" e uma "chave de consumidor". Mas era inseguro. O **LTI 1.3** migra para o modelo moderno de segurança da informação:
+
+1. **OIDC (OpenID Connect)** para o fluxo de login.
+2. **JWTs (JSON Web Tokens)** para troca de dados.
+3. **Criptografia de chave pública/privada** (RSA256) em vez de segredos compartilhados.
+
+Isso o torna incrivelmente seguro, mas também mais difícil de implementar do zero.
+
+## 🏗 A Arquitetura
+
+Para resolver isso, não vamos construir um monólito. Vamos separar nosso **provedor de segurança** da nossa **UI da aplicação**.
+
+### O Stack Tecnológico
+
+- **Backend (o guarda de segurança)**: Node.js + Express + `ltijs` (uma biblioteca robusta feita por Cvmcosta).
+- **Frontend (a experiência)**: Next.js 14+ (App Router) + React + Tailwind CSS.
+- **Banco de dados**: PostgreSQL (guarda chaves criptográficas e registros de plataforma).
+- **Infraestrutura**: Docker Compose.
+
+### O Problema: O Apocalipse do "Cookie de Terceiros"
+
+Um grande desafio com ferramentas LTI é que elas rodam dentro de um `<iframe>` dentro do LMS. Navegadores modernos (Safari, Chrome Incógnito) bloqueiam **cookies de terceiros** por padrão.
+
+Se o seu web app depende de um cookie de sessão (`connect.sid`)? **Vai falhar no Safari.**
+
+### A Solução: O Fluxo de Token "LTIaaS"
+
+Este projeto implementa um padrão de token "stateless" para contornar a limitação de cookies:
+
+1. **Lançamento do LMS**: o LMS envia uma requisição para o nosso backend Node.js.
+2. **Handshake**: o backend verifica a assinatura. Se válida, gera um **ltik (LTI key)** de uso único e curta duração.
+3. **Redirecionamento**: o backend redireciona o iframe para o frontend Next.js, passando o token na URL: `https://myapp.com/app?ltik=eyJhb...`
+4. **Hidratação**: o app Next.js captura esse token da URL.
+5. **Chamadas de API**: o frontend usa esse token como Bearer token no header `Authorization` para todas as chamadas de API futuras.
+
+**Nenhum cookie necessário!**
+
+## 🚀 Como Configurar Isso (Passo a Passo)
+
+Aqui está como rodar isso na sua máquina local em cinco minutos.
+
+### 1. Pré-requisitos
+
+Você precisa do **Docker** instalado. Também precisa do **ngrok** (ou um serviço de tunelamento parecido) porque ferramentas LTI **precisam** ser servidas via HTTPS. Você não pode simplesmente usar localhost.
+
+### 2. Clone o Repositório
+
+```bash
+git clone https://github.com/paurushrai/lti-1.3-node-nextjs-template.git
+cd lti-1.3-node-nextjs-template
+```
+
+### 3. Configure o Ambiente
+
+Copie o arquivo de ambiente de exemplo:
+
+```bash
+cp lti-server/.env.example lti-server/.env
+```
+
+Gere uma chave segura aleatória e cole no `LTI_KEY` dentro do `.env`.
+
+### 4. Inicie o Túnel
+
+Inicie o ngrok na porta 3000 (é onde nosso servidor Node vive).
+
+```bash
+ngrok http 3000
+```
+
+Copie sua URL https (ex.: `https://my-tool.ngrok-free.app`).
+
+### 5. Rodando o App
+
+Abra o `lti-server/.env` de novo e defina `UI_URL` como sua URL do ngrok.
+
+Agora, suba tudo com Docker:
+
+```bash
+docker-compose up --build
+```
+
+Agora você tem:
+
+- **Servidor LTI**: `http://localhost:4000`
+- **Cliente Next.js**: `http://localhost:3000`
+- **Postgres**: conectado automaticamente.
+
+## 🔌 Conectando ao LMS (O Link "Mágico")
+
+Antigamente, você tinha que copiar e colar chaves públicas e URLs manualmente. Este projeto suporta **Registro Dinâmico do LTI**.
+
+1. Copie sua **URL de registro**: `https://<seu-dominio-ngrok>/lti/register`
+2. Vá até seu LMS (ex.: Canvas Admin → Developer Keys).
+3. Selecione **"Dynamic Registration"**.
+4. Cole a URL e clique em **Register**.
+
+**Pronto.** 💥 A ferramenta e o LMS trocam as chaves públicas automaticamente. A ferramenta agora está instalada.
+
+## 🧪 Testando o Fluxo
+
+1. Crie um módulo ou tarefa genérica no seu curso do LMS.
+2. Selecione "External Tool" e escolha sua nova ferramenta.
+3. **Lance-a.**
+4. Você verá o **app Next.js** carregar dentro do iframe.
+5. Ele vai exibir: "Welcome, [Seu Nome]" e seu papel (Instrutor/Aluno).
+
+O app conseguiu com sucesso:
+
+1. Autenticar o lançamento.
+2. Decodificar seu perfil de usuário a partir dos dados de lançamento do LTI.
+3. Passá-lo de forma segura para o frontend.
+
+## 📝 Conclusão
+
+Construir ferramentas LTI não precisa ser misterioso. Ao separar a **lógica de protocolo** (Node/ltijs) da **lógica de aplicação** (Next.js), você tem o melhor dos dois mundos: segurança robusta e uma UI moderna baseada em React.
+
+Confira o código, faça um fork do repositório, e comece a construir suas próprias integrações!
+
+[**Veja o código no GitHub**](https://github.com/paurushrai/lti-1.3-node-nextjs-template)

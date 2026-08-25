@@ -4,7 +4,7 @@ export const ru: Locale = {
   nav: {
     about: "О",
     projects: "Проекты",
-    articles: "Статьи",
+    blogs: "Блог",
     services: "Услуги",
     contact: "Контакт",
     privacy: "Конфиденциальность",
@@ -22,16 +22,18 @@ export const ru: Locale = {
     independent: "Независимый",
     personalProject: "Личный проект",
     associatedWith: "Связано с",
-    inProgress: "Ð Ð¿ÑÐ¾ÑÐµÑÑÐµ",
-    all: "ÐÑÐµ",
-    personal: "ÐÐ¸ÑÐ½Ð¾Ðµ"
+    inProgress: "В процессе",
+    all: "Все",
+    personal: "Личное",
+    moreTitle: "Другие проекты"
   },
-  articles: {
-    title: "Статьи",
-    subtitle:
-      "Мысли об инженерии, инструментах и создании продуктов — опубликовано на Medium.",
-    viewAll: "Смотреть всё на Medium",
+  blogs: {
+    title: "Блог",
+    subtitle: "Заметки об инженерии, инструментах и создании вещей, которые остаются надолго.",
     empty: "Пока нет статей — загляните позже.",
+    minRead: "мин. чтения",
+    moreTitle: "Больше из блога",
+    viewAll: "Смотреть все",
   },
   services: {
     badge: "Доступен для фрилансера",

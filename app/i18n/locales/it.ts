@@ -4,7 +4,7 @@ export const it: Locale = {
   nav: {
     about: "Di",
     projects: "Progetti",
-    articles: "Articoli",
+    blogs: "Blog",
     services: "Servizi",
     contact: "Contatto",
     privacy: "Privacy",
@@ -24,14 +24,16 @@ export const it: Locale = {
     associatedWith: "Associato a",
     inProgress: "In corso",
     all: "Tutti",
-    personal: "Personale"
+    personal: "Personale",
+    moreTitle: "Altri progetti"
   },
-  articles: {
-    title: "Articoli",
-    subtitle:
-      "Riflessioni su ingegneria, strumenti e creazione di prodotti — pubblicate su Medium.",
-    viewAll: "Vedi tutto su Medium",
+  blogs: {
+    title: "Blog",
+    subtitle: "Note su ingegneria, strumenti e come costruire cose che durano.",
     empty: "Ancora nessun articolo — torna presto.",
+    minRead: "min di lettura",
+    moreTitle: "Altro dal blog",
+    viewAll: "Vedi tutto",
   },
   services: {
     badge: "Disponibile per freelance",

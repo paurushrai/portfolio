@@ -37,7 +37,7 @@ export async function generateMetadata({
       template: "%s | Paurush Rai",
     },
     description:
-      "Paurush Rai is a Senior Product Engineer and Full-Stack Developer with 5+ years of experience building enterprise SaaS, AI-integrated platforms, and developer tools. Available for Senior Product Engineer, Senior Frontend Developer, and Senior Software Engineer roles.",
+      "Senior Product Engineer & Full-Stack Developer with 5+ years building enterprise SaaS, AI-integrated platforms, and developer tools. Open to new roles.",
     keywords: [
       "Senior Product Engineer",
       "Senior Software Engineer",
@@ -59,14 +59,6 @@ export async function generateMetadata({
         "Senior Product Engineer & Full-Stack Developer specializing in AI integration, enterprise SaaS, and developer tools. 5+ years building scalable web platforms.",
       url: canonical,
       siteName: "paurushrai.in",
-      images: [
-        {
-          url: `${BASE_URL}/og.png`,
-          width: 1920,
-          height: 1080,
-          alt: "Paurush Rai — Senior Product Engineer & Full-Stack Developer",
-        },
-      ],
       locale,
       type: "website",
     },
@@ -86,7 +78,6 @@ export async function generateMetadata({
       description:
         "Senior Product Engineer & Full-Stack Developer specializing in AI integration, enterprise SaaS, and developer tools. 5+ years building scalable web platforms.",
       card: "summary_large_image",
-      images: [`${BASE_URL}/og.png`],
     },
     icons: {
       shortcut: "/favicon.ico",
@@ -174,6 +165,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               sameAs: [
                 "https://github.com/paurushrai",
                 "https://linkedin.com/in/paurushrai",
+                "https://discord.com/users/paurushrai",
               ],
               knowsAbout: [
                 "Product Engineering",
@@ -200,6 +192,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 skills:
                   "React, Next.js, TypeScript, Node.js, AI Integration, Full-Stack Development",
               },
+            }),
+          }}
+        />
+        {/* JSON-LD structured data, serialized from trusted app constants (no user input). */}
+        <script
+          type="application/ld+json"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD from trusted app constants, no user input
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Paurush Rai",
+              url: BASE_URL,
             }),
           }}
         />

@@ -16,7 +16,8 @@ export default function Home() {
   const navigation = [
     { name: t.nav.about, href: "/about" },
     { name: t.nav.projects, href: "/projects" },
-    { name: t.nav.articles, href: "/articles" },
+    { name: t.nav.blogs, href: "/blogs" },
+    // Hidden from primary nav — shared directly with freelance clients, kept in sitemap.ts.
     // { name: t.nav.services, href: "/services" },
     { name: t.nav.contact, href: "/contact" },
   ];
@@ -83,6 +84,15 @@ export default function Home() {
               <Download className="w-3 h-3" />
               {t.home.resume}
             </a>
+            {/* Hidden — shared directly with freelance clients, kept in sitemap.ts.
+            <Link
+              href={localePath("/services")}
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white text-black text-xs font-medium hover:bg-zinc-200 duration-200"
+            >
+              {t.nav.services}
+              <ArrowRight className="w-3 h-3" />
+            </Link>
+            */}
           </div>
         </div>
       </main>

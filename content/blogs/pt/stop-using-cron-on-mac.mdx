@@ -1,0 +1,215 @@
+---
+title: Pare de Usar cron no Seu Mac — Use launchd Ao Invés
+description: cron faz polling numa agenda e perde jobs enquanto seu notebook dorme. As WatchPaths do launchd reagem a eventos do sistema de arquivos em vez disso, e é a automação que substituiu o cron de vez.
+date: 2026-06-09
+published: true
+coverImage: /blogs/stop-using-cron-on-mac/1.png
+tags: ["macOS", "launchd", "Automation", "DevOps"]
+---
+
+*Eu precisava que minha máquina reagisse a mudanças, não que fizesse polling por elas. A resposta foi uma funcionalidade do macOS com 20 anos que quase ninguém usa — e ela venceu o cron em tudo o que importava.*
+
+Na semana passada construí um sistema que faz commit automático da configuração da minha máquina: instalo um pacote do Homebrew, e oito segundos depois há um commit no git registrando isso no GitHub.
+
+Quando comecei, minha memória muscular dizia o que a memória muscular de todo desenvolvedor diz:
+
+> *É só colocar no cron.*
+
+Não coloquei. E os motivos viraram a lição de macOS mais útil que aprendi em anos.
+
+## ⏰ O Problema Com Polling
+
+Aqui está como a versão em cron da minha automação seria:
+
+```bash
+*/5 * * * * /Users/me/sync.sh
+```
+
+![cron fazendo polling a cada cinco minutos versus o launchd disparando em eventos do sistema de arquivos](/blogs/stop-using-cron-on-mac/1.png)
+
+A cada cinco minutos, para sempre, minha máquina acorda um processo para perguntar: *alguma coisa mudou?*
+
+Quase sempre, a resposta é não.
+
+Essa é a forma fundamental do cron: **polling**. Ele não sabe nada sobre eventos. Só sabe sobre tempo. Então você é forçado a uma péssima troca:
+
+- Faça polling com frequência → centenas de execuções inúteis por dia, só por precaução
+- Faça polling raramente → mudanças ficam sem commit por uma hora, anulando o propósito
+
+E o cron num notebook tem um segundo problema, mais traiçoeiro. O cron assume que a máquina está *ligada*. Feche a tampa às 23h58, e o job do meio-dia simplesmente não acontece. Sem retry, sem recuperação, nada. Servidores estão sempre ligados; notebooks dormem. O cron foi projetado para servidores.
+
+O que eu realmente queria era simples de descrever:
+
+> *Quando o sistema de arquivos mudar, rode meu script. Fora isso, não faça absolutamente nada.*
+
+Isso não é uma agenda. Isso é um **evento**.
+
+## ⚙️ O Daemon Que Você Já Tem
+
+O macOS vem com o launchd — é literalmente o processo 1, a coisa que inicializa cada serviço do sistema. A Apple substituiu o cron internamente por ele anos atrás (os jobs de cron do seu Mac são, na verdade, executados *pelo* launchd).
+
+A maioria dos desenvolvedores sabe que o launchd existe. Quase ninguém usa a sua melhor funcionalidade:
+
+**WatchPaths** — o launchd observa um caminho do sistema de arquivos no nível do sistema operacional, e dispara seu job no exato momento em que ele muda.
+
+```xml
+<key>WatchPaths</key>
+<array>
+    <string>/opt/homebrew/Cellar</string>
+    <string>/opt/homebrew/Caskroom</string>
+</array>
+```
+
+Esse é todo o truque. O Homebrew instala cada pacote em `/opt/homebrew/Cellar` — então *qualquer* instalação ou desinstalação, de qualquer shell, script ou ferramenta, muda esse diretório. O sistema percebe. Meu script roda.
+
+Sem polling. Sem execuções desperdiçadas. Zero CPU enquanto ocioso. O job existe como uma *intenção registrada*, e o kernel é quem faz a observação.
+
+A definição completa do job é um único arquivo plist:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.paurushrai.dotfiles-sync</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/paurushrai/Developer/infra/dotfiles/sync.sh</string>
+    </array>
+
+    <key>WatchPaths</key>
+    <array>
+        <string>/opt/homebrew/Cellar</string>
+    </array>
+
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key><integer>12</integer>
+        <key>Minute</key><integer>0</integer>
+    </dict>
+
+    <key>ThrottleInterval</key>
+    <integer>60</integer>
+
+    <key>StandardOutPath</key>
+    <string>/Users/paurushrai/Library/Logs/dotfiles-sync.log</string>
+</dict>
+</plist>
+```
+
+Coloque na pasta `~/Library/LaunchAgents/`, registre uma vez:
+
+```bash
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.paurushrai.dotfiles-sync.plist
+```
+
+Ele sobrevive a reinicializações. Roda com ou sem um terminal aberto. Agora faz parte do sistema operacional.
+
+Testei do jeito honesto — instalei um pacote e não toquei em mais nada:
+
+```bash
+$ brew install jq
+... 8 segundos depois, zero envolvimento do shell:
+67ba27e chore: auto-sync .Brewfile  → pushed to GitHub ✅
+```
+
+![brew install jq disparando um commit automático enviado ao GitHub em oito segundos](/blogs/stop-using-cron-on-mac/2.png)
+
+## 🧩 Três Chaves Que Fazem o Trabalho Pesado
+
+O plist acima carrega três decisões de design embutidas, e cada uma substituiu código que eu teria que escrever de outra forma.
+
+![as três chaves do launchd: ThrottleInterval, StartCalendarInterval e StandardOutPath](/blogs/stop-using-cron-on-mac/3.png)
+
+**ThrottleInterval: 60 é um debouncer de graça.** Instale cinco pacotes seguidos e o sistema de arquivos dispara cinco eventos — mas o launchd não roda o job mais de uma vez a cada 60 segundos, então recebo *um* commit cobrindo todos os cinco. No mundo do cron, esse tipo de agrupamento é lógica que você escreve e testa sozinho. Aqui é um único número inteiro.
+
+**StartCalendarInterval é a agenda do cron — menos o problema do cron com notebooks.** Ele me dá uma execução diária ao meio-dia como rede de segurança para qualquer coisa que as observações deixarem passar. E, diferente do cron, se a máquina estiver dormindo ao meio-dia, **o launchd roda o job quando ela acorda**. Agendas perdidas executam atrasadas em vez de nunca executarem. Para um notebook, esse único comportamento já encerra a comparação.
+
+**StandardOutPath é observabilidade de graça.** A saída de cada execução é anexada a um arquivo de log que eu escolhi. Quando me perguntei por que algo não disparou, a resposta já estava escrita.
+
+## 🔁 A Armadilha Que Morde a Todos
+
+Agora a confissão. Meu script commita em um repositório git — e meu primeiro instinto foi observar o próprio diretório do repositório. Uma única entrada de observação, cobrindo todo arquivo. Elegante.
+
+Também é um loop infinito.
+
+![o loop de feedback: um commit modifica .git, que dispara o agente, que commita de novo](/blogs/stop-using-cron-on-mac/4.png)
+
+Todo commit do git **modifica `.git/`**. Então: uma mudança dispara o agente → o agente commita → o commit muda `.git/` → que está dentro do diretório observado → que dispara o agente de novo. Para sempre.
+
+A correção é uma regra que vale a pena memorizar:
+
+> *Nunca observe um diretório no qual seu job escreve.*
+
+Eu observo **arquivos individuais** em vez disso — cada dotfile rastreado ganha sua própria entrada de WatchPaths, e a raiz do repositório fica deliberadamente ausente. A troca: um arquivo novo em folha numa subpasta profunda não é percebido instantaneamente; a execução diária de meio-dia recolhe isso depois. Um preço justo por um sistema que não consegue correr atrás do próprio rabo.
+
+Mais duas armadilhas da mesma tarde, para você não pagar meu pedágio de novo:
+
+- **Não faça symlink do plist.** Guardo o plist no meu repositório de dotfiles e *copio* ele para `~/Library/LaunchAgents/` — o launchd não é confiável com definições de job symlinkadas no macOS moderno. O repositório guarda a fonte da verdade; o instalador implanta uma cópia.
+- **Jobs do launchd ganham um ambiente mínimo.** Sem o `PATH` do seu shell, sem aliases, nada do seu `.zshrc`. Meu script define o próprio `PATH` na primeira linha. Se seu job "funciona no terminal mas não no launchd", quase sempre é isso.
+
+## 🔔 Faça-o Falar, Depois Faça-o Esperar
+
+Um job em segundo plano que você não consegue ver é um job em segundo plano em que você vai parar de confiar.
+
+Meu script anuncia todo commit com uma linha de macOS nativo:
+
+```bash
+osascript -e 'display notification "Committed & pushed: .Brewfile" with title "dotfiles sync"'
+```
+
+Primeiro teste: eu nunca vi. Notificações em banner desaparecem em cinco segundos.
+
+A correção não foi código — foi uma configuração que quase ninguém muda: **Ajustes do Sistema → Notificações → Script Editor → Alertas**. Notificações estilo alerta permanecem na tela até serem dispensadas. Agora cada sincronização espera no canto até eu confirmar, com os nomes dos arquivos alterados na mensagem.
+
+Um detalhe de design que importa: o script só notifica quando algo foi *de fato* commitado. Uma execução sem alterações fica em silêncio. Uma notificação que dispara o tempo todo é uma notificação que você já aprendeu a ignorar — fadiga de alerta mata a observabilidade mais rápido do que a ausência de alertas.
+
+## 🛠 O Cheat Sheet
+
+Tudo o que você precisa para rodar o seu próprio:
+
+```bash
+# registrar (uma vez, ou depois de editar o plist)
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.example.myjob.plist
+```
+
+```bash
+# desregistrar
+launchctl bootout gui/$(id -u)/com.example.myjob
+```
+
+```bash
+# está carregado?
+launchctl list | grep myjob
+```
+
+```bash
+# o que aconteceu?
+tail -f ~/Library/Logs/myjob.log
+```
+
+E a tabela de decisão que eu gostaria de ter tido:
+
+- O job deve reagir a um **arquivo ou diretório mudando** → `WatchPaths`
+- O job deve rodar numa **agenda, segura para notebooks** → `StartCalendarInterval`
+- O job dispara em **rajadas** que deveriam ser agrupadas → `ThrottleInterval`
+- O job precisa rodar **no momento em que é registrado** → `RunAtLoad`
+- Você está prestes a digitar `crontab -e` num Mac → pare, escreva um plist
+
+## 🎯 A Lição Sob a Lição
+
+A automação que construí é pequena. O princípio não é.
+
+Quase recorri ao cron porque cron é o que eu *conhecia* — e quase recorri a um pacote npm de observação de arquivos porque é o que os resultados de busca sugerem. Ambos teriam funcionado, mal: um fazendo polling num timer, o outro adicionando uma dependência para fazer o que o sistema operacional já faz nativamente.
+
+A ferramenta chata, nativa, de vinte anos, foi melhor que as duas. Orientada a eventos em vez de por polling. Ciente de notebooks em vez de assumir servidores. Zero dependências em vez de mais uma coisa para instalar na próxima máquina.
+
+Antes de adicionar uma ferramenta, pergunte o que o sistema operacional já entrega.
+
+A resposta, mais vezes do que você imagina, é: **tudo o que você precisava, sentado no processo 1, esperando desde 2005.**
+
+## O que está rodando na sua pasta LaunchAgents?
+
+Tenho curiosidade sobre o que outras pessoas automatizaram no nível do sistema operacional — e em quais armadilhas caíram fazendo isso. O loop de feedback do WatchPaths não pode ser a única.

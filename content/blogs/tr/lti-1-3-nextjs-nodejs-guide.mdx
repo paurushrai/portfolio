@@ -1,0 +1,143 @@
+---
+title: Next.js ve Node.js ile Modern Bir LTI 1.3 Aracı Oluşturmak
+description: LTI 1.3 LMS entegrasyonları için, Node.js/ltijs güvenlik katmanını üçüncü taraf çerez engellemesine dayanıklı, durum bilgisi taşımayan bir token akışıyla bir Next.js önyüzünden ayıran, üretime hazır bir mimari.
+date: 2026-01-26
+published: true
+coverImage: /blogs/lti-1-3-nextjs-nodejs-guide/1.png
+tags: ["LTI", "LMS", "Next.js", "Node.js"]
+---
+
+![Next.js önyüzünün önünde bir Node.js güvenlik katmanına sahip LTI 1.3 mimarisi](/blogs/lti-1-3-nextjs-nodejs-guide/1.png)
+
+Canvas, Moodle veya Blackboard gibi bir Öğrenme Yönetim Sistemi (LMS) için bir entegrasyon oluşturmayı hiç denediyseniz, acısını bilirsiniz. Özellikle **LTI 1.3'ün (Learning Tools Interoperability)** acısını.
+
+OIDC girişleri, JWKS anahtar kümeleri, RSA imzaları ve özel anahtarların karmaşık bir dansını içerir. Güvenli olması amaçlanmıştır, ama sadece "Canvas'a bir web uygulaması gömmek" isteyen bir geliştirici için bir kâbus gibi hissettirebilir.
+
+Bu rehberde, modern güvenli uygulamalar kullanarak LTI 1.3 araçları oluşturmak için **üretime hazır bir mimari** üzerinden geçeceğim. Güvenlik katmanı için **Node.js**, önyüz için **Next.js** kullanacağız; güvenlikten ödün vermeden akıcı bir geliştirici deneyimi sağlayacağız.
+
+**🔗 GitHub Deposu**: [github.com/paurushrai/lti-1.3-node-nextjs-template](https://www.github.com/paurushrai/lti-1.3-node-nextjs-template)
+
+## 🧐 LTI 1.3 Nedir ve Neden Önemsemelisiniz?
+
+LTI (Learning Tools Interoperability), harici araçların (sizin uygulamanız gibi) bir LMS (Canvas gibi) ile iletişim kurmasını sağlayan standarttır.
+
+Eskiden, **LTI 1.1** kolaydı: bir "gizli anahtar" ve "tüketici anahtarı" paylaşırdınız. Ama güvensizdi. **LTI 1.3**, modern bilgi güvenliği modeline geçiyor:
+
+1. Giriş akışı için **OIDC (OpenID Connect)**.
+2. Veri alışverişi için **JWT'ler (JSON Web Token'lar)**.
+3. Paylaşılan gizli anahtarlar yerine **açık/özel anahtar şifrelemesi** (RSA256).
+
+Bu onu inanılmaz derecede güvenli yapıyor, ama sıfırdan uygulamayı da zorlaştırıyor.
+
+## 🏗 Mimari
+
+Bunu çözmek için bir monolit inşa etmeyeceğiz. **Güvenlik sağlayıcımızı** **uygulama arayüzümüzden** ayıracağız.
+
+### Teknoloji Yığını
+
+- **Backend (güvenlik görevlisi)**: Node.js + Express + `ltijs` (Cvmcosta'nın sağlam bir kütüphanesi).
+- **Frontend (deneyim)**: Next.js 14+ (App Router) + React + Tailwind CSS.
+- **Veritabanı**: PostgreSQL (kriptografik anahtarları ve platform kayıtlarını saklar).
+- **Altyapı**: Docker Compose.
+
+### Sorun: "Üçüncü Taraf Çerez" Kıyameti
+
+LTI araçlarıyla ilgili büyük bir zorluk, LMS içinde bir `<iframe>` içinde çalışmalarıdır. Modern tarayıcılar (Safari, Chrome Gizli Mod) varsayılan olarak **üçüncü taraf çerezleri** engeller.
+
+Web uygulamanız bir oturum çerezine (`connect.sid`) bağımlıysa? **Safari'de başarısız olur.**
+
+### Çözüm: "LTIaaS" Token Akışı
+
+Bu proje, çerez sınırlamasını aşmak için "durum bilgisiz" bir token deseni uyguluyor:
+
+1. **LMS başlatma**: LMS, Node.js backend'imize bir istek gönderir.
+2. **El sıkışma**: Backend imzayı doğrular. Geçerliyse, kısa ömürlü, tek kullanımlık bir **ltik (LTI key)** üretir.
+3. **Yönlendirme**: Backend, iframe'i Next.js frontend'ine yönlendirir, token'ı URL'de geçirerek: `https://myapp.com/app?ltik=eyJhb...`
+4. **Hydration**: Next.js uygulaması bu token'ı URL'den alır.
+5. **API çağrıları**: Frontend, bundan sonraki tüm API çağrıları için bu token'ı `Authorization` başlığında Bearer token olarak kullanır.
+
+**Çerez gerekmez!**
+
+## 🚀 Bunu Nasıl Kurarsınız (Adım Adım)
+
+İşte bunu yerel makinenizde beş dakikada çalıştırmanın yolu.
+
+### 1. Ön Koşullar
+
+**Docker** kurulu olması gerekiyor. Ayrıca **ngrok** (veya benzer bir tünelleme servisi) de gerekiyor, çünkü LTI araçlarının HTTPS üzerinden sunulması **gerekir**. Sadece localhost kullanamazsınız.
+
+### 2. Depoyu Klonlayın
+
+```bash
+git clone https://github.com/paurushrai/lti-1.3-node-nextjs-template.git
+cd lti-1.3-node-nextjs-template
+```
+
+### 3. Ortamı Yapılandırın
+
+Örnek ortam dosyasını kopyalayın:
+
+```bash
+cp lti-server/.env.example lti-server/.env
+```
+
+Rastgele güvenli bir anahtar oluşturun ve `.env` içindeki `LTI_KEY`'e yapıştırın.
+
+### 4. Tüneli Başlatın
+
+ngrok'u 3000 portunda başlatın (Node sunucumuzun yaşadığı yer burası).
+
+```bash
+ngrok http 3000
+```
+
+https URL'nizi kopyalayın (ör. `https://my-tool.ngrok-free.app`).
+
+### 5. Uygulamayı Çalıştırma
+
+`lti-server/.env` dosyasını tekrar açın ve `UI_URL`'yi ngrok URL'nize ayarlayın.
+
+Şimdi, Docker ile her şeyi ayağa kaldırın:
+
+```bash
+docker-compose up --build
+```
+
+Artık şunlara sahipsiniz:
+
+- **LTI sunucusu**: `http://localhost:4000`
+- **Next.js istemcisi**: `http://localhost:3000`
+- **Postgres**: otomatik olarak bağlı.
+
+## 🔌 LMS'e Bağlanmak ("Sihirli" Bağlantı)
+
+Eskiden, açık anahtarları ve URL'leri elle kopyalayıp yapıştırmanız gerekirdi. Bu proje **LTI Dynamic Registration**'ı destekliyor.
+
+1. **Kayıt URL'nizi** kopyalayın: `https://<your-ngrok-domain>/lti/register`
+2. LMS'inize gidin (ör. Canvas Admin → Developer Keys).
+3. **"Dynamic Registration"**'ı seçin.
+4. URL'yi yapıştırın ve **Register**'a tıklayın.
+
+**Bum.** 💥 Araç ve LMS otomatik olarak açık anahtarları değiş tokuş eder. Araç artık kurulu.
+
+## 🧪 Akışı Test Etmek
+
+1. LMS'inizde genel bir ödev veya modül öğesi oluşturun.
+2. "External Tool"u seçin ve yeni aracınızı seçin.
+3. **Başlatın.**
+4. **Next.js uygulamasının** iframe içinde yüklendiğini göreceksiniz.
+5. "Hoş geldin, [Adınız]" ve rolünüzü (Eğitmen/Öğrenci) gösterecek.
+
+Uygulama başarıyla:
+
+1. Başlatmayı doğruladı.
+2. LTI başlatma verisinden kullanıcı profilinizi çözdü.
+3. Onu güvenli bir şekilde frontend'e geçirdi.
+
+## 📝 Sonuç
+
+LTI araçları oluşturmak gizemli olmak zorunda değil. **Protokol mantığını** (Node/ltijs) **uygulama mantığından** (Next.js) ayırarak, her iki dünyanın da en iyisini elde edersiniz: sağlam güvenlik ve modern, React tabanlı bir arayüz.
+
+Koda göz atın, depoyu fork edin ve kendi entegrasyonlarınızı oluşturmaya başlayın!
+
+[**Kodu GitHub'da görüntüleyin**](https://github.com/paurushrai/lti-1.3-node-nextjs-template)

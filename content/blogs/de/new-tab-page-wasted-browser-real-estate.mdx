@@ -1,0 +1,83 @@
+---
+title: Dein neuer Tab verschenkt wertvollen Bildschirmplatz
+description: Warum die durchschnittliche Neuer-Tab-Seite toter Raum ist – und wie ein rein lokales Chrome-Dashboard mit angehefteten Links, Erinnerungen und Profil-Workspaces das Problem ganz ohne Tracking gelöst hat.
+date: 2026-06-14
+published: true
+coverImage: /blogs/new-tab-page-wasted-browser-real-estate/1.png
+tags: ["Chrome Extensions", "Productivity", "Browsers", "Privacy"]
+---
+
+*Vierzig-und-mehr offene Tabs, ein Lüfter, der nie stillstand, und ein "neuer Tab", der nichts tat. Also habe ich mir ein kleines Dashboard gebaut – und Stück für Stück verschwanden die Probleme, mit denen ich mich abgefunden hatte.*
+
+![Das MonoStart-Dashboard – angeheftete Links, Suche, Gruppen und Produktivitäts-Widgets auf einem neuen Tab](/blogs/new-tab-page-wasted-browser-real-estate/1.png)
+
+Ich öffne vielleicht 200-mal am Tag einen neuen Tab – es ist die meistbesuchte "Seite" in meinem digitalen Leben. Und jahrelang gab sie mir nichts außer einer Suchleiste und einem Raster von Seiten, die Google erraten hatte. Die meistfrequentierte Fläche in meinem Browser war toter Raum.
+
+Aber die leere Seite war nicht das eigentliche Problem. Das eigentliche Problem war alles, was ich tat, um damit klarzukommen. Hier ist, womit ich gekämpft habe – und was verschwunden ist.
+
+## 🗂️ Problem: Ich hortete Tabs, um URLs nicht neu eintippen zu müssen
+
+Das Jira-Board, die Docs, drei Notion-Seiten, der Kalender, dieser eine Stack-Overflow-Tab, den ich "vielleicht noch brauche" – alles blieb offen, ordentlich in farbige Tab-Gruppen sortiert, damit es *aussah*, als wäre es organisiert. Über drei Profile hinweg.
+
+Es fühlte sich produktiv an. War es nicht. Jeder Tab ist ein lebendiger, speicherhungriger Prozess, den Chrome warmhält. Ich organisierte nicht meine Arbeit – ich zahlte eine RAM-und-Lüfter-Steuer, nur um URLs nicht neu eintippen zu müssen.
+
+**Die Lösung:** Mir wurde klar, dass ich nicht die *Seite* behalten wollte, sondern den *Verweis*. Ein Link kostet nichts; ein Tab kostet einen Prozess. Also baute ich einen einzigen schnellen Ort für die Links – im Header angeheftet, in Gruppen sortiert, einen Klick entfernt.
+
+**Verschwunden:** die 40-Tab-Wand, der Lüfter, die RAM-Steuer. Ich öffne, was ich brauche, und schließe es wieder.
+
+## 🤔 Problem: Jedes Dashboard, das ich ausprobierte, schuf neue Probleme
+
+Ich habe zuerst die vorhandenen Neuer-Tab-Erweiterungen ausprobiert. Jede tauschte meine leere Seite gegen etwas Schlimmeres ein:
+
+- **Sie fühlten sich wie eine fremde App an** – verschoben die Suchleiste, versteckten meinen Verlauf, brachen mein Muskelgedächtnis. → Meine behält die echte Google-Suchleiste, meine echten Verlaufsvorschläge und Chromes eigenes Erscheinungsbild.
+- **Sie wollten ein Konto** und Cloud-Sync mit "Analyse-Partnern". → Meine hat kein Login und kein Backend.
+- **Sie monetarisierten mich** – gesponserte Links, Telemetrie. → Meine hat null Werbung und null Tracking.
+- **Sie waren schwerfällig** – eine halbe Sekunde Ladeanimation. → Meine *ist* die Neuer-Tab-Seite: sofort da, keine Ladeanimation.
+
+Ich wollte eine Seite, die ganz mir gehört, sich aber anfühlt, als hätte ich nichts installiert. Also die eine Regel, die ich nicht brechen wollte: *man sollte nicht erkennen können, wo Chrome aufhört und das Dashboard anfängt.* Ich drücke `⌘T`, und ich bin zu Hause – gleiche Suche, gleiche Reflexe, nur mit meinem Zeug drauf.
+
+## 👥 Problem: Drei Profile, eine tote Seite für alle
+
+Ich teile mein Surfen auf Chrome-Profile auf – privat, Firma, freiberuflich – aber alle drei landeten auf demselben leeren Tab. Ein Profilwechsel änderte meine Logins und sonst nichts.
+
+**Die Lösung:** Alles wird lokal gespeichert, pro Profil (`chrome.storage.local`), sodass jedes Profil sein eigenes, unabhängiges Dashboard automatisch bekommt – privat öffnet zu Leselisten und Nebenprojekten, Arbeit zu Jira und einer "Standup um 10"-Erinnerung, freiberuflich zu Kundenordnern und einem Timer für abrechenbare Stunden.
+
+**Verschwunden:** die Vermischung der Kontexte. Ein Profilwechsel ist jetzt ein Workspace-Wechsel – das Dashboard sagt mir, welche Version von mir ich gerade bin.
+
+## ⚡ Problem: Die Lücke zwischen "Ich brauche eine Seite" und "Ich bin da"
+
+Eine Seite zu erreichen war ein Ritual – `⌘L`, tippen, warten, ankommen – oder schlimmer, durch zwölf Tab-Gruppen wühlen nach dem Tab, den ich angeblich offen gelassen hatte.
+
+**Die Lösung:** Meine meistgenutzten Seiten sind im Header angeheftet, der Rest lebt in farbigen Gruppen. Auf jeder Seite, die es wert ist, aufbewahrt zu werden, legt das Symbol in der Toolbar sie mit einem Klick ab – ins Raster, in den Header oder in eine Gruppe.
+
+**Verschwunden:** die Lücke. `⌘T` → sie ist da → klicken. Multipliziert man eine gesparte Sekunde oder zwei mit 200 Tabs am Tag, hört das auf, ein Rundungsfehler zu sein.
+
+## 🛠️ Die Probleme, die jedes Widget nebenbei erledigt hat
+
+Ich wollte eine leere Seite ersetzen; sie wurde zu dem Ort, an dem meine kleinen täglichen Ärgernisse sterben. Jedes begann als Problem, nicht als Feature – alle lokal, einen Tastendruck entfernt:
+
+- **🔔 Ich verpasste ständig Standups und ließ Tee zu lange ziehen.** Erinnerungen lösen echte Benachrichtigungen mit Ton aus – selbst bei geschlossenen Tabs, selbst durch "Nicht stören" hindurch. Diejenige, auf die ich mich am meisten verlasse.
+- **⏱️ Ich verlor beim konzentrierten Arbeiten das Zeitgefühl.** Beschriftete Timer ("Tee", "Standup") laufen nebeneinander. Time-Boxing hat endlich funktioniert.
+- **✅ Meine To-do-Liste lebte dort, wo ich nie hinsah.** Jetzt sitzen Checkliste und Notizzettel auf der Seite, die ich 200-mal am Tag öffne.
+- **🌐 Ich hatte Tabs offen, nur um kurz auf etwas zu schauen.** Eingebettete Mini-Widgets – ein Kalender, ein Statusboard – auf einen Blick sichtbar, ohne eigenen Tab.
+- **🎨 Fremde Themes passten nie zu meinem Setup.** Hell, dunkel oder dem System folgend, mit eigenen Akzentfarben und meinem eigenen Hintergrundbild.
+
+## 🔒 Das Problem, das ich nicht eintauschen wollte
+
+Jede Lösung hätte einen versteckten Preis haben können: meine Daten auf den Server von irgendjemandem zu geben. Das wollte ich nicht. Also – keine Konten, keine Server, keine Analyse, keine Werbung. Alles lebt in `chrome.storage.local`; es gibt nirgends hochzuladen, weil es kein Backend gibt. Das Einzige, was den Browser verlässt, ist das, was ich in die Suche tippe – gesendet an Google für die Autovervollständigung, wie bei jeder Suchleiste.
+
+**Der ehrliche Kompromiss:** Lokale Daten synchronisieren nicht über mehrere Rechner hinweg. Für eine Neuer-Tab-Seite nehme ich das jedes Mal in Kauf.
+
+## 🧰 Für die Neugierigen
+
+Eine Manifest-V3-Erweiterung – React 19, TypeScript, Vite, Tailwind, shadcn/ui – quelloffen unter der PolyForm-Noncommercial-Lizenz einsehbar, damit du jede Zeile lesen und die Datenschutzversprechen selbst überprüfen kannst. Sie fordert nur die Berechtigungen an, die ihre eine Aufgabe braucht.
+
+## 🚀 Wenn du mit denselben Dingen kämpfst
+
+Ich habe das gebaut, um meinen eigenen Browser zu reparieren. Wenn deiner toter Raum ist – oder eine Wand aus Tab-Gruppen, die deinen Laptop zum Kochen bringt – könnte es bei dir dieselben Probleme lösen.
+
+👉 [MonoStart im Chrome Web Store](https://chromewebstore.google.com/detail/hhfeihcppmfepeeainafmaifpmdemmlg)
+
+Kostenlos, privat, und innerhalb von fünf Minuten kann die meistgeöffnete Seite deines Browsers endlich für dich arbeiten.
+
+*MonoStart ist ein privates, anpassbares Neuer-Tab-Dashboard für Chrome, gebaut von Paurush Rai.*

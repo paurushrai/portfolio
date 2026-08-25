@@ -1,0 +1,83 @@
+---
+title: La tua pagina "nuova scheda" è spazio sprecato nel browser
+description: Perché la tipica pagina di nuova scheda è terra di nessuno, e come una dashboard Chrome locale con link fissati, promemoria e workspace per profilo l'ha risolto senza alcun tracciamento.
+date: 2026-06-14
+published: true
+coverImage: /blogs/new-tab-page-wasted-browser-real-estate/1.png
+tags: ["Chrome Extensions", "Productivity", "Browsers", "Privacy"]
+---
+
+*Una quarantina di schede aperte, una ventola che non si fermava mai, e una "nuova scheda" che non faceva nulla. Così mi sono costruito una piccola dashboard — e una alla volta, ha eliminato i problemi con cui convivevo.*
+
+![La dashboard MonoStart — link fissati, ricerca, gruppi e widget di produttività su un'unica nuova scheda](/blogs/new-tab-page-wasted-browser-real-estate/1.png)
+
+Apro una nuova scheda forse 200 volte al giorno — è la "pagina" più visitata della mia vita al computer. E per anni non mi ha dato altro che una barra di ricerca e una griglia di siti indovinati da Google. Lo spazio più trafficato del mio browser era terra di nessuno.
+
+Ma la pagina vuota non era il vero problema. Il vero problema era tutto quello che facevo per conviverci. Ecco cosa stavo combattendo, e cosa è sparito.
+
+## 🗂️ Problema: accumulavo schede per non riscrivere gli URL
+
+La board di Jira, i documenti, tre pagine Notion, il calendario, quella scheda di Stack Overflow che "mi sarebbe potuta servire" — tutte tenute aperte, raggruppate in ordinati gruppi colorati così *sembravano* organizzate. Su tre profili.
+
+Sembrava produttivo. Non lo era. Ogni scheda è un processo vivo e affamato di memoria che Chrome tiene caldo. Non stavo organizzando il mio lavoro — stavo pagando una tassa di RAM e ventola pur di non riscrivere gli URL.
+
+**La soluzione:** ho capito che non stavo tenendo la *pagina*, stavo tenendo il *puntatore*. Un link non costa nulla; una scheda costa un processo. Così mi sono costruito un posto veloce dove tenere i link — fissati nell'header, ordinati in gruppi, a un clic di distanza.
+
+**Sparito:** il muro di 40 schede, la ventola, la tassa sulla RAM. Apro quello che mi serve e lo chiudo.
+
+## 🤔 Problema: ogni dashboard che provavo creava nuovi problemi
+
+Ho provato prima le estensioni per nuova scheda già esistenti. Ognuna scambiava la mia pagina vuota con qualcosa di peggio:
+
+- **Sembravano un'app estranea** — spostavano la barra di ricerca, nascondevano la cronologia, rompevano gli automatismi. → La mia mantiene la vera barra di ricerca Google, i suggerimenti reali della cronologia e l'aspetto originale di Chrome.
+- **Volevano un account** e una sincronizzazione cloud con "partner di analytics". → La mia non ha login né backend.
+- **Mi monetizzavano** — link sponsorizzati, telemetria. → La mia ha zero pubblicità e zero tracciamento.
+- **Erano pesanti** — mezzo secondo di spinner. → La mia *è* la pagina di nuova scheda: istantanea, senza spinner.
+
+Volevo una pagina che fosse completamente mia ma che desse la sensazione di non aver installato nulla. Quindi l'unica regola che mi sono rifiutato di infrangere: *non dovresti riuscire a capire dove finisce Chrome e dove inizia la dashboard.* Premo `⌘T` e sono a casa — stessa ricerca, stessi riflessi, solo con le mie cose sopra.
+
+## 👥 Problema: tre profili, un'unica pagina morta per tutti
+
+Divido la navigazione tra profili Chrome — personale, azienda, freelance — ma tutti e tre atterravano sulla stessa scheda vuota. Cambiare profilo cambiava i miei login e nient'altro.
+
+**La soluzione:** tutto è salvato in locale, per profilo (`chrome.storage.local`), così ogni profilo ottiene gratis la sua dashboard indipendente — quello personale apre su liste di lettura e side project, quello lavoro su Jira e un promemoria "standup alle 10", quello freelance su cartelle clienti e un timer per le ore fatturabili.
+
+**Sparita:** la contaminazione tra contesti. Cambiare profilo ora significa cambiare *workspace* — la dashboard mi dice quale versione di me stesso sto usando.
+
+## ⚡ Problema: il divario tra "mi serve un sito" e "ci sono"
+
+Raggiungere un sito era un rituale — `⌘L`, digitare, aspettare, atterrare — o peggio, cercare tra dodici gruppi di schede quella che giuravo di aver lasciato aperta.
+
+**La soluzione:** i siti che uso di più sono fissati nell'header; il resto vive in gruppi colorati. Su qualsiasi pagina che vale la pena tenere, l'icona nella toolbar la archivia in un clic — nella griglia, nell'header o in un gruppo.
+
+**Sparito:** il divario. `⌘T` → è lì → clic. Moltiplica un secondo o due risparmiati per 200 schede al giorno e smette di essere un arrotondamento trascurabile.
+
+## 🛠️ I problemi che ogni widget ha eliminato in silenzio
+
+Volevo sostituire una pagina vuota; è diventata il posto dove muoiono i miei piccoli fastidi quotidiani. Ognuno è partito come problema, non come funzionalità — tutti locali, a un tasto di distanza:
+
+- **🔔 Perdevo standup e facevo stracuocere il tè.** I promemoria arrivano come notifiche vere con un suono — anche a schede tutte chiuse, anche con Non disturbare attivo. Quello su cui mi appoggio di più.
+- **⏱️ Perdevo la cognizione del tempo quando ero concentrato.** Timer etichettati ("Tè", "Standup") girano fianco a fianco. Il time-boxing finalmente ha attecchito.
+- **✅ La mia to-do list viveva dove non guardavo mai.** Ora la checklist e i post-it stanno sulla pagina che apro 200 volte al giorno.
+- **🌐 Tenevo schede aperte solo per dare un'occhiata a una cosa.** Mini-widget incorporati — un calendario, una status board — visibili al volo senza una scheda dedicata.
+- **🎨 I temi degli altri non si adattavano mai alla mia configurazione.** Chiaro, scuro, o segui-il-sistema, con accenti personalizzati e il mio sfondo.
+
+## 🔒 Il problema che ho rifiutato di scambiare
+
+Ogni soluzione avrebbe potuto portare un costo nascosto: consegnare i miei dati al server di qualcun altro. Non l'ho fatto. Quindi — niente account, niente server, niente analytics, niente pubblicità. Tutto vive in `chrome.storage.local`; non c'è dove caricarlo perché non c'è un backend. L'unica cosa che esce dal browser è quello che digito nella ricerca, inviato a Google per l'autocompletamento, come qualsiasi barra di ricerca.
+
+**Il compromesso onesto:** i dati locali non si sincronizzano tra macchine. Per una pagina di nuova scheda, lo accetto sempre volentieri.
+
+## 🧰 Per i curiosi
+
+Un'estensione Manifest V3 — React 19, TypeScript, Vite, Tailwind, shadcn/ui — a sorgente disponibile sotto licenza PolyForm Noncommercial, così puoi leggere ogni riga e verificare che le affermazioni sulla privacy non siano marketing. Richiede solo i permessi che il suo unico compito richiede.
+
+## 🚀 Se stai combattendo le stesse cose
+
+L'ho costruita per risolvere il mio browser. Se il tuo è terra di nessuno — o un muro di gruppi di schede che cuoce il tuo laptop — potrebbe eliminare gli stessi problemi anche per te.
+
+👉 [MonoStart sul Chrome Web Store](https://chromewebstore.google.com/detail/hhfeihcppmfepeeainafmaifpmdemmlg)
+
+Gratis, privata, e in cinque minuti la pagina più aperta del tuo browser può finalmente iniziare a lavorare per te.
+
+*MonoStart è una dashboard privata e personalizzabile per la nuova scheda di Chrome, creata da Paurush Rai.*

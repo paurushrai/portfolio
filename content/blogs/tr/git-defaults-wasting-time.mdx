@@ -1,0 +1,265 @@
+---
+title: Git'in Varsayılanları Zamanınızı Çalıyor
+description: Git'in kapalı gelen varsayılan ayarlarının yol açtığı günlük can sıkıcılıkları öldüren on bir global ayar ve yirmi takma ad — upstream branch'ler, merge gürültüsü, kimlik karışıklıkları ve tekrar eden rebase çakışmaları.
+date: 2026-06-08
+published: true
+coverImage: /blogs/git-defaults-wasting-time/1.png
+tags: ["Git", "Developer Tools", "Productivity"]
+---
+
+*İşte her makinede çalıştırdığım git yapılandırması — on bir global ayar ve yirmi takma ad, her biri belirli bir günlük can sıkıcılığı öldürdüğü için orada. Hepsini çalın.*
+
+Bir süre önce bir takım arkadaşım yeni bir branch'i push ederken beni izledi ve durdurdu:
+
+> "Dur — bu nasıl öyle çalıştı? `--set-upstream` yok mu?"
+
+Tek satırlık bir ayar. O, yıllardır bu geçici çözümü elle yazıyordu.
+
+Bu yazının var olma sebebi o konuşma. Çoğu geliştirici git'i **fabrika ayarlarıyla** çalıştırıyor — ve git'in fabrika ayarları sizin için tasarlanmadı. *Uyumluluk* için tasarlandı. Git, sizi bir kez şaşırtmaktansa bin kez kesintiye uğratmayı tercih eder.
+
+Yani herkes aynı günlük vergiyi sessizce ödüyor, çoğu zaman artık fark etmeden bile:
+
+- `fatal: The current branch has no upstream branch` — düzeltmesini o kadar çok yazdınız ki kas hafızası oldu
+- Sıradan bir pull merge yaptığı için tarihçeyi kirleten merge commit'leri
+- Her Mac projesinde her `git status` çıktısında beliren `.DS_Store`
+- *Aynı* rebase çakışmasını beşinci kez çözmek
+- Şirket deposuna kişisel e-postayla commit atmak
+
+Bunların her biri, git'in kapalı olarak gönderdiği tek satırlık bir düzeltme.
+
+![git'in fabrika ayarlarının günlük vergisi — her can sıkıcılık ve tek satırlık düzeltmesi](/blogs/git-defaults-wasting-time/1.png)
+
+Aşağıda benim gerçek yapılandırmam var — her makineye benimle birlikte gelen. Git'in desteklediği her şeyin bir dökümü değil: buradaki her satır gerçek bir can sıkıcılığı öldürerek yerini kazandı. İki perde: önce **global ayarlar**, çünkü git'in davranışını her yerde değiştiriyorlar; sonra **takma adlar**, çünkü onu ne kadar hızlı sürebileceğinizi değiştiriyorlar.
+
+## 🪪 Birinci Perde: Kimlik — Sizi Utandırabilecek Ayar
+
+Sonuçları olan ayarla başlayın:
+
+```bash
+git config --global user.name "Paurush Rai"
+git config --global user.email "personal@email.com"
+```
+
+Bariz. Ama çoğu geliştiricinin hiç kurmadığı kısım şu: **otomatik iş/kişisel yönlendirme**.
+
+İşveren kodunu `~/Developer/company/` altında tutuyorum. `~/.gitconfig` içinde tek bir blok:
+
+```ini
+[includeIf "gitdir:~/Developer/company/"]
+    path = ~/.gitconfig-work
+```
+
+Ve `~/.gitconfig-work` tam olarak tek bir şey tutuyor:
+
+```ini
+[user]
+    email = work@company.com
+```
+
+![includeIf, deponun nerede yaşadığına göre git kimliğini otomatik olarak yönlendiriyor](/blogs/git-defaults-wasting-time/2.png)
+
+Artık kimlik **deponun nerede yaşadığına** göre belirleniyor. Herhangi bir şeyi `company/` içine klonlayın → otomatik olarak iş e-postası. Geri kalan her şey → kişisel. Hatırlamak yok, depo başına kurulum yok, kurumsal denetim kaydında kişisel e-posta yok — ve hafta sonu yan projelerinde iş e-postası yok.
+
+(Neyin *olmadığına* dikkat edin: iş dosyasında isim yok. `includeIf`, global yapılandırmanın üzerine katman olduğu için iş dosyası yalnızca farklı olanı — e-postayı — bildiriyor. Geri kalan her şey miras alınıyor.)
+
+Bu göründüğünden daha önemli, çünkü commit e-postaları **kalıcıdır**. Yanlış kimlikle push edin, sonsuza kadar tarihçede kalır; GitHub commit'i o e-postaya sahip olan hesaba atfeder. Kimlik, en son ne yazdığınızı hatırlamanızın değil, deponun bir özelliği olmalı.
+
+## ⚙️ Birinci Perde, Devamı: Davranış Ayarları
+
+On bir satır. Her biri belirli, tekrar eden bir can sıkıcılığı öldürüyor.
+
+### "no upstream branch" hatasını bir daha görmeyin
+
+```bash
+git config --global push.autoSetupRemote true
+```
+
+Her geliştiricinin ezberlediği hata — `fatal: The current branch has no upstream branch` — git'in bariz olanı yapmak için izin isteyebilmesi için var. Bu ayar, izni kalıcı olarak veriyor. Yeni bir branch'te ilk push sadece çalışıyor. (Bu, takım arkadaşımı cümlenin ortasında durduran satır.)
+
+### Yanlışlıkla merge commit'leri üretmeyi durdurun
+
+```bash
+git config --global pull.rebase true
+```
+
+Varsayılan bir `git pull`, fetch + merge'dir — bu da `"Merge branch 'main' of github.com..."` commit'lerinin tarihçenizi duvar kağıdı gibi kaplamasına yol açar. Bununla, pull yerel commit'lerinizi gelen şeyin üzerine yeniden oynatır. Doğrusal tarihçe, gürültü yok.
+
+### Yeni depoların main ile başlamasını sağlayın
+
+```bash
+git config --global init.defaultBranch main
+```
+
+Aksi halde her `git init`, `master` ile başlıyor ve sonra adını değiştiriyorsunuz. Tek satır, bir daha hiç düşünmeyin.
+
+### Ölü branch'leri biriktirmeyi durdurun
+
+```bash
+git config --global fetch.prune true
+```
+
+Uzak tarafta bir branch silindiğinde (çoğunlukla merge edilmiş PR'lar), `origin/o-branch`'in yerel kopyanız sonsuza kadar kalır. Bu, her fetch'te bayat referansları otomatik olarak siler. Branch listeniz dürüst kalır.
+
+### .DS_Store'u tüm depolardan sonsuza dek yasaklayın
+
+```bash
+git config --global core.excludesfile ~/.gitignore_global
+echo ".DS_Store" > ~/.gitignore_global
+```
+
+Global bir ignore dosyası, her deponun kendi `.gitignore`'unun üzerine uygulanır. macOS artıkları, editör geçici dosyaları — proje başına değil, makine genelinde bir kez halledilir.
+
+### Çakışma çözücünün üçlüsü
+
+```bash
+git config --global merge.conflictstyle zdiff3
+git config --global rerere.enabled true
+git config --global rebase.autostash true
+```
+
+Birlikte çakışma çözümünü dönüştüren üç ayar:
+
+**zdiff3**, çakışma işaretçilerine üçüncü bir bölüm ekler — her iki tarafın da başladığı *orijinal* metin. Standart işaretçiler size "sizinki" ve "onlarınki"ni gösterir ve niyeti tahmin etmenizi ister. Ortak atayı görmek, tahmin etmeyi okumaya dönüştürür.
+
+![zdiff3 çakışma işaretçileri, her iki tarafın yanında orijinal ortak atayı gösteriyor](/blogs/git-defaults-wasting-time/3.png)
+
+**rerere** ("reuse recorded resolution"), on birin gizli yıldızıdır. Git, her çakışmayı nasıl çözdüğünüzü *kaydeder* — ve aynı çakışma tekrar ortaya çıktığında (rebase'ler çakışmaları tekrarlamayı sever), çözümünüzü otomatik olarak yeniden oynatır. Beşinci özdeş çakışma kendi kendini çözer.
+
+**autostash**, "cannot rebase: you have unstaged changes" dansını ortadan kaldırır. Git işinizi stash'ler, rebase yapar ve geri yükler. Ne yapıyor olsanız hayatta kalır.
+
+### Yaşam kalitesi, iki satır
+
+```bash
+git config --global diff.algorithm histogram
+git config --global branch.sort -committerdate
+```
+
+Histogram, varsayılan Myers algoritmasından anlamlı ölçüde daha temiz diff'ler üretir — git'in ilgisiz satırları eşleştirdiği o karışık blokların daha azı. Ve branch'leri son etkinliğe göre sıralamak, `git branch`'in alfabetik arkeoloji yerine önce *gerçekten üzerinde çalıştığınız* şeyi göstermesi anlamına gelir.
+
+## ⌨️ İkinci Perde: Takma Adlar
+
+Ayarlar git'in davranışını değiştirir. Takma adlar hızınızı değiştirir. Neyi kurtardıklarına göre gruplanmış, özenle seçilmiş yirmi tane tutuyorum.
+
+![yirmi git takma adı, günlük sürücüler, net görmek, korkusuz geri alma ve profesyonel hamleler olarak gruplanmış](/blogs/git-defaults-wasting-time/4.png)
+
+### Günlük sürücüler
+
+```bash
+st     = status -sb
+cm     = commit -m
+sw     = switch
+co     = checkout
+amend  = commit --amend --no-edit
+```
+
+`status -sb` bir not hak ediyor: bu iki satırlık durum. Branch durumu artı değişen dosyalar, yıllardır okumayı bıraktığınız tavsiye paragrafları olmadan.
+
+### Net görmek
+
+```bash
+lg     = log --oneline --graph --decorate -20
+last   = log -1 HEAD --stat
+d      = diff
+ds     = diff --staged
+whoami = !echo "$(git config user.name) <$(git config user.email)>"
+```
+
+`git lg` benim "neredeyim"im — yirmi commit, grafik olarak çizilmiş. Ve `git whoami`, Birinci Perde'yi kapatıyor: herhangi bir depoda çalıştırın, bir sonraki commit'i tam olarak hangi kimliğin imzalayacağını yazdırır. `company/` içinde iş e-postamı gösterir; her yerde başka, kişisel olanı. Güven, tek bir komutla doğrulandı.
+
+### Korkusuz geri alma
+
+```bash
+unstage = restore --staged
+undo    = reset --soft HEAD~1
+wip     = !git add -A && git commit -m "wip: checkpoint"
+```
+
+`undo`, hiçbir şeyi yok etmeden commit'i geri alır — değişiklikler yeniden staging'e döner. `wip`, riskli bir ameliyattan önce her şeyin anlık görüntüsünü alır. Çoğu git kaygısı, güvenli dönüş yolunu bilmemekten kaynaklanır; bunlar *o* güvenli dönüş yoludur.
+
+### Profesyonel hamleler
+
+```bash
+pf      = push --force-with-lease
+fixup   = commit --fixup
+ri      = rebase -i --autosquash
+cleanup = !git branch --merged | grep -vE "^\*|main|master" | xargs git branch -d
+```
+
+`pf` önemli olan: `--force-with-lease`, **yalnızca uzak taraf en son gördüğünüz yerdeyse** force push yapar — yani aradan giren bir takım arkadaşının işini fiziksel olarak ezmeyi reddeder. Ham `--force`'un daha iyi bir seçim olduğu bir durum yoktur. Onu takma ad yapmak, parmaklarımın hiçbir zaman tehlikeli versiyonu yazmaması anlamına geliyor.
+
+`fixup` + `ri` ikilisi temiz tarihçe iş akışıdır: önceki bir commit'i *hedefleyen* bir düzeltme commit'i atın, sonra tek bir interaktif rebase her şeyi otomatik olarak yerine katlar.
+
+## 🎯 Onu Kalıcı Yapan Kısım
+
+İşte yapılandırma hakkında bir gerçek: kurmak kolay. *Korumak* asıl sorun. Yalnızca mevcut makinenizde yaşayan bir yapılandırma, bir sonraki makinenizde hafızadan yeniden kuracağınız bir yapılandırmadır.
+
+`~/.gitconfig`'im başıboş bir dosya değil — her değişikliği anında otomatik commit'leyip push eden bir dotfiles deposuna açılan bir symlink. Geçenlerde yeni bir takma ad eklediğimde, arka planda çalışan bir ajan, ben test etmeyi bitirmeden onu GitHub'a commit'lemişti.
+
+(Bu sistem — symlink'ler artı bir launchd ajanı, cron yok, üçüncü taraf araç yok — ayrı olarak yazdığım kendi hikayesi.)
+
+Sonuç: kimlik yönlendirmesi ve yirmi takma adın tümü dahil bu kurulumun tamamı, tek bir `install.sh` ile herhangi bir makineye iniyor. Bir kez yapılandır, sonsuza dek koru.
+
+## 📋 Kopyala-Yapıştıra Hazır, Baştan Sona
+
+```bash
+# kimlik (bunları düzenleyin!)
+git config --global user.name "Your Name"
+git config --global user.email "you@personal.com"
+
+# davranış
+git config --global init.defaultBranch main
+git config --global push.autoSetupRemote true
+git config --global pull.rebase true
+git config --global fetch.prune true
+git config --global core.excludesfile ~/.gitignore_global
+echo ".DS_Store" > ~/.gitignore_global
+git config --global merge.conflictstyle zdiff3
+git config --global rerere.enabled true
+git config --global rebase.autostash true
+git config --global diff.algorithm histogram
+git config --global branch.sort -committerdate
+
+# takma adlar
+git config --global alias.st "status -sb"
+git config --global alias.cm "commit -m"
+git config --global alias.sw "switch"
+git config --global alias.co "checkout"
+git config --global alias.amend "commit --amend --no-edit"
+git config --global alias.lg "log --oneline --graph --decorate -20"
+git config --global alias.last "log -1 HEAD --stat"
+git config --global alias.d "diff"
+git config --global alias.ds "diff --staged"
+git config --global alias.unstage "restore --staged"
+git config --global alias.undo "reset --soft HEAD~1"
+git config --global alias.wip '!git add -A && git commit -m "wip: checkpoint"'
+git config --global alias.pf "push --force-with-lease"
+git config --global alias.fixup "commit --fixup"
+git config --global alias.ri "rebase -i --autosquash"
+git config --global alias.cleanup '!git branch --merged | grep -vE "^\*|main|master" | xargs git branch -d'
+git config --global alias.root "rev-parse --show-toplevel"
+git config --global alias.aliases "config --get-regexp ^alias"
+git config --global alias.whoami '!echo "$(git config user.name) <$(git config user.email)>"'
+```
+
+Ayrıca, iş kodunu ayrı bir dizinde tutuyorsanız kimlik yönlendirmesi:
+
+```bash
+git config --global includeIf."gitdir:~/Developer/company/".path ~/.gitconfig-work
+printf '[user]\n    email = you@work.com\n' > ~/.gitconfig-work
+```
+
+## Ders
+
+Yukarıdaki ayarların hiçbiri tek başına etkileyici değil. Mesele de bu.
+
+Git'in varsayılanları kimseyi asla şaşırtmamayı optimize eder, bu da herkesi kesintiye uğratmak anlamına gelir. Yukarıdaki her satır, tekrar eden bir kesintiyi sessizliğe çeviriyor — ve sessizlik birikir. Dokunacağınız her depoda birkaç saniyeyi ve önlenmiş bir yanlış e-posta commit'ini çarpın, bu yarım saatlik yapılandırma araçlar üzerine harcayacağınız en yüksek kaldıraçlı zamanlardan biri.
+
+Takım arkadaşım `push.autoSetupRemote`'u gördüğü öğleden sonra kurdu. Yıllardır yazdığı geçici çözüm tek satırla ortadan kalktı — sadece birinin bu vergiyi ödemediğini *görmesi*, bunun isteğe bağlı olduğunu anlamasına yetti.
+
+Bu yazıyı, yazılı haliyle o an olarak düşünün. `cat ~/.gitconfig` çalıştırın ve içinde gerçekten ne olduğuna bakın.
+
+Varsayılanlar uyumluluk içindir. Yapılandırma sizin içindir.
+
+## Sizin gitconfig'inizde neler var?
+
+Her zaman bir sonraki tek satırlık düzeltmeyi arıyorum. Yerini kazanmış bir ayarınız veya takma adınız varsa, benimkilerin yarısını da böyle buldum.

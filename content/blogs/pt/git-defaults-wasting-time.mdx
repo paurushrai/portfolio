@@ -1,0 +1,265 @@
+---
+title: Os Padrões do Git Estão Desperdiçando Seu Tempo
+description: Onze configurações globais do git e vinte aliases que acabam com os incômodos diários que o git traz desligados por padrão — branches upstream, ruído de merge, confusão de identidade e conflitos de rebase repetidos.
+date: 2026-06-08
+published: true
+coverImage: /blogs/git-defaults-wasting-time/1.png
+tags: ["Git", "Developer Tools", "Productivity"]
+---
+
+*Aqui está a configuração de git que rodo em toda máquina — onze configurações globais e vinte aliases, cada um ali porque acaba com um incômodo diário específico. Roube tudo isso.*
+
+Um tempo atrás, um colega de equipe me viu dar push numa branch recém-criada e me parou:
+
+> "Espera — como isso funcionou? Sem `--set-upstream`?"
+
+Uma linha de configuração. Ele vinha digitando o contorno havia anos.
+
+Essa conversa é o motivo desse artigo existir. A maioria dos desenvolvedores roda o git com **configurações de fábrica** — e as configurações de fábrica do git não foram feitas para você. Foram feitas para *compatibilidade*. O git prefere te interromper mil vezes a te surpreender uma vez.
+
+Então todo mundo paga silenciosamente o mesmo imposto diário, na maioria das vezes sem nem perceber mais:
+
+- `fatal: The current branch has no upstream branch` — digitou a correção tantas vezes que virou memória muscular
+- Commits de merge poluindo o histórico porque um pull simples faz merge
+- `.DS_Store` aparecendo em todo `git status` de todo projeto no Mac
+- Resolver o *mesmo* conflito de rebase pela quinta vez
+- Commitar no repositório da empresa com o e-mail pessoal
+
+Cada um desses é uma correção de uma linha que o git já traz pronta, só que desligada.
+
+![o imposto diário das configurações de fábrica do git — cada incômodo e sua correção de uma linha](/blogs/git-defaults-wasting-time/1.png)
+
+O que vem a seguir é minha configuração real — aquela que viaja comigo para toda máquina. Não é um despejo de tudo que o git suporta: cada linha aqui ganhou seu lugar por acabar com um incômodo real. Dois atos: primeiro as **configurações globais**, porque mudam o comportamento do git em todo lugar; depois os **aliases**, porque mudam a velocidade com que você o dirige.
+
+## 🪪 Ato Um: Identidade — a Configuração Que Pode Te Envergonhar
+
+Comece com a que tem *consequências*:
+
+```bash
+git config --global user.name "Paurush Rai"
+git config --global user.email "personal@email.com"
+```
+
+Óbvio. Mas aqui está a parte que a maioria dos desenvolvedores nunca configura: o **roteamento automático entre trabalho e pessoal**.
+
+Mantenho o código do empregador em `~/Developer/company/`. Um bloco em `~/.gitconfig`:
+
+```ini
+[includeIf "gitdir:~/Developer/company/"]
+    path = ~/.gitconfig-work
+```
+
+E `~/.gitconfig-work` guarda exatamente uma coisa:
+
+```ini
+[user]
+    email = work@company.com
+```
+
+![includeIf roteando a identidade do git automaticamente com base em onde o repositório vive](/blogs/git-defaults-wasting-time/2.png)
+
+Agora a identidade é decidida por **onde o repositório vive**. Clone qualquer coisa em `company/` → e-mail de trabalho, automaticamente. Tudo o mais → pessoal. Sem precisar lembrar, sem configuração por repositório, sem e-mail pessoal no log de auditoria corporativo — e sem e-mail de trabalho em projetos paralelos de fim de semana.
+
+(Note o que *não* está no arquivo de trabalho: o nome. O `includeIf` se sobrepõe à configuração global, então o arquivo de trabalho só declara o que é diferente — o e-mail. Tudo o mais é herdado.)
+
+Isso importa mais do que parece, porque e-mails de commit são **permanentes**. Dê push com a identidade errada e fica no histórico para sempre; o GitHub atribui o commit a qualquer conta que seja dona daquele e-mail. Identidade deveria ser uma propriedade do repositório, não do que você lembrou de digitar por último.
+
+## ⚙️ Ato Um, Continuação: As Configurações de Comportamento
+
+Onze linhas. Cada uma acaba com um incômodo específico e recorrente.
+
+### Nunca mais ver "no upstream branch"
+
+```bash
+git config --global push.autoSetupRemote true
+```
+
+O erro que todo desenvolvedor já decorou — `fatal: The current branch has no upstream branch` — existe para o git pedir permissão de fazer o óbvio. Essa configuração concede a permissão para sempre. O primeiro push numa branch nova simplesmente funciona. (Essa é a linha que interrompeu meu colega no meio da frase.)
+
+### Pare de gerar commits de merge acidentais
+
+```bash
+git config --global pull.rebase true
+```
+
+Um `git pull` padrão é fetch + merge — e é assim que commits do tipo `"Merge branch 'main' of github.com..."` acabam empapelando seu histórico. Com isso, o pull reaplica seus commits locais em cima do que chegou. Histórico linear, sem ruído.
+
+### Faça repositórios novos começarem em main
+
+```bash
+git config --global init.defaultBranch main
+```
+
+Do contrário, todo `git init` começa em `master` e você renomeia depois. Uma linha, nunca mais pense nisso.
+
+### Pare de acumular branches mortas
+
+```bash
+git config --global fetch.prune true
+```
+
+Quando uma branch é deletada no remoto (na maioria das vezes, PRs mergeados), sua cópia local de `origin/aquela-branch` fica ali para sempre. Isso apaga automaticamente as referências obsoletas a cada fetch. Sua lista de branches fica honesta.
+
+### Baniu o .DS_Store de todo repositório para sempre
+
+```bash
+git config --global core.excludesfile ~/.gitignore_global
+echo ".DS_Store" > ~/.gitignore_global
+```
+
+Um arquivo de ignore global se aplica em cima do `.gitignore` de cada repositório. Sujeira do macOS, arquivos temporários de editor — resolvido uma vez, para toda a máquina, em vez de uma vez por projeto.
+
+### A trindade da resolução de conflitos
+
+```bash
+git config --global merge.conflictstyle zdiff3
+git config --global rerere.enabled true
+git config --global rebase.autostash true
+```
+
+Três configurações que juntas transformam a resolução de conflitos:
+
+**zdiff3** adiciona uma terceira seção aos marcadores de conflito — o texto *original* do qual os dois lados partiram. Marcadores padrão mostram "o seu" e "o deles" e fazem você adivinhar a intenção. Ver o ancestral comum transforma adivinhação em leitura.
+
+![marcadores de conflito zdiff3 mostrando o ancestral comum original junto aos dois lados](/blogs/git-defaults-wasting-time/3.png)
+
+**rerere** ("reuse recorded resolution") é o sucesso surpresa dessas onze. O git *registra* como você resolve cada conflito — e quando o mesmo conflito reaparece (rebases adoram repetir conflitos), ele reaplica sua resolução automaticamente. O quinto conflito idêntico se resolve sozinho.
+
+**autostash** remove a dança do "cannot rebase: you have unstaged changes". O git guarda seu trabalho num stash, faz o rebase e restaura tudo depois. O que você estava fazendo sobrevive.
+
+### Qualidade de vida, duas linhas
+
+```bash
+git config --global diff.algorithm histogram
+git config --global branch.sort -committerdate
+```
+
+Histogram produz diffs significativamente mais limpos do que o algoritmo Myers padrão — menos daqueles blocos embaralhados onde o git pareia linhas sem relação. E ordenar branches por atividade recente faz o `git branch` mostrar o que você *está de fato trabalhando* primeiro, não uma arqueologia alfabética.
+
+## ⌨️ Ato Dois: Os Aliases
+
+Configurações mudam o comportamento do git. Aliases mudam sua velocidade. Mantenho vinte, curados — agrupados pelo que economizam.
+
+![os vinte aliases de git, agrupados em: uso diário, enxergar com clareza, desfazer sem medo, e jogadas de profissional](/blogs/git-defaults-wasting-time/4.png)
+
+### Os de uso diário
+
+```bash
+st     = status -sb
+cm     = commit -m
+sw     = switch
+co     = checkout
+amend  = commit --amend --no-edit
+```
+
+`status -sb` merece uma nota: é o status de duas linhas. Estado da branch mais os arquivos alterados, sem parágrafos de conselhos que você parou de ler há anos.
+
+### Enxergar com clareza
+
+```bash
+lg     = log --oneline --graph --decorate -20
+last   = log -1 HEAD --stat
+d      = diff
+ds     = diff --staged
+whoami = !echo "$(git config user.name) <$(git config user.email)>"
+```
+
+`git lg` é meu "onde estou" — vinte commits, desenhados como um grafo. E `git whoami` fecha o ciclo do Ato Um: rode em qualquer repositório e ele mostra exatamente qual identidade vai assinar o próximo commit. Em `company/` mostra meu e-mail de trabalho; em qualquer outro lugar, o pessoal. Confiança, verificada em um comando.
+
+### Desfazer sem medo
+
+```bash
+unstage = restore --staged
+undo    = reset --soft HEAD~1
+wip     = !git add -A && git commit -m "wip: checkpoint"
+```
+
+`undo` desfaz o commit sem destruir nada — as mudanças voltam para a área de staging. `wip` tira um retrato de tudo antes de uma cirurgia arriscada. A maior parte da ansiedade com git é não saber o caminho seguro de volta; esses *são* o caminho seguro de volta.
+
+### As jogadas de profissional
+
+```bash
+pf      = push --force-with-lease
+fixup   = commit --fixup
+ri      = rebase -i --autosquash
+cleanup = !git branch --merged | grep -vE "^\*|main|master" | xargs git branch -d
+```
+
+`pf` é o importante: `--force-with-lease` faz push forçado **só se o remoto está onde você viu por último** — o que significa que ele fisicamente se recusa a sobrescrever o trabalho de um colega que chegou no meio do caminho. Não existe situação em que o `--force` puro seja a melhor escolha. Fazer o alias significa que meus dedos nunca digitam a versão perigosa.
+
+A dupla `fixup` + `ri` é o fluxo de histórico limpo: commite uma correção *direcionada* a um commit anterior, e um único rebase interativo dobra tudo no lugar automaticamente.
+
+## 🎯 A Parte Que Torna Isso Permanente
+
+Aqui está a questão sobre configuração: construí-la é fácil. *Mantê-la* é o problema de verdade. Uma configuração que só vive na sua máquina atual é uma configuração que você vai reconstruir de memória na próxima.
+
+Meu `~/.gitconfig` não é um arquivo solto — é um symlink para um repositório de dotfiles que faz commit e push automaticamente de cada mudança no instante em que ela acontece. Quando adicionei um alias novo recentemente, um agente em segundo plano já tinha commitado no GitHub antes de eu terminar de testar.
+
+(Esse sistema — symlinks mais um agente launchd, sem cron, sem ferramentas de terceiros — é uma história própria, que já escrevi separadamente.)
+
+A consequência: esse setup inteiro, roteamento de identidade e os vinte aliases inclusos, chega em qualquer máquina com um único `install.sh`. Configure uma vez, mantenha para sempre.
+
+## 📋 Tudo Isso, Pronto para Copiar e Colar
+
+```bash
+# identidade (edite isso!)
+git config --global user.name "Seu Nome"
+git config --global user.email "voce@pessoal.com"
+
+# comportamento
+git config --global init.defaultBranch main
+git config --global push.autoSetupRemote true
+git config --global pull.rebase true
+git config --global fetch.prune true
+git config --global core.excludesfile ~/.gitignore_global
+echo ".DS_Store" > ~/.gitignore_global
+git config --global merge.conflictstyle zdiff3
+git config --global rerere.enabled true
+git config --global rebase.autostash true
+git config --global diff.algorithm histogram
+git config --global branch.sort -committerdate
+
+# aliases
+git config --global alias.st "status -sb"
+git config --global alias.cm "commit -m"
+git config --global alias.sw "switch"
+git config --global alias.co "checkout"
+git config --global alias.amend "commit --amend --no-edit"
+git config --global alias.lg "log --oneline --graph --decorate -20"
+git config --global alias.last "log -1 HEAD --stat"
+git config --global alias.d "diff"
+git config --global alias.ds "diff --staged"
+git config --global alias.unstage "restore --staged"
+git config --global alias.undo "reset --soft HEAD~1"
+git config --global alias.wip '!git add -A && git commit -m "wip: checkpoint"'
+git config --global alias.pf "push --force-with-lease"
+git config --global alias.fixup "commit --fixup"
+git config --global alias.ri "rebase -i --autosquash"
+git config --global alias.cleanup '!git branch --merged | grep -vE "^\*|main|master" | xargs git branch -d'
+git config --global alias.root "rev-parse --show-toplevel"
+git config --global alias.aliases "config --get-regexp ^alias"
+git config --global alias.whoami '!echo "$(git config user.name) <$(git config user.email)>"'
+```
+
+Mais o roteamento de identidade, se você mantém código de trabalho num diretório dedicado:
+
+```bash
+git config --global includeIf."gitdir:~/Developer/company/".path ~/.gitconfig-work
+printf '[user]\n    email = you@work.com\n' > ~/.gitconfig-work
+```
+
+## A Lição
+
+Nenhuma dessas configurações é impressionante sozinha. Esse é o ponto.
+
+Os padrões do git otimizam para nunca surpreender ninguém, o que significa que interrompem todo mundo. Cada linha acima converte uma interrupção recorrente em silêncio — e silêncio se acumula. Multiplique alguns segundos economizados e um commit com e-mail errado evitado em cada repositório que você vai tocar pelo resto da carreira, e essa meia hora de configuração está entre o tempo de maior retorno que você vai investir em ferramentas.
+
+Meu colega configurou o `push.autoSetupRemote` na mesma tarde em que viu. O contorno que ele vinha digitando havia anos desapareceu com uma linha — só precisou *ver* alguém não pagar o imposto para perceber que era opcional.
+
+Considere este artigo esse momento, em forma escrita. Rode `cat ~/.gitconfig` e olhe o que realmente está lá.
+
+Padrões existem para compatibilidade. Configuração existe para você.
+
+## O que tem no seu gitconfig?
+
+Estou sempre caçando a próxima correção de uma linha. Se você tem uma configuração ou alias que ganhou seu lugar, foi assim que encontrei metade dos meus.

@@ -1,0 +1,265 @@
+---
+title: Git 的默认设置正在浪费你的时间
+description: 十一项全局 git 设置和二十个别名,专治 git 出厂就关掉的那些日常烦恼——上游分支、合并噪音、身份搞混,以及反复出现的 rebase 冲突。
+date: 2026-06-08
+published: true
+coverImage: /blogs/git-defaults-wasting-time/1.png
+tags: ["Git", "Developer Tools", "Productivity"]
+---
+
+*这是我在每台机器上都会跑一遍的 git 配置——十一项全局设置,二十个别名,每一条存在都是因为它能干掉一个具体的日常烦恼。全部抄走。*
+
+不久前,一个同事看见我推送一个全新的分支,叫住了我:
+
+> "等等——这怎么就成了?没加 `--set-upstream`?"
+
+一行配置。他为此手动敲了这个变通方案好多年。
+
+这段对话就是这篇文章的由来。大多数开发者跑的都是**出厂默认**的 git——而 git 的出厂默认根本不是为你设计的。它是为*兼容性*设计的。Git 宁愿打断你一千次,也不愿意让你意外一次。
+
+于是所有人都在悄悄缴着同一份日常税,大多数人甚至已经不再察觉:
+
+- `fatal: The current branch has no upstream branch`——这条修复命令敲得太多次,已经变成肌肉记忆
+- 合并提交把历史搞得一团糟,因为一次普通的 pull 就会产生合并
+- `.DS_Store` 出现在每一台 Mac 上每一个项目的 `git status` 里
+- 第五次解决*同一个* rebase 冲突
+- 用个人邮箱给公司仓库提交代码
+
+以上每一条,都是 git 自带、却默认关掉的一行修复。
+
+![git 出厂默认带来的日常税——每个烦恼和它的一行修复](/blogs/git-defaults-wasting-time/1.png)
+
+接下来是我实际在用的配置——跟着我走遍每一台机器的那份。这不是把 git 支持的所有选项都堆一遍:这里的每一行都是靠干掉一个真实的烦恼才赢得自己的位置的。分两幕:先是**全局设置**,因为它们会改变 git 在所有地方的行为;然后是**别名**,因为它们会改变你驾驭 git 的速度。
+
+## 🪪 第一幕:身份——那个能让你难堪的设置
+
+先从有*后果*的那一项开始:
+
+```bash
+git config --global user.name "Paurush Rai"
+git config --global user.email "personal@email.com"
+```
+
+这个很明显。但大多数开发者从来没搭起来的那部分是:**工作/个人自动路由**。
+
+我把雇主的代码放在 `~/Developer/company/` 下面。`~/.gitconfig` 里一个代码块:
+
+```ini
+[includeIf "gitdir:~/Developer/company/"]
+    path = ~/.gitconfig-work
+```
+
+而 `~/.gitconfig-work` 里只放一件事:
+
+```ini
+[user]
+    email = work@company.com
+```
+
+![includeIf 根据仓库所在位置自动路由 git 身份](/blogs/git-defaults-wasting-time/2.png)
+
+现在身份由**仓库住在哪里**决定。克隆任何东西到 `company/` 下面 → 自动用工作邮箱。其他一切 → 个人邮箱。不用记,不用逐个仓库设置,公司审计日志里不会出现个人邮箱——周末的业余项目里也不会出现工作邮箱。
+
+(注意工作配置文件里*没有*的东西:姓名。`includeIf` 是叠加在全局配置之上的,所以工作文件只声明不一样的那部分——邮箱。其余的都继承自全局。)
+
+这件事比看上去更重要,因为提交邮箱是**永久性的**。用错身份推送一次,它就永远留在历史里;GitHub 会把这次提交归到拥有那个邮箱的账号名下。身份应该是仓库的属性,而不是你上次记得敲什么。
+
+## ⚙️ 第一幕续:行为设置
+
+十一行。每一行都干掉一个具体的、反复出现的烦恼。
+
+### 再也不见"没有上游分支"
+
+```bash
+git config --global push.autoSetupRemote true
+```
+
+每个开发者都背下来的那个报错——`fatal: The current branch has no upstream branch`——之所以存在,是因为 git 想先问你允不允许它做那件显而易见的事。这个设置就是永久性地批准了它。新分支的第一次推送直接就能成功。(就是这一行,让我同事说到一半愣住了。)
+
+### 别再产生意外的合并提交
+
+```bash
+git config --global pull.rebase true
+```
+
+默认的 `git pull` 就是 fetch + merge——这正是"Merge branch 'main' of github.com..."这类提交把你历史刷成墙纸的原因。加了这个之后,pull 会把你的本地提交重放到刚拉下来的内容之上。线性历史,没有噪音。
+
+### 让新仓库默认在 main 上启动
+
+```bash
+git config --global init.defaultBranch main
+```
+
+否则每次 `git init` 都会落到 `master` 上,你再手动改名。一行配置,以后再也不用想这件事。
+
+### 别再囤积死掉的分支
+
+```bash
+git config --global fetch.prune true
+```
+
+远端上一个分支被删掉后(大多是合并完的 PR),你本地那份 `origin/that-branch` 的引用会永远留着。这个设置会在每次 fetch 时自动清掉这些过期引用。你的分支列表永远是诚实的。
+
+### 把 .DS_Store 永远逐出每个仓库
+
+```bash
+git config --global core.excludesfile ~/.gitignore_global
+echo ".DS_Store" > ~/.gitignore_global
+```
+
+一个全局忽略文件会叠加在每个仓库自己的 `.gitignore` 之上。macOS 的垃圾文件、编辑器的临时文件——设置一次,全机器生效,而不是每个项目都要设一次。
+
+### 冲突解决三件套
+
+```bash
+git config --global merge.conflictstyle zdiff3
+git config --global rerere.enabled true
+git config --global rebase.autostash true
+```
+
+三个设置合在一起,彻底改变了冲突解决这件事:
+
+**zdiff3** 给冲突标记加了第三个部分——*双方最初出发的那份原始文本*。标准的冲突标记只给你看"你的"和"他的",逼你去猜双方的意图。看到共同祖先之后,猜测就变成了阅读。
+
+![zdiff3 冲突标记,在双方内容旁边展示原始的共同祖先版本](/blogs/git-defaults-wasting-time/3.png)
+
+**rerere**("reuse recorded resolution")是这十一项里最出乎意料的赢家。Git 会*记录*你每次解决冲突的方式——当同一个冲突再次出现时(rebase 特别喜欢重复冲突),它会自动重放你的解决方案。第五次一模一样的冲突,自己就解决了。
+
+**autostash** 免去了"cannot rebase: you have unstaged changes"这套舞步。Git 会先把你的改动收进暂存箱,rebase 完再还给你。你原本在做的事情,原封不动地活了下来。
+
+### 两行生活质量改善
+
+```bash
+git config --global diff.algorithm histogram
+git config --global branch.sort -committerdate
+```
+
+Histogram 算法产出的 diff 明显比默认的 Myers 算法干净——很少再出现那种把不相关的行硬凑在一起的乱码块。而按最近活动排序分支,意味着 `git branch` 会优先展示你*真正在忙的东西*,而不是按字母顺序考古。
+
+## ⌨️ 第二幕:别名
+
+设置改变 git 的行为。别名改变你的速度。我留了精心挑选的二十个——按它们省下的东西分组。
+
+![二十个 git 别名,按日常主力、看清全局、无畏撤销和高阶操作分组](/blogs/git-defaults-wasting-time/4.png)
+
+### 日常主力
+
+```bash
+st     = status -sb
+cm     = commit -m
+sw     = switch
+co     = checkout
+amend  = commit --amend --no-edit
+```
+
+`status -sb` 值得说一句:它是那种两行版的状态输出。分支状态加改动文件,没有那些你多年前就不再看的成段建议。
+
+### 看清全局
+
+```bash
+lg     = log --oneline --graph --decorate -20
+last   = log -1 HEAD --stat
+d      = diff
+ds     = diff --staged
+whoami = !echo "$(git config user.name) <$(git config user.email)>"
+```
+
+`git lg` 是我的"我在哪儿"——二十条提交,画成一张图。而 `git whoami` 是第一幕的收尾:在任何仓库里跑一下,它就会准确告诉你下一次提交会签上哪个身份。在 `company/` 里显示的是工作邮箱,别处是个人邮箱。信任,一条命令就能验证。
+
+### 无畏撤销
+
+```bash
+unstage = restore --staged
+undo    = reset --soft HEAD~1
+wip     = !git add -A && git commit -m "wip: checkpoint"
+```
+
+`undo` 会把提交撤掉,但不摧毁任何东西——改动会回到暂存区。`wip` 会在风险操作之前把一切都快照下来。大多数 git 焦虑,其实是不知道有没有安全的退路;这些命令,就是那条安全的退路。
+
+### 高阶操作
+
+```bash
+pf      = push --force-with-lease
+fixup   = commit --fixup
+ri      = rebase -i --autosquash
+cleanup = !git branch --merged | grep -vE "^\*|main|master" | xargs git branch -d
+```
+
+`pf` 是最重要的一个:`--force-with-lease` 只在**远端还停留在你最后一次看到的位置**时才会强推——也就是说,它在物理上就拒绝覆盖掉队友在这期间推上来的工作。没有任何场景下原始的 `--force` 会是更好的选择。把它做成别名,意味着我的手指永远不会打出那个危险版本。
+
+`fixup` 和 `ri` 这对组合是清爽历史的工作流:提一个*专门针对*某个早期提交的修复,然后一次交互式 rebase 就会自动把一切叠进正确的位置。
+
+## 🎯 让它变得永久的那部分
+
+关于配置,有件事是这样的:搭建它很容易。*保持*它才是真正的问题。一份只活在当前机器上的配置,就是一份你要在下一台机器上凭记忆重建的配置。
+
+我的 `~/.gitconfig` 不是一个孤零零的文件——它是一个软链接,指向一个会在每次改动发生时自动提交并推送的 dotfiles 仓库。前几天我加了个新别名,还没测完,一个后台代理就已经把它提交到了 GitHub。
+
+(那套系统——软链接加一个 launchd 代理,没有 cron,没有第三方工具——本身是另一个故事,我单独写过。)
+
+结果就是:整套设置,包括身份路由和全部二十个别名,靠一个 `install.sh` 就能落地到任何一台机器上。配置一次,永远保留。
+
+## 📋 完整版本,复制即用
+
+```bash
+# identity (edit these!)
+git config --global user.name "Your Name"
+git config --global user.email "you@personal.com"
+
+# behavior
+git config --global init.defaultBranch main
+git config --global push.autoSetupRemote true
+git config --global pull.rebase true
+git config --global fetch.prune true
+git config --global core.excludesfile ~/.gitignore_global
+echo ".DS_Store" > ~/.gitignore_global
+git config --global merge.conflictstyle zdiff3
+git config --global rerere.enabled true
+git config --global rebase.autostash true
+git config --global diff.algorithm histogram
+git config --global branch.sort -committerdate
+
+# aliases
+git config --global alias.st "status -sb"
+git config --global alias.cm "commit -m"
+git config --global alias.sw "switch"
+git config --global alias.co "checkout"
+git config --global alias.amend "commit --amend --no-edit"
+git config --global alias.lg "log --oneline --graph --decorate -20"
+git config --global alias.last "log -1 HEAD --stat"
+git config --global alias.d "diff"
+git config --global alias.ds "diff --staged"
+git config --global alias.unstage "restore --staged"
+git config --global alias.undo "reset --soft HEAD~1"
+git config --global alias.wip '!git add -A && git commit -m "wip: checkpoint"'
+git config --global alias.pf "push --force-with-lease"
+git config --global alias.fixup "commit --fixup"
+git config --global alias.ri "rebase -i --autosquash"
+git config --global alias.cleanup '!git branch --merged | grep -vE "^\*|main|master" | xargs git branch -d'
+git config --global alias.root "rev-parse --show-toplevel"
+git config --global alias.aliases "config --get-regexp ^alias"
+git config --global alias.whoami '!echo "$(git config user.name) <$(git config user.email)>"'
+```
+
+如果你把公司代码放在专用目录下,再加上身份路由:
+
+```bash
+git config --global includeIf."gitdir:~/Developer/company/".path ~/.gitconfig-work
+printf '[user]\n    email = you@work.com\n' > ~/.gitconfig-work
+```
+
+## 这堂课
+
+以上没有一条设置单独看有多了不起。这正是重点。
+
+Git 的默认设置追求的是永远不让任何人意外,结果就是打断了每一个人。上面每一行,都把一次反复出现的打断变成了沉默——而沉默会复利。把每次省下的几秒钟、每次避免的错误邮箱提交,乘以你这辈子会碰的所有仓库,这半小时的配置就是你在工具链上能花的、投资回报率最高的时间之一。
+
+我那位同事在看到 `push.autoSetupRemote` 的当天下午就配上了。他敲了好几年的那个变通方案,一行配置就消失了——他只是需要*看见*有人不用缴那份税,才意识到那本来就是可以选的。
+
+把这篇文章当成那个瞬间的文字版。跑一下 `cat ~/.gitconfig`,看看里面实际有什么。
+
+默认设置是为了兼容性。配置是为了你自己。
+
+## 你的 gitconfig 里有什么?
+
+我一直在找下一个一行修复。如果你有一个赢得了自己位置的设置或别名,我目前的很多灵感就是这么找到的。

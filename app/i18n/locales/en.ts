@@ -2,7 +2,7 @@ export const en = {
   nav: {
     about: "About",
     projects: "Projects",
-    articles: "Articles",
+    blogs: "Blog",
     services: "Services",
     contact: "Contact",
     privacy: "Privacy Policy",
@@ -24,13 +24,15 @@ export const en = {
     inProgress: "In progress",
     all: "All",
     personal: "Personal",
+    moreTitle: "More projects",
   },
-  articles: {
-    title: "Articles",
-    subtitle:
-      "Thoughts on engineering, tools, and building products — published on Medium.",
-    viewAll: "View all on Medium",
-    empty: "No articles yet — check back soon.",
+  blogs: {
+    title: "Blog",
+    subtitle: "Notes on engineering, tooling, and building things that last.",
+    empty: "No posts yet — check back soon.",
+    minRead: "min read",
+    moreTitle: "More from the blog",
+    viewAll: "View all",
   },
   services: {
     badge: "Available for freelance",

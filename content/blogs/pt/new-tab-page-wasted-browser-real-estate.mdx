@@ -1,0 +1,83 @@
+---
+title: Sua Nova Aba É um Espaço Nobre Desperdiçado no Navegador
+description: Por que a nova aba comum é um espaço morto, e como um painel local no Chrome, com links fixados, lembretes e workspaces por perfil, resolveu isso sem nenhum rastreamento.
+date: 2026-06-14
+published: true
+coverImage: /blogs/new-tab-page-wasted-browser-real-estate/1.png
+tags: ["Chrome Extensions", "Productivity", "Browsers", "Privacy"]
+---
+
+*Uns quarenta abas abertas, uma ventoinha que nunca parava de girar, e uma "nova aba" que não fazia nada. Então construí um pequeno painel para mim mesmo — e, um a um, ele matou os problemas com os quais eu vivia.*
+
+![O painel MonoStart — links fixados, busca, grupos e widgets de produtividade em uma única nova aba](/blogs/new-tab-page-wasted-browser-real-estate/1.png)
+
+Abro uma nova aba talvez 200 vezes por dia — é a "página" mais visitada da minha vida digital. E por anos ela não me deu nada além de uma barra de busca e uma grade de sites que o Google supunha que eu quisesse. O espaço mais movimentado do meu navegador era espaço morto.
+
+Mas a página em branco não era o problema de verdade. O problema de verdade era tudo o que eu fazia para conviver com ela. Aqui está o que eu vinha enfrentando, e o que desapareceu.
+
+## 🗂️ Problema: Eu Acumulava Abas para Não Ter que Redigitar URLs
+
+O board do Jira, os docs, três páginas do Notion, o calendário, aquela aba do Stack Overflow que "eu podia precisar" — tudo aberto, agrupado em grupos de abas coloridos para *parecer* organizado. Em três perfis.
+
+Parecia produtivo. Não era. Cada aba é um processo vivo e faminto por memória que o Chrome mantém aquecido. Eu não estava organizando meu trabalho — estava pagando um imposto de RAM e ventoinha só para não redigitar URLs.
+
+**A solução:** percebi que eu não estava guardando a *página*, estava guardando o *ponteiro*. Um link não custa nada; uma aba custa um processo. Então construí um lugar rápido só para guardar os links — fixados no cabeçalho, organizados em grupos, a um clique de distância.
+
+**Resolvido:** a parede de 40 abas, a ventoinha, o imposto de RAM. Abro o que preciso e fecho.
+
+## 🤔 Problema: Todo Painel que Eu Testava Criava Novos Problemas
+
+Testei as extensões de nova aba existentes primeiro. Cada uma trocava minha página em branco por algo pior:
+
+- **Pareciam um app estranho** — moviam a barra de busca, escondiam meu histórico, quebravam minha memória muscular. → O meu mantém a barra de busca real do Google, minhas sugestões de histórico reais, e a cara do próprio Chrome.
+- **Exigiam uma conta** e sincronização na nuvem com "parceiros de análise". → O meu não tem login nem backend.
+- **Me monetizavam** — links patrocinados, telemetria. → O meu tem zero anúncios e zero rastreamento.
+- **Eram pesadas** — meio segundo de spinner. → O meu *é* a página de nova aba: instantâneo, sem spinner.
+
+Eu queria uma página que fosse completamente minha, mas que parecesse que eu não tinha instalado nada. Então a única regra que me recusei a quebrar foi: *não deveria dar para perceber onde o Chrome termina e o painel começa.* Aperto `⌘T` e estou em casa — mesma busca, mesmos reflexos, só que com minhas coisas nela.
+
+## 👥 Problema: Três Perfis, Uma Única Página Morta para Todos Eles
+
+Eu dividia a navegação entre perfis do Chrome — pessoal, empresa, freelance — mas os três caíam na mesma aba em branco. Trocar de perfil mudava meus logins e mais nada.
+
+**A solução:** tudo é armazenado localmente, por perfil (`chrome.storage.local`), então cada perfil ganha seu próprio painel independente de graça — o pessoal abre em listas de leitura e projetos paralelos, o de trabalho em Jira e um lembrete de "daily às 10h", o freelance em pastas de clientes e um cronômetro de horas faturáveis.
+
+**Resolvido:** a contaminação de contexto. Trocar de perfil agora é trocar de *workspace* — o painel me diz qual versão de mim mesmo eu estou sendo.
+
+## ⚡ Problema: O Vão Entre "Preciso de um Site" e "Estou Nele"
+
+Chegar a um site era um ritual — `⌘L`, digitar, esperar, chegar — ou pior, vasculhar doze grupos de abas atrás daquela que eu jurava ter deixado aberta.
+
+**A solução:** meus sites mais usados ficam fixados no cabeçalho; o resto vive em grupos coloridos. Em qualquer página que valha a pena guardar, o ícone na barra de ferramentas a arquiva em um clique — na grade, no cabeçalho, ou num grupo.
+
+**Resolvido:** o vão. `⌘T` → está ali → clique. Multiplique um ou dois segundos economizados por 200 abas ao dia e isso deixa de ser um arredondamento irrelevante.
+
+## 🛠️ Os Problemas Que Cada Widget Silenciosamente Resolveu
+
+Comecei querendo substituir uma página em branco; ela virou o lugar onde meus pequenos incômodos diários vão morrer. Cada um começou como um problema, não como uma funcionalidade — todos locais, a uma tecla de distância:
+
+- **🔔 Eu vivia perdendo dailys e deixando o chá passar do ponto.** Os lembretes disparam como notificações reais, com som — mesmo com todas as abas fechadas, mesmo durante o Não Perturbe. O que mais uso no dia a dia.
+- **⏱️ Eu perdia a noção do tempo quando estava concentrado.** Cronômetros rotulados ("Chá", "Daily") rodam lado a lado. O time-boxing finalmente pegou.
+- **✅ Minha lista de tarefas vivia onde eu nunca olhava.** Agora a checklist e as notas adesivas ficam na página que abro 200 vezes por dia.
+- **🌐 Eu deixava abas abertas só para espiar uma coisa.** Mini-widgets embutidos — um calendário, um painel de status — visíveis num relance, sem precisar de uma aba dedicada.
+- **🎨 Os temas de outras pessoas nunca combinavam com o meu setup.** Claro, escuro, ou seguindo meu sistema, com cores personalizadas e meu próprio papel de parede.
+
+## 🔒 O Problema Que Me Recusei a Trocar
+
+Cada solução poderia ter vindo com um custo escondido: entregar meus dados ao servidor de alguém. Eu não quis. Então — sem contas, sem servidores, sem análises, sem anúncios. Tudo vive em `chrome.storage.local`; não há para onde enviar porque não há backend. A única coisa que sai do navegador é o que eu digito na busca, enviado ao Google para o autocompletar, como em qualquer barra de busca.
+
+**A troca honesta:** dados locais não sincronizam entre máquinas. Para uma página de nova aba, eu aceito essa troca sempre.
+
+## 🧰 Para os Curiosos
+
+Uma extensão Manifest V3 — React 19, TypeScript, Vite, Tailwind, shadcn/ui — com código-fonte disponível sob a licença PolyForm Noncommercial, para que você possa ler cada linha e verificar que as promessas de privacidade não são só marketing. Ela pede apenas as permissões que seu único trabalho exige.
+
+## 🚀 Se Você Enfrenta os Mesmos Problemas
+
+Construí isso para consertar meu próprio navegador. Se o seu é espaço morto — ou uma parede de grupos de abas cozinhando seu notebook — talvez ele resolva os mesmos problemas para você.
+
+👉 [MonoStart na Chrome Web Store](https://chromewebstore.google.com/detail/hhfeihcppmfepeeainafmaifpmdemmlg)
+
+Grátis, privado, e em cinco minutos a página mais aberta do seu navegador pode finalmente começar a trabalhar para você.
+
+*MonoStart é um painel privado e personalizável de nova aba para o Chrome, criado por Paurush Rai.*
