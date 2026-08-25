@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { ArrowRight, Download } from "lucide-react";
+import { Download } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext";
 import { LanguageSwitcher } from "../components/LanguageSwitcher";
 
@@ -17,7 +17,8 @@ export default function Home() {
     { name: t.nav.about, href: "/about" },
     { name: t.nav.projects, href: "/projects" },
     { name: t.nav.blogs, href: "/blogs" },
-    { name: t.nav.services, href: "/services" },
+    // Hidden from primary nav — shared directly with freelance clients, kept in sitemap.ts.
+    // { name: t.nav.services, href: "/services" },
     { name: t.nav.contact, href: "/contact" },
   ];
 
@@ -83,6 +84,7 @@ export default function Home() {
               <Download className="w-3 h-3" />
               {t.home.resume}
             </a>
+            {/* Hidden — shared directly with freelance clients, kept in sitemap.ts.
             <Link
               href={localePath("/services")}
               className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white text-black text-xs font-medium hover:bg-zinc-200 duration-200"
@@ -90,6 +92,7 @@ export default function Home() {
               {t.nav.services}
               <ArrowRight className="w-3 h-3" />
             </Link>
+            */}
           </div>
         </div>
       </main>
