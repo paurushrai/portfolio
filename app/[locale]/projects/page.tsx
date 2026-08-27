@@ -36,6 +36,7 @@ export async function generateMetadata({
       title: "Projects — Paurush Rai | Senior Frontend Engineer",
       description: "Enterprise SaaS, AI-integrated apps, fintech platforms and developer tools built with React, Next.js, and TypeScript.",
       url: alternates.canonical,
+      images: [{ url: "https://paurushrai.in/og.png", width: 1200, height: 630 }],
     },
   };
 }
