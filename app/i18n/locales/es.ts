@@ -11,7 +11,7 @@ export const es: Locale = {
   },
   home: {
     tagline: {
-      role: "Ingeniero Frontend Sénior y Experto en Frontend",
+      role: "Ingeniero Frontend Sénior",
       detail: "construyo productos, herramientas e integraciones que se lanzan rápido y duran mucho.",
     },
     openToWork: "Abierto a la colaboración",

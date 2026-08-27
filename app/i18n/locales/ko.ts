@@ -11,7 +11,7 @@ export const ko: Locale = {
   },
   home: {
     tagline: {
-      role: "수석 프론트엔드 엔지니어 & 프론트엔드 전문가",
+      role: "수석 프론트엔드 엔지니어",
       detail: "빠르고 오래 지속되는 제품, 도구 및 통합을 구축합니다.",
     },
     openToWork: "협업 환영",
