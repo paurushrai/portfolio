@@ -9,7 +9,7 @@ export const en = {
   },
   home: {
     tagline:
-      "Senior Product Engineer — building products, tools, and integrations that ship fast and last long.",
+      "Senior Frontend Engineer — building products, tools, and integrations that ship fast and last long.",
     openToWork: "Open for collaboration",
     resume: "Resume",
   },
@@ -251,7 +251,7 @@ export const en = {
     title: "About Me",
     subtitle: "A little background on who I am and what I do.",
     bio: [
-      "I'm Paurush Rai — a Senior Product Engineer based in India: a frontend core with full-stack range, and 5+ years building enterprise web platforms, AI-driven applications, and developer-productivity tools. My work spans complex B2B dashboards, a 1EdTech-certified LMS integration, and custom Jira and VS Code plugins.",
+      "I'm Paurush Rai — a Senior Frontend Engineer based in India: a frontend core with full-stack range, and 5+ years building enterprise web platforms, AI-driven applications, and developer-productivity tools. My work spans complex B2B dashboards, a 1EdTech-certified LMS integration, and custom Jira and VS Code plugins.",
       "I care deeply about performance, clean architecture, and shipping things that actually matter. Whether it's building a greenfield franchise portal from scratch, engineering real-time AI interview workflows, or developing internal tools that save the business thousands of dollars annually, my focus is always on work that measurably moves the needle.",
       "Outside of work I'm usually spinning up a side project, automating a tedious workflow, or reaching for a library I've never touched before — I like the friction of learning new tools in real contexts.",
     ],
@@ -289,7 +289,7 @@ export const en = {
     experience: [
       {
         company: "Testlify",
-        role: "Senior Software Engineer",
+        role: "Senior Frontend Engineer",
         location: "Mumbai, India (Remote)",
         period: "January 2025 – Present",
         highlights: [
@@ -303,7 +303,7 @@ export const en = {
       },
       {
         company: "FuelBuddy",
-        role: "Software Engineer",
+        role: "Frontend Engineer",
         location: "Gurugram, India",
         period: "September 2023 – December 2024",
         highlights: [
@@ -316,7 +316,7 @@ export const en = {
       },
       {
         company: "Modocosm",
-        role: "Software Engineer",
+        role: "Frontend Engineer",
         location: "New York City, US (Remote)",
         period: "July 2021 – August 2023",
         highlights: [

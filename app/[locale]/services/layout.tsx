@@ -24,12 +24,14 @@ export async function generateMetadata({
   const locale: AppLocale = isLocale(params.locale) ? params.locale : DEFAULT_LOCALE;
   const alternates = alternatesFor("/services", locale);
   return {
-    title: "Freelance Software Engineer for Hire — Paurush Rai",
+    title: "Hire a Senior Frontend Engineer & Expert | Paurush Rai",
     description:
       "Hire Paurush Rai for freelance software engineering — full-stack web apps, AI integrations, internal tooling, LMS plugins, and more.",
     keywords: [
+      "Hire Senior Frontend Engineer",
+      "Hire Senior Frontend Expert",
+      "Freelance Frontend Engineer",
       "Freelance Full-Stack Developer",
-      "Hire Senior Product Engineer",
       "AI Integration Services",
       "LMS Plugin Development",
       "Internal Tooling Development",
@@ -38,7 +40,7 @@ export async function generateMetadata({
     ],
     alternates,
     openGraph: {
-      title: "Freelance Software Engineer for Hire — Paurush Rai",
+      title: "Hire a Senior Frontend Engineer & Expert | Paurush Rai",
       description:
         "Hire Paurush Rai for freelance software engineering — full-stack web apps, AI integrations, internal tooling, LMS plugins, and more.",
       url: alternates.canonical,

@@ -33,13 +33,16 @@ export async function generateMetadata({
       process.env.NODE_ENV === "development" ? "http://localhost:3000" : BASE_URL,
     ),
     title: {
-      default: "Paurush Rai — Senior Product Engineer & Full-Stack Developer",
+      default: "Paurush Rai — Senior Frontend Engineer & Frontend Expert",
       template: "%s | Paurush Rai",
     },
     description:
-      "Senior Product Engineer & Full-Stack Developer with 5+ years building enterprise SaaS, AI-integrated platforms, and developer tools. Open to new roles.",
+      "Senior Frontend Engineer & Frontend Expert with 5+ years building enterprise SaaS, AI-integrated platforms, and developer tools. Open to new roles.",
     keywords: [
-      "Senior Product Engineer",
+      "Senior Frontend Engineer",
+      "Frontend Expert",
+      "Hire Senior Frontend Engineer",
+      "Hire Senior Frontend Expert",
       "Senior Software Engineer",
       "Senior Frontend Developer",
       "Full-Stack Developer",
@@ -54,9 +57,9 @@ export async function generateMetadata({
     ],
     alternates: { canonical, languages },
     openGraph: {
-      title: "Paurush Rai — Senior Product Engineer & Full-Stack Developer",
+      title: "Paurush Rai — Senior Frontend Engineer & Frontend Expert",
       description:
-        "Senior Product Engineer & Full-Stack Developer specializing in AI integration, enterprise SaaS, and developer tools. 5+ years building scalable web platforms.",
+        "Senior Frontend Engineer & Frontend Expert specializing in AI integration, enterprise SaaS, and developer tools. 5+ years building scalable web platforms.",
       url: canonical,
       siteName: "paurushrai.in",
       locale,
@@ -74,9 +77,9 @@ export async function generateMetadata({
       },
     },
     twitter: {
-      title: "Paurush Rai — Senior Product Engineer & Full-Stack Developer",
+      title: "Paurush Rai — Senior Frontend Engineer & Frontend Expert",
       description:
-        "Senior Product Engineer & Full-Stack Developer specializing in AI integration, enterprise SaaS, and developer tools. 5+ years building scalable web platforms.",
+        "Senior Frontend Engineer & Frontend Expert specializing in AI integration, enterprise SaaS, and developer tools. 5+ years building scalable web platforms.",
       card: "summary_large_image",
     },
     icons: {
@@ -158,9 +161,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               "@type": "Person",
               name: "Paurush Rai",
               url: BASE_URL,
-              jobTitle: "Senior Product Engineer",
+              jobTitle: "Senior Frontend Engineer",
               description:
-                "Senior Product Engineer and Full-Stack Developer specializing in AI integration, enterprise SaaS platforms, and developer productivity tools.",
+                "Senior Frontend Engineer and Frontend Expert specializing in AI integration, enterprise SaaS platforms, and developer productivity tools.",
               image: `${BASE_URL}/og.png`,
               sameAs: [
                 "https://github.com/paurushrai",
@@ -184,7 +187,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               ],
               hasOccupation: {
                 "@type": "Occupation",
-                name: "Senior Product Engineer",
+                name: "Senior Frontend Engineer",
                 occupationLocation: {
                   "@type": "Country",
                   name: "India",
