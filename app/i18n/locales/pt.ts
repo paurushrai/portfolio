@@ -10,8 +10,10 @@ export const pt: Locale = {
     privacy: "Privacidade",
   },
   home: {
-    tagline:
-      "Engenheiro de Produto Sênior — construo produtos, ferramentas e integrações que entregam rápido e duram muito.",
+    tagline: {
+      role: "Engenheiro Frontend Sênior e Especialista em Frontend",
+      detail: "construo produtos, ferramentas e integrações que entregam rápido e duram muito.",
+    },
     openToWork: "Aberto para colaboração",
     resume: "Currículo",
   },

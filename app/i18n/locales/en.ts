@@ -8,8 +8,10 @@ export const en = {
     privacy: "Privacy Policy",
   },
   home: {
-    tagline:
-      "Senior Frontend Engineer — building products, tools, and integrations that ship fast and last long.",
+    tagline: {
+      role: "Senior Frontend Engineer & Frontend Expert",
+      detail: "building products, tools, and integrations that ship fast and last long.",
+    },
     openToWork: "Open for collaboration",
     resume: "Resume",
   },

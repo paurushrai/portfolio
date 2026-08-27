@@ -10,8 +10,10 @@ export const es: Locale = {
     privacy: "Privacidad",
   },
   home: {
-    tagline:
-      "Ingeniero de Producto Senior — construyo productos, herramientas e integraciones que se lanzan rápido y duran mucho.",
+    tagline: {
+      role: "Ingeniero Frontend Sénior y Experto en Frontend",
+      detail: "construyo productos, herramientas e integraciones que se lanzan rápido y duran mucho.",
+    },
     openToWork: "Abierto a la colaboración",
     resume: "Currículum",
   },

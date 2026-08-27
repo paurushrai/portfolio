@@ -10,7 +10,10 @@ export const tr: Locale = {
     privacy: "Gizlilik",
   },
   home: {
-    tagline: "Kıdemli Ürün Mühendisi — hızlı gönderilen ve uzun süre dayanan ürünler, araçlar ve entegrasyonlar oluşturur.",
+    tagline: {
+      role: "Kıdemli Frontend Mühendisi ve Frontend Uzmanı",
+      detail: "hızlı gönderilen ve uzun süre dayanan ürünler, araçlar ve entegrasyonlar oluşturur.",
+    },
     openToWork: "İşbirliğine açık",
     resume: "Özgeçmiş"
   },

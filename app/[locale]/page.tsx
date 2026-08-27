@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { Download } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext";
 import { LanguageSwitcher } from "../components/LanguageSwitcher";
 
@@ -65,7 +64,11 @@ export default function Home() {
 
         <div className="hidden w-screen h-px animate-glow md:block animate-fade-right bg-linear-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
         <div className="my-16 text-center animate-fade-in flex flex-col items-center gap-4 px-6 md:px-0">
-          <p className="text-sm text-zinc-400 max-w-sm">{t.home.tagline}</p>
+          <p className="text-sm text-zinc-400 max-w-sm">
+            <span className="block text-zinc-300 font-medium">{t.home.tagline.role}</span>
+            <span className="block">{t.home.tagline.detail}</span>
+          </p>
+          {/* Hidden — "open for collaboration" pill and resume download, removed from hero per branding pivot.
           <div className="flex items-center gap-3 flex-wrap justify-center">
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-zinc-700/60 bg-zinc-900/40 backdrop-blur-xs">
               <span className="relative flex h-2 w-2">
@@ -84,16 +87,8 @@ export default function Home() {
               <Download className="w-3 h-3" />
               {t.home.resume}
             </a>
-            {/* Hidden — shared directly with freelance clients, kept in sitemap.ts.
-            <Link
-              href={localePath("/services")}
-              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white text-black text-xs font-medium hover:bg-zinc-200 duration-200"
-            >
-              {t.nav.services}
-              <ArrowRight className="w-3 h-3" />
-            </Link>
-            */}
           </div>
+          */}
         </div>
       </main>
     </div>
