@@ -29,6 +29,7 @@ export async function generateMetadata({
       description: "Writing on software engineering, developer tooling, and building products that last.",
       url: alternates.canonical,
       type: "website",
+      images: [{ url: "https://paurushrai.in/og.png", width: 1200, height: 630 }],
     },
   };
 }
