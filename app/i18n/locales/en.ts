@@ -9,7 +9,7 @@ export const en = {
   },
   home: {
     tagline: {
-      role: "Senior Frontend Engineer & Frontend Expert",
+      role: "Senior Frontend Engineer",
       detail: "building products, tools, and integrations that ship fast and last long.",
     },
     openToWork: "Open for collaboration",

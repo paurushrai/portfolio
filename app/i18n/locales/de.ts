@@ -11,7 +11,7 @@ export const de: Locale = {
   },
   home: {
     tagline: {
-      role: "Senior Frontend Engineer & Frontend-Experte",
+      role: "Senior Frontend Engineer",
       detail: "Entwicklung von Produkten, Tools und Integrationen, die schnell geliefert werden und lange halten.",
     },
     openToWork: "Offen für Zusammenarbeit",

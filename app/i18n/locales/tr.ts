@@ -11,7 +11,7 @@ export const tr: Locale = {
   },
   home: {
     tagline: {
-      role: "Kıdemli Frontend Mühendisi ve Frontend Uzmanı",
+      role: "Kıdemli Frontend Mühendisi",
       detail: "hızlı gönderilen ve uzun süre dayanan ürünler, araçlar ve entegrasyonlar oluşturur.",
     },
     openToWork: "İşbirliğine açık",

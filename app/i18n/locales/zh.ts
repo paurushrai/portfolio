@@ -11,7 +11,7 @@ export const zh: Locale = {
   },
   home: {
     tagline: {
-      role: "高级前端工程师与前端专家",
+      role: "高级前端工程师",
       detail: "构建快速交付、经久耐用的产品、工具与集成方案。",
     },
     openToWork: "开放合作",

@@ -1,7 +1,7 @@
 <div align="center">
     <a href="https://paurushrai.in"><h1 align="center">Paurush Rai - Personal Portfolio</h1></a>
 
-My personal website and professional portfolio. Built for speed, performance, and multilingual support.
+Senior Frontend Engineer — personal website and professional portfolio. Built for speed, performance, and multilingual support.
 
 [![CI](https://github.com/paurushrai/portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/paurushrai/portfolio/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -58,8 +58,8 @@ Forking this as your own portfolio? Swap out the personal content — the code i
 | **Project case studies** | `content/projects/<locale>/*.mdx` — one folder per language (`en`, `de`, `es`, …) |
 | **Résumé** | `public/resume.pdf` |
 | **Branding assets** | `public/` — `favicon.ico`, `apple-touch-icon.png`, `og.png` |
-| **Site metadata & social links** | `app/layout.tsx` (title, Open Graph, domain) |
-| **Domain references** | search-and-replace `paurushrai.in` across `app/` (e.g. `app/sitemap.ts`, `app/layout.tsx`) |
+| **Site metadata & social links** | `app/[locale]/layout.tsx` (title, Open Graph, domain) |
+| **Domain references** | search-and-replace `paurushrai.in` across `app/` (e.g. `app/sitemap.ts`, `app/[locale]/layout.tsx`) |
 | **Analytics** | `UMAMI_WEBSITE_ID` / `GTM_ID` in your `.env` (omit to disable) |
 
 > Tip: `grep -rn "paurushrai" app/ content/` surfaces remaining references to replace.
