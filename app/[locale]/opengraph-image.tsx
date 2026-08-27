@@ -107,6 +107,7 @@ export default function OpengraphImage() {
                 strokeWidth={1.75}
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                aria-hidden="true"
               >
                 {path}
               </svg>
