@@ -10,7 +10,10 @@ export const de: Locale = {
     privacy: "Datenschutz",
   },
   home: {
-    tagline: "Senior Frontend Engineer – Entwicklung von Produkten, Tools und Integrationen, die schnell geliefert werden und lange halten.",
+    tagline: {
+      role: "Senior Frontend Engineer & Frontend-Experte",
+      detail: "Entwicklung von Produkten, Tools und Integrationen, die schnell geliefert werden und lange halten.",
+    },
     openToWork: "Offen für Zusammenarbeit",
     resume: "Lebenslauf"
   },

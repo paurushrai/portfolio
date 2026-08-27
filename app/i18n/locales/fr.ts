@@ -10,7 +10,10 @@ export const fr: Locale = {
     privacy: "Confidentialité",
   },
   home: {
-    tagline: "Ingénieur produit senior – créer des produits, des outils et des intégrations qui sont livrés rapidement et durent longtemps.",
+    tagline: {
+      role: "Ingénieur Frontend Senior et Expert Frontend",
+      detail: "créer des produits, des outils et des intégrations qui sont livrés rapidement et durent longtemps.",
+    },
     openToWork: "Ouvert à la collaboration",
     resume: "CV"
   },

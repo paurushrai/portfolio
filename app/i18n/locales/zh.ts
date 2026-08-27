@@ -10,8 +10,10 @@ export const zh: Locale = {
     privacy: "隐私政策",
   },
   home: {
-    tagline:
-      "高级产品工程师 — 构建快速交付、经久耐用的产品、工具与集成方案。",
+    tagline: {
+      role: "高级前端工程师与前端专家",
+      detail: "构建快速交付、经久耐用的产品、工具与集成方案。",
+    },
     openToWork: "开放合作",
     resume: "简历",
   },

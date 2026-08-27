@@ -10,7 +10,10 @@ export const it: Locale = {
     privacy: "Privacy",
   },
   home: {
-    tagline: "Senior Frontend Engineer: crea prodotti, strumenti e integrazioni che vengono spediti velocemente e durano a lungo.",
+    tagline: {
+      role: "Senior Frontend Engineer e Frontend Expert",
+      detail: "crea prodotti, strumenti e integrazioni che vengono spediti velocemente e durano a lungo.",
+    },
     openToWork: "Aperto a collaborazioni",
     resume: "Curriculum"
   },
