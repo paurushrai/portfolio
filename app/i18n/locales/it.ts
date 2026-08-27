@@ -10,7 +10,7 @@ export const it: Locale = {
     privacy: "Privacy",
   },
   home: {
-    tagline: "Senior Product Engineer: crea prodotti, strumenti e integrazioni che vengono spediti velocemente e durano a lungo.",
+    tagline: "Senior Frontend Engineer: crea prodotti, strumenti e integrazioni che vengono spediti velocemente e durano a lungo.",
     openToWork: "Aperto a collaborazioni",
     resume: "Curriculum"
   },
@@ -288,7 +288,7 @@ export const it: Locale = {
     title: "Su di me",
     subtitle: "Un po’ di storia su chi sono e cosa faccio.",
     bio: [
-      "Sono Paurush Rai, un Senior Product Engineer con sede in India: un nucleo frontend con estensione full-stack e oltre 5 anni di esperienza nella creazione di piattaforme web aziendali, applicazioni basate sull'AI e strumenti per la produttività degli sviluppatori. Il mio lavoro spazia da dashboard B2B complesse a un'integrazione LMS certificata 1EdTech, fino a plugin Jira e VS Code personalizzati.",
+      "Sono Paurush Rai, un Senior Frontend Engineer con sede in India: un nucleo frontend con estensione full-stack e oltre 5 anni di esperienza nella creazione di piattaforme web aziendali, applicazioni basate sull'AI e strumenti per la produttività degli sviluppatori. Il mio lavoro spazia da dashboard B2B complesse a un'integrazione LMS certificata 1EdTech, fino a plugin Jira e VS Code personalizzati.",
       "Mi preoccupo profondamente delle prestazioni, dell'architettura pulita e del rilascio di cose che contano davvero. Che si tratti di costruire da zero un portale di franchising greenfield, di progettare flussi di lavoro per interviste con AI in tempo reale o di sviluppare strumenti interni che fanno risparmiare all'azienda migliaia di dollari all'anno, la mia attenzione è sempre rivolta al lavoro che sposta l'ago in modo misurabile.",
       "Al di fuori del lavoro di solito avvio un progetto parallelo, automatizzo un flusso di lavoro noioso o metto mano a una libreria che non ho mai toccato prima: mi piace la difficoltà di imparare nuovi strumenti in contesti reali."
     ],
@@ -334,7 +334,7 @@ export const it: Locale = {
     experience: [
       {
         company: "Testlify",
-        role: "Ingegnere informatico senior",
+        role: "Ingegnere Frontend Senior",
         location: "Mumbai, India (Remoto)",
         period: "Gennaio 2025 – Presente",
         highlights: [
@@ -348,7 +348,7 @@ export const it: Locale = {
       },
       {
         company: "FuelBuddy",
-        role: "Ingegnere del software",
+        role: "Ingegnere Frontend",
         location: "Gurugram, India",
         period: "Settembre 2023 – Dicembre 2024",
         highlights: [
@@ -361,7 +361,7 @@ export const it: Locale = {
       },
       {
         company: "Modocosm",
-        role: "Ingegnere del software",
+        role: "Ingegnere Frontend",
         location: "New York City, Stati Uniti (Remoto)",
         period: "Luglio 2021 – Agosto 2023",
         highlights: [

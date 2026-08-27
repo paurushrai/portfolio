@@ -36,7 +36,7 @@ export default function OpengraphImage() {
             color: "#a1a1aa",
           }}
         >
-          Senior Product Engineer &amp; Full-Stack Developer
+          Senior Frontend Engineer &amp; Frontend Expert
         </div>
       </div>
     ),

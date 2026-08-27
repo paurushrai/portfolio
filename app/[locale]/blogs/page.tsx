@@ -12,9 +12,9 @@ export async function generateMetadata({
   const locale: AppLocale = isLocale(params.locale) ? params.locale : DEFAULT_LOCALE;
   const alternates = alternatesFor("/blogs", locale);
   return {
-    title: "Blog — Paurush Rai | Senior Product Engineer",
+    title: "Blog — Paurush Rai | Senior Frontend Engineer",
     description:
-      "Writing on software engineering, developer tooling, automation, and building products that last — from a Senior Product Engineer.",
+      "Writing on software engineering, developer tooling, automation, and building products that last — from a Senior Frontend Engineer.",
     keywords: [
       "Paurush Rai Blog",
       "Software Engineering Blog",
@@ -25,7 +25,7 @@ export async function generateMetadata({
     ],
     alternates,
     openGraph: {
-      title: "Blog — Paurush Rai | Senior Product Engineer",
+      title: "Blog — Paurush Rai | Senior Frontend Engineer",
       description: "Writing on software engineering, developer tooling, and building products that last.",
       url: alternates.canonical,
       type: "website",

@@ -288,7 +288,7 @@ export const tr: Locale = {
     title: "Hakkımda",
     subtitle: "Kim olduğum ve ne yaptığım hakkında küçük bir arka plan.",
     bio: [
-      "Ben Paurush Rai — Hindistan merkezli bir Senior Product Engineer: tam yığın kapsamına sahip bir ön uç çekirdeği ve kurumsal web platformları, AI odaklı uygulamalar ile geliştirici üretkenlik araçları geliştiren 5+ yıllık deneyim. Çalışmalarım karmaşık B2B kontrol panellerini, 1EdTech sertifikalı bir LMS entegrasyonunu ve özel Jira ile VS Code eklentilerini kapsıyor.",
+      "Ben Paurush Rai — Hindistan merkezli bir Senior Frontend Engineer: tam yığın kapsamına sahip bir ön uç çekirdeği ve kurumsal web platformları, AI odaklı uygulamalar ile geliştirici üretkenlik araçları geliştiren 5+ yıllık deneyim. Çalışmalarım karmaşık B2B kontrol panellerini, 1EdTech sertifikalı bir LMS entegrasyonunu ve özel Jira ile VS Code eklentilerini kapsıyor.",
       "Performansa, temiz mimariye ve gerçekten önemli olan şeyleri hayata geçirmeye derinden önem veriyorum. İster sıfırdan yepyeni bir franchise portalı oluşturmak, ister gerçek zamanlı AI mülakat iş akışları geliştirmek, ister işletmeye yılda binlerce dolar tasarruf sağlayan dahili araçlar geliştirmek olsun, odak noktam her zaman ibreyi ölçülebilir şekilde hareket ettiren işlerdir.",
       "İş dışında genellikle bir yan proje başlatıyor, sıkıcı bir iş akışını otomatikleştiriyor ya da daha önce hiç dokunmadığım bir kütüphaneye uzanıyorum — gerçek bağlamlarda yeni araçlar öğrenmenin sürtünmesini seviyorum."
     ],
@@ -339,7 +339,7 @@ export const tr: Locale = {
     experience: [
       {
         company: "Testlify",
-        role: "Kıdemli Yazılım Mühendisi",
+        role: "Kıdemli Frontend Mühendisi",
         location: "Mumbai, Hindistan (Uzaktan)",
         period: "Ocak 2025 – Şu Anda",
         highlights: [
@@ -353,7 +353,7 @@ export const tr: Locale = {
       },
       {
         company: "FuelBuddy",
-        role: "Yazılım Mühendisi",
+        role: "Frontend Mühendisi",
         location: "Gurugram, Hindistan",
         period: "Eylül 2023 – Aralık 2024",
         highlights: [
@@ -366,7 +366,7 @@ export const tr: Locale = {
       },
       {
         company: "Modocosm",
-        role: "Yazılım Mühendisi",
+        role: "Frontend Mühendisi",
         location: "New York City, ABD (Uzaktan)",
         period: "Temmuz 2021 – Ağustos 2023",
         highlights: [

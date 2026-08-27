@@ -281,7 +281,7 @@ export const pt: Locale = {
     title: "Sobre mim",
     subtitle: "Um pouco de contexto sobre quem eu sou e o que faço.",
     bio: [
-      "Sou Paurush Rai — um Senior Product Engineer baseado na Índia: um núcleo de frontend com alcance full-stack e mais de 5 anos construindo plataformas web empresariais, aplicações impulsionadas por IA e ferramentas de produtividade para desenvolvedores. Meu trabalho abrange dashboards B2B complexos, uma integração LMS certificada pela 1EdTech e plugins personalizados para Jira e VS Code.",
+      "Sou Paurush Rai — um Senior Frontend Engineer baseado na Índia: um núcleo de frontend com alcance full-stack e mais de 5 anos construindo plataformas web empresariais, aplicações impulsionadas por IA e ferramentas de produtividade para desenvolvedores. Meu trabalho abrange dashboards B2B complexos, uma integração LMS certificada pela 1EdTech e plugins personalizados para Jira e VS Code.",
       "Me importo profundamente com performance, arquitetura limpa e entregar coisas que realmente importam. Seja construindo um portal de franquias do zero, desenvolvendo fluxos de entrevista com IA em tempo real ou criando ferramentas internas que economizam milhares de dólares por ano para o negócio, meu foco é sempre em trabalho que move o ponteiro de forma mensurável.",
       "Fora do trabalho, geralmente estou iniciando um projeto paralelo, automatizando um fluxo de trabalho tedioso ou recorrendo a uma biblioteca que nunca usei antes — gosto da fricção de aprender novas ferramentas em contextos reais.",
     ],
@@ -318,7 +318,7 @@ export const pt: Locale = {
     experience: [
       {
         company: "Testlify",
-        role: "Engenheiro de Software Sênior",
+        role: "Engenheiro Frontend Sênior",
         location: "Bombaim, Índia (Remoto)",
         period: "Janeiro de 2025 – Presente",
         highlights: [
@@ -332,7 +332,7 @@ export const pt: Locale = {
       },
       {
         company: "FuelBuddy",
-        role: "Engenheiro de Software",
+        role: "Engenheiro Frontend",
         location: "Gurugram, Índia",
         period: "Setembro de 2023 – Dezembro de 2024",
         highlights: [
@@ -345,7 +345,7 @@ export const pt: Locale = {
       },
       {
         company: "Modocosm",
-        role: "Engenheiro de Software",
+        role: "Engenheiro Frontend",
         location: "Cidade de Nova York, EUA (Remoto)",
         period: "Julho de 2021 – Agosto de 2023",
         highlights: [
