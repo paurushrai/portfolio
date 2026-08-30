@@ -1,25 +1,25 @@
 ---
-title: Les réglages par défaut de Git vous font perdre du temps
-description: Onze réglages git globaux et vingt alias qui éliminent les contrariétés quotidiennes que git livre désactivées d'origine — branches upstream, bruit des merges, confusions d'identité, et conflits de rebase répétés.
+title: "Les réglages par défaut de Git vous font perdre du temps"
+description: "Onze réglages git globaux et vingt alias qui éliminent les contrariétés quotidiennes que git livre désactivées d'origine: branches upstream, bruit des merges, confusions d'identité, et conflits de rebase répétés."
 date: 2026-06-08
 published: true
 coverImage: /blogs/git-defaults-wasting-time/1.png
 tags: ["Git", "Developer Tools", "Productivity"]
 ---
 
-*Voici la config git que je fais tourner sur chaque machine — onze réglages globaux et vingt alias, chacun présent parce qu'il élimine une contrariété quotidienne précise. Volez tout.*
+*Voici la config git que je fais tourner sur chaque machine, onze réglages globaux et vingt alias, chacun présent parce qu'il élimine une contrariété quotidienne précise. Volez tout.*
 
 Il y a quelque temps, un collègue m'a regardé pousser une toute nouvelle branche et m'a arrêté :
 
-> « Attends — comment ça a marché ? Pas de `--set-upstream` ? »
+> « Attends, comment ça a marché ? Pas de `--set-upstream` ? »
 
 Une ligne de config. Il tapait la solution de contournement depuis des années.
 
-Cette conversation est la raison d'être de cet article. La plupart des développeurs font tourner git avec les **réglages d'usine** — et les réglages d'usine de git ne sont pas conçus pour vous. Ils sont conçus pour la *compatibilité*. Git préfère vous interrompre mille fois plutôt que de vous surprendre une seule fois.
+Cette conversation est la raison d'être de cet article. La plupart des développeurs font tourner git avec les **réglages d'usine**, et les réglages d'usine de git ne sont pas conçus pour vous. Ils sont conçus pour la *compatibilité*. Git préfère vous interrompre mille fois plutôt que de vous surprendre une seule fois.
 
 Alors tout le monde paie tranquillement la même taxe quotidienne, la plupart du temps sans même s'en rendre compte :
 
-- `fatal: The current branch has no upstream branch` — on a tapé le correctif si souvent que c'est devenu un réflexe
+- `fatal: The current branch has no upstream branch`, on a tapé le correctif si souvent que c'est devenu un réflexe
 - Des commits de merge qui polluent l'historique parce qu'un simple pull merge
 - `.DS_Store` qui apparaît dans chaque `git status` sur chaque projet Mac
 - Résoudre le *même* conflit de rebase pour la cinquième fois
@@ -27,11 +27,11 @@ Alors tout le monde paie tranquillement la même taxe quotidienne, la plupart du
 
 Chacun de ces cas est un correctif d'une ligne que git fournit, mais désactivé.
 
-![la taxe quotidienne des réglages par défaut de git — chaque contrariété et son correctif d'une ligne](/blogs/git-defaults-wasting-time/1.png)
+![la taxe quotidienne des réglages par défaut de git: chaque contrariété et son correctif d'une ligne](/blogs/git-defaults-wasting-time/1.png)
 
-Ce qui suit est ma vraie config — celle qui me suit sur chaque machine. Pas un déversement de tout ce que git supporte : chaque ligne ici a mérité sa place en éliminant une contrariété réelle. Deux actes : d'abord les **réglages globaux**, parce qu'ils changent le comportement de git partout ; puis les **alias**, parce qu'ils changent votre vitesse de conduite.
+Ce qui suit est ma vraie config, celle qui me suit sur chaque machine. Pas un déversement de tout ce que git supporte : chaque ligne ici a mérité sa place en éliminant une contrariété réelle. Deux actes : d'abord les **réglages globaux**, parce qu'ils changent le comportement de git partout ; puis les **alias**, parce qu'ils changent votre vitesse de conduite.
 
-## 🪪 Acte un : l'identité — le réglage qui peut vous mettre dans l'embarras
+## 🪪 Acte un : l'identité, le réglage qui peut vous mettre dans l'embarras
 
 Commençons par celui qui a des *conséquences* :
 
@@ -58,9 +58,9 @@ Et `~/.gitconfig-work` contient exactement une chose :
 
 ![includeIf routant automatiquement l'identité git selon l'emplacement du dépôt](/blogs/git-defaults-wasting-time/2.png)
 
-Désormais l'identité est décidée par **l'emplacement du dépôt**. Clonez quoi que ce soit dans `company/` → email de travail, automatiquement. Tout le reste → email personnel. Pas besoin de s'en souvenir, pas de configuration par dépôt, pas d'email personnel dans le journal d'audit de l'entreprise — et pas d'email professionnel sur les side projects du week-end.
+Désormais l'identité est décidée par **l'emplacement du dépôt**. Clonez quoi que ce soit dans `company/` → email de travail, automatiquement. Tout le reste → email personnel. Pas besoin de s'en souvenir, pas de configuration par dépôt, pas d'email personnel dans le journal d'audit de l'entreprise, et pas d'email professionnel sur les side projects du week-end.
 
-(Remarquez ce qui *n'est pas* dans le fichier de travail : le nom. `includeIf` se superpose à la config globale, donc le fichier de travail ne déclare que ce qui diffère — l'email. Tout le reste est hérité.)
+(Remarquez ce qui *n'est pas* dans le fichier de travail : le nom. `includeIf` se superpose à la config globale, donc le fichier de travail ne déclare que ce qui diffère, l'email. Tout le reste est hérité.)
 
 Ça compte plus qu'il n'y paraît, parce que les emails de commit sont **permanents**. Poussez avec la mauvaise identité et c'est dans l'historique pour toujours ; GitHub attribue le commit à quel que soit le compte propriétaire de cet email. L'identité devrait être une propriété du dépôt, pas de ce que vous avez pensé à taper la dernière fois.
 
@@ -74,7 +74,7 @@ Onze lignes. Chacune élimine une contrariété récurrente précise.
 git config --global push.autoSetupRemote true
 ```
 
-L'erreur que chaque développeur a mémorisée — `fatal: The current branch has no upstream branch` — existe pour que git puisse demander la permission de faire l'évidence. Ce réglage l'accorde une fois pour toutes. Le premier push sur une nouvelle branche fonctionne, tout simplement. (C'est la ligne qui a arrêté mon collègue en pleine phrase.)
+L'erreur que chaque développeur a mémorisée, `fatal: The current branch has no upstream branch`, existe pour que git puisse demander la permission de faire l'évidence. Ce réglage l'accorde une fois pour toutes. Le premier push sur une nouvelle branche fonctionne, tout simplement. (C'est la ligne qui a arrêté mon collègue en pleine phrase.)
 
 ### Arrêter de générer des commits de merge accidentels
 
@@ -82,7 +82,7 @@ L'erreur que chaque développeur a mémorisée — `fatal: The current branch ha
 git config --global pull.rebase true
 ```
 
-Un `git pull` par défaut, c'est fetch + merge — ce qui explique comment des commits « Merge branch 'main' of github.com... » finissent par tapisser votre historique. Avec ce réglage, pull rejoue vos commits locaux par-dessus ce qui est arrivé. Historique linéaire, pas de bruit.
+Un `git pull` par défaut, c'est fetch + merge, ce qui explique comment des commits « Merge branch 'main' of github.com... » finissent par tapisser votre historique. Avec ce réglage, pull rejoue vos commits locaux par-dessus ce qui est arrivé. Historique linéaire, pas de bruit.
 
 ### Faire démarrer les nouveaux dépôts sur main
 
@@ -107,7 +107,7 @@ git config --global core.excludesfile ~/.gitignore_global
 echo ".DS_Store" > ~/.gitignore_global
 ```
 
-Un fichier d'ignore global s'applique par-dessus le `.gitignore` propre à chaque dépôt. Les déchets de macOS, les fichiers swap d'éditeur — traités une fois, à l'échelle de la machine, au lieu d'une fois par projet.
+Un fichier d'ignore global s'applique par-dessus le `.gitignore` propre à chaque dépôt. Les déchets de macOS, les fichiers swap d'éditeur, traités une fois, à l'échelle de la machine, au lieu d'une fois par projet.
 
 ### La trinité de résolution de conflits
 
@@ -119,11 +119,11 @@ git config --global rebase.autostash true
 
 Trois réglages qui transforment ensemble la résolution de conflits :
 
-**zdiff3** ajoute une troisième section aux marqueurs de conflit — le texte *original* dont les deux côtés sont partis. Les marqueurs standards vous montrent « le vôtre » et « le leur » et vous font deviner l'intention. Voir l'ancêtre commun transforme deviner en lire.
+**zdiff3** ajoute une troisième section aux marqueurs de conflit, le texte *original* dont les deux côtés sont partis. Les marqueurs standards vous montrent « le vôtre » et « le leur » et vous font deviner l'intention. Voir l'ancêtre commun transforme deviner en lire.
 
 ![les marqueurs de conflit zdiff3 montrant l'ancêtre commun original en plus des deux côtés](/blogs/git-defaults-wasting-time/3.png)
 
-**rerere** (« reuse recorded resolution ») est le succès surprise des onze. Git *enregistre* comment vous résolvez chaque conflit — et quand le même conflit réapparaît (les rebases adorent répéter les conflits), il rejoue votre résolution automatiquement. Le cinquième conflit identique se résout tout seul.
+**rerere** (« reuse recorded resolution ») est le succès surprise des onze. Git *enregistre* comment vous résolvez chaque conflit, et quand le même conflit réapparaît (les rebases adorent répéter les conflits), il rejoue votre résolution automatiquement. Le cinquième conflit identique se résout tout seul.
 
 **autostash** supprime la danse « cannot rebase: you have unstaged changes ». Git range vos modifications, fait le rebase, et les restaure. Ce que vous étiez en train de faire survit.
 
@@ -134,11 +134,11 @@ git config --global diff.algorithm histogram
 git config --global branch.sort -committerdate
 ```
 
-Histogram produit des diffs nettement plus propres que l'algorithme Myers par défaut — moins de ces blocs mélangés où git associe des lignes sans rapport. Et trier les branches par activité récente veut dire que `git branch` montre ce sur quoi vous *travaillez réellement* en premier, pas une archéologie alphabétique.
+Histogram produit des diffs nettement plus propres que l'algorithme Myers par défaut, moins de ces blocs mélangés où git associe des lignes sans rapport. Et trier les branches par activité récente veut dire que `git branch` montre ce sur quoi vous *travaillez réellement* en premier, pas une archéologie alphabétique.
 
 ## ⌨️ Acte deux : les alias
 
-Les réglages changent le comportement de git. Les alias changent votre vitesse. J'en garde vingt, soigneusement choisis — groupés selon ce qu'ils font gagner.
+Les réglages changent le comportement de git. Les alias changent votre vitesse. J'en garde vingt, soigneusement choisis, groupés selon ce qu'ils font gagner.
 
 ![les vingt alias git, groupés en pilotes quotidiens, voir clairement, annuler sans crainte, et coups de pro](/blogs/git-defaults-wasting-time/4.png)
 
@@ -164,7 +164,7 @@ ds     = diff --staged
 whoami = !echo "$(git config user.name) <$(git config user.email)>"
 ```
 
-`git lg` est mon « où en suis-je » — vingt commits, dessinés en graphe. Et `git whoami` boucle la boucle sur l'Acte un : lancez-le dans n'importe quel dépôt et il affiche exactement quelle identité signera le prochain commit. Dans `company/` il montre mon email de travail ; partout ailleurs, le personnel. La confiance, vérifiée en une commande.
+`git lg` est mon « où en suis-je », vingt commits, dessinés en graphe. Et `git whoami` boucle la boucle sur l'Acte un : lancez-le dans n'importe quel dépôt et il affiche exactement quelle identité signera le prochain commit. Dans `company/` il montre mon email de travail ; partout ailleurs, le personnel. La confiance, vérifiée en une commande.
 
 ### Annuler sans crainte
 
@@ -174,7 +174,7 @@ undo    = reset --soft HEAD~1
 wip     = !git add -A && git commit -m "wip: checkpoint"
 ```
 
-`undo` décommite sans rien détruire — les changements retournent dans le staging. `wip` capture un instantané de tout avant une opération risquée. La plupart de l'anxiété liée à git vient de ne pas connaître le chemin sûr du retour ; ce sont ces alias, le chemin sûr du retour.
+`undo` décommite sans rien détruire, les changements retournent dans le staging. `wip` capture un instantané de tout avant une opération risquée. La plupart de l'anxiété liée à git vient de ne pas connaître le chemin sûr du retour ; ce sont ces alias, le chemin sûr du retour.
 
 ### Les coups de pro
 
@@ -185,7 +185,7 @@ ri      = rebase -i --autosquash
 cleanup = !git branch --merged | grep -vE "^\*|main|master" | xargs git branch -d
 ```
 
-`pf` est le plus important : `--force-with-lease` force le push **seulement si le remote est où vous l'avez vu pour la dernière fois** — ce qui veut dire qu'il refuse physiquement d'écraser le travail d'un collègue arrivé entre-temps. Il n'y a aucune situation où le `--force` brut est le meilleur choix. L'aliaser signifie que mes doigts ne tapent jamais la version dangereuse.
+`pf` est le plus important : `--force-with-lease` force le push **seulement si le remote est où vous l'avez vu pour la dernière fois**, ce qui veut dire qu'il refuse physiquement d'écraser le travail d'un collègue arrivé entre-temps. Il n'y a aucune situation où le `--force` brut est le meilleur choix. L'aliaser signifie que mes doigts ne tapent jamais la version dangereuse.
 
 Le duo `fixup` + `ri` est le workflow d'historique propre : commitez un correctif *ciblé sur* un commit antérieur, puis un rebase interactif replie tout automatiquement à sa place.
 
@@ -193,9 +193,9 @@ Le duo `fixup` + `ri` est le workflow d'historique propre : commitez un correcti
 
 Voici la chose avec la config : la construire est facile. La *garder*, c'est le vrai problème. Une config qui ne vit que sur votre machine actuelle est une config que vous reconstruirez de mémoire sur la suivante.
 
-Mon `~/.gitconfig` n'est pas un fichier isolé — c'est un symlink vers un dépôt de dotfiles qui commit et pousse automatiquement chaque changement dès qu'il se produit. Quand j'ai ajouté un nouvel alias récemment, un agent en arrière-plan l'avait déjà commité sur GitHub avant même que j'aie fini de le tester.
+Mon `~/.gitconfig` n'est pas un fichier isolé, c'est un symlink vers un dépôt de dotfiles qui commit et pousse automatiquement chaque changement dès qu'il se produit. Quand j'ai ajouté un nouvel alias récemment, un agent en arrière-plan l'avait déjà commité sur GitHub avant même que j'aie fini de le tester.
 
-(Ce système — symlinks plus un agent launchd, pas de cron, pas d'outils tiers — est sa propre histoire, que j'ai racontée séparément.)
+(Ce système, symlinks plus un agent launchd, pas de cron, pas d'outils tiers, est sa propre histoire, que j'ai racontée séparément.)
 
 Conséquence : toute cette configuration, routage d'identité et les vingt alias inclus, atterrit sur n'importe quelle machine avec un seul `install.sh`. Configurez une fois, gardez pour toujours.
 
@@ -252,9 +252,9 @@ printf '[user]\n    email = you@work.com\n' > ~/.gitconfig-work
 
 Aucun de ces réglages n'est impressionnant tout seul. C'est bien le but.
 
-Les réglages par défaut de git optimisent pour ne jamais surprendre personne, ce qui veut dire qu'ils interrompent tout le monde. Chaque ligne ci-dessus convertit une interruption récurrente en silence — et le silence s'accumule. Multipliez quelques secondes économisées et un commit avec le mauvais email évité, sur chaque dépôt que vous toucherez jamais, et cette demi-heure de configuration devient parmi les moments les plus rentables que vous passerez sur votre tooling.
+Les réglages par défaut de git optimisent pour ne jamais surprendre personne, ce qui veut dire qu'ils interrompent tout le monde. Chaque ligne ci-dessus convertit une interruption récurrente en silence, et le silence s'accumule. Multipliez quelques secondes économisées et un commit avec le mauvais email évité, sur chaque dépôt que vous toucherez jamais, et cette demi-heure de configuration devient parmi les moments les plus rentables que vous passerez sur votre tooling.
 
-Mon collègue a mis en place `push.autoSetupRemote` le même après-midi où il l'a vu. La solution de contournement qu'il tapait depuis des années a disparu avec une ligne — il lui a juste fallu *voir* quelqu'un ne pas payer la taxe pour réaliser que c'était optionnel.
+Mon collègue a mis en place `push.autoSetupRemote` le même après-midi où il l'a vu. La solution de contournement qu'il tapait depuis des années a disparu avec une ligne, il lui a juste fallu *voir* quelqu'un ne pas payer la taxe pour réaliser que c'était optionnel.
 
 Considérez cet article comme ce moment, sous forme écrite. Lancez `cat ~/.gitconfig` et regardez ce qu'il y a vraiment dedans.
 

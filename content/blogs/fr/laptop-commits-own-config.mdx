@@ -1,13 +1,13 @@
 ---
-title: Mon laptop commit maintenant sa propre config
-description: Une configuration de dotfiles qui se répare elle-même — config git et shell symlinkées, un agent launchd qui surveille Homebrew, et un routage d'identité qui survit aux migrations de machine sans sauvegarde manuelle.
+title: "Mon laptop commit maintenant sa propre config"
+description: "Une configuration de dotfiles qui se répare elle-même: config git et shell symlinkées, un agent launchd qui surveille Homebrew, et un routage d'identité qui survit aux migrations de machine sans sauvegarde manuelle."
 date: 2026-06-12
 published: true
 coverImage: /blogs/laptop-commits-own-config/1.png
 tags: ["macOS", "Automation", "Dotfiles", "Git", "launchd"]
 ---
 
-*J'ai publié un article sur comment survivre aux migrations de machine. Une semaine plus tard, j'ai découvert que ma propre config avait déjà échoué — et la réparer m'a demandé du git, des symlinks, launchd, et un après-midi qui remet les pieds sur terre.*
+*J'ai publié un article sur comment survivre aux migrations de machine. Une semaine plus tard, j'ai découvert que ma propre config avait déjà échoué, et la réparer m'a demandé du git, des symlinks, launchd, et un après-midi qui remet les pieds sur terre.*
 
 Il y a une semaine, j'ai publié un article sur l'architecture des workspaces.
 
@@ -29,7 +29,7 @@ ls: /Users/paurushrai/.claude/skills/: No such file or directory
 
 Le dossier n'existait pas.
 
-Mais j'*avais* des skills. Un skill custom appelé graphify — je l'avais construit, je l'utilisais tous les jours, et ma config globale le référençait toujours. Alors où était-il ?
+Mais j'*avais* des skills. Un skill custom appelé graphify, je l'avais construit, je l'utilisais tous les jours, et ma config globale le référençait toujours. Alors où était-il ?
 
 ```bash
 /Users/paurushrai/Downloads/mac-restore/dot-claude/skills/graphify/
@@ -41,7 +41,7 @@ Assis là depuis le jour où j'avais migré de machine. Jamais restauré. Oubli�
 
 ![le skill graphify retrouvé mort dans ~/Downloads/mac-restore, jamais restauré après la migration](/blogs/laptop-commits-own-config/1.png)
 
-J'avais écrit tout un article sur exactement ce mode d'échec — et ma propre machine le vivait tranquillement depuis le début.
+J'avais écrit tout un article sur exactement ce mode d'échec, et ma propre machine le vivait tranquillement depuis le début.
 
 ## 🔍 L'angle mort
 
@@ -49,11 +49,11 @@ Voici ce que j'avais raté.
 
 Mon architecture organisait tout *à l'intérieur* de `~/Developer/`. Mais la configuration qui fait qu'une machine se sent **mienne** ne vit pas là :
 
-- L'identité et le comportement git — `~/.gitconfig`
-- La config shell — `~/.zshrc`, `~/.zprofile`
-- Les ignores globaux — `~/.gitignore_global`
-- Les règles IA de codage — `~/.claude/CLAUDE.md`
-- Les skills IA custom — `~/.claude/skills/`
+- L'identité et le comportement git, `~/.gitconfig`
+- La config shell, `~/.zshrc`, `~/.zprofile`
+- Les ignores globaux, `~/.gitignore_global`
+- Les règles IA de codage, `~/.claude/CLAUDE.md`
+- Les skills IA custom, `~/.claude/skills/`
 - Et le plus invisible de tous : la liste des paquets installés, qui ne vit *nulle part*
 
 Tout ça éparpillé dans `$HOME`. Non versionné. Non sauvegardé. Invisible pour ma magnifique structure de répertoires.
@@ -65,7 +65,7 @@ cat ~/.gitconfig
 # → no such file
 ```
 
-Le fichier n'existait pas. Sur l'ancienne machine, j'avais mis en place un routage d'email — un email personnel pour mes projets, un email de travail pour les dépôts d'entreprise. Rien de tout ça n'avait survécu. Je commitais depuis des mois sans le remarquer.
+Le fichier n'existait pas. Sur l'ancienne machine, j'avais mis en place un routage d'email, un email personnel pour mes projets, un email de travail pour les dépôts d'entreprise. Rien de tout ça n'avait survécu. Je commitais depuis des mois sans le remarquer.
 
 Le code avait migré. La *configuration*, non.
 
@@ -73,7 +73,7 @@ Le code avait migré. La *configuration*, non.
 
 Mon premier réflexe a été l'évidence : créer un dossier de sauvegarde, y copier les dotfiles, le pousser sur GitHub.
 
-Mais les copies dérivent. Dès qu'il existe deux versions de `.gitconfig`, l'une des deux ment — et vous ne saurez pas laquelle avant que quelque chose casse.
+Mais les copies dérivent. Dès qu'il existe deux versions de `.gitconfig`, l'une des deux ment, et vous ne saurez pas laquelle avant que quelque chose casse.
 
 La solution est plus vieille que moi : les **symlinks**.
 
@@ -90,9 +90,9 @@ Quand je me suis demandé si ça voulait dire que j'allais devoir continuer à s
 
 **Les écritures passent par le symlink.**
 
-Lancez `git config --global` pour changer un réglage — git suit le pointeur et écrit directement dans le fichier du dépôt. Éditez `~/.zshrc` — vous éditez le fichier du dépôt. Il n'y a rien à synchroniser, parce qu'il n'y a rien à synchroniser *depuis*. Un fichier, deux adresses.
+Lancez `git config --global` pour changer un réglage, git suit le pointeur et écrit directement dans le fichier du dépôt. Éditez `~/.zshrc`, vous éditez le fichier du dépôt. Il n'y a rien à synchroniser, parce qu'il n'y a rien à synchroniser *depuis*. Un fichier, deux adresses.
 
-Voilà donc ce que j'ai construit. Un dépôt de dotfiles à l'intérieur de ma couche d'infrastructure, contenant les vrais fichiers, avec un `install.sh` idempotent qui recrée chaque symlink sur une machine neuve — en sauvegardant d'abord ce qu'il trouve, sûr à exécuter deux fois.
+Voilà donc ce que j'ai construit. Un dépôt de dotfiles à l'intérieur de ma couche d'infrastructure, contenant les vrais fichiers, avec un `install.sh` idempotent qui recrée chaque symlink sur une machine neuve, en sauvegardant d'abord ce qu'il trouve, sûr à exécuter deux fois.
 
 Config git, config shell, ignores globaux, mes règles IA, le skill graphify sauvé. Commité. Poussé. Permanent.
 
@@ -106,7 +106,7 @@ Je pensais avoir fini.
 
 Puis j'ai essayé de répondre à une question simple : *si cette machine mourait, qu'est-ce que je réinstallerais ?*
 
-La config git a une propriété magnifique — l'outil écrit dans son propre fichier de config, donc le dépôt connaît toujours la vérité. Homebrew n'a pas cette politesse. `brew install jq` installe le paquet et n'enregistre la décision **nulle part**. La liste des paquets n'existe qu'implicitement, comme des dossiers dans `/opt/homebrew/Cellar`.
+La config git a une propriété magnifique, l'outil écrit dans son propre fichier de config, donc le dépôt connaît toujours la vérité. Homebrew n'a pas cette politesse. `brew install jq` installe le paquet et n'enregistre la décision **nulle part**. La liste des paquets n'existe qu'implicitement, comme des dossiers dans `/opt/homebrew/Cellar`.
 
 Homebrew peut exporter un manifeste à la demande :
 
@@ -142,15 +142,15 @@ Un wrapper shell ne capture que les commandes tapées dans *mon shell interactif
 
 J'avais automatisé l'**interface** alors que j'avais besoin d'automatiser l'**événement**.
 
-L'installation du paquet elle-même est l'événement — et elle se produit dans le système de fichiers, pas dans mon shell.
+L'installation du paquet elle-même est l'événement, et elle se produit dans le système de fichiers, pas dans mon shell.
 
 ## ⚙️ L'OS avait déjà la réponse
 
 Je me suis demandé : peut-on utiliser launchd pour ça ?
 
-launchd est le gestionnaire de services de macOS — la chose qui démarre chaque daemon du système, la réponse d'Apple à systemd. Tout développeur Mac l'a déjà vu. Presque personne n'utilise sa meilleure fonctionnalité :
+launchd est le gestionnaire de services de macOS, la chose qui démarre chaque daemon du système, la réponse d'Apple à systemd. Tout développeur Mac l'a déjà vu. Presque personne n'utilise sa meilleure fonctionnalité :
 
-**WatchPaths** — launchd surveille un chemin au niveau de l'OS et déclenche un job à l'instant où il change.
+**WatchPaths**, launchd surveille un chemin au niveau de l'OS et déclenche un job à l'instant où il change.
 
 ```xml
 <key>WatchPaths</key>
@@ -160,10 +160,10 @@ launchd est le gestionnaire de services de macOS — la chose qui démarre chaqu
 </array>
 ```
 
-Maintenant peu importe *qui* installe le paquet — mon shell, un script, un agent, n'importe quoi. Le Cellar change, l'OS le remarque, mon script de sync se lance :
+Maintenant peu importe *qui* installe le paquet, mon shell, un script, un agent, n'importe quoi. Le Cellar change, l'OS le remarque, mon script de sync se lance :
 
 ```bash
-# sync.sh — tout le moteur
+# sync.sh, tout le moteur
 brew bundle dump --global --force    # instantané des paquets
 git add -A                           # met en attente toute dérive de dotfile
 git diff --cached --quiet && exit 0  # rien n'a changé ? on sort en silence
@@ -194,11 +194,11 @@ Une fois que ça a marché pour les paquets, l'étape suivante était évidente 
 
 Une décision ici va mordre quiconque construit ce système, alors elle mérite la confession.
 
-La version paresseuse consiste à surveiller le répertoire racine du dépôt — une seule entrée de watch, couvre tout.
+La version paresseuse consiste à surveiller le répertoire racine du dépôt, une seule entrée de watch, couvre tout.
 
 Mais chaque commit git **modifie `.git/`**. Surveillez la racine du dépôt et vous avez construit un ouroboros : un changement déclenche l'agent → l'agent commit → le commit change `.git/` → ce qui redéclenche l'agent → à l'infini.
 
-Alors l'agent surveille des **fichiers individuels**, jamais le répertoire qui contient `.git`. Le compromis : un fichier tout neuf dans un sous-répertoire profond n'est pas capturé instantanément — l'exécution quotidienne le rattrape. C'est documenté dans le README, et c'est un prix raisonnable.
+Alors l'agent surveille des **fichiers individuels**, jamais le répertoire qui contient `.git`. Le compromis : un fichier tout neuf dans un sous-répertoire profond n'est pas capturé instantanément, l'exécution quotidienne le rattrape. C'est documenté dans le README, et c'est un prix raisonnable.
 
 Une automatisation qui se déclenche elle-même est le genre de bug qu'on trouve à 2h du matin.
 
@@ -206,7 +206,7 @@ Une automatisation qui se déclenche elle-même est le genre de bug qu'on trouve
 
 Il restait un problème, et il concernait la confiance.
 
-L'agent commitait maintenant en mon nom, silencieusement. Un daemon silencieux est un daemon auquel on cesse de faire confiance — ou pire, qu'on oublie qu'il existe.
+L'agent commitait maintenant en mon nom, silencieusement. Un daemon silencieux est un daemon auquel on cesse de faire confiance, ou pire, qu'on oublie qu'il existe.
 
 Le script a reçu deux lignes de notification native macOS :
 
@@ -216,11 +216,11 @@ osascript -e 'display notification "Committed & pushed: .Brewfile" with title "d
 
 Premier test : je ne l'ai jamais vue. Les bannières s'estompent en cinq secondes, et je regardais ailleurs.
 
-La solution n'était pas du code — c'était un réglage. Les notifications macOS ont deux styles, et presque personne ne change le défaut : **Réglages Système → Notifications → Script Editor → Alertes**. Les notifications de style Alerte *restent à l'écran jusqu'à ce que vous les fermiez*.
+La solution n'était pas du code, c'était un réglage. Les notifications macOS ont deux styles, et presque personne ne change le défaut : **Réglages Système → Notifications → Script Editor → Alertes**. Les notifications de style Alerte *restent à l'écran jusqu'à ce que vous les fermiez*.
 
 Maintenant chaque sync attend dans le coin que je l'accuse réception, avec les noms des fichiers modifiés dans le message. L'historique de config de ma machine, livré sous forme de reçus.
 
-Et il ne parle que quand quelque chose a réellement changé — une sync sans effet reste silencieuse. Une notification qu'on reçoit toutes les minutes est une notification qu'on a déjà appris à ignorer.
+Et il ne parle que quand quelque chose a réellement changé, une sync sans effet reste silencieuse. Une notification qu'on reçoit toutes les minutes est une notification qu'on a déjà appris à ignorer.
 
 ## 🎭 La question paranoïaque
 
@@ -230,11 +230,11 @@ Juste au moment où tout fonctionnait, j'ai pensé à la question qui casse la p
 
 Je suis allé creuser, et j'ai découvert qu'« être connecté à GitHub » est en fait trois couches indépendantes que la plupart des gens n'ont jamais séparées :
 
-**Couche 1 — qui a écrit le commit ?** Décidé par la config git, point final. Un commit est une écriture de fichier locale ; GitHub n'est même pas contacté. Ma règle includeIf route les dépôts d'entreprise vers mon email de travail, tout le reste vers le personnel. Les connexions CLI ne peuvent pas toucher à ça.
+**Couche 1, qui a écrit le commit ?** Décidé par la config git, point final. Un commit est une écriture de fichier locale ; GitHub n'est même pas contacté. Ma règle includeIf route les dépôts d'entreprise vers mon email de travail, tout le reste vers le personnel. Les connexions CLI ne peuvent pas toucher à ça.
 
-**Couche 2 — qui a le droit de pousser ?** Décidé par les identifiants dans le trousseau macOS. Et voici la partie fragile : le trousseau stocke les identifiants *par hôte*. Deux comptes, un seul github.com — la seconde connexion peut silencieusement écraser la première, et soudain mon agent de sync pousse avec la mauvaise identité et collectionne des 403.
+**Couche 2, qui a le droit de pousser ?** Décidé par les identifiants dans le trousseau macOS. Et voici la partie fragile : le trousseau stocke les identifiants *par hôte*. Deux comptes, un seul github.com, la seconde connexion peut silencieusement écraser la première, et soudain mon agent de sync pousse avec la mauvaise identité et collectionne des 403.
 
-**Couche 3 — pour qui agit le CLI `gh` ?** Quel que soit le compte actif. Sans importance pour ma sync, qui parle git pur.
+**Couche 3, pour qui agit le CLI `gh` ?** Quel que soit le compte actif. Sans importance pour ma sync, qui parle git pur.
 
 ![les trois couches d'identité : qui a écrit le commit, qui peut pousser, et pour qui agit le CLI gh](/blogs/laptop-commits-own-config/5.png)
 
@@ -244,11 +244,11 @@ La couche 2 était la vraie exposition, et la solution tient en une ligne :
 git remote set-url origin https://paurushrai@github.com/paurushrai/dotfiles.git
 ```
 
-Ce `paurushrai@` n'est pas un email — c'est une syntaxe d'URL, le même `user@host` que ssh. Avec un nom d'utilisateur dans l'URL, le trousseau classe les identifiants sous **hôte + nom d'utilisateur**. Comptes séparés, tiroirs séparés, aucun écrasement possible.
+Ce `paurushrai@` n'est pas un email, c'est une syntaxe d'URL, le même `user@host` que ssh. Avec un nom d'utilisateur dans l'URL, le trousseau classe les identifiants sous **hôte + nom d'utilisateur**. Comptes séparés, tiroirs séparés, aucun écrasement possible.
 
 Le principe est le même que celui derrière le routage d'email, et il mérite d'être formulé :
 
-> L'identité devrait être une propriété du dépôt — pas d'un état global mutable.
+> L'identité devrait être une propriété du dépôt, pas d'un état global mutable.
 
 ## 🚀 La machine en dix minutes
 
@@ -270,23 +270,23 @@ brew bundle --global
 ```
 
 ```bash
-# 3. Se ré-authentifier — les identifiants ne migrent jamais, par conception
+# 3. Se ré-authentifier, les identifiants ne migrent jamais, par conception
 claude login
 ```
 
 Et la partie que je trouve vraiment satisfaisante : `install.sh` ne restaure pas seulement la config. Il amorce aussi l'agent launchd.
 
-La nouvelle machine ne reçoit pas un instantané de ma configuration. Elle reçoit le **système qui maintient ma configuration** — et se met à se maintenir elle-même dès la première minute.
+La nouvelle machine ne reçoit pas un instantané de ma configuration. Elle reçoit le **système qui maintient ma configuration**, et se met à se maintenir elle-même dès la première minute.
 
 Ce que j'ai délibérément laissé de côté compte tout autant :
 
-- **Les identifiants** — la sauvegarde d'un secret, c'est de se reconnecter. Dix secondes, par conception.
-- **Les caches, l'état de session, les artefacts de build** — reconstruits naturellement. Les sauvegarder, c'est de l'accumulation.
-- **La couche de données** — les volumes Postgres et Redis sont des binaires larges, vivants, mutants. Git est le mauvais outil, et copier une base de données en cours d'exécution produit des ordures corrompues. Les données ont besoin de vraies sauvegardes par instantané — ce sera le prochain article.
+- **Les identifiants**, la sauvegarde d'un secret, c'est de se reconnecter. Dix secondes, par conception.
+- **Les caches, l'état de session, les artefacts de build**, reconstruits naturellement. Les sauvegarder, c'est de l'accumulation.
+- **La couche de données**, les volumes Postgres et Redis sont des binaires larges, vivants, mutants. Git est le mauvais outil, et copier une base de données en cours d'exécution produit des ordures corrompues. Les données ont besoin de vraies sauvegardes par instantané, ce sera le prochain article.
 
 ## 🎯 Ce que j'ai vraiment appris
 
-La leçon de l'article précédent était : votre poste de travail est un système — architecturez-le.
+La leçon de l'article précédent était : votre poste de travail est un système, architecturez-le.
 
 Cette semaine m'a appris le corollaire : **un système maintenu par la discipline se dégrade. Un système qui se maintient lui-même s'accumule.**
 
@@ -302,10 +302,10 @@ Chacun d'eux remplace « penser à » par « ça se fait tout seul ».
 
 Ce fichier de skill est resté mort dans mon dossier Downloads pendant des mois parce que sa restauration dépendait de mon souvenir qu'il existait. Plus rien sur ma machine ne dépend de ma mémoire.
 
-Et honnêtement — c'est la meilleure fonctionnalité que j'aie jamais livrée à moi-même.
+Et honnêtement, c'est la meilleure fonctionnalité que j'aie jamais livrée à moi-même.
 
 ## À quoi ressemble votre couche de config ?
 
-Les dépôts de dotfiles sont une vieille idée. Mais la plupart s'arrêtent à « des fichiers dans un dépôt avec un script d'installation » — la partie qui garde le dépôt *vrai* après le premier jour, c'est là que ça devient intéressant.
+Les dépôts de dotfiles sont une vieille idée. Mais la plupart s'arrêtent à « des fichiers dans un dépôt avec un script d'installation », la partie qui garde le dépôt *vrai* après le premier jour, c'est là que ça devient intéressant.
 
 Le tooling continuera de changer. L'architecture devrait lui survivre.

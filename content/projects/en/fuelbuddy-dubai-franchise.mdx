@@ -1,20 +1,20 @@
 ---
-title: FuelBuddy Dubai - Regional Franchise Platform
-description: Built FuelBuddy UAE's franchise app from scratch — frontend, my own Hasura GraphQL APIs, TanStack Query, and an auth flow for regional rules.
+title: "FuelBuddy Dubai - Regional Franchise Platform"
+description: "Built FuelBuddy UAE's franchise platform from scratch: frontend architecture, Hasura GraphQL APIs, TanStack Query, and regional compliance workflows."
 date: 2024-10-01
 published: true
 company: FuelBuddy
 ---
 
-FuelBuddy's UAE expansion needed its own franchise app — the Dubai market had different regulatory, security, and workflow requirements than the existing platforms, enough that reusing the old one wasn't a good fit. I built the Dubai Franchise Application from scratch, across both the frontend and the CRUD APIs behind it.
+FuelBuddy's UAE expansion required a dedicated franchise application tailored to regional regulatory, security, and operational requirements. I built the Dubai Franchise Application from scratch across both the frontend and the data APIs.
 
 ## What I built
 
-- **New frontend from scratch:** Built the component system fresh, which let the app be more responsive and better put-together than the older versions it replaced.
-- **My own CRUD APIs on Hasura:** Built the backend data APIs the app runs on, using Hasura's GraphQL engine over the database to expose the CRUD operations I needed — so I could design the data layer end to end instead of waiting on separate backend endpoints.
-- **Data layer on TanStack Query:** Used TanStack React Query on the frontend to consume those APIs — caching, background refetching, and optimistic updates — so the UI stayed fast and consistent without a lot of manual state wiring.
-- **Auth and security:** Reworked the authentication, token handling, and API payload validation to meet the region's compliance requirements.
+- **Greenfield frontend:** Built the component system and application structure from scratch, delivering a clean and responsive interface for franchise operations.
+- **Hasura GraphQL APIs:** Built the backend data layer on Hasura GraphQL engine, defining the CRUD operations and data models needed by the application.
+- **TanStack Query data layer:** Implemented TanStack Query for caching, background synchronization, and optimistic UI updates, keeping network requests efficient and UI state consistent.
+- **Authentication and security:** Configured token management, API payload validation, and role-based access control to meet regional compliance standards.
 
 ## Why it mattered
 
-The result met the stricter requirements of the Dubai market and set a cleaner internal standard for how these apps get built. The revised data layer also cut down on redundant network calls, which kept the experience quick for franchise partners.
+Delivering a dedicated platform satisfied regional compliance requirements in Dubai while establishing a modern architecture with TanStack Query and GraphQL that minimized redundant network calls.

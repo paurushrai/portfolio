@@ -11,7 +11,7 @@ export async function generateMetadata({
   const alternates = alternatesFor("/about", locale);
   return {
     title: "About Paurush Rai | Senior Frontend Engineer",
-    description: "Meet Paurush Rai — Senior Frontend Engineer with 5+ years building enterprise SaaS, AI platforms, and developer tools. Based in India.",
+    description: "Meet Paurush Rai, Senior Frontend Engineer with 5+ years building enterprise SaaS, AI platforms, and developer tools. Based in India.",
     keywords: [
       "Senior Frontend Engineer",
       "Frontend Expert",
@@ -31,7 +31,7 @@ export async function generateMetadata({
     ],
     alternates,
     openGraph: {
-      title: "About Paurush Rai — Senior Frontend Engineer",
+      title: "About Paurush Rai | Senior Frontend Engineer",
       description: "5+ years building enterprise SaaS, AI platforms, and developer tools. React, Next.js, TypeScript, Node.js specialist based in India.",
       url: alternates.canonical,
     },

@@ -2,7 +2,7 @@
   "name": "paurushrai.in",
   "version": "1.0.0",
   "private": true,
-  "description": "Personal portfolio site — Next.js 14 App Router, MDX content via Contentlayer, and type-safe i18n across 12 languages.",
+  "description": "Personal portfolio site: Next.js 14 App Router, MDX content via Contentlayer, and type-safe i18n across 12 languages.",
   "author": "Paurush Rai <paurushrai99@gmail.com> (https://paurushrai.in)",
   "license": "MIT",
   "homepage": "https://paurushrai.in",

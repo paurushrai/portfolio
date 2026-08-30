@@ -10,8 +10,8 @@ export async function generateMetadata({
   const locale: AppLocale = isLocale(params.locale) ? params.locale : DEFAULT_LOCALE;
   const alternates = alternatesFor("/contact", locale);
   return {
-    title: "Contact — Paurush Rai | Hire a Senior Frontend Engineer",
-    description: "Get in touch with Paurush Rai — Senior Frontend Engineer & Frontend Expert available for frontend, full-stack, and AI integration roles.",
+    title: "Contact | Paurush Rai | Hire a Senior Frontend Engineer",
+    description: "Get in touch with Paurush Rai, Senior Frontend Engineer & Frontend Expert available for frontend, full-stack, and AI integration roles.",
     keywords: [
       "Hire Senior Frontend Engineer",
       "Hire Senior Frontend Expert",
@@ -25,7 +25,7 @@ export async function generateMetadata({
     ],
     alternates,
     openGraph: {
-      title: "Contact Paurush Rai — Senior Frontend Engineer",
+      title: "Contact | Paurush Rai | Senior Frontend Engineer",
       description: "Available for senior frontend, full-stack, and AI integration roles. Let's build something great together.",
       url: alternates.canonical,
     },

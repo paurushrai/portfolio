@@ -1,21 +1,21 @@
 ---
-title: FuelBuddy India - Driver Delivery App
-description: Built FuelBuddy's driver app end to end — offline-tolerant workflows, live location tracking, a field-ready UI, and CRUD APIs on Hasura GraphQL.
+title: "FuelBuddy India - Driver Delivery App"
+description: "Built FuelBuddy's driver app end to end: offline-tolerant workflows, live location tracking, a field-ready UI, and CRUD APIs on Hasura GraphQL."
 url: https://play.google.com/store/apps/details?id=in.fuelbuddy.driver
 date: 2024-04-01
 published: true
 company: FuelBuddy
 ---
 
-The [FuelBuddy Driver App](https://play.google.com/store/apps/details?id=in.fuelbuddy.driver) is what drivers use to actually deliver fuel to customers. Building for drivers is its own kind of problem: the screen has to be readable in direct sunlight, taps have to be forgiving, and the network can drop at any point on the road. I built a set of features end to end aimed squarely at those conditions — frontend and the data APIs behind them.
+The [FuelBuddy Driver App](https://play.google.com/store/apps/details?id=in.fuelbuddy.driver) is what drivers use to deliver fuel to customers. Building for drivers requires specific engineering considerations: the screen must remain readable in direct sunlight, tap targets must be forgiving, and the app must handle intermittent network connectivity on the road. I built core delivery workflows end to end across the frontend and data APIs.
 
 ## What I built
 
-- **Offline-tolerant UI:** Drivers regularly lose signal, so I cached route and order data locally and let them keep working through dead zones. The app queues changes and syncs them back once the connection returns, instead of freezing.
-- **Location and maps:** Handled the frontend for live GPS tracking and map routing, keeping frequent location updates and map redraws efficient so they didn't drain the battery over a long shift.
-- **Field-friendly UX:** Owned several operational features end to end, designing them for real conditions — high-contrast layouts, large tap targets, and short forms so drivers can log a delivery quickly and safely.
-- **The APIs behind them:** Built the CRUD APIs these features read and write to on Hasura's GraphQL engine, so I could ship a feature end to end — the offline queue, order data, and delivery logging all talk to endpoints I owned.
+- **Offline-tolerant UI:** Drivers regularly lose signal in transit, so I implemented local caching for route and order data. The app queues changes locally and synchronizes them once connectivity is restored.
+- **Location and maps:** Implemented live GPS tracking and map routing on the frontend, optimizing location updates and map rendering cycles to prevent excessive battery drain over shifts.
+- **Field-ready UX:** Built operational delivery flows designed for high contrast, large touch targets, and streamlined form entry so drivers can log deliveries quickly and safely.
+- **Hasura GraphQL APIs:** Built the CRUD APIs supporting order data, offline queues, and delivery logging directly on Hasura GraphQL engine.
 
 ## Why it mattered
 
-Designing for a phone-in-hand, on-the-move context made the app faster to use in the field. Drivers could focus on the road and the delivery instead of fighting a laggy screen, which kept deliveries moving.
+Designing specifically for mobile field conditions made the app responsive and dependable on the road, allowing drivers to focus on deliveries without battling UI latency or connection drops.

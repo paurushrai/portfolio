@@ -1,25 +1,25 @@
 ---
-title: Git's Defaults Are Wasting Your Time
-description: Eleven global git settings and twenty aliases that kill the daily annoyances git ships with turned off by default.
+title: "Git's Defaults Are Wasting Your Time"
+description: "Eleven global git settings and twenty aliases that kill the daily annoyances git ships with turned off by default."
 date: 2026-06-08
 published: true
 coverImage: /blogs/git-defaults-wasting-time/1.png
 tags: ["Git", "Developer Tools", "Productivity"]
 ---
 
-*Here's the git config I run on every machine — eleven global settings and twenty aliases, each one there because it kills a specific daily annoyance. Steal all of it.*
+*Here's the git config I run on every machine: eleven global settings and twenty aliases, each one there because it kills a specific daily annoyance. Steal all of it.*
 
 A while back, a teammate watched me push a brand-new branch and stopped me:
 
-> "Wait — how did that just work? No `--set-upstream`?"
+> "Wait, how did that just work? No `--set-upstream`?"
 
 One line of config. He'd been typing the workaround for years.
 
-That conversation is why this article exists. Most developers run git on **factory defaults** — and git's factory defaults aren't designed for you. They're designed for *compatibility*. Git would rather interrupt you a thousand times than surprise you once.
+That conversation is why this article exists. Most developers run git on **factory defaults**: and git's factory defaults aren't designed for you. They're designed for *compatibility*. Git would rather interrupt you a thousand times than surprise you once.
 
 So everyone quietly pays the same daily tax, mostly without noticing anymore:
 
-- `fatal: The current branch has no upstream branch` — typed the fix so often it's muscle memory
+- `fatal: The current branch has no upstream branch`: typed the fix so often it's muscle memory
 - Merge commits polluting history because a plain pull merges
 - `.DS_Store` showing up in every `git status` on every Mac project
 - Resolving the *same* rebase conflict for the fifth time
@@ -27,11 +27,11 @@ So everyone quietly pays the same daily tax, mostly without noticing anymore:
 
 Every one of these is a one-line fix that git ships with, turned off.
 
-![the daily tax of git's factory defaults — each annoyance and its one-line fix](/blogs/git-defaults-wasting-time/1.png)
+![the daily tax of git's factory defaults: each annoyance and its one-line fix](/blogs/git-defaults-wasting-time/1.png)
 
-What follows is my actual config — the one that travels with me to every machine. Not a dump of everything git supports: every line here earned its place by killing a real annoyance. Two acts: the **global settings** first, because they change git's behavior everywhere; then the **aliases**, because they change how fast you can drive it.
+What follows is my actual config: the one that travels with me to every machine. Not a dump of everything git supports: every line here earned its place by killing a real annoyance. Two acts: the **global settings** first, because they change git's behavior everywhere; then the **aliases**, because they change how fast you can drive it.
 
-## 🪪 Act One: Identity — the Setting That Can Embarrass You
+## 🪪 Act One: Identity: the Setting That Can Embarrass You
 
 Start with the one that has *consequences*:
 
@@ -58,9 +58,9 @@ And `~/.gitconfig-work` holds exactly one thing:
 
 ![includeIf routing git identity automatically based on where the repo lives](/blogs/git-defaults-wasting-time/2.png)
 
-Now identity is decided by **where the repo lives**. Clone anything into `company/` → work email, automatically. Everything else → personal. No remembering, no per-repo setup, no personal email in the corporate audit log — and no work email on weekend side projects.
+Now identity is decided by **where the repo lives**. Clone anything into `company/` → work email, automatically. Everything else → personal. No remembering, no per-repo setup, no personal email in the corporate audit log: and no work email on weekend side projects.
 
-(Note what's *not* in the work file: the name. `includeIf` layers on top of the global config, so the work file only declares what differs — the email. Everything else inherits.)
+(Note what's *not* in the work file: the name. `includeIf` layers on top of the global config, so the work file only declares what differs: the email. Everything else inherits.)
 
 This matters more than it looks, because commit emails are **permanent**. Push with the wrong identity and it's in history forever; GitHub attributes the commit to whichever account owns that email. Identity should be a property of the repo, not of whatever you last remembered to type.
 
@@ -74,7 +74,7 @@ Eleven lines. Each kills a specific, recurring annoyance.
 git config --global push.autoSetupRemote true
 ```
 
-The error every developer has memorized — `fatal: The current branch has no upstream branch` — exists so git can ask permission to do the obvious thing. This setting grants it permanently. First push on a new branch just works. (This is the line that stopped my teammate mid-sentence.)
+The error every developer has memorized, `fatal: The current branch has no upstream branch`, exists so git can ask permission to do the obvious thing. This setting grants it permanently. First push on a new branch just works. (This is the line that stopped my teammate mid-sentence.)
 
 ### Stop generating accidental merge commits
 
@@ -82,7 +82,7 @@ The error every developer has memorized — `fatal: The current branch has no up
 git config --global pull.rebase true
 ```
 
-A default `git pull` is fetch + merge — which is how `"Merge branch 'main' of github.com..."` commits end up wallpapering your history. With this, pull replays your local commits on top of what arrived. Linear history, no noise.
+A default `git pull` is fetch + merge, which is how `"Merge branch 'main' of github.com..."` commits end up wallpapering your history. With this, pull replays your local commits on top of what arrived. Linear history, no noise.
 
 ### Make new repos start on main
 
@@ -107,7 +107,7 @@ git config --global core.excludesfile ~/.gitignore_global
 echo ".DS_Store" > ~/.gitignore_global
 ```
 
-A global ignore file applies on top of every repo's own `.gitignore`. macOS droppings, editor swap files — handled once, machine-wide, instead of once per project.
+A global ignore file applies on top of every repo's own `.gitignore`. macOS droppings, editor swap files: handled once, machine-wide, instead of once per project.
 
 ### The conflict resolver's trinity
 
@@ -119,11 +119,11 @@ git config --global rebase.autostash true
 
 Three settings that together transform conflict resolution:
 
-**zdiff3** adds a third section to conflict markers — the *original* text both sides started from. Standard markers show you "yours" and "theirs" and make you guess the intent. Seeing the common ancestor turns guessing into reading.
+**zdiff3** adds a third section to conflict markers: the *original* text both sides started from. Standard markers show you "yours" and "theirs" and make you guess the intent. Seeing the common ancestor turns guessing into reading.
 
 ![zdiff3 conflict markers showing the original common ancestor alongside both sides](/blogs/git-defaults-wasting-time/3.png)
 
-**rerere** ("reuse recorded resolution") is the sleeper hit of all eleven. Git *records* how you resolve each conflict — and when the same conflict reappears (rebases love repeating conflicts), it replays your resolution automatically. The fifth identical conflict resolves itself.
+**rerere** ("reuse recorded resolution") is the sleeper hit of all eleven. Git *records* how you resolve each conflict: and when the same conflict reappears (rebases love repeating conflicts), it replays your resolution automatically. The fifth identical conflict resolves itself.
 
 **autostash** removes the "cannot rebase: you have unstaged changes" dance. Git stashes your work, rebases, and restores it. What you were doing survives.
 
@@ -134,11 +134,11 @@ git config --global diff.algorithm histogram
 git config --global branch.sort -committerdate
 ```
 
-Histogram produces meaningfully cleaner diffs than the default Myers algorithm — fewer of those scrambled blocks where git pairs unrelated lines. And sorting branches by recent activity means `git branch` shows what you're *actually working on* first, not alphabetical archaeology.
+Histogram produces meaningfully cleaner diffs than the default Myers algorithm: fewer of those scrambled blocks where git pairs unrelated lines. And sorting branches by recent activity means `git branch` shows what you're *actually working on* first, not alphabetical archaeology.
 
 ## ⌨️ Act Two: The Aliases
 
-Settings change git's behavior. Aliases change your speed. I keep a curated twenty — grouped by what they save.
+Settings change git's behavior. Aliases change your speed. I keep a curated twenty, grouped by what they save.
 
 ![the twenty git aliases, grouped into daily drivers, seeing clearly, undo without fear, and pro moves](/blogs/git-defaults-wasting-time/4.png)
 
@@ -164,7 +164,7 @@ ds     = diff --staged
 whoami = !echo "$(git config user.name) <$(git config user.email)>"
 ```
 
-`git lg` is my "where am I" — twenty commits, drawn as a graph. And `git whoami` closes the loop on Act One: run it in any repo and it prints exactly which identity will sign the next commit. In `company/` it shows my work email; everywhere else, personal. Trust, verified in one command.
+`git lg` is my "where am I", twenty commits, drawn as a graph. And `git whoami` closes the loop on Act One: run it in any repo and it prints exactly which identity will sign the next commit. In `company/` it shows my work email; everywhere else, personal. Trust, verified in one command.
 
 ### Undo without fear
 
@@ -174,7 +174,7 @@ undo    = reset --soft HEAD~1
 wip     = !git add -A && git commit -m "wip: checkpoint"
 ```
 
-`undo` un-commits without destroying anything — changes land back in staging. `wip` snapshots everything before risky surgery. Most git anxiety is not knowing the safe way back; these *are* the safe way back.
+`undo` un-commits without destroying anything: changes land back in staging. `wip` snapshots everything before risky surgery. Most git anxiety is not knowing the safe way back; these *are* the safe way back.
 
 ### The pro moves
 
@@ -185,7 +185,7 @@ ri      = rebase -i --autosquash
 cleanup = !git branch --merged | grep -vE "^\*|main|master" | xargs git branch -d
 ```
 
-`pf` is the important one: `--force-with-lease` force-pushes **only if the remote is where you last saw it** — meaning it physically refuses to overwrite a teammate's work that landed in between. There is no situation where raw `--force` is the better choice. Aliasing it means my fingers never type the dangerous version.
+`pf` is the important one: `--force-with-lease` force-pushes **only if the remote is where you last saw it**: meaning it physically refuses to overwrite a teammate's work that landed in between. There is no situation where raw `--force` is the better choice. Aliasing it means my fingers never type the dangerous version.
 
 The `fixup` + `ri` pair is the clean-history workflow: commit a fix *targeted at* an earlier commit, then one interactive rebase folds everything into place automatically.
 
@@ -193,9 +193,9 @@ The `fixup` + `ri` pair is the clean-history workflow: commit a fix *targeted at
 
 Here's the thing about config: building it is easy. *Keeping* it is the actual problem. A config that lives only on your current machine is a config you'll be rebuilding from memory on your next one.
 
-My `~/.gitconfig` isn't a loose file — it's a symlink into a dotfiles repo that auto-commits and pushes every change the moment it happens. When I added a new alias recently, a background agent had committed it to GitHub before I'd finished testing it.
+My `~/.gitconfig` isn't a loose file, it's a symlink into a dotfiles repo that auto-commits and pushes every change the moment it happens. When I added a new alias recently, a background agent had committed it to GitHub before I'd finished testing it.
 
-(That system — symlinks plus a launchd agent, no cron, no third-party tools — is its own story, which I've written up separately.)
+(That system, symlinks plus a launchd agent, no cron, no third-party tools: is its own story, which I've written up separately.)
 
 The consequence: this entire setup, identity routing and all twenty aliases included, lands on any machine with one `install.sh`. Configure once, keep forever.
 
@@ -252,9 +252,9 @@ printf '[user]\n    email = you@work.com\n' > ~/.gitconfig-work
 
 None of these settings is impressive alone. That's the point.
 
-Git's defaults optimize for never surprising anyone, which means they interrupt everyone. Each line above converts one recurring interruption into silence — and silence compounds. Multiply a few saved seconds and one avoided wrong-email commit across every repo you'll ever touch, and this half-hour of configuration is some of the highest-leverage time you'll spend on tooling.
+Git's defaults optimize for never surprising anyone, which means they interrupt everyone. Each line above converts one recurring interruption into silence, and silence compounds. Multiply a few saved seconds and one avoided wrong-email commit across every repo you'll ever touch, and this half-hour of configuration is some of the highest-leverage time you'll spend on tooling.
 
-My teammate set up `push.autoSetupRemote` the same afternoon he saw it. The workaround he'd been typing for years disappeared with one line — it just took *seeing* someone not pay the tax to realize it was optional.
+My teammate set up `push.autoSetupRemote` the same afternoon he saw it. The workaround he'd been typing for years disappeared with one line, it just took *seeing* someone not pay the tax to realize it was optional.
 
 Consider this article that moment, in written form. Run `cat ~/.gitconfig` and look at what's actually in there.
 

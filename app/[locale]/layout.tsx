@@ -33,7 +33,7 @@ export async function generateMetadata({
       process.env.NODE_ENV === "development" ? "http://localhost:3000" : BASE_URL,
     ),
     title: {
-      default: "Paurush Rai — Senior Frontend Engineer & Frontend Expert",
+      default: "Paurush Rai | Senior Frontend Engineer & Frontend Expert",
       template: "%s | Paurush Rai",
     },
     description:
@@ -57,7 +57,7 @@ export async function generateMetadata({
     ],
     alternates: { canonical, languages },
     openGraph: {
-      title: "Paurush Rai — Senior Frontend Engineer & Frontend Expert",
+      title: "Paurush Rai | Senior Frontend Engineer & Frontend Expert",
       description:
         "Senior Frontend Engineer & Frontend Expert specializing in AI integration, enterprise SaaS, and developer tools. 5+ years building scalable web platforms.",
       url: canonical,
@@ -77,7 +77,7 @@ export async function generateMetadata({
       },
     },
     twitter: {
-      title: "Paurush Rai — Senior Frontend Engineer & Frontend Expert",
+      title: "Paurush Rai | Senior Frontend Engineer & Frontend Expert",
       description:
         "Senior Frontend Engineer & Frontend Expert specializing in AI integration, enterprise SaaS, and developer tools. 5+ years building scalable web platforms.",
       card: "summary_large_image",

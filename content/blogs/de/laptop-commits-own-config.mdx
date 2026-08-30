@@ -1,6 +1,6 @@
 ---
-title: Mein Laptop committet jetzt seine eigene Konfiguration
-description: Ein Dotfiles-Setup, das sich selbst repariert – symlinked Git- und Shell-Konfiguration, ein launchd-Agent, der Homebrew überwacht, und Identitäts-Routing, das Rechnerwechsel ohne manuelle Backups übersteht.
+title: "Mein Laptop committet jetzt seine eigene Konfiguration"
+description: "Ein Dotfiles-Setup, das sich selbst repariert – symlinked Git- und Shell-Konfiguration, ein launchd-Agent, der Homebrew überwacht, und Identitäts-Routing, das Rechnerwechsel ohne manuelle Backups übersteht."
 date: 2026-06-12
 published: true
 coverImage: /blogs/laptop-commits-own-config/1.png
@@ -49,11 +49,11 @@ Hier ist, was mir entgangen war.
 
 Meine Architektur organisierte alles *innerhalb* von `~/Developer/`. Aber die Konfiguration, die einen Rechner wie **meinen** anfühlen lässt, lebt nicht dort:
 
-- Git-Identität und -Verhalten — `~/.gitconfig`
-- Shell-Setup — `~/.zshrc`, `~/.zprofile`
-- Globale Ignores — `~/.gitignore_global`
-- KI-Coding-Regeln — `~/.claude/CLAUDE.md`
-- Eigene KI-Skills — `~/.claude/skills/`
+- Git-Identität und -Verhalten, `~/.gitconfig`
+- Shell-Setup, `~/.zshrc`, `~/.zprofile`
+- Globale Ignores, `~/.gitignore_global`
+- KI-Coding-Regeln, `~/.claude/CLAUDE.md`
+- Eigene KI-Skills, `~/.claude/skills/`
 - Und der unsichtbarste von allen: die Liste installierter Pakete, die *nirgendwo* lebt
 
 Alles verstreut über `$HOME`. Nicht versioniert. Nicht gesichert. Unsichtbar für meine wunderschöne Verzeichnisstruktur.
@@ -150,7 +150,7 @@ Ich fragte: Können wir dafür launchd verwenden?
 
 launchd ist der Service-Manager von macOS – das Ding, das jeden Daemon im System startet, Apples Antwort auf systemd. Jeder Mac-Entwickler hat es schon gesehen. Fast niemand nutzt sein bestes Feature:
 
-**WatchPaths** — launchd beobachtet einen Pfad auf Betriebssystemebene und feuert einen Job, sobald er sich ändert.
+**WatchPaths**, launchd beobachtet einen Pfad auf Betriebssystemebene und feuert einen Job, sobald er sich ändert.
 
 ```xml
 <key>WatchPaths</key>
@@ -163,7 +163,7 @@ launchd ist der Service-Manager von macOS – das Ding, das jeden Daemon im Syst
 Jetzt spielt es keine Rolle mehr, *wer* das Paket installiert – meine Shell, ein Skript, ein Agent, egal was. Der Cellar ändert sich, das Betriebssystem bemerkt es, mein Sync-Skript läuft:
 
 ```bash
-# sync.sh — the whole engine
+# sync.sh, the whole engine
 brew bundle dump --global --force    # snapshot packages
 git add -A                           # stage any dotfile drift
 git diff --cached --quiet && exit 0  # nothing changed? exit silently
@@ -230,11 +230,11 @@ Gerade als alles funktionierte, kam mir die Frage, die die meisten Setups wie di
 
 Ich habe nachgeforscht und festgestellt, dass "bei GitHub eingeloggt" tatsächlich drei unabhängige Schichten sind, die die meisten Leute nie getrennt haben:
 
-**Schicht 1 — Wer hat den Commit geschrieben?** Entschieden von der Git-Konfiguration, Punkt. Ein Commit ist ein lokaler Dateischreibvorgang; GitHub wird nicht einmal kontaktiert. Meine includeIf-Regel routet Firmen-Repos zu meiner Arbeits-E-Mail, alles andere zu privat. CLI-Logins können das nicht berühren.
+**Schicht 1, Wer hat den Commit geschrieben?** Entschieden von der Git-Konfiguration, Punkt. Ein Commit ist ein lokaler Dateischreibvorgang; GitHub wird nicht einmal kontaktiert. Meine includeIf-Regel routet Firmen-Repos zu meiner Arbeits-E-Mail, alles andere zu privat. CLI-Logins können das nicht berühren.
 
-**Schicht 2 — Wer darf pushen?** Entschieden von den Anmeldedaten in der macOS-Schlüsselbund. Und hier ist der fragile Teil: Der Schlüsselbund speichert Anmeldedaten *pro Host*. Zwei Accounts, ein github.com – der zweite Login kann den ersten still überschreiben, und plötzlich pusht mein Sync-Agent mit der falschen Identität und sammelt 403er ein.
+**Schicht 2, Wer darf pushen?** Entschieden von den Anmeldedaten in der macOS-Schlüsselbund. Und hier ist der fragile Teil: Der Schlüsselbund speichert Anmeldedaten *pro Host*. Zwei Accounts, ein github.com – der zweite Login kann den ersten still überschreiben, und plötzlich pusht mein Sync-Agent mit der falschen Identität und sammelt 403er ein.
 
-**Schicht 3 — Als wer agiert die `gh`-CLI?** Was auch immer der aktive Account ist. Irrelevant für meinen Sync, der reines Git spricht.
+**Schicht 3, Als wer agiert die `gh`-CLI?** Was auch immer der aktive Account ist. Irrelevant für meinen Sync, der reines Git spricht.
 
 ![die drei Identitätsschichten: wer den Commit geschrieben hat, wer pushen darf, und als wer die gh-CLI agiert](/blogs/laptop-commits-own-config/5.png)
 
@@ -248,7 +248,7 @@ Das `paurushrai@` ist keine E-Mail – es ist URL-Syntax, dasselbe `user@host` w
 
 Das Prinzip ist dasselbe wie hinter dem E-Mail-Routing, und es lohnt sich, es so zu formulieren:
 
-> Identität sollte eine Eigenschaft des Repos sein — nicht des globalen veränderlichen Zustands.
+> Identität sollte eine Eigenschaft des Repos sein, nicht des globalen veränderlichen Zustands.
 
 ## 🚀 Der Zehn-Minuten-Rechner
 
@@ -270,7 +270,7 @@ brew bundle --global
 ```
 
 ```bash
-# 3. Re-authenticate — credentials never migrate, by design
+# 3. Re-authenticate, credentials never migrate, by design
 claude login
 ```
 
@@ -280,13 +280,13 @@ Der neue Rechner bekommt keinen Schnappschuss meines Setups. Er bekommt das **Sy
 
 Was ich bewusst weggelassen habe, zählt genauso:
 
-- **Anmeldedaten** — das Backup für ein Geheimnis ist, sich erneut einzuloggen. Zehn Sekunden, mit Absicht.
-- **Caches, Session-Zustand, Build-Artefakte** — werden auf natürliche Weise neu erzeugt. Sie zu sichern wäre Horten.
-- **Die Datenschicht** — Postgres- und Redis-Volumes sind große, lebendige, sich verändernde Binärdaten. Git ist das falsche Werkzeug, und eine laufende Datenbank zu kopieren erzeugt korrupten Müll. Daten brauchen echte Snapshot-Backups — das ist der nächste Artikel.
+- **Anmeldedaten**, das Backup für ein Geheimnis ist, sich erneut einzuloggen. Zehn Sekunden, mit Absicht.
+- **Caches, Session-Zustand, Build-Artefakte**, werden auf natürliche Weise neu erzeugt. Sie zu sichern wäre Horten.
+- **Die Datenschicht**, Postgres- und Redis-Volumes sind große, lebendige, sich verändernde Binärdaten. Git ist das falsche Werkzeug, und eine laufende Datenbank zu kopieren erzeugt korrupten Müll. Daten brauchen echte Snapshot-Backups, das ist der nächste Artikel.
 
 ## 🎯 Was ich wirklich gelernt habe
 
-Die Lektion des vorherigen Artikels war: dein Arbeitsplatz ist ein System — architektiere ihn.
+Die Lektion des vorherigen Artikels war: dein Arbeitsplatz ist ein System, architektiere ihn.
 
 Diese Woche hat mir das Korollar beigebracht: **Ein System, das durch Disziplin gepflegt wird, verfällt. Ein System, das sich selbst pflegt, verstärkt sich.**
 
@@ -302,10 +302,10 @@ Jede einzelne ersetzt "daran denken" durch "es passiert einfach".
 
 Diese Skill-Datei lag monatelang tot in meinem Downloads-Ordner, weil ihre Wiederherstellung davon abhing, dass ich mich an ihre Existenz erinnerte. Nichts auf meinem Rechner hängt mehr von meinem Gedächtnis ab.
 
-Und ehrlich gesagt — das ist das beste Feature, das ich je für mich selbst ausgeliefert habe.
+Und ehrlich gesagt, das ist das beste Feature, das ich je für mich selbst ausgeliefert habe.
 
 ## Wie sieht deine Konfigurationsschicht aus?
 
-Dotfiles-Repos sind eine alte Idee. Aber die meisten hören bei "Dateien in einem Repo mit Install-Skript" auf — der Teil, der das Repo nach Tag eins *wahr* hält, ist da, wo es interessant wird.
+Dotfiles-Repos sind eine alte Idee. Aber die meisten hören bei "Dateien in einem Repo mit Install-Skript" auf, der Teil, der das Repo nach Tag eins *wahr* hält, ist da, wo es interessant wird.
 
 Das Tooling wird sich weiter ändern. Die Architektur sollte es überleben.

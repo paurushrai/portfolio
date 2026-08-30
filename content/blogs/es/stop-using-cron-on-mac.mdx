@@ -1,13 +1,13 @@
 ---
-title: Deja de Usar cron en tu Mac — Usa launchd en su Lugar
-description: cron consulta según un horario y se pierde trabajos mientras tu portátil duerme. WatchPaths de launchd reacciona a eventos del sistema de archivos en su lugar, y es la automatización que reemplazó a cron para siempre.
+title: "Deja de Usar cron en tu Mac: Usa launchd en su Lugar"
+description: "cron consulta según un horario y se pierde trabajos mientras tu portátil duerme. WatchPaths de launchd reacciona a eventos del sistema de archivos en su lugar, y es la automatización que reemplazó a cron para siempre."
 date: 2026-06-09
 published: true
 coverImage: /blogs/stop-using-cron-on-mac/1.png
 tags: ["macOS", "launchd", "Automation", "DevOps"]
 ---
 
-*Necesitaba que mi máquina reaccionara a los cambios, no que los consultara. La respuesta fue una función de macOS de 20 años que casi nadie usa — y superó a cron en todo lo que importaba.*
+*Necesitaba que mi máquina reaccionara a los cambios, no que los consultara. La respuesta fue una función de macOS de 20 años que casi nadie usa, y superó a cron en todo lo que importaba.*
 
 La semana pasada construí un sistema que hace auto-commit de la configuración de mi máquina: instalo un paquete de Homebrew, y ocho segundos después hay un commit de git en GitHub que lo registra.
 
@@ -46,11 +46,11 @@ Eso no es un horario. Es un **evento**.
 
 ## ⚙️ El Daemon que Ya Tienes
 
-macOS trae launchd de fábrica — es literalmente el proceso 1, lo que arranca cada servicio del sistema. Apple reemplazó cron internamente por él hace años (los trabajos de cron de tu Mac son en realidad ejecutados *por* launchd).
+macOS trae launchd de fábrica, es literalmente el proceso 1, lo que arranca cada servicio del sistema. Apple reemplazó cron internamente por él hace años (los trabajos de cron de tu Mac son en realidad ejecutados *por* launchd).
 
 La mayoría de los desarrolladores sabe que launchd existe. Casi nadie usa su mejor función:
 
-**WatchPaths** — launchd vigilará una ruta del sistema de archivos a nivel del sistema operativo, y disparará tu trabajo en el momento en que cambie.
+**WatchPaths**, launchd vigilará una ruta del sistema de archivos a nivel del sistema operativo, y disparará tu trabajo en el momento en que cambie.
 
 ```xml
 <key>WatchPaths</key>
@@ -60,7 +60,7 @@ La mayoría de los desarrolladores sabe que launchd existe. Casi nadie usa su me
 </array>
 ```
 
-Ese es todo el truco. Homebrew instala cada paquete en `/opt/homebrew/Cellar` — así que *cualquier* instalación o desinstalación, desde cualquier shell, script o herramienta, cambia ese directorio. El sistema lo nota. Mi script se ejecuta.
+Ese es todo el truco. Homebrew instala cada paquete en `/opt/homebrew/Cellar`, así que *cualquier* instalación o desinstalación, desde cualquier shell, script o herramienta, cambia ese directorio. El sistema lo nota. Mi script se ejecuta.
 
 Sin consultas. Sin ejecuciones desperdiciadas. Cero CPU en reposo. El trabajo existe como una *intención registrada*, y el kernel es quien vigila.
 
@@ -107,7 +107,7 @@ launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.paurushrai.dotfiles-
 
 Sobrevive a los reinicios. Se ejecuta esté o no abierta una terminal. Ahora es parte del sistema operativo.
 
-Lo probé de la forma honesta — instalé un paquete y no toqué nada más:
+Lo probé de la forma honesta, instalé un paquete y no toqué nada más:
 
 ```bash
 $ brew install jq
@@ -123,15 +123,15 @@ El plist de arriba tiene tres decisiones de diseño incorporadas, y cada una ree
 
 ![las tres claves de launchd: ThrottleInterval, StartCalendarInterval y StandardOutPath](/blogs/stop-using-cron-on-mac/3.png)
 
-**ThrottleInterval: 60 es un antirrebote gratis.** Instala cinco paquetes seguidos y el sistema de archivos dispara cinco eventos — pero launchd no ejecutará el trabajo más de una vez cada 60 segundos, así que obtengo *un solo* commit que cubre los cinco. En el mundo de cron, agrupar así es lógica que tienes que escribir y probar tú mismo. Aquí es un entero.
+**ThrottleInterval: 60 es un antirrebote gratis.** Instala cinco paquetes seguidos y el sistema de archivos dispara cinco eventos, pero launchd no ejecutará el trabajo más de una vez cada 60 segundos, así que obtengo *un solo* commit que cubre los cinco. En el mundo de cron, agrupar así es lógica que tienes que escribir y probar tú mismo. Aquí es un entero.
 
-**StartCalendarInterval es el horario de cron — menos el problema de cron con los portátiles.** Me da una ejecución diaria al mediodía como red de seguridad para cualquier cosa que las vigilancias se pierdan. Y a diferencia de cron, si la máquina está dormida al mediodía, **launchd ejecuta el trabajo cuando despierta**. Los horarios perdidos se ejecutan tarde en vez de nunca. Para un portátil, ese único comportamiento zanja la comparación.
+**StartCalendarInterval es el horario de cron, menos el problema de cron con los portátiles.** Me da una ejecución diaria al mediodía como red de seguridad para cualquier cosa que las vigilancias se pierdan. Y a diferencia de cron, si la máquina está dormida al mediodía, **launchd ejecuta el trabajo cuando despierta**. Los horarios perdidos se ejecutan tarde en vez de nunca. Para un portátil, ese único comportamiento zanja la comparación.
 
 **StandardOutPath es observabilidad gratis.** La salida de cada ejecución se añade a un archivo de log que yo elegí. Cuando me pregunté por qué algo no se había disparado, la respuesta ya estaba escrita.
 
 ## 🔁 La Trampa que Pilla a Todo el Mundo
 
-Ahora la confesión. Mi script hace commit a un repo de git — y mi primer instinto fue vigilar el propio directorio del repo. Una sola entrada de vigilancia, cubre todos los archivos. Elegante.
+Ahora la confesión. Mi script hace commit a un repo de git, y mi primer instinto fue vigilar el propio directorio del repo. Una sola entrada de vigilancia, cubre todos los archivos. Elegante.
 
 También es un bucle infinito.
 
@@ -143,11 +143,11 @@ El arreglo es una regla que vale la pena memorizar:
 
 > *Nunca vigiles un directorio en el que tu trabajo escribe.*
 
-En su lugar vigilo **archivos individuales** — cada dotfile rastreado tiene su propia entrada en WatchPaths, y la raíz del repo está deliberadamente ausente. El trade-off: un archivo nuevo en un subdirectorio profundo no se detecta al instante; la ejecución diaria del mediodía lo recoge. Un precio justo por un sistema que no puede perseguirse la cola.
+En su lugar vigilo **archivos individuales**, cada dotfile rastreado tiene su propia entrada en WatchPaths, y la raíz del repo está deliberadamente ausente. El trade-off: un archivo nuevo en un subdirectorio profundo no se detecta al instante; la ejecución diaria del mediodía lo recoge. Un precio justo por un sistema que no puede perseguirse la cola.
 
 Dos trampas más de la misma tarde, para que no pagues tú mi matrícula:
 
-- **No hagas symlink del plist.** Guardo el plist en mi repo de dotfiles y lo *copio* a `~/Library/LaunchAgents/` — launchd no es fiable con definiciones de trabajo enlazadas simbólicamente en el macOS moderno. El repo guarda la fuente de verdad; el instalador despliega una copia.
+- **No hagas symlink del plist.** Guardo el plist en mi repo de dotfiles y lo *copio* a `~/Library/LaunchAgents/`, launchd no es fiable con definiciones de trabajo enlazadas simbólicamente en el macOS moderno. El repo guarda la fuente de verdad; el instalador despliega una copia.
 - **Los trabajos de launchd reciben un entorno mínimo.** Sin el `PATH` de tu shell, sin alias, nada de tu `.zshrc`. Mi script establece su propio `PATH` en la primera línea. Si tu trabajo "funciona en la terminal pero no en launchd", casi siempre es esto.
 
 ## 🔔 Hazlo Hablar, Luego Hazlo Esperar
@@ -162,9 +162,9 @@ osascript -e 'display notification "Committed & pushed: .Brewfile" with title "d
 
 Primera prueba: nunca la vi. Los banners de notificación se desvanecen en cinco segundos.
 
-El arreglo no fue código — fue un ajuste que casi nadie cambia: **Ajustes del Sistema → Notificaciones → Script Editor → Alertas**. Las notificaciones tipo alerta permanecen en pantalla hasta que las descartas. Ahora cada sincronización espera en la esquina a que la reconozca, con los nombres de los archivos cambiados en el mensaje.
+El arreglo no fue código, fue un ajuste que casi nadie cambia: **Ajustes del Sistema → Notificaciones → Script Editor → Alertas**. Las notificaciones tipo alerta permanecen en pantalla hasta que las descartas. Ahora cada sincronización espera en la esquina a que la reconozca, con los nombres de los archivos cambiados en el mensaje.
 
-Detalle de diseño que importa: el script solo notifica cuando algo se *commiteó de verdad*. Una ejecución sin cambios es silenciosa. Una notificación que se dispara constantemente es una notificación que ya has aprendido a ignorar — la fatiga de alertas mata la observabilidad más rápido que no tener alertas en absoluto.
+Detalle de diseño que importa: el script solo notifica cuando algo se *commiteó de verdad*. Una ejecución sin cambios es silenciosa. Una notificación que se dispara constantemente es una notificación que ya has aprendido a ignorar, la fatiga de alertas mata la observabilidad más rápido que no tener alertas en absoluto.
 
 ## 🛠 La Chuleta
 
@@ -202,7 +202,7 @@ Y la tabla de decisión que me hubiera gustado tener:
 
 La automatización que construí es pequeña. El principio no lo es.
 
-Estuve a punto de recurrir a cron porque cron es lo que *conocía* — y estuve a punto de recurrir a un paquete npm de vigilancia de archivos porque es lo que sugieren los resultados de búsqueda. Ambos habrían funcionado, mal: uno consultando según un temporizador, el otro añadiendo una dependencia para hacer lo que el sistema operativo ya hace de forma nativa.
+Estuve a punto de recurrir a cron porque cron es lo que *conocía*, y estuve a punto de recurrir a un paquete npm de vigilancia de archivos porque es lo que sugieren los resultados de búsqueda. Ambos habrían funcionado, mal: uno consultando según un temporizador, el otro añadiendo una dependencia para hacer lo que el sistema operativo ya hace de forma nativa.
 
 La herramienta aburrida, incorporada, de veinte años, fue mejor que las dos. Guiada por eventos en vez de por consultas. Consciente de los portátiles en vez de asumir servidores. Cero dependencias en vez de una cosa más que instalar en la próxima máquina.
 
@@ -212,4 +212,4 @@ La respuesta es, más a menudo de lo que crees: **todo lo que necesitabas, esper
 
 ## ¿Qué se está ejecutando en tu carpeta LaunchAgents?
 
-Tengo curiosidad por saber qué han automatizado otros a nivel del sistema operativo — y con qué trampas se han topado al hacerlo. El bucle de retroalimentación de WatchPaths no puede ser la única.
+Tengo curiosidad por saber qué han automatizado otros a nivel del sistema operativo, y con qué trampas se han topado al hacerlo. El bucle de retroalimentación de WatchPaths no puede ser la única.

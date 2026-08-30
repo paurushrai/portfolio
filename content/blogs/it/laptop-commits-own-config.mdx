@@ -1,13 +1,13 @@
 ---
-title: Il mio laptop ora fa il commit della propria configurazione
-description: Un setup di dotfiles che si ripara da solo — config di git e shell simlinkate, un agente launchd che sorveglia Homebrew, e un instradamento di identità che sopravvive alle migrazioni di macchina senza backup manuali.
+title: "Il mio laptop ora fa il commit della propria configurazione"
+description: "Un setup di dotfiles che si ripara da solo: config di git e shell simlinkate, un agente launchd che sorveglia Homebrew, e un instradamento di identità che sopravvive alle migrazioni di macchina senza backup manuali."
 date: 2026-06-12
 published: true
 coverImage: /blogs/laptop-commits-own-config/1.png
 tags: ["macOS", "Automation", "Dotfiles", "Git", "launchd"]
 ---
 
-*Ho pubblicato un articolo sul sopravvivere alle migrazioni di macchina. Una settimana dopo, ho scoperto che il mio stesso setup era già fallito — e ripararlo ha richiesto git, symlink, launchd e un pomeriggio di umiltà.*
+*Ho pubblicato un articolo sul sopravvivere alle migrazioni di macchina. Una settimana dopo, ho scoperto che il mio stesso setup era già fallito, e ripararlo ha richiesto git, symlink, launchd e un pomeriggio di umiltà.*
 
 Una settimana fa ho pubblicato un articolo sull'architettura del workspace.
 
@@ -29,7 +29,7 @@ ls: /Users/paurushrai/.claude/skills/: No such file or directory
 
 La cartella non esisteva.
 
-Ma le skill *le avevo*. Una personalizzata chiamata graphify — l'avevo costruita, la usavo ogni giorno, e la mia configurazione globale la referenziava ancora. Quindi dov'era finita?
+Ma le skill *le avevo*. Una personalizzata chiamata graphify, l'avevo costruita, la usavo ogni giorno, e la mia configurazione globale la referenziava ancora. Quindi dov'era finita?
 
 ```bash
 /Users/paurushrai/Downloads/mac-restore/dot-claude/skills/graphify/
@@ -41,7 +41,7 @@ Lì, ferma dal giorno in cui avevo migrato le macchine. Mai ripristinata. Diment
 
 ![la skill graphify trovata morta in ~/Downloads/mac-restore, mai ripristinata dopo la migrazione](/blogs/laptop-commits-own-config/1.png)
 
-Avevo scritto un intero articolo esattamente su questo tipo di fallimento — e la mia stessa macchina lo stava vivendo in silenzio da sempre.
+Avevo scritto un intero articolo esattamente su questo tipo di fallimento, e la mia stessa macchina lo stava vivendo in silenzio da sempre.
 
 ## 🔍 Il punto cieco
 
@@ -49,11 +49,11 @@ Ecco cosa mi era sfuggito.
 
 La mia architettura organizzava tutto *dentro* `~/Developer/`. Ma la configurazione che fa sentire una macchina **mia** non vive lì:
 
-- Identità e comportamento di git — `~/.gitconfig`
-- Setup della shell — `~/.zshrc`, `~/.zprofile`
-- Ignore globali — `~/.gitignore_global`
-- Regole AI per il coding — `~/.claude/CLAUDE.md`
-- Skill AI personalizzate — `~/.claude/skills/`
+- Identità e comportamento di git, `~/.gitconfig`
+- Setup della shell, `~/.zshrc`, `~/.zprofile`
+- Ignore globali, `~/.gitignore_global`
+- Regole AI per il coding, `~/.claude/CLAUDE.md`
+- Skill AI personalizzate, `~/.claude/skills/`
 - E la più invisibile di tutte: l'elenco dei pacchetti installati, che non vive *da nessuna parte*
 
 Tutto sparpagliato dentro `$HOME`. Non versionato. Senza backup. Invisibile alla mia bellissima struttura di directory.
@@ -65,7 +65,7 @@ cat ~/.gitconfig
 # → no such file
 ```
 
-Il file non esisteva. Sulla vecchia macchina avevo impostato l'instradamento delle email — email personale per i miei progetti, email di lavoro per i repository aziendali. Niente di tutto ciò era sopravvissuto. Avevo fatto commit per mesi senza accorgermene.
+Il file non esisteva. Sulla vecchia macchina avevo impostato l'instradamento delle email, email personale per i miei progetti, email di lavoro per i repository aziendali. Niente di tutto ciò era sopravvissuto. Avevo fatto commit per mesi senza accorgermene.
 
 Il codice era migrato. La *configurazione* no.
 
@@ -73,7 +73,7 @@ Il codice era migrato. La *configurazione* no.
 
 Il primo istinto è stato quello ovvio: creare una cartella di backup, copiarci i dotfiles, spingerla su GitHub.
 
-Ma le copie divergono. Nel momento in cui esistono due versioni di `.gitconfig`, una delle due è una bugia — e non saprai quale finché qualcosa non si rompe.
+Ma le copie divergono. Nel momento in cui esistono due versioni di `.gitconfig`, una delle due è una bugia, e non saprai quale finché qualcosa non si rompe.
 
 La soluzione è più vecchia di me: i **symlink**.
 
@@ -90,9 +90,9 @@ Quando mi sono chiesto se questo significasse dover continuare a sincronizzare l
 
 **Le scritture passano attraverso il symlink.**
 
-Esegui `git config --global` per cambiare un'impostazione — git segue il puntatore e scrive direttamente nel file del repository. Modifica `~/.zshrc` — stai modificando il file del repository. Non c'è nulla da sincronizzare, perché non c'è nulla *da cui* sincronizzare. Un file, due indirizzi.
+Esegui `git config --global` per cambiare un'impostazione, git segue il puntatore e scrive direttamente nel file del repository. Modifica `~/.zshrc`, stai modificando il file del repository. Non c'è nulla da sincronizzare, perché non c'è nulla *da cui* sincronizzare. Un file, due indirizzi.
 
-Quindi è quello che ho costruito. Un repository di dotfiles dentro il mio livello di infrastruttura, che contiene i file reali, con uno script `install.sh` idempotente che ricrea ogni symlink su una macchina nuova — facendo prima il backup di ciò che trova, sicuro da eseguire due volte.
+Quindi è quello che ho costruito. Un repository di dotfiles dentro il mio livello di infrastruttura, che contiene i file reali, con uno script `install.sh` idempotente che ricrea ogni symlink su una macchina nuova, facendo prima il backup di ciò che trova, sicuro da eseguire due volte.
 
 Config di git, config della shell, ignore globali, le mie regole AI, la skill graphify recuperata. Commit fatto. Push fatto. Permanente.
 
@@ -106,7 +106,7 @@ Pensavo di aver finito.
 
 Poi ho provato a rispondere a una domanda semplice: *se questa macchina morisse, cosa dovrei reinstallare?*
 
-La configurazione di git ha una proprietà bellissima — lo strumento scrive nel proprio file di configurazione, quindi il repository conosce sempre la verità. Homebrew non ha queste buone maniere. `brew install jq` installa il pacchetto e registra la decisione **da nessuna parte**. L'elenco dei pacchetti esiste solo implicitamente, come cartelle in `/opt/homebrew/Cellar`.
+La configurazione di git ha una proprietà bellissima, lo strumento scrive nel proprio file di configurazione, quindi il repository conosce sempre la verità. Homebrew non ha queste buone maniere. `brew install jq` installa il pacchetto e registra la decisione **da nessuna parte**. L'elenco dei pacchetti esiste solo implicitamente, come cartelle in `/opt/homebrew/Cellar`.
 
 Homebrew può esportare un manifest a richiesta:
 
@@ -142,15 +142,15 @@ Un wrapper di shell intercetta solo i comandi digitati nella *mia shell interatt
 
 Avevo automatizzato l'**interfaccia** quando serviva automatizzare l'**evento**.
 
-L'installazione del pacchetto in sé è l'evento — e accade nel filesystem, non nella mia shell.
+L'installazione del pacchetto in sé è l'evento, e accade nel filesystem, non nella mia shell.
 
 ## ⚙️ Il sistema operativo aveva già la risposta
 
 Mi sono chiesto: possiamo usare launchd per questo?
 
-launchd è il gestore di servizi di macOS — la cosa che avvia ogni demone sul sistema, la risposta di Apple a systemd. Ogni sviluppatore Mac l'ha visto. Quasi nessuno usa la sua funzionalità migliore:
+launchd è il gestore di servizi di macOS, la cosa che avvia ogni demone sul sistema, la risposta di Apple a systemd. Ogni sviluppatore Mac l'ha visto. Quasi nessuno usa la sua funzionalità migliore:
 
-**WatchPaths** — launchd sorveglierà un percorso a livello di sistema operativo e farà scattare un job nel momento in cui cambia.
+**WatchPaths**, launchd sorveglierà un percorso a livello di sistema operativo e farà scattare un job nel momento in cui cambia.
 
 ```xml
 <key>WatchPaths</key>
@@ -160,10 +160,10 @@ launchd è il gestore di servizi di macOS — la cosa che avvia ogni demone sul 
 </array>
 ```
 
-Ora non importa *chi* installa il pacchetto — la mia shell, uno script, un agente, qualsiasi cosa. Il Cellar cambia, il sistema operativo se ne accorge, il mio script di sincronizzazione parte:
+Ora non importa *chi* installa il pacchetto, la mia shell, uno script, un agente, qualsiasi cosa. Il Cellar cambia, il sistema operativo se ne accorge, il mio script di sincronizzazione parte:
 
 ```bash
-# sync.sh — the whole engine
+# sync.sh, the whole engine
 brew bundle dump --global --force    # snapshot packages
 git add -A                           # stage any dotfile drift
 git diff --cached --quiet && exit 0  # nothing changed? exit silently
@@ -194,11 +194,11 @@ Una volta che questo ha funzionato per i pacchetti, il passo successivo era ovvi
 
 Una decisione qui morderà chiunque costruisca questa cosa, quindi vale la confessione.
 
-La versione pigra è sorvegliare la directory radice del repository — un'unica voce di watch, copre tutto.
+La versione pigra è sorvegliare la directory radice del repository, un'unica voce di watch, copre tutto.
 
 Ma ogni commit git **modifica `.git/`**. Sorveglia la radice del repository e hai costruito un ouroboros: la modifica fa scattare l'agente → l'agente fa commit → il commit modifica `.git/` → il che fa scattare l'agente → all'infinito.
 
-Quindi l'agente sorveglia **singoli file**, mai la directory che contiene `.git`. Il compromesso: un file nuovo di zecca in una sottodirectory profonda non viene rilevato all'istante — ci pensa l'esecuzione giornaliera a ripulire. È documentato nel README, ed è un prezzo giusto.
+Quindi l'agente sorveglia **singoli file**, mai la directory che contiene `.git`. Il compromesso: un file nuovo di zecca in una sottodirectory profonda non viene rilevato all'istante, ci pensa l'esecuzione giornaliera a ripulire. È documentato nel README, ed è un prezzo giusto.
 
 Un'automazione che scatena se stessa è il tipo di bug che trovi alle 2 di notte.
 
@@ -206,7 +206,7 @@ Un'automazione che scatena se stessa è il tipo di bug che trovi alle 2 di notte
 
 C'era un problema rimasto, e riguardava la fiducia.
 
-L'agente ora faceva commit per conto mio, in silenzio. Un demone silenzioso è un demone di cui smetti di fidarti — o peggio, che dimentichi che esiste.
+L'agente ora faceva commit per conto mio, in silenzio. Un demone silenzioso è un demone di cui smetti di fidarti, o peggio, che dimentichi che esiste.
 
 Lo script ha ricevuto due righe di notifica nativa di macOS:
 
@@ -216,11 +216,11 @@ osascript -e 'display notification "Committed & pushed: .Brewfile" with title "d
 
 Primo test: non l'ho mai vista. I banner svaniscono in cinque secondi, e stavo guardando altrove.
 
-La soluzione non era codice — era un'impostazione. Le notifiche macOS hanno due stili, e quasi nessuno cambia quello di default: **Impostazioni di Sistema → Notifiche → Script Editor → Avvisi**. Le notifiche in stile avviso *restano sullo schermo finché non le chiudi*.
+La soluzione non era codice, era un'impostazione. Le notifiche macOS hanno due stili, e quasi nessuno cambia quello di default: **Impostazioni di Sistema → Notifiche → Script Editor → Avvisi**. Le notifiche in stile avviso *restano sullo schermo finché non le chiudi*.
 
 Ora ogni sincronizzazione aspetta nell'angolo che io la confermi, con i nomi dei file cambiati nel messaggio. La storia della configurazione della mia macchina, consegnata come ricevute.
 
-E parla solo quando qualcosa è davvero cambiato — una sincronizzazione a vuoto resta silenziosa. Una notifica che ricevi ogni minuto è una notifica che hai già imparato a ignorare.
+E parla solo quando qualcosa è davvero cambiato, una sincronizzazione a vuoto resta silenziosa. Una notifica che ricevi ogni minuto è una notifica che hai già imparato a ignorare.
 
 ## 🎭 La domanda paranoica
 
@@ -230,11 +230,11 @@ Proprio quando tutto funzionava, mi è venuta in mente la domanda che rompe la m
 
 Sono andato a indagare, e ho scoperto che "loggato su GitHub" in realtà è tre livelli indipendenti che quasi nessuno ha mai separato:
 
-**Livello 1 — chi ha scritto il commit?** Deciso dalla configurazione di git, punto. Un commit è una scrittura di file locale; GitHub non viene nemmeno contattato. La mia regola includeIf instrada i repository aziendali alla mia email di lavoro, tutto il resto a quella personale. I login da CLI non possono toccare questo.
+**Livello 1, chi ha scritto il commit?** Deciso dalla configurazione di git, punto. Un commit è una scrittura di file locale; GitHub non viene nemmeno contattato. La mia regola includeIf instrada i repository aziendali alla mia email di lavoro, tutto il resto a quella personale. I login da CLI non possono toccare questo.
 
-**Livello 2 — chi può fare push?** Deciso dalla credenziale nel portachiavi macOS. Ed ecco la parte fragile: il portachiavi salva le credenziali *per host*. Due account, un solo github.com — il secondo login può sovrascrivere silenziosamente il primo, e all'improvviso il mio agente di sincronizzazione fa push con l'identità sbagliata e colleziona 403.
+**Livello 2, chi può fare push?** Deciso dalla credenziale nel portachiavi macOS. Ed ecco la parte fragile: il portachiavi salva le credenziali *per host*. Due account, un solo github.com, il secondo login può sovrascrivere silenziosamente il primo, e all'improvviso il mio agente di sincronizzazione fa push con l'identità sbagliata e colleziona 403.
 
-**Livello 3 — come chi agisce la CLI `gh`?** Qualunque account sia attivo. Irrilevante per la mia sincronizzazione, che parla puro git.
+**Livello 3, come chi agisce la CLI `gh`?** Qualunque account sia attivo. Irrilevante per la mia sincronizzazione, che parla puro git.
 
 ![i tre livelli di identità: chi ha scritto il commit, chi può fare push, e come chi agisce la CLI gh](/blogs/laptop-commits-own-config/5.png)
 
@@ -244,11 +244,11 @@ Il Livello 2 era la vera esposizione, e la soluzione è una riga sola:
 git remote set-url origin https://paurushrai@github.com/paurushrai/dotfiles.git
 ```
 
-Quel `paurushrai@` non è un'email — è sintassi URL, lo stesso `user@host` di ssh. Con uno username nell'URL, il portachiavi archivia le credenziali per **host + username**. Account separati, cassetti separati, nessuna sovrascrittura possibile.
+Quel `paurushrai@` non è un'email, è sintassi URL, lo stesso `user@host` di ssh. Con uno username nell'URL, il portachiavi archivia le credenziali per **host + username**. Account separati, cassetti separati, nessuna sovrascrittura possibile.
 
 Il principio è lo stesso dietro l'instradamento delle email, e vale la pena inquadrarlo:
 
-> L'identità dovrebbe essere una proprietà del repository — non dello stato globale mutabile.
+> L'identità dovrebbe essere una proprietà del repository, non dello stato globale mutabile.
 
 ## 🚀 La macchina in dieci minuti
 
@@ -270,23 +270,23 @@ brew bundle --global
 ```
 
 ```bash
-# 3. Re-authenticate — credentials never migrate, by design
+# 3. Re-authenticate, credentials never migrate, by design
 claude login
 ```
 
 E la parte che trovo genuinamente soddisfacente: `install.sh` non si limita a ripristinare la configurazione. Fa il bootstrap anche dell'agente launchd.
 
-La macchina nuova non riceve uno snapshot del mio setup. Riceve il **sistema che mantiene il mio setup** — e inizia a mantenersi da solo dal primo minuto.
+La macchina nuova non riceve uno snapshot del mio setup. Riceve il **sistema che mantiene il mio setup**, e inizia a mantenersi da solo dal primo minuto.
 
 Quello che ho lasciato fuori deliberatamente conta altrettanto:
 
-- **Credenziali** — il backup di un segreto è fare di nuovo il login. Dieci secondi, per progetto.
-- **Cache, stato di sessione, artefatti di build** — si ricostruiscono naturalmente. Farne il backup significa accumulare roba.
-- **Il livello dei dati** — i volumi di Postgres e Redis sono binari grandi, vivi, mutevoli. Git è lo strumento sbagliato, e copiare un database in esecuzione produce spazzatura corrotta. I dati hanno bisogno di backup a snapshot veri — sarà il prossimo articolo.
+- **Credenziali**, il backup di un segreto è fare di nuovo il login. Dieci secondi, per progetto.
+- **Cache, stato di sessione, artefatti di build**, si ricostruiscono naturalmente. Farne il backup significa accumulare roba.
+- **Il livello dei dati**, i volumi di Postgres e Redis sono binari grandi, vivi, mutevoli. Git è lo strumento sbagliato, e copiare un database in esecuzione produce spazzatura corrotta. I dati hanno bisogno di backup a snapshot veri, sarà il prossimo articolo.
 
 ## 🎯 Cosa ho davvero imparato
 
-La lezione dell'articolo precedente era: la tua postazione di lavoro è un sistema — progettala come tale.
+La lezione dell'articolo precedente era: la tua postazione di lavoro è un sistema, progettala come tale.
 
 Questa settimana mi ha insegnato il corollario: **un sistema mantenuto dalla disciplina si degrada. Un sistema che si mantiene da solo si accumula.**
 
@@ -302,10 +302,10 @@ Ognuna sostituisce "ricordati di" con "lo fa e basta".
 
 Quel file di skill è rimasto morto nella mia cartella Downloads per mesi perché ripristinarlo dipendeva dal fatto che io mi ricordassi che esistesse. Niente sulla mia macchina dipende più dalla mia memoria.
 
-E onestamente — è la miglior funzionalità che abbia mai spedito a me stesso.
+E onestamente, è la miglior funzionalità che abbia mai spedito a me stesso.
 
 ## Com'è fatto il tuo livello di configurazione?
 
-I repository di dotfiles sono un'idea vecchia. Ma la maggior parte si ferma a "file in un repository con uno script di installazione" — la parte che mantiene il repository *veritiero* dopo il primo giorno è dove diventa interessante.
+I repository di dotfiles sono un'idea vecchia. Ma la maggior parte si ferma a "file in un repository con uno script di installazione", la parte che mantiene il repository *veritiero* dopo il primo giorno è dove diventa interessante.
 
 Gli strumenti continueranno a cambiare. L'architettura dovrebbe sopravvivere loro.

@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const imageUrl = blog.coverImage ? `${BASE_URL}${blog.coverImage}` : undefined;
 
   return {
-    title: `${blog.title} — Paurush Rai`,
+    title: `${blog.title} | Paurush Rai`,
     description: blog.description,
     keywords: blog.tags,
     authors: [{ name: AUTHOR_NAME, url: BASE_URL }],

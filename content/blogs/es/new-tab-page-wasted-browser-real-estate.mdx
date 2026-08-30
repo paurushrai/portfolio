@@ -1,27 +1,27 @@
 ---
-title: Tu Página de Nueva Pestaña Es Espacio Desperdiciado
-description: Por qué la típica página de nueva pestaña es espacio muerto, y cómo un dashboard local para Chrome con enlaces fijados, recordatorios y espacios de trabajo por perfil lo solucionó sin ningún rastreo.
+title: "Tu Página de Nueva Pestaña Es Espacio Desperdiciado"
+description: "Por qué la típica página de nueva pestaña es espacio muerto, y cómo un dashboard local para Chrome con enlaces fijados, recordatorios y espacios de trabajo por perfil lo solucionó sin ningún rastreo."
 date: 2026-06-14
 published: true
 coverImage: /blogs/new-tab-page-wasted-browser-real-estate/1.png
 tags: ["Chrome Extensions", "Productivity", "Browsers", "Privacy"]
 ---
 
-*Más de cuarenta pestañas abiertas, un ventilador que nunca dejaba de girar, y una "nueva pestaña" que no hacía nada. Así que me construí un pequeño dashboard — y uno a uno, fue matando los problemas con los que llevaba conviviendo.*
+*Más de cuarenta pestañas abiertas, un ventilador que nunca dejaba de girar, y una "nueva pestaña" que no hacía nada. Así que me construí un pequeño dashboard, y uno a uno, fue matando los problemas con los que llevaba conviviendo.*
 
-![El dashboard de MonoStart — enlaces fijados, búsqueda, grupos y widgets de productividad en una sola pestaña nueva](/blogs/new-tab-page-wasted-browser-real-estate/1.png)
+![El dashboard de MonoStart: enlaces fijados, búsqueda, grupos y widgets de productividad en una sola pestaña nueva](/blogs/new-tab-page-wasted-browser-real-estate/1.png)
 
-Abro una pestaña nueva unas 200 veces al día — es la "página" más visitada de toda mi vida frente al ordenador. Y durante años no me dio más que una barra de búsqueda y una cuadrícula de sitios que Google adivinaba. El espacio más transitado de mi navegador era espacio muerto.
+Abro una pestaña nueva unas 200 veces al día, es la "página" más visitada de toda mi vida frente al ordenador. Y durante años no me dio más que una barra de búsqueda y una cuadrícula de sitios que Google adivinaba. El espacio más transitado de mi navegador era espacio muerto.
 
 Pero la página en blanco no era el verdadero problema. El verdadero problema era todo lo que hacía para sobrellevarla. Esto es lo que estaba combatiendo, y lo que desapareció.
 
 ## 🗂️ Problema: Acumulaba Pestañas para No Tener que Volver a Escribir URLs
 
-El tablero de Jira, los docs, tres páginas de Notion, el calendario, esa pestaña de Stack Overflow que "podría necesitar" — todo abierto, agrupado en pulcros grupos de pestañas de colores para que *pareciera* organizado. Multiplicado por tres perfiles.
+El tablero de Jira, los docs, tres páginas de Notion, el calendario, esa pestaña de Stack Overflow que "podría necesitar", todo abierto, agrupado en pulcros grupos de pestañas de colores para que *pareciera* organizado. Multiplicado por tres perfiles.
 
-Se sentía productivo. No lo era. Cada pestaña es un proceso vivo y hambriento de memoria que Chrome mantiene caliente. No estaba organizando mi trabajo — estaba pagando un impuesto de RAM y ventilador para no tener que volver a escribir URLs.
+Se sentía productivo. No lo era. Cada pestaña es un proceso vivo y hambriento de memoria que Chrome mantiene caliente. No estaba organizando mi trabajo, estaba pagando un impuesto de RAM y ventilador para no tener que volver a escribir URLs.
 
-**La solución:** me di cuenta de que no estaba conservando la *página*, estaba conservando el *puntero*. Un enlace no cuesta nada; una pestaña cuesta un proceso. Así que me construí un solo lugar rápido para guardar los enlaces — fijados en la cabecera, ordenados en grupos, a un clic de distancia.
+**La solución:** me di cuenta de que no estaba conservando la *página*, estaba conservando el *puntero*. Un enlace no cuesta nada; una pestaña cuesta un proceso. Así que me construí un solo lugar rápido para guardar los enlaces, fijados en la cabecera, ordenados en grupos, a un clic de distancia.
 
 **Desaparecido:** el muro de 40 pestañas, el ventilador, el impuesto de RAM. Abro lo que necesito y lo cierro.
 
@@ -29,37 +29,37 @@ Se sentía productivo. No lo era. Cada pestaña es un proceso vivo y hambriento 
 
 Primero probé las extensiones de nueva pestaña que ya existían. Cada una cambiaba mi página en blanco por algo peor:
 
-- **Se sentían como una app ajena** — movían la barra de búsqueda, ocultaban mi historial, rompían mi memoria muscular. → El mío conserva la barra de búsqueda real de Google, mis sugerencias reales de historial, y el aspecto propio de Chrome.
+- **Se sentían como una app ajena**, movían la barra de búsqueda, ocultaban mi historial, rompían mi memoria muscular. → El mío conserva la barra de búsqueda real de Google, mis sugerencias reales de historial, y el aspecto propio de Chrome.
 - **Pedían una cuenta** y sincronización en la nube con "socios de analítica". → El mío no tiene login ni backend.
-- **Me monetizaban** — enlaces patrocinados, telemetría. → El mío tiene cero anuncios y cero rastreo.
-- **Eran pesados** — medio segundo de spinner. → El mío *es* la página de nueva pestaña: instantáneo, sin spinner.
+- **Me monetizaban**, enlaces patrocinados, telemetría. → El mío tiene cero anuncios y cero rastreo.
+- **Eran pesados**, medio segundo de spinner. → El mío *es* la página de nueva pestaña: instantáneo, sin spinner.
 
-Quería una página que fuera completamente mía pero que se sintiera como si no hubiera instalado nada. Así que la única regla que me negué a romper fue: *no deberías poder distinguir dónde termina Chrome y dónde empieza el dashboard.* Pulso `⌘T` y estoy en casa — la misma búsqueda, los mismos reflejos, solo que con mis cosas encima.
+Quería una página que fuera completamente mía pero que se sintiera como si no hubiera instalado nada. Así que la única regla que me negué a romper fue: *no deberías poder distinguir dónde termina Chrome y dónde empieza el dashboard.* Pulso `⌘T` y estoy en casa, la misma búsqueda, los mismos reflejos, solo que con mis cosas encima.
 
 ## 👥 Problema: Tres Perfiles, Una Sola Página Muerta para Todos
 
-Repartía mi navegación entre perfiles de Chrome — personal, empresa, freelance — pero los tres caían en la misma pestaña en blanco. Cambiar de perfil cambiaba mis sesiones y nada más.
+Repartía mi navegación entre perfiles de Chrome, personal, empresa, freelance, pero los tres caían en la misma pestaña en blanco. Cambiar de perfil cambiaba mis sesiones y nada más.
 
-**La solución:** todo se guarda localmente, por perfil (`chrome.storage.local`), así que cada perfil obtiene gratis su propio dashboard independiente — el personal abre en listas de lectura y proyectos paralelos, el de trabajo en Jira y un recordatorio de "standup a las 10", el freelance en carpetas de clientes y un cronómetro de horas facturables.
+**La solución:** todo se guarda localmente, por perfil (`chrome.storage.local`), así que cada perfil obtiene gratis su propio dashboard independiente, el personal abre en listas de lectura y proyectos paralelos, el de trabajo en Jira y un recordatorio de "standup a las 10", el freelance en carpetas de clientes y un cronómetro de horas facturables.
 
-**Desaparecida:** la mezcla de contextos. Cambiar de perfil ahora es cambiar de *espacio de trabajo* — el dashboard me dice qué versión de mí mismo estoy siendo.
+**Desaparecida:** la mezcla de contextos. Cambiar de perfil ahora es cambiar de *espacio de trabajo*, el dashboard me dice qué versión de mí mismo estoy siendo.
 
 ## ⚡ Problema: El Hueco Entre "Necesito un Sitio" y "Ya Estoy Ahí"
 
-Llegar a un sitio era un ritual — `⌘L`, escribir, esperar, aterrizar — o peor, rebuscar entre doce grupos de pestañas la que juraba haber dejado abierta.
+Llegar a un sitio era un ritual, `⌘L`, escribir, esperar, aterrizar, o peor, rebuscar entre doce grupos de pestañas la que juraba haber dejado abierta.
 
-**La solución:** mis sitios más usados están fijados en la cabecera; el resto vive en grupos de colores. En cualquier página que valga la pena conservar, el icono de la barra de herramientas la archiva en un clic — a la cuadrícula, a la cabecera o a un grupo.
+**La solución:** mis sitios más usados están fijados en la cabecera; el resto vive en grupos de colores. En cualquier página que valga la pena conservar, el icono de la barra de herramientas la archiva en un clic, a la cuadrícula, a la cabecera o a un grupo.
 
 **Desaparecido:** el hueco. `⌘T` → ahí está → clic. Multiplica un segundo o dos ahorrados por 200 pestañas al día y deja de ser un margen de error.
 
 ## 🛠️ Los Problemas que Cada Widget Fue Matando en Silencio
 
-Salí a reemplazar una página en blanco; terminó siendo el lugar donde mueren mis pequeñas molestias diarias. Cada uno empezó como un problema, no como una función — todos locales, a una pulsación de tecla:
+Salí a reemplazar una página en blanco; terminó siendo el lugar donde mueren mis pequeñas molestias diarias. Cada uno empezó como un problema, no como una función, todos locales, a una pulsación de tecla:
 
-- **🔔 Se me olvidaban los standups y se me pasaba el té.** Los recordatorios suenan como notificaciones reales con un timbre — incluso con todas las pestañas cerradas, incluso con No Molestar activado. El que más uso.
+- **🔔 Se me olvidaban los standups y se me pasaba el té.** Los recordatorios suenan como notificaciones reales con un timbre, incluso con todas las pestañas cerradas, incluso con No Molestar activado. El que más uso.
 - **⏱️ Perdía la noción del tiempo cuando me concentraba.** Temporizadores con nombre ("Té", "Standup") corren en paralelo. El time-boxing por fin funcionó.
 - **✅ Mi lista de tareas vivía donde nunca miraba.** Ahora la checklist y las notas adhesivas están en la página que abro 200 veces al día.
-- **🌐 Tenía pestañas abiertas solo para echar un vistazo a una cosa.** Mini-widgets embebidos — un calendario, un panel de estado — visibles de un vistazo sin pestaña dedicada.
+- **🌐 Tenía pestañas abiertas solo para echar un vistazo a una cosa.** Mini-widgets embebidos, un calendario, un panel de estado, visibles de un vistazo sin pestaña dedicada.
 - **🎨 Los temas de otros nunca encajaban con mi configuración.** Claro, oscuro, o según mi sistema, con acentos personalizados y mi propio fondo de pantalla.
 
 ## 🔒 El Problema que Me Negué a Cambiar por Otro
@@ -70,11 +70,11 @@ Cada solución podría haber venido con un coste oculto: entregar mis datos al s
 
 ## 🧰 Para los Curiosos
 
-Una extensión Manifest V3 — React 19, TypeScript, Vite, Tailwind, shadcn/ui — con código disponible bajo la licencia PolyForm Noncommercial, para que puedas leer cada línea y verificar que las afirmaciones de privacidad no son marketing. Solo solicita los permisos que su único trabajo necesita.
+Una extensión Manifest V3, React 19, TypeScript, Vite, Tailwind, shadcn/ui, con código disponible bajo la licencia PolyForm Noncommercial, para que puedas leer cada línea y verificar que las afirmaciones de privacidad no son marketing. Solo solicita los permisos que su único trabajo necesita.
 
 ## 🚀 Si Estás Peleando con lo Mismo
 
-Construí esto para arreglar mi propio navegador. Si el tuyo es espacio muerto — o un muro de grupos de pestañas cocinando tu portátil — puede que te mate los mismos problemas a ti.
+Construí esto para arreglar mi propio navegador. Si el tuyo es espacio muerto, o un muro de grupos de pestañas cocinando tu portátil, puede que te mate los mismos problemas a ti.
 
 👉 [MonoStart en la Chrome Web Store](https://chromewebstore.google.com/detail/hhfeihcppmfepeeainafmaifpmdemmlg)
 

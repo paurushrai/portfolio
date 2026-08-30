@@ -1,6 +1,6 @@
 ---
-title: Testlify - Marketing Site Jamstack Migration
-description: Chose Jamstack over WordPress for Testlify's 11,000+ page marketing site — a migration projected to cut page load times by 60%.
+title: "Testlify - Marketing Site Jamstack Migration"
+description: "Led the architectural decision to replace WordPress with Jamstack for an 11,000+ page marketing site, aimed at cutting page load times and reducing bounce rates."
 url: https://testlify.com/
 date: 2026-07-01
 published: true
@@ -8,14 +8,14 @@ wip: true
 company: Testlify
 ---
 
-Testlify's [marketing site](https://testlify.com/) is large — 11,000+ pages — and running on WordPress, where page loads were slow enough to hurt bounce rates and publishing changes was heavier than it should be. I made the call to move it to a Jamstack architecture, and the migration is currently underway.
+Testlify's [marketing site](https://testlify.com/) contains over 11,000 pages. The legacy WordPress setup incurred server-side rendering overhead and plugin bottlenecks on every request, affecting page load speeds and search engine rankings. I led the architectural decision to migrate the site to a Jamstack architecture, with the rollout currently underway.
 
-## The decision
+## The architectural decision
 
-- **Jamstack over WordPress:** At 11,000+ pages, the WordPress setup was paying a rendering and plugin cost on every request. Moving to a static Jamstack build serves pre-rendered pages instead, which is where most of the speed comes from — and faster loads directly help bounce rate on a marketing site.
-- **CMS-driven content:** Content moves into a headless CMS, so the marketing team publishes and updates pages through it and the site rebuilds from that source — faster to ship content than the old flow, and cleaner to maintain at this page count.
-- **Migrating at scale:** The work is about moving 11,000+ existing pages onto the new architecture without losing SEO equity or breaking URLs — the hard part of any migration this size, and the reason it's a staged rollout rather than a flip.
+- **Jamstack over WordPress:** Moving from dynamic database queries on every page request to pre-rendered static pages eliminates server-side execution bottlenecks, delivering faster initial page loads and reducing bounce rates.
+- **Headless CMS integration:** Content is managed through a headless CMS, allowing marketing teams to create and update landing pages while the site builds statically from validated data schemas.
+- **Migration at scale:** Planned and executed the staged migration of 11,000+ pages, preserving URL structures, canonical tags, and existing SEO authority across all categories.
 
 ## Why it mattered
 
-The migration is projected to cut page load times by around **60%**. On a marketing site that's not a vanity metric: faster pages mean lower bounce and better search ranking, and the CMS-driven pipeline lets the marketing team move content out the door without waiting on engineering.
+Transitioning an 11,000+ page site to Jamstack provides faster global content delivery, improves technical SEO performance, and enables marketing teams to publish updates without relying on engineering deployments.

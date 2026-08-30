@@ -1,6 +1,6 @@
 ---
-title: Testlify LTI 1.3 Advantage Plugin
-description: A 1EdTech-certified LTI 1.3 integration letting instructors assign Testlify assessments and sync grades from their LMS — built in Next.js 14.
+title: "Testlify LTI 1.3 Advantage Plugin"
+description: "Designed and built a 1EdTech-certified LTI 1.3 integration connecting Testlify to Canvas, Moodle, and Blackboard with automated grade passback in Next.js 14."
 url: https://lti.testlify.com/
 date: 2026-03-01
 published: true
@@ -8,18 +8,18 @@ company: Testlify
 coverImage: /projects/testlify-lti-plugin/plugin.gif
 ---
 
-Learning Management Systems like Canvas, Moodle, and Blackboard are where schools and corporate training teams run their day-to-day. To make Testlify's assessments usable inside those systems, we needed a secure, standards-compliant bridge. I built the Testlify LTI Plugin as the sole full-stack engineer — it lets instructors assign Testlify-created assessments to the candidates enrolled in a course and track their scores, all from inside the LMS.
+Learning Management Systems (LMS) such as Canvas, Moodle, and Blackboard are the primary platforms used by universities and enterprise training teams. To make Testlify assessments accessible within these systems, I designed and built the Testlify LTI integration from scratch as the lead engineer. The integration allows educators to embed Testlify assessments directly into LMS courses and automatically synchronize scores to the gradebook.
 
 ![Testlify LTI 1.3 Plugin Demo](/projects/testlify-lti-plugin/plugin.gif)
 
-The integration is **[officially certified by 1EdTech](https://site.imsglobal.org/certifications/testlify-inc/testlify#cert_pane_nid_626241)** for LTI Advantage (v1.3) — Names and Role Provisioning Services 2.0 and Assignment & Grade Services 2.0. 1EdTech runs the conformance tests, so those aren't self-reported claims: an independent body verified that the implementation follows the spec.
+The integration is **[officially certified by 1EdTech](https://site.imsglobal.org/certifications/testlify-inc/testlify#cert_pane_nid_626241)** for LTI Advantage (v1.3), covering Names and Role Provisioning Services (NRPS 2.0) and Assignment & Grade Services (AGS 2.0).
 
 ## What I built
 
-- **Custom LTI 1.3 implementation:** Rather than lean on a heavy third-party LTI library, I implemented the spec directly in Next.js 14 — the OpenID Connect handshake, JWT signature verification, and JWKS public-key endpoints that establish trust between the LMS and Testlify.
-- **Assign and track flow:** Built the API layer behind the whole workflow — Deep Linking so an instructor picks a Testlify assessment and drops it into a course as an assignment, Names and Role Provisioning Services (NRPS) to pull the candidates enrolled in that course, and Assignment & Grade Services (AGS) to push each candidate's score back into the LMS gradebook so instructors see results where they already work.
-- **Full-stack system:** Combined multi-tenant API routing with a React 18 dashboard in one app, designed the MongoDB schemas for per-platform config, and used Docker to simulate isolated LMS environments for local testing.
+- **Custom LTI 1.3 security layer:** Implemented the full LTI 1.3 security specification in Next.js 14, including OpenID Connect (OIDC) third-party launch flows, RSA SHA-256 JWT signature verification, and dynamic JWKS endpoints.
+- **LTI Advantage services:** Built Deep Linking workflows allowing instructors to select assessments from within the LMS, NRPS 2.0 integration to retrieve course rosters, and AGS 2.0 endpoints for automated grade synchronization.
+- **Multi-tenant full-stack architecture:** Built a multi-tenant administration dashboard in React 18, configured MongoDB schemas for platform registration keys, and set up Docker Compose environments to test against Canvas and Moodle instances locally.
 
 ## Why it mattered
 
-A standards-compliant LTI integration opened Testlify up to the higher-education and corporate-training markets — and the plugin I built went on to pass 1EdTech's conformance testing and earn certification. Instructors could assign assessments to a whole course and get scores back in the gradebook automatically — no exporting rosters or copying results by hand — which is the kind of friction that usually stalls LMS adoption.
+Achieving official 1EdTech certification allowed Testlify to enter higher education and enterprise training markets. The automated roster sync and grade passback eliminated manual data entry for instructors.

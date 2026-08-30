@@ -1,13 +1,13 @@
 ---
-title: Stop Using cron on Your Mac — Use launchd Instead
-description: cron polls on a schedule and misses jobs while your laptop sleeps. launchd reacts to filesystem events instead, and it never misses one.
+title: "Stop Using cron on Your Mac: Use launchd Instead"
+description: "cron polls on a schedule and misses jobs while your laptop sleeps. launchd reacts to filesystem events instead, and it never misses one."
 date: 2026-06-09
 published: true
 coverImage: /blogs/stop-using-cron-on-mac/1.png
 tags: ["macOS", "launchd", "Automation", "DevOps"]
 ---
 
-*I needed my machine to react to changes, not poll for them. The answer was a 20-year-old macOS feature almost nobody uses — and it beat cron in every way that mattered.*
+*I needed my machine to react to changes, not poll for them. The answer was a 20-year-old macOS feature almost nobody uses: and it beat cron in every way that mattered.*
 
 Last week I built a system that auto-commits my machine's configuration: install a Homebrew package, and eight seconds later there's a git commit on GitHub recording it.
 
@@ -46,11 +46,11 @@ That's not a schedule. That's an **event**.
 
 ## ⚙️ The Daemon You Already Have
 
-macOS ships with launchd — it's literally process 1, the thing that boots every service on your system. Apple replaced cron with it internally years ago (your Mac's cron jobs are themselves run *by* launchd).
+macOS ships with launchd: it's literally process 1, the thing that boots every service on your system. Apple replaced cron with it internally years ago (your Mac's cron jobs are themselves run *by* launchd).
 
 Most developers know launchd exists. Almost nobody uses its best feature:
 
-**WatchPaths** — launchd will watch a filesystem path at the OS level, and fire your job the moment it changes.
+**WatchPaths**, launchd will watch a filesystem path at the OS level, and fire your job the moment it changes.
 
 ```xml
 <key>WatchPaths</key>
@@ -60,7 +60,7 @@ Most developers know launchd exists. Almost nobody uses its best feature:
 </array>
 ```
 
-That's the whole trick. Homebrew installs every package into `/opt/homebrew/Cellar` — so *any* install or uninstall, from any shell, any script, any tool, changes that directory. The OS notices. My script runs.
+That's the whole trick. Homebrew installs every package into `/opt/homebrew/Cellar`: so *any* install or uninstall, from any shell, any script, any tool, changes that directory. The OS notices. My script runs.
 
 No polling. No wasted executions. Zero CPU while idle. The job exists as a *registered intention*, and the kernel does the watching.
 
@@ -107,7 +107,7 @@ launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.paurushrai.dotfiles-
 
 It survives reboots. It runs whether or not a terminal is open. It's part of the OS now.
 
-I tested it the honest way — installed a package and touched nothing:
+I tested it the honest way: installed a package and touched nothing:
 
 ```bash
 $ brew install jq
@@ -123,15 +123,15 @@ The plist above has three design decisions baked in, and each one replaced code 
 
 ![the three launchd keys: ThrottleInterval, StartCalendarInterval, and StandardOutPath](/blogs/stop-using-cron-on-mac/3.png)
 
-**ThrottleInterval: 60 is a free debouncer.** Install five packages in a row and the filesystem fires five events — but launchd won't run the job more than once per 60 seconds, so I get *one* commit covering all five. In cron-world, batching like this is logic you write and test yourself. Here it's one integer.
+**ThrottleInterval: 60 is a free debouncer.** Install five packages in a row and the filesystem fires five events: but launchd won't run the job more than once per 60 seconds, so I get *one* commit covering all five. In cron-world, batching like this is logic you write and test yourself. Here it's one integer.
 
-**StartCalendarInterval is cron's schedule — minus cron's laptop problem.** It gives me a daily noon run as a catch-all for anything the watches miss. And unlike cron, if the machine is asleep at noon, **launchd runs the job when it wakes**. Missed schedules execute late instead of never. For a laptop, that single behavior ends the comparison.
+**StartCalendarInterval is cron's schedule: minus cron's laptop problem.** It gives me a daily noon run as a catch-all for anything the watches miss. And unlike cron, if the machine is asleep at noon, **launchd runs the job when it wakes**. Missed schedules execute late instead of never. For a laptop, that single behavior ends the comparison.
 
 **StandardOutPath is observability for free.** Every run's output appends to a log file I chose. When I wondered why something didn't fire, the answer was already written down.
 
 ## 🔁 The Trap That Bites Everyone
 
-Now the confession. My script commits to a git repo — and my first instinct was to watch the repo directory itself. One watch entry, covers every file. Elegant.
+Now the confession. My script commits to a git repo: and my first instinct was to watch the repo directory itself. One watch entry, covers every file. Elegant.
 
 It's also an infinite loop.
 
@@ -143,11 +143,11 @@ The fix is a rule worth memorizing:
 
 > *Never watch a directory that your job writes into.*
 
-I watch **individual files** instead — each tracked dotfile gets its own WatchPaths entry, and the repo root is deliberately absent. The trade-off: a brand-new file in a deep subdirectory isn't noticed instantly; the daily noon run sweeps it up. A fair price for a system that cannot chase its own tail.
+I watch **individual files** instead: each tracked dotfile gets its own WatchPaths entry, and the repo root is deliberately absent. The trade-off: a brand-new file in a deep subdirectory isn't noticed instantly; the daily noon run sweeps it up. A fair price for a system that cannot chase its own tail.
 
 Two more traps from the same afternoon, so you don't repay my tuition:
 
-- **Don't symlink the plist.** I keep the plist in my dotfiles repo and *copy* it into `~/Library/LaunchAgents/` — launchd is unreliable with symlinked job definitions on modern macOS. The repo holds the source of truth; the installer deploys a copy.
+- **Don't symlink the plist.** I keep the plist in my dotfiles repo and *copy* it into `~/Library/LaunchAgents/`: launchd is unreliable with symlinked job definitions on modern macOS. The repo holds the source of truth; the installer deploys a copy.
 - **launchd jobs get a minimal environment.** No your-shell `PATH`, no aliases, none of your `.zshrc`. My script sets its own `PATH` in line one. If your job "works in the terminal but not in launchd," it's almost always this.
 
 ## 🔔 Make It Speak, Then Make It Wait
@@ -162,9 +162,9 @@ osascript -e 'display notification "Committed & pushed: .Brewfile" with title "d
 
 First test: I never saw it. Banner notifications fade in five seconds.
 
-The fix wasn't code — it was a setting almost nobody changes: **System Settings → Notifications → Script Editor → Alerts**. Alert-style notifications stay on screen until dismissed. Now every sync waits in the corner for me to acknowledge it, with the changed filenames in the message.
+The fix wasn't code: it was a setting almost nobody changes: **System Settings → Notifications → Script Editor → Alerts**. Alert-style notifications stay on screen until dismissed. Now every sync waits in the corner for me to acknowledge it, with the changed filenames in the message.
 
-Design detail that matters: the script only notifies when something was *actually committed*. A no-op run is silent. A notification that fires constantly is a notification you've already learned to ignore — alert fatigue kills observability faster than no alerts at all.
+Design detail that matters: the script only notifies when something was *actually committed*. A no-op run is silent. A notification that fires constantly is a notification you've already learned to ignore: alert fatigue kills observability faster than no alerts at all.
 
 ## 🛠 The Cheat Sheet
 
@@ -202,7 +202,7 @@ And the decision table I wish I'd had:
 
 The automation I built is small. The principle isn't.
 
-I almost reached for cron because cron is what I *knew* — and I almost reached for a file-watcher npm package because that's what search results suggest. Both would have worked, badly: one polling on a timer, the other adding a dependency to do what the OS does natively.
+I almost reached for cron because cron is what I *knew*: and I almost reached for a file-watcher npm package because that's what search results suggest. Both would have worked, badly: one polling on a timer, the other adding a dependency to do what the OS does natively.
 
 The boring, built-in, twenty-year-old tool was better than both. Event-driven instead of polled. Laptop-aware instead of server-assuming. Zero dependencies instead of one more thing to install on the next machine.
 
@@ -212,4 +212,4 @@ The answer is more often than you think: **everything you needed, sitting in pro
 
 ## What's running in your LaunchAgents folder?
 
-I'm curious what others have automated at the OS level — and what traps you hit doing it. The WatchPaths feedback loop can't be the only one.
+I'm curious what others have automated at the OS level, and what traps you hit doing it. The WatchPaths feedback loop can't be the only one.
