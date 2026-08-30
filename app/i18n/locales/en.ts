@@ -27,11 +27,12 @@ export const en = {
     all: "All",
     personal: "Personal",
     moreTitle: "More projects",
+    viewAll: "View all",
   },
   blogs: {
     title: "Blog",
     subtitle: "Notes on engineering, tooling, and building things that last.",
-    empty: "No posts yet — check back soon.",
+    empty: "No posts yet. Check back soon.",
     minRead: "min read",
     moreTitle: "More from the blog",
     viewAll: "View all",
@@ -40,7 +41,7 @@ export const en = {
     badge: "Available for freelance",
     title: "Services",
     intro:
-      "I take on a limited number of freelance projects each quarter. Everything I build is production-grade, performant, and shipped with clean handoff. No agencies, no subcontracting — you work directly with me.",
+      "I take on a limited number of freelance projects each quarter. Everything I build is production-grade, performant, and shipped with clean handoff. No agencies, no subcontracting: you work directly with me.",
     pricing: {
       startingAt: "Starting at",
       fixedPrice: "Fixed price",
@@ -64,7 +65,7 @@ export const en = {
       label: "Ongoing work",
       title: "Monthly Retainer",
       description:
-        "Need a dedicated engineer on call? I offer retainer arrangements for teams that need ongoing feature work, bug fixes, or a technical partner — without the overhead of a full-time hire.",
+        "Need a dedicated engineer on call? I offer retainer arrangements for teams that need ongoing feature work, bug fixes, or a technical partner, without the overhead of a full-time hire.",
       hours: "up to 40 hrs/month",
       cta: "Let's talk",
     },
@@ -73,7 +74,7 @@ export const en = {
       items: [
         {
           q: "How do I get started?",
-          a: "Reach out via email or LinkedIn with a brief description of your project. I'll respond within 24 hours to schedule a 30-minute scoping call — no commitment required.",
+          a: "Reach out via email or LinkedIn with a brief description of your project. I'll respond within 24 hours to schedule a 30-minute scoping call, with no commitment required.",
         },
         {
           q: "Do you work with international clients?",
@@ -81,11 +82,11 @@ export const en = {
         },
         {
           q: "What's your typical timeline?",
-          a: "Small tools & audits: 1–2 weeks. Full-stack apps & integrations: 4–10 weeks depending on scope. I'll give you a detailed estimate after the scoping call.",
+          a: "Small tools & audits: 1-2 weeks. Full-stack apps & integrations: 4-10 weeks depending on scope. I'll give you a detailed estimate after the scoping call.",
         },
         {
           q: "Do you offer retainers?",
-          a: "Yes — for ongoing work, I offer monthly retainer arrangements starting at $2,000/month for up to 40 hours.",
+          a: "Yes, for ongoing work, I offer monthly retainer arrangements starting at $2,000/month for up to 40 hours.",
         },
       ],
     },
@@ -101,7 +102,7 @@ export const en = {
         title: "Full-Stack Web Development",
         tagline: "Production-grade apps, built fast.",
         description:
-          "End-to-end development of web applications — from architecture and API design to polished frontend. I've built B2B SaaS platforms, multi-tenant dashboards, and customer-facing apps that serve tens of thousands of users.",
+          "End-to-end development of web applications, from architecture and API design to polished frontend. I've built B2B SaaS platforms, multi-tenant dashboards, and customer-facing apps that serve tens of thousands of users.",
         stack: ["React / Next.js", "Vue / Nuxt.js", "Node.js / Express", "PostgreSQL / MongoDB", "REST & GraphQL APIs"],
         deliverables: [
           "Responsive, accessible UI",
@@ -120,7 +121,7 @@ export const en = {
         title: "AI Workflow Integration",
         tagline: "Ship AI-powered features that actually work.",
         description:
-          "I integrate LLMs, voice AI, and automation workflows into real products. Built MetaNotes — an AI meeting notetaker that saved $24K/year — and AI-driven interview workflows (chat, voice, video) that cut interviewer effort by 40%.",
+          "I integrate LLMs, voice AI, and automation workflows into production products. Built MetaNotes, an AI meeting notetaker that eliminated $24,000 in annual operational costs, and AI interview workflows (chat, voice, video) with live media capture.",
         stack: ["OpenAI / Claude / Whisper", "LangChain", "Pipedream / n8n", "Webhooks & event pipelines", "Vector DBs"],
         deliverables: [
           "AI feature scoping & design",
@@ -139,7 +140,7 @@ export const en = {
         title: "Desktop Application Development",
         tagline: "Native-feel apps for Mac, Windows & Linux.",
         description:
-          "Cross-platform desktop applications built with Electron and Tauri — one codebase, three operating systems. From offline-first productivity tools to data-heavy internal apps, I ship signed, auto-updating builds with native menus, system tray, and OS integrations that feel at home on every platform.",
+          "Cross-platform desktop applications built with Electron and Tauri for Mac, Windows, and Linux. From offline-first productivity tools to data-heavy internal apps, I ship signed, auto-updating builds with native menus, system tray, and OS integrations that feel at home on every platform.",
         stack: ["Electron", "Tauri (Rust)", "React / TypeScript", "Native OS APIs", "Auto-update & code signing"],
         deliverables: [
           "Cross-platform build (Mac/Win/Linux)",
@@ -158,7 +159,7 @@ export const en = {
         title: "Mobile App Development",
         tagline: "iOS & Android from a single codebase.",
         description:
-          "Cross-platform mobile apps with React Native and Expo — native performance without maintaining two codebases. I handle the full path from architecture to store approval: push notifications, deep links, offline sync, and native device integrations, shipped to both the App Store and Play Store.",
+          "Cross-platform mobile apps with React Native and Expo for iOS and Android without maintaining two codebases. I handle the full path from architecture to store approval: push notifications, deep links, offline sync, and native device integrations, shipped to both the App Store and Play Store.",
         stack: ["React Native / Expo", "TypeScript", "Native modules (iOS/Android)", "Push notifications", "App Store / Play Store"],
         deliverables: [
           "iOS + Android from one codebase",
@@ -177,7 +178,7 @@ export const en = {
         title: "Internal Tools & Plugins",
         tagline: "Tools your team will actually use.",
         description:
-          "Custom developer tools, Jira plugins, VS Code extensions, and browser extensions. My Jira timesheet plugin saves $9K+/year; my VS Code extension eliminated manual time tracking for an engineering team.",
+          "Custom developer tools, Jira plugins, VS Code extensions, and browser extensions. My Jira timesheet platform cuts $9,000+ in annual licensing costs; my VS Code extension automates timesheet logging from Git branch context.",
         stack: ["VS Code Extension API", "Jira Forge / Connect", "Chrome Extensions", "Node.js", "Shell scripting"],
         deliverables: [
           "Scoped requirements & spec",
@@ -195,7 +196,7 @@ export const en = {
         title: "LMS / LTI Integration",
         tagline: "Connect your platform to any LMS.",
         description:
-          "LTI 1.3-compliant plugin development for Moodle, Canvas, Blackboard, and beyond. I architected Testlify's LTI plugin from scratch — a custom cryptographic implementation that drove 20–30% enterprise adoption growth.",
+          "LTI 1.3-compliant plugin development for Canvas, Moodle, Blackboard, and beyond. I designed and built Testlify's 1EdTech-certified LTI 1.3 integration from scratch, implementing custom cryptographic handshakes for assignment and grade passback.",
         stack: ["LTI 1.3 / LTI Advantage", "Moodle / Canvas / Blackboard", "OAuth 2.0 / JWKS", "Node.js", "Deep Linking & AGS"],
         deliverables: [
           "LTI 1.3 compliant integration",
@@ -214,7 +215,7 @@ export const en = {
         title: "Frontend Performance Audit",
         tagline: "Fast sites convert. Let's fix yours.",
         description:
-          "Comprehensive Lighthouse, Core Web Vitals, and bundle analysis with a prioritised fix list. I lifted a production marketing site from 49/53 → 87/91 on mobile/desktop — improvements that directly impact SEO and conversions.",
+          "Comprehensive Lighthouse, Core Web Vitals, and bundle analysis with a prioritised fix list. I lifted a production marketing site from 49/53 to 87/91 on mobile and desktop, directly improving SEO and load times.",
         stack: ["Lighthouse / PageSpeed", "WebPageTest", "Chrome DevTools", "Next.js / Vite optimisation", "Image & font pipeline"],
         deliverables: [
           "Full Lighthouse audit report",
@@ -233,7 +234,7 @@ export const en = {
         title: "Headless CMS & Jamstack",
         tagline: "Content-first. Launch-optimised.",
         description:
-          "Migrate legacy sites to modern Jamstack stacks or build new ones from scratch. I've migrated 7 legacy websites to Astro.js + headless CMS, cutting content launch time by 50%, and built 4 CMS-driven sites that scale with traffic.",
+          "Migrate legacy sites to modern Jamstack architectures or build new ones from scratch. I've modernized 7 legacy websites with Astro.js and Directus CMS, doubling content publishing speed, and built 4 CMS-driven sites that scale with traffic.",
         stack: ["Astro.js / Next.js", "Directus / Contentful / Sanity", "PostgreSQL", "Vercel / Netlify", "MDX / Contentlayer"],
         deliverables: [
           "CMS setup & schema design",
@@ -253,9 +254,9 @@ export const en = {
     title: "About Me",
     subtitle: "A little background on who I am and what I do.",
     bio: [
-      "I'm Paurush Rai — a Senior Frontend Engineer based in India: a frontend core with full-stack range, and 5+ years building enterprise web platforms, AI-driven applications, and developer-productivity tools. My work spans complex B2B dashboards, a 1EdTech-certified LMS integration, and custom Jira and VS Code plugins.",
-      "I care deeply about performance, clean architecture, and shipping things that actually matter. Whether it's building a greenfield franchise portal from scratch, engineering real-time AI interview workflows, or developing internal tools that save the business thousands of dollars annually, my focus is always on work that measurably moves the needle.",
-      "Outside of work I'm usually spinning up a side project, automating a tedious workflow, or reaching for a library I've never touched before — I like the friction of learning new tools in real contexts.",
+      "I'm Paurush Rai, a Senior Frontend Engineer based in India with full-stack range and 5+ years building enterprise web platforms, AI-driven applications, and developer productivity tools. My work spans complex B2B dashboards, a 1EdTech-certified LMS integration, and custom Jira and VS Code plugins.",
+      "I care deeply about performance, clean architecture, and shipping things that actually matter. Whether it's building a greenfield franchise portal from scratch, engineering real-time AI interview workflows, or developing internal tools that save thousands in operational costs, my focus is on work that measurably moves the needle.",
+      "Outside of work I'm usually spinning up a side project, automating a tedious workflow, or exploring new libraries in real-world contexts.",
     ],
     whatIBuild: "What I Build",
     technicalSkills: "Technical Skills",
@@ -295,12 +296,12 @@ export const en = {
         location: "Mumbai, India (Remote)",
         period: "January 2025 – Present",
         highlights: [
-          "Chose a Jamstack architecture over WordPress for an 11,000+ page marketing site to lower bounce rates via faster loads and speed content delivery through the CMS; projected to cut page load times by 60%.",
+          "Led the architectural decision to replace WordPress with Jamstack for an 11,000+ page marketing site, aimed at cutting page load times and reducing bounce rates through faster content delivery.",
           "Designed and built a 1EdTech-certified LTI 1.3 integration connecting Testlify to LMS platforms like Canvas and Moodle, letting instructors assign assessments and sync grades back to the gradebook.",
           "Architected the frontend for an AI-powered meeting notetaker in collaboration with AI engineers and designers, eliminating $24,000 in annual operational costs.",
           "Shipped a timesheet platform used company-wide and by external customers, replacing a third-party tool and cutting $9,000+ in annual licensing costs.",
-          "Engineered a team-wide VS Code extension that auto-logs Jira time from Git branches into Appforest Timesheets, trimming hands-on tracking effort by 70%.",
-          "Decided on a stateless component library over per-app duplication for consistent, reusable UI across a suite of 4 applications; published as a private npm package, shortening feature delivery by 30%.",
+          "Engineered a VS Code extension that automates timesheet logging into Appforest by detecting Jira tickets from Git branch context, reducing hands-on tracking effort.",
+          "Introduced a stateless component library shared across 4 applications, published as a private npm package, removing per-app UI duplication.",
         ],
       },
       {
@@ -309,11 +310,11 @@ export const en = {
         location: "Gurugram, India",
         period: "September 2023 – December 2024",
         highlights: [
-          "Built a kiosk application from scratch with embedded, backend, and ops teams, shaving fuel dispensing time by 60%.",
+          "Built a kiosk app from scratch for new fuel-dispensing hardware, deployed across 50+ fuel-trucks processing 1,000+ daily transactions via real-time IoT data, automating delivery calculations and invoicing.",
           "Migrated a Progressive Web App to React Native, hitting 100% feature parity across 14 user flows in 8 weeks.",
-          "Standardized TanStack Query across multiple products, aligning frontend teams on a unified server-state architecture and slashing stale-data defects by 50%.",
-          "Established Playwright as the team's E2E framework, dropping manual QA effort by 40%.",
-          "Mentored seven engineers through code review and pairing, lowering new-hire ramp-up time by 25%.",
+          "Standardized TanStack Query across 5 products, aligning 4 frontend teams on a unified server-state architecture and eliminating stale-data defects.",
+          "Introduced Vitest for unit testing and Playwright for E2E testing, automating 16000+ test cases and cutting manual QA effort per release.",
+          "Mentored 8 engineers through code review, pairing, and onboarding support, driving faster ramp-up and stronger coding standards across the team.",
         ],
       },
       {
@@ -322,9 +323,9 @@ export const en = {
         location: "New York City, US (Remote)",
         period: "July 2021 – August 2023",
         highlights: [
-          "Reverse-engineered Directus internals to streamline PostgreSQL schema provisioning, shrinking new-project bootstrap time by 70%+.",
-          "Developed a social analytics dashboard consolidating cross-platform video metrics for a news media client, reducing reporting effort by 60%.",
-          "Modernized 7 legacy websites with Astro.js and a headless CMS, doubling content publishing speed.",
+          "Reverse-engineered Directus’s schema-write behavior and replaced manual UI setup with SQL scripts, cutting schema setup from 3 hours to 5 minutes.",
+          "Developed a social analytics dashboard automating cross-platform video performance tracking for a news media client, eliminating 15+ weekly manual spreadsheet reports.",
+          "Modernized 7 legacy websites with Astro.js and Directus CMS, doubling content publishing speed.",
           "Delivered and optimized 4 CMS-driven responsive websites that shipped to production and remain live today.",
         ],
       },
@@ -347,7 +348,7 @@ export const en = {
     },
     success: {
       title: "Message sent",
-      body: "Thanks for reaching out — I'll reply to your email within 24 hours.",
+      body: "Thanks for reaching out. I'll reply to your email within 24 hours.",
       again: "Send another message",
     },
     error: {
