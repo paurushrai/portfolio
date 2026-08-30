@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useLanguage } from "../../../i18n/LanguageContext";
 import { pickLocalized } from "../../../lib/pick-localized";
 import { ProjectCard } from "../ProjectCard";
@@ -26,7 +27,7 @@ function toProjectMeta(p: Project): ProjectMeta {
 }
 
 export function RelatedProjects({ otherProjects }: { otherProjects: Project[] }) {
-  const { t, language } = useLanguage();
+  const { t, language, localePath } = useLanguage();
 
   const related = pickLocalized(otherProjects, language)
     .sort(
@@ -40,9 +41,17 @@ export function RelatedProjects({ otherProjects }: { otherProjects: Project[] })
 
   return (
     <div className="relative px-6 py-16 mx-auto max-w-5xl lg:px-8">
-      <h2 className="mb-6 text-xl font-semibold text-zinc-100 font-display">
-        {t.projects.moreTitle}
-      </h2>
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-xl font-semibold text-zinc-100 font-display">
+          {t.projects.moreTitle}
+        </h2>
+        <Link
+          href={localePath("/projects")}
+          className="text-sm text-zinc-400 duration-200 hover:text-zinc-100"
+        >
+          {t.projects.viewAll} <span aria-hidden="true">&rarr;</span>
+        </Link>
+      </div>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {related.map((p) => (
           <ProjectCard key={p.slug} project={p} />

@@ -28,12 +28,13 @@ export const tr: Locale = {
     inProgress: "Devam ediyor",
     all: "Tümü",
     personal: "Kişisel",
-    moreTitle: "Diğer projeler"
+    moreTitle: "Diğer projeler",
+    viewAll: "Tümünü gör",
   },
   blogs: {
     title: "Blog",
     subtitle: "Mühendislik, araçlar ve kalıcı şeyler inşa etmek üzerine notlar.",
-    empty: "Henüz yazı yok — yakında tekrar bakın.",
+    empty: "Henüz yazı yok, yakında tekrar bakın.",
     minRead: "dk okuma",
     moreTitle: "Blogdan daha fazlası",
     viewAll: "Tümünü gör",
@@ -85,7 +86,7 @@ export const tr: Locale = {
         },
         {
           q: "Hizmetli sunuyor musunuz?",
-          a: "Evet — devam eden işler için, 40 saate kadar ayda 2.000 ABD dolarından başlayan aylık ücret düzenlemeleri sunuyorum."
+          a: "Evet, devam eden işler için, 40 saate kadar ayda 2.000 ABD dolarından başlayan aylık ücret düzenlemeleri sunuyorum."
         }
       ]
     },
@@ -147,7 +148,7 @@ export const tr: Locale = {
         ctaKey: "buildDesktop",
         title: "Masaüstü Uygulama Geliştirme",
         tagline: "Mac, Windows ve Linux için yerel hissi veren uygulamalar.",
-        description: "Electron ve Tauri ile geliştirilen çapraz platform masaüstü uygulamaları — tek kod tabanı, üç işletim sistemi. Önce çevrimdışı çalışan üretkenlik araçlarından veri yoğun dahili uygulamalara kadar; yerel menülere, sistem tepsisine ve her platformda kendini evinde hissettiren işletim sistemi entegrasyonlarına sahip, imzalı ve otomatik güncellenen sürümler gönderiyorum.",
+        description: "Electron ve Tauri ile geliştirilen çapraz platform masaüstü uygulamaları: tek kod tabanı, üç işletim sistemi. Önce çevrimdışı çalışan üretkenlik araçlarından veri yoğun dahili uygulamalara kadar; yerel menülere, sistem tepsisine ve her platformda kendini evinde hissettiren işletim sistemi entegrasyonlarına sahip, imzalı ve otomatik güncellenen sürümler gönderiyorum.",
         stack: [
           "Electron",
           "Tauri (Rust)",
@@ -171,7 +172,7 @@ export const tr: Locale = {
         ctaKey: "buildMobile",
         title: "Mobil Uygulama Geliştirme",
         tagline: "Tek bir kod tabanından iOS ve Android.",
-        description: "React Native ve Expo ile geliştirilen çapraz platform mobil uygulamalar — iki ayrı kod tabanını sürdürmeden yerel performans. Mimariden mağaza onayına kadar tüm süreci yönetiyorum: anlık bildirimler, derin bağlantılar, çevrimdışı senkronizasyon ve yerel cihaz entegrasyonları; hem App Store'a hem de Play Store'a gönderilir.",
+        description: "React Native ve Expo ile geliştirilen çapraz platform mobil uygulamalar: iki ayrı kod tabanını sürdürmeden yerel performans. Mimariden mağaza onayına kadar tüm süreci yönetiyorum: anlık bildirimler, derin bağlantılar, çevrimdışı senkronizasyon ve yerel cihaz entegrasyonları; hem App Store'a hem de Play Store'a gönderilir.",
         stack: [
           "React Native / Expo",
           "TypeScript",
@@ -291,9 +292,9 @@ export const tr: Locale = {
     title: "Hakkımda",
     subtitle: "Kim olduğum ve ne yaptığım hakkında küçük bir arka plan.",
     bio: [
-      "Ben Paurush Rai — Hindistan merkezli bir Senior Frontend Engineer: tam yığın kapsamına sahip bir ön uç çekirdeği ve kurumsal web platformları, AI odaklı uygulamalar ile geliştirici üretkenlik araçları geliştiren 5+ yıllık deneyim. Çalışmalarım karmaşık B2B kontrol panellerini, 1EdTech sertifikalı bir LMS entegrasyonunu ve özel Jira ile VS Code eklentilerini kapsıyor.",
+      "Ben Paurush Rai, Hindistan merkezli bir Senior Frontend Engineer: tam yığın kapsamına sahip bir ön uç çekirdeği ve kurumsal web platformları, AI odaklı uygulamalar ile geliştirici üretkenlik araçları geliştiren 5+ yıllık deneyim. Çalışmalarım karmaşık B2B kontrol panellerini, 1EdTech sertifikalı bir LMS entegrasyonunu ve özel Jira ile VS Code eklentilerini kapsıyor.",
       "Performansa, temiz mimariye ve gerçekten önemli olan şeyleri hayata geçirmeye derinden önem veriyorum. İster sıfırdan yepyeni bir franchise portalı oluşturmak, ister gerçek zamanlı AI mülakat iş akışları geliştirmek, ister işletmeye yılda binlerce dolar tasarruf sağlayan dahili araçlar geliştirmek olsun, odak noktam her zaman ibreyi ölçülebilir şekilde hareket ettiren işlerdir.",
-      "İş dışında genellikle bir yan proje başlatıyor, sıkıcı bir iş akışını otomatikleştiriyor ya da daha önce hiç dokunmadığım bir kütüphaneye uzanıyorum — gerçek bağlamlarda yeni araçlar öğrenmenin sürtünmesini seviyorum."
+      "İş dışında genellikle bir yan proje başlatıyor, sıkıcı bir iş akışını otomatikleştiriyor ya da daha önce hiç dokunmadığım bir kütüphaneye uzanıyorum, gerçek bağlamlarda yeni araçlar öğrenmenin sürtünmesini seviyorum."
     ],
     whatIBuild: "Ne İnşa Ediyorum",
     technicalSkills: "Teknik Beceriler",
@@ -346,12 +347,12 @@ export const tr: Locale = {
         location: "Mumbai, Hindistan (Uzaktan)",
         period: "Ocak 2025 – Şu Anda",
         highlights: [
-          "11.000'den fazla sayfalık bir pazarlama sitesi için WordPress yerine Jamstack mimarisini seçerek daha hızlı yüklemelerle hemen çıkma oranlarını düşürmeyi ve içerik sunumunu CMS üzerinden hızlandırmayı hedefledim; sayfa yükleme sürelerini %60 azaltması öngörülüyor.",
+          "Daha hızlı içerik sunumu yoluyla sayfa yükleme sürelerini kısaltmayı ve hemen çıkma oranlarını düşürmeyi hedefleyerek, 11.000'den fazla sayfalık bir pazarlama sitesi için WordPress'i Jamstack ile değiştirme mimari kararına liderlik ettim.",
           "Testlify'ı Canvas ve Moodle gibi LMS platformlarına bağlayan 1EdTech sertifikalı bir LTI 1.3 entegrasyonu tasarlayıp geliştirdim; eğitmenlerin değerlendirme atamasına ve notları not defterine geri senkronize etmesine olanak tanıdım.",
           "AI mühendisleri ve tasarımcılarla iş birliği içinde, AI destekli bir toplantı not alma aracının ön ucunu tasarlayarak yıllık 24.000 $ operasyonel maliyeti ortadan kaldırdım.",
           "Şirket genelinde ve dış müşteriler tarafından kullanılan bir zaman çizelgesi platformunu hayata geçirerek üçüncü taraf bir aracın yerini aldım ve yıllık 9.000 $'ın üzerinde lisans maliyetini azalttım.",
-          "Git dallarından gelen Jira sürelerini Appforest Timesheets'e otomatik kaydeden, ekip genelinde bir VS Code uzantısı geliştirerek manuel takip çabasını %70 azalttım.",
-          "4 uygulamadan oluşan bir pakette tutarlı, yeniden kullanılabilir bir kullanıcı arayüzü için uygulama başına yinelemeye karşı durumsuz bir bileşen kütüphanesine karar verdim; özel bir npm paketi olarak yayımlayarak özellik teslimatını %30 kısalttım."
+          "Git dalı bağlamından Jira görevlerini tespit ederek Appforest'a zaman çizelgesi kaydını otomatikleştiren bir VS Code uzantısı geliştirerek manuel takip çabasını azalttım.",
+          "4 uygulama arasında paylaşılan ve özel bir npm paketi olarak yayımlanan durumsuz bir bileşen kütüphanesi sunarak uygulama başına UI yinelemesini ortadan kaldırdım."
         ]
       },
       {
@@ -360,11 +361,11 @@ export const tr: Locale = {
         location: "Gurugram, Hindistan",
         period: "Eylül 2023 – Aralık 2024",
         highlights: [
-          "Gömülü, arka uç ve operasyon ekipleriyle sıfırdan bir kiosk uygulaması geliştirerek yakıt dağıtım süresini %60 azalttım.",
+          "Yeni yakıt dağıtım donanımı için sıfırdan bir kiosk uygulaması geliştirdim; gerçek zamanlı IoT verileriyle günlük 1.000'den fazla işlemi gerçekleştiren 50'den fazla yakıt kamyonunda dağıtılarak teslimat hesaplamalarını ve faturalandırmayı otomatikleştirdim.",
           "Bir Progressive Web App'i React Native'e taşıyarak 8 haftada 14 kullanıcı akışında %100 özellik eşitliğine ulaştım.",
-          "Birden fazla üründe TanStack Query'yi standartlaştırarak ön uç ekiplerini birleşik bir sunucu-durumu mimarisinde hizaladım ve eski veri hatalarını %50 azalttım.",
-          "Playwright'ı ekibin E2E çerçevesi olarak belirleyerek manuel QA çabasını %40 azalttım.",
-          "Kod incelemesi ve eşli programlama yoluyla yedi mühendise mentorluk yaparak yeni işe alımların uyum süresini %25 azalttım."
+          "TanStack Query'yi 5 üründe standartlaştırarak 4 ön uç ekibini birleşik bir sunucu-durumu mimarisinde hizaladım ve eski veri hatalarını ortadan kaldırdım.",
+          "Birim testleri için Vitest'i ve E2E testleri için Playwright'ı sunarak 16.000'den fazla test senaryosunu otomatikleştirdim ve sürüm başına manuel QA çabasını azalttım.",
+          "Kod incelemesi, eşli programlama ve işe alım desteği yoluyla 8 mühendise mentorluk yaparak ekip genelinde daha hızlı uyum ve daha güçlü kodlama standartları sağladım."
         ]
       },
       {
@@ -373,9 +374,9 @@ export const tr: Locale = {
         location: "New York City, ABD (Uzaktan)",
         period: "Temmuz 2021 – Ağustos 2023",
         highlights: [
-          "PostgreSQL şema sağlamayı kolaylaştırmak için Directus'un iç yapısını tersine mühendislik yaparak yeni proje önyükleme süresini %70'in üzerinde azalttım.",
-          "Bir haber medyası müşterisi için çapraz platform video metriklerini birleştiren bir sosyal analitik kontrol paneli geliştirerek raporlama çabasını %60 azalttım.",
-          "7 eski web sitesini Astro.js ve başsız bir CMS ile modernleştirerek içerik yayınlama hızını iki katına çıkardım.",
+          "Directus'un şema yazma davranışını tersine mühendislikle çözdüm ve manuel UI kurulumunu SQL komut dosyalarıyla değiştirerek şema kurulum süresini 3 saatten 5 dakikaya indirdim.",
+          "Bir haber medyası müşterisi için platformlar arası video performansı takibini otomatikleştiren bir sosyal analitik kontrol paneli geliştirerek haftalık 15'ten fazla manuel e-tablo raporunu ortadan kaldırdım.",
+          "7 eski web sitesini Astro.js ve Directus CMS ile modernleştirerek içerik yayınlama hızını iki katına çıkardım.",
           "Üretime gönderilen ve bugün hâlâ yayında olan 4 CMS odaklı duyarlı web sitesini teslim edip optimize ettim."
         ]
       }
@@ -397,7 +398,7 @@ export const tr: Locale = {
     },
     success: {
       title: "Mesaj gönderildi",
-      body: "Ulaştığınız için teşekkürler — 24 saat içinde e-postanıza yanıt vereceğim.",
+      body: "Ulaştığınız için teşekkürler, 24 saat içinde e-postanıza yanıt vereceğim.",
       again: "Başka bir mesaj gönder",
     },
     error: {

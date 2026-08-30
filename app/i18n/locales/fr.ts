@@ -28,12 +28,13 @@ export const fr: Locale = {
     inProgress: "En cours",
     all: "Tous",
     personal: "Personnel",
-    moreTitle: "Plus de projets"
+    moreTitle: "Plus de projets",
+    viewAll: "Voir tout",
   },
   blogs: {
     title: "Blog",
     subtitle: "Notes sur l'ingénierie, les outils et la construction de choses durables.",
-    empty: "Aucun article pour l'instant — repassez bientôt.",
+    empty: "Aucun article pour l'instant, repassez bientôt.",
     minRead: "min de lecture",
     moreTitle: "Plus d'articles du blog",
     viewAll: "Voir tout",
@@ -147,7 +148,7 @@ export const fr: Locale = {
         ctaKey: "buildDesktop",
         title: "Développement d'applications de bureau",
         tagline: "Des applications au ressenti natif pour Mac, Windows et Linux.",
-        description: "Des applications de bureau multiplateformes conçues avec Electron et Tauri — une seule base de code, trois systèmes d'exploitation. Des outils de productivité en mode hors ligne d'abord aux applications internes gourmandes en données, je livre des builds signés et à mise à jour automatique, avec menus natifs, barre d'état système et intégrations à l'OS qui se sentent chez elles sur chaque plateforme.",
+        description: "Des applications de bureau multiplateformes conçues avec Electron et Tauri: une seule base de code, trois systèmes d'exploitation. Des outils de productivité en mode hors ligne d'abord aux applications internes gourmandes en données, je livre des builds signés et à mise à jour automatique, avec menus natifs, barre d'état système et intégrations à l'OS qui se sentent chez elles sur chaque plateforme.",
         stack: [
           "Electron",
           "Tauri (Rust)",
@@ -171,7 +172,7 @@ export const fr: Locale = {
         ctaKey: "buildMobile",
         title: "Développement d'applications mobiles",
         tagline: "iOS et Android à partir d'une seule base de code.",
-        description: "Des applications mobiles multiplateformes avec React Native et Expo — des performances natives sans maintenir deux bases de code. Je gère l'ensemble du parcours, de l'architecture à la validation sur les stores : notifications push, deep links, synchronisation hors ligne et intégrations natives aux appareils, livrées sur l'App Store et le Play Store.",
+        description: "Des applications mobiles multiplateformes avec React Native et Expo: des performances natives sans maintenir deux bases de code. Je gère l'ensemble du parcours, de l'architecture à la validation sur les stores : notifications push, deep links, synchronisation hors ligne et intégrations natives aux appareils, livrées sur l'App Store et le Play Store.",
         stack: [
           "React Native / Expo",
           "TypeScript",
@@ -291,9 +292,9 @@ export const fr: Locale = {
     title: "Sur moi",
     subtitle: "Un petit aperçu de qui je suis et de ce que je fais.",
     bio: [
-      "Je m'appelle Paurush Rai — un Senior Frontend Engineer basé en Inde : un socle front-end doublé d'une portée full-stack, et plus de 5 ans passés à construire des plates-formes web d'entreprise, des applications pilotées par l'IA et des outils de productivité pour les développeurs. Mon travail couvre des tableaux de bord B2B complexes, une intégration LMS certifiée 1EdTech, ainsi que des plugins Jira et VS Code sur mesure.",
+      "Je m'appelle Paurush Rai, un Senior Frontend Engineer basé en Inde : un socle front-end doublé d'une portée full-stack, et plus de 5 ans passés à construire des plates-formes web d'entreprise, des applications pilotées par l'IA et des outils de productivité pour les développeurs. Mon travail couvre des tableaux de bord B2B complexes, une intégration LMS certifiée 1EdTech, ainsi que des plugins Jira et VS Code sur mesure.",
       "J'accorde une grande importance à la performance, à une architecture propre et à la livraison de choses qui comptent réellement. Qu'il s'agisse de créer un portail de franchise de toutes pièces, de concevoir des flux de travail d'entretien IA en temps réel ou de développer des outils internes qui font économiser à l'entreprise des milliers de dollars par an, je me concentre toujours sur un travail qui fait bouger les lignes de façon mesurable.",
-      "En dehors du travail, je suis généralement en train de lancer un projet parallèle, d'automatiser un flux de travail fastidieux ou d'essayer une bibliothèque à laquelle je n'avais jamais touché — j'aime la friction de l'apprentissage de nouveaux outils dans des contextes réels."
+      "En dehors du travail, je suis généralement en train de lancer un projet parallèle, d'automatiser un flux de travail fastidieux ou d'essayer une bibliothèque à laquelle je n'avais jamais touché, j'aime la friction de l'apprentissage de nouveaux outils dans des contextes réels."
     ],
     whatIBuild: "Ce que je construis",
     technicalSkills: "Compétences techniques",
@@ -388,12 +389,12 @@ export const fr: Locale = {
         location: "Bombay, Inde (à distance)",
         period: "Janvier 2025 – Aujourd’hui",
         highlights: [
-          "Choix d'une architecture Jamstack plutôt que WordPress pour un site marketing de plus de 11 000 pages afin de réduire les taux de rebond grâce à des chargements plus rapides et d'accélérer la diffusion du contenu via le CMS ; réduction projetée de 60 % des temps de chargement des pages.",
+          "Direction de la décision architecturale de remplacer WordPress par Jamstack pour un site marketing de plus de 11 000 pages, visant à réduire les temps de chargement des pages et les taux de rebond grâce à une diffusion plus rapide du contenu.",
           "Conception et développement d'une intégration LTI 1.3 certifiée 1EdTech reliant Testlify à des plates-formes LMS comme Canvas et Moodle, permettant aux formateurs d'attribuer des évaluations et de synchroniser les notes vers le carnet de notes.",
           "Conception de l'architecture frontend d'un outil de prise de notes de réunion propulsé par l'IA, en collaboration avec des ingénieurs IA et des designers, éliminant 24 000 $ de coûts opérationnels annuels.",
           "Livraison d'une plate-forme de feuilles de temps utilisée dans toute l'entreprise et par des clients externes, remplaçant un outil tiers et réduisant de plus de 9 000 $ les coûts de licence annuels.",
-          "Développement d'une extension VS Code à l'échelle de l'équipe qui enregistre automatiquement le temps Jira à partir des branches Git dans Appforest Timesheets, réduisant de 70 % l'effort de suivi manuel.",
-          "Décision d'opter pour une bibliothèque de composants sans état plutôt que la duplication par application afin d'obtenir une UI cohérente et réutilisable sur une suite de 4 applications ; publiée en tant que package npm privé, raccourcissant la livraison des fonctionnalités de 30 %."
+          "Développement d'une extension VS Code qui automatise la saisie des feuilles de temps dans Appforest en détectant les tickets Jira à partir du contexte des branches Git, réduisant l'effort de suivi manuel.",
+          "Introduction d'une bibliothèque de composants sans état partagée entre 4 applications, publiée sous forme de package npm privé, éliminant la duplication d'UI par application."
         ]
       },
       {
@@ -402,11 +403,11 @@ export const fr: Locale = {
         location: "Gurugram, Inde",
         period: "Septembre 2023 – décembre 2024",
         highlights: [
-          "Création d'une application de kiosque de toutes pièces avec les équipes embarquée, back-end et opérations, réduisant le temps de distribution de carburant de 60 %.",
-          "Migration d'une application Web progressive vers React Native, atteignant 100 % de parité fonctionnelle sur 14 flux utilisateur en 8 semaines.",
-          "Standardisation de TanStack Query sur plusieurs produits, alignant les équipes frontend sur une architecture d'état serveur unifiée et réduisant de 50 % les défauts liés aux données obsolètes.",
-          "Établissement de Playwright comme framework E2E de l'équipe, réduisant l'effort de QA manuelle de 40 %.",
-          "Encadrement de sept ingénieurs par la revue de code et le pair programming, réduisant de 25 % le temps de montée en compétence des nouvelles recrues."
+          "Création d'une application kiosque de toutes pièces pour un nouveau matériel de distribution de carburant, déployée sur plus de 50 camions-citernes traitant plus de 1 000 transactions quotidiennes via des données IoT en temps réel, automatisant les calculs de livraison et la facturation.",
+          "Migration d'une Progressive Web App vers React Native, atteignant 100 % de parité fonctionnelle sur 14 flux utilisateur en 8 semaines.",
+          "Standardisation de TanStack Query sur 5 produits, alignant 4 équipes frontend sur une architecture d'état serveur unifiée et éliminant les défauts de données obsolètes.",
+          "Introduction de Vitest pour les tests unitaires et de Playwright pour les tests E2E, automatisant plus de 16 000 cas de test et réduisant l'effort de QA manuelle par version.",
+          "Encadrement de 8 ingénieurs par la revue de code, le pair programming et le soutien à l'intégration, favorisant une montée en compétences plus rapide et des standards de code plus solides dans l'équipe."
         ]
       },
       {
@@ -415,9 +416,9 @@ export const fr: Locale = {
         location: "New York, États-Unis (à distance)",
         period: "Juillet 2021 – août 2023",
         highlights: [
-          "Rétro-ingénierie des rouages internes de Directus pour rationaliser le provisionnement de schémas PostgreSQL, réduisant de plus de 70 % le temps d'amorçage des nouveaux projets.",
-          "Développement d'un tableau de bord d'analyse sociale consolidant les métriques vidéo multi-plateformes pour un client de médias d'information, réduisant l'effort de reporting de 60 %.",
-          "Modernisation de 7 sites Web existants avec Astro.js et un CMS sans tête, doublant la vitesse de publication du contenu.",
+          "Rétro-ingénierie du comportement d'écriture de schéma de Directus et remplacement de la configuration manuelle de l'UI par des scripts SQL, réduisant la configuration du schéma de 3 heures à 5 minutes.",
+          "Développement d'un tableau de bord d'analyse sociale automatisant le suivi des performances vidéo multiplateformes pour un client de médias d'information, éliminant plus de 15 rapports hebdomadaires manuels sur tableur.",
+          "Modernisation de 7 sites Web existants avec Astro.js et Directus CMS, doublant la vitesse de publication du contenu.",
           "Livraison et optimisation de 4 sites Web réactifs basés sur un CMS, mis en production et toujours en ligne aujourd'hui."
         ]
       }
@@ -439,7 +440,7 @@ export const fr: Locale = {
     },
     success: {
       title: "Message envoyé",
-      body: "Merci de m'avoir contacté — je vous répondrai par e-mail dans les 24 heures.",
+      body: "Merci de m'avoir contacté, je vous répondrai par e-mail dans les 24 heures.",
       again: "Envoyer un autre message",
     },
     error: {

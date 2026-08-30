@@ -28,12 +28,13 @@ export const pt: Locale = {
     inProgress: "Em andamento",
     all: "Todos",
     personal: "Pessoal",
-    moreTitle: "Mais projetos"
+    moreTitle: "Mais projetos",
+    viewAll: "Ver tudo",
   },
   blogs: {
     title: "Blog",
     subtitle: "Notas sobre engenharia, ferramentas e como construir coisas duradouras.",
-    empty: "Ainda não há posts — volte em breve.",
+    empty: "Ainda não há posts, volte em breve.",
     minRead: "min de leitura",
     moreTitle: "Mais do blog",
     viewAll: "Ver tudo",
@@ -42,7 +43,7 @@ export const pt: Locale = {
     badge: "Disponível como freelancer",
     title: "Serviços",
     intro:
-      "Aceito um número limitado de projetos freelance a cada trimestre. Tudo que desenvolvo é de nível produção, performático e entregue com handoff limpo. Sem agências, sem terceirização — você trabalha diretamente comigo.",
+      "Aceito um número limitado de projetos freelance a cada trimestre. Tudo que desenvolvo é de nível produção, performático e entregue com handoff limpo. Sem agências, sem terceirização, você trabalha diretamente comigo.",
     pricing: {
       startingAt: "A partir de",
       fixedPrice: "Preço fixo",
@@ -66,7 +67,7 @@ export const pt: Locale = {
       label: "Trabalho contínuo",
       title: "Retainer Mensal",
       description:
-        "Precisa de um engenheiro dedicado de plantão? Ofereço acordos de retainer para equipes que precisam de desenvolvimento contínuo, correção de bugs ou um parceiro técnico — sem os custos de uma contratação integral.",
+        "Precisa de um engenheiro dedicado de plantão? Ofereço acordos de retainer para equipes que precisam de desenvolvimento contínuo, correção de bugs ou um parceiro técnico, sem os custos de uma contratação integral.",
       hours: "até 40 hrs/mês",
       cta: "Vamos conversar",
     },
@@ -75,7 +76,7 @@ export const pt: Locale = {
       items: [
         {
           q: "Como começar?",
-          a: "Entre em contato por e-mail ou LinkedIn com uma breve descrição do seu projeto. Responderei em 24 horas para agendar uma chamada de escopo de 30 minutos — sem compromisso.",
+          a: "Entre em contato por e-mail ou LinkedIn com uma breve descrição do seu projeto. Responderei em 24 horas para agendar uma chamada de escopo de 30 minutos, sem compromisso.",
         },
         {
           q: "Você trabalha com clientes internacionais?",
@@ -87,7 +88,7 @@ export const pt: Locale = {
         },
         {
           q: "Você oferece retainers?",
-          a: "Sim — para trabalho contínuo, ofereço retainers mensais a partir de $2.000/mês para até 40 horas.",
+          a: "Sim, para trabalho contínuo, ofereço retainers mensais a partir de $2.000/mês para até 40 horas.",
         },
       ],
     },
@@ -101,7 +102,7 @@ export const pt: Locale = {
         ctaKey: "startProject",
         title: "Desenvolvimento Web Full Stack",
         tagline: "Aplicativos de nível de produção, desenvolvidos rapidamente.",
-        description: "Desenvolvimento ponta a ponta de aplicações web — desde arquitetura e design de API até front-end sofisticado. Desenvolvi plataformas SaaS B2B, painéis multilocatários e aplicativos voltados para o cliente que atendem dezenas de milhares de usuários.",
+        description: "Desenvolvimento ponta a ponta de aplicações web: desde arquitetura e design de API até front-end sofisticado. Desenvolvi plataformas SaaS B2B, painéis multilocatários e aplicativos voltados para o cliente que atendem dezenas de milhares de usuários.",
         stack: [
           "React / Next.js",
           "Vue / Nuxt.js",
@@ -125,7 +126,7 @@ export const pt: Locale = {
         ctaKey: "discussIdea",
         title: "Integração de fluxo de trabalho de IA",
         tagline: "Envie recursos com tecnologia de IA que realmente funcionam.",
-        description: "Eu integro LLMs, IA de voz e fluxos de trabalho de automação em produtos reais. Criei MetaNotes — um anotador de reuniões com IA que economizou US$ 24 mil/ano — e fluxos de trabalho de entrevistas orientados por IA (chat, voz, vídeo) que reduziram o esforço do entrevistador em 40%.",
+        description: "Eu integro LLMs, IA de voz e fluxos de trabalho de automação em produtos reais. Criei MetaNotes: um anotador de reuniões com IA que economizou US$ 24 mil/ano: e fluxos de trabalho de entrevistas orientados por IA (chat, voz, vídeo) que reduziram o esforço do entrevistador em 40%.",
         stack: [
           "OpenAI / Claude / Whisper",
           "LangChain",
@@ -150,7 +151,7 @@ export const pt: Locale = {
         title: "Desenvolvimento de Aplicações Desktop",
         tagline: "Apps com cara de nativo para Mac, Windows e Linux.",
         description:
-          "Aplicações desktop multiplataforma criadas com Electron e Tauri — uma única base de código, três sistemas operacionais. De ferramentas de produtividade offline-first a apps internos com muitos dados, entrego builds assinados, com atualização automática, menus nativos, bandeja do sistema e integrações com o SO que se sentem em casa em cada plataforma.",
+          "Aplicações desktop multiplataforma criadas com Electron e Tauri, uma única base de código, três sistemas operacionais. De ferramentas de produtividade offline-first a apps internos com muitos dados, entrego builds assinados, com atualização automática, menus nativos, bandeja do sistema e integrações com o SO que se sentem em casa em cada plataforma.",
         stack: ["Electron", "Tauri (Rust)", "React / TypeScript", "Native OS APIs", "Auto-update & code signing"],
         deliverables: [
           "Build multiplataforma (Mac/Win/Linux)",
@@ -169,7 +170,7 @@ export const pt: Locale = {
         title: "Desenvolvimento de Apps Mobile",
         tagline: "iOS e Android a partir de uma única base de código.",
         description:
-          "Apps mobile multiplataforma com React Native e Expo — desempenho nativo sem manter duas bases de código. Cuido de todo o percurso, da arquitetura à aprovação nas lojas: notificações push, deep links, sincronização offline e integrações nativas com o dispositivo, entregues na App Store e na Play Store.",
+          "Apps mobile multiplataforma com React Native e Expo, desempenho nativo sem manter duas bases de código. Cuido de todo o percurso, da arquitetura à aprovação nas lojas: notificações push, deep links, sincronização offline e integrações nativas com o dispositivo, entregues na App Store e na Play Store.",
         stack: ["React Native / Expo", "TypeScript", "Native modules (iOS/Android)", "Push notifications", "App Store / Play Store"],
         deliverables: [
           "iOS + Android a partir de uma base de código",
@@ -283,9 +284,9 @@ export const pt: Locale = {
     title: "Sobre mim",
     subtitle: "Um pouco de contexto sobre quem eu sou e o que faço.",
     bio: [
-      "Sou Paurush Rai — um Senior Frontend Engineer baseado na Índia: um núcleo de frontend com alcance full-stack e mais de 5 anos construindo plataformas web empresariais, aplicações impulsionadas por IA e ferramentas de produtividade para desenvolvedores. Meu trabalho abrange dashboards B2B complexos, uma integração LMS certificada pela 1EdTech e plugins personalizados para Jira e VS Code.",
+      "Sou Paurush Rai, um Senior Frontend Engineer baseado na Índia: um núcleo de frontend com alcance full-stack e mais de 5 anos construindo plataformas web empresariais, aplicações impulsionadas por IA e ferramentas de produtividade para desenvolvedores. Meu trabalho abrange dashboards B2B complexos, uma integração LMS certificada pela 1EdTech e plugins personalizados para Jira e VS Code.",
       "Me importo profundamente com performance, arquitetura limpa e entregar coisas que realmente importam. Seja construindo um portal de franquias do zero, desenvolvendo fluxos de entrevista com IA em tempo real ou criando ferramentas internas que economizam milhares de dólares por ano para o negócio, meu foco é sempre em trabalho que move o ponteiro de forma mensurável.",
-      "Fora do trabalho, geralmente estou iniciando um projeto paralelo, automatizando um fluxo de trabalho tedioso ou recorrendo a uma biblioteca que nunca usei antes — gosto da fricção de aprender novas ferramentas em contextos reais.",
+      "Fora do trabalho, geralmente estou iniciando um projeto paralelo, automatizando um fluxo de trabalho tedioso ou recorrendo a uma biblioteca que nunca usei antes, gosto da fricção de aprender novas ferramentas em contextos reais.",
     ],
     whatIBuild: "O que eu construo",
     technicalSkills: "Habilidades técnicas",
@@ -324,12 +325,12 @@ export const pt: Locale = {
         location: "Bombaim, Índia (Remoto)",
         period: "Janeiro de 2025 – Presente",
         highlights: [
-          "Escolhi uma arquitetura Jamstack em vez de WordPress para um site de marketing com mais de 11.000 páginas, a fim de reduzir a taxa de rejeição por meio de carregamentos mais rápidos e acelerar a entrega de conteúdo pelo CMS; projetado para reduzir os tempos de carregamento das páginas em 60%.",
+          "Liderei a decisão arquitetural de substituir o WordPress por Jamstack para um site de marketing com mais de 11.000 páginas, visando reduzir os tempos de carregamento de páginas e as taxas de rejeição por meio de uma entrega de conteúdo mais rápida.",
           "Projetei e construí uma integração LTI 1.3 certificada pela 1EdTech conectando a Testlify a plataformas LMS como Canvas e Moodle, permitindo que instrutores atribuam avaliações e sincronizem notas de volta ao boletim.",
           "Arquitetei o frontend de um anotador de reuniões com IA em colaboração com engenheiros de IA e designers, eliminando US$ 24.000 em custos operacionais anuais.",
           "Entreguei uma plataforma de planilha de horas usada em toda a empresa e por clientes externos, substituindo uma ferramenta de terceiros e cortando mais de US$ 9.000 em custos anuais de licenciamento.",
-          "Desenvolvi uma extensão do VS Code para toda a equipe que registra automaticamente o tempo do Jira a partir das branches do Git nas Appforest Timesheets, reduzindo o esforço manual de rastreamento em 70%.",
-          "Decidi por uma biblioteca de componentes sem estado em vez da duplicação por aplicação, para uma UI consistente e reutilizável em uma suíte de 4 aplicações; publicada como um pacote npm privado, encurtando a entrega de funcionalidades em 30%.",
+          "Desenvolvi uma extensão do VS Code que automatiza o registro de horas no Appforest detectando tickets do Jira a partir do contexto da branch Git, reduzindo o esforço de rastreamento manual.",
+          "Introduzi uma biblioteca de componentes sem estado compartilhada entre 4 aplicações, publicada como um pacote npm privado, removendo a duplicação de UI por aplicação.",
         ],
       },
       {
@@ -338,11 +339,11 @@ export const pt: Locale = {
         location: "Gurugram, Índia",
         period: "Setembro de 2023 – Dezembro de 2024",
         highlights: [
-          "Construí uma aplicação de quiosque do zero com as equipes de embarcados, backend e operações, reduzindo o tempo de abastecimento de combustível em 60%.",
+          "Construí do zero um aplicativo de quiosque para novo hardware de abastecimento de combustível, implantado em mais de 50 caminhões de combustível processando mais de 1.000 transações diárias via dados de IoT em tempo real, automatizando cálculos de entrega e faturamento.",
           "Migrei um Progressive Web App para React Native, atingindo 100% de paridade de funcionalidades em 14 fluxos de usuário em 8 semanas.",
-          "Padronizei o TanStack Query em múltiplos produtos, alinhando as equipes de frontend em uma arquitetura unificada de estado de servidor e reduzindo defeitos de dados desatualizados em 50%.",
-          "Estabeleci o Playwright como o framework de E2E da equipe, reduzindo o esforço manual de QA em 40%.",
-          "Orientei sete engenheiros por meio de revisão de código e programação em par, reduzindo o tempo de adaptação de novos contratados em 25%.",
+          "Padronizei o TanStack Query em 5 produtos, alinhando 4 equipes de frontend em uma arquitetura unificada de estado do servidor e eliminando defeitos de dados desatualizados.",
+          "Introduzi o Vitest para testes unitários e o Playwright para testes E2E, automatizando mais de 16.000 casos de teste e reduzindo o esforço manual de QA por lançamento.",
+          "Orientei 8 engenheiros por meio de revisão de código, pair programming e suporte de integração, promovendo uma rápida assimilação e padrões de código mais sólidos em toda a equipe.",
         ],
       },
       {
@@ -351,9 +352,9 @@ export const pt: Locale = {
         location: "Cidade de Nova York, EUA (Remoto)",
         period: "Julho de 2021 – Agosto de 2023",
         highlights: [
-          "Fiz engenharia reversa dos internos do Directus para otimizar o provisionamento de esquemas PostgreSQL, reduzindo o tempo de inicialização de novos projetos em mais de 70%.",
-          "Desenvolvi um dashboard de análise social consolidando métricas de vídeo entre plataformas para um cliente de mídia jornalística, reduzindo o esforço de geração de relatórios em 60%.",
-          "Modernizei 7 sites legados com Astro.js e um CMS headless, dobrando a velocidade de publicação de conteúdo.",
+          "Fiz engenharia reversa do comportamento de escrita de esquemas do Directus e substituí a configuração manual de UI por scripts SQL, reduzindo a configuração de esquema de 3 horas para 5 minutos.",
+          "Desenvolvi um dashboard de análise social automatizando o rastreamento de desempenho de vídeo multiplataforma para um cliente de mídia de notícias, eliminando mais de 15 relatórios manuais semanais em planilhas.",
+          "Modernizei 7 sites legados com Astro.js e Directus CMS, dobrando a velocidade de publicação de conteúdo.",
           "Entreguei e otimizei 4 sites responsivos baseados em CMS que foram para produção e continuam no ar até hoje.",
         ],
       },
@@ -376,7 +377,7 @@ export const pt: Locale = {
     },
     success: {
       title: "Mensagem enviada",
-      body: "Obrigado por entrar em contato — responderei ao seu e-mail em 24 horas.",
+      body: "Obrigado por entrar em contato, responderei ao seu e-mail em 24 horas.",
       again: "Enviar outra mensagem",
     },
     error: {

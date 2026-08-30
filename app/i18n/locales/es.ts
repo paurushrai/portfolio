@@ -28,12 +28,13 @@ export const es: Locale = {
     inProgress: "En curso",
     all: "Todos",
     personal: "Personal",
-    moreTitle: "Más proyectos"
+    moreTitle: "Más proyectos",
+    viewAll: "Ver todo",
   },
   blogs: {
     title: "Blog",
     subtitle: "Notas sobre ingeniería, herramientas y cómo construir cosas que duran.",
-    empty: "Aún no hay artículos — vuelve pronto.",
+    empty: "Aún no hay artículos, vuelve pronto.",
     minRead: "min de lectura",
     moreTitle: "Más del blog",
     viewAll: "Ver todo",
@@ -42,7 +43,7 @@ export const es: Locale = {
     badge: "Disponible como freelance",
     title: "Servicios",
     intro:
-      "Acepto un número limitado de proyectos freelance cada trimestre. Todo lo que desarrollo es de nivel producción, eficiente y entregado con un handoff limpio. Sin agencias, sin subcontratación — trabajas directamente conmigo.",
+      "Acepto un número limitado de proyectos freelance cada trimestre. Todo lo que desarrollo es de nivel producción, eficiente y entregado con un handoff limpio. Sin agencias, sin subcontratación, trabajas directamente conmigo.",
     pricing: {
       startingAt: "Desde",
       fixedPrice: "Precio fijo",
@@ -66,7 +67,7 @@ export const es: Locale = {
       label: "Trabajo continuo",
       title: "Retainer Mensual",
       description:
-        "¿Necesitas un ingeniero dedicado disponible cuando lo necesites? Ofrezco acuerdos de retainer para equipos que necesitan desarrollo continuo, corrección de bugs o un socio técnico — sin los costos de una contratación a tiempo completo.",
+        "¿Necesitas un ingeniero dedicado disponible cuando lo necesites? Ofrezco acuerdos de retainer para equipos que necesitan desarrollo continuo, corrección de bugs o un socio técnico, sin los costos de una contratación a tiempo completo.",
       hours: "hasta 40 hrs/mes",
       cta: "Hablemos",
     },
@@ -75,7 +76,7 @@ export const es: Locale = {
       items: [
         {
           q: "¿Cómo empezamos?",
-          a: "Contáctame por email o LinkedIn con una breve descripción de tu proyecto. Te responderé en 24 horas para agendar una llamada de alcance de 30 minutos — sin compromiso.",
+          a: "Contáctame por email o LinkedIn con una breve descripción de tu proyecto. Te responderé en 24 horas para agendar una llamada de alcance de 30 minutos, sin compromiso.",
         },
         {
           q: "¿Trabajas con clientes internacionales?",
@@ -87,7 +88,7 @@ export const es: Locale = {
         },
         {
           q: "¿Ofreces retainers?",
-          a: "Sí — para trabajo continuo, ofrezco retainers mensuales desde $2,000/mes por hasta 40 horas.",
+          a: "Sí, para trabajo continuo, ofrezco retainers mensuales desde $2,000/mes por hasta 40 horas.",
         },
       ],
     },
@@ -150,7 +151,7 @@ export const es: Locale = {
         title: "Desarrollo de aplicaciones de escritorio",
         tagline: "Aplicaciones con sensación nativa para Mac, Windows y Linux.",
         description:
-          "Aplicaciones de escritorio multiplataforma creadas con Electron y Tauri — un solo código base, tres sistemas operativos. Desde herramientas de productividad offline-first hasta aplicaciones internas con gran volumen de datos, entrego builds firmados y con actualización automática, con menús nativos, bandeja del sistema e integraciones con el sistema operativo que se sienten como en casa en cada plataforma.",
+          "Aplicaciones de escritorio multiplataforma creadas con Electron y Tauri, un solo código base, tres sistemas operativos. Desde herramientas de productividad offline-first hasta aplicaciones internas con gran volumen de datos, entrego builds firmados y con actualización automática, con menús nativos, bandeja del sistema e integraciones con el sistema operativo que se sienten como en casa en cada plataforma.",
         stack: ["Electron", "Tauri (Rust)", "React / TypeScript", "Native OS APIs", "Auto-update & code signing"],
         deliverables: [
           "Build multiplataforma (Mac/Win/Linux)",
@@ -169,7 +170,7 @@ export const es: Locale = {
         title: "Desarrollo de aplicaciones móviles",
         tagline: "iOS y Android desde un solo código base.",
         description:
-          "Aplicaciones móviles multiplataforma con React Native y Expo — rendimiento nativo sin mantener dos códigos base. Me encargo de todo el camino, desde la arquitectura hasta la aprobación en las tiendas: notificaciones push, deep links, sincronización offline e integraciones nativas con el dispositivo, publicadas tanto en la App Store como en la Play Store.",
+          "Aplicaciones móviles multiplataforma con React Native y Expo, rendimiento nativo sin mantener dos códigos base. Me encargo de todo el camino, desde la arquitectura hasta la aprobación en las tiendas: notificaciones push, deep links, sincronización offline e integraciones nativas con el dispositivo, publicadas tanto en la App Store como en la Play Store.",
         stack: ["React Native / Expo", "TypeScript", "Native modules (iOS/Android)", "Push notifications", "App Store / Play Store"],
         deliverables: [
           "iOS + Android desde un solo código base",
@@ -283,9 +284,9 @@ export const es: Locale = {
     title: "Sobre mí",
     subtitle: "Un poco sobre quién soy y qué hago.",
     bio: [
-      "Soy Paurush Rai — un Senior Frontend Engineer con sede en India: una base frontend con alcance full-stack, y más de 5 años construyendo plataformas web empresariales, aplicaciones impulsadas por IA y herramientas de productividad para desarrolladores. Mi trabajo abarca dashboards B2B complejos, una integración LMS certificada por 1EdTech, y plugins personalizados para Jira y VS Code.",
+      "Soy Paurush Rai, un Senior Frontend Engineer con sede en India: una base frontend con alcance full-stack, y más de 5 años construyendo plataformas web empresariales, aplicaciones impulsadas por IA y herramientas de productividad para desarrolladores. Mi trabajo abarca dashboards B2B complejos, una integración LMS certificada por 1EdTech, y plugins personalizados para Jira y VS Code.",
       "Me importa profundamente el rendimiento, la arquitectura limpia y entregar cosas que realmente importan. Ya sea construyendo desde cero un portal de franquicias greenfield, desarrollando flujos de trabajo de entrevistas con IA en tiempo real o creando herramientas internas que ahorran a la empresa miles de dólares al año, mi enfoque siempre está en trabajo que mueve la aguja de forma medible.",
-      "Fuera del trabajo suelo estar lanzando un proyecto paralelo, automatizando un flujo de trabajo tedioso o explorando una librería que nunca he usado — me gusta la fricción de aprender nuevas herramientas en contextos reales.",
+      "Fuera del trabajo suelo estar lanzando un proyecto paralelo, automatizando un flujo de trabajo tedioso o explorando una librería que nunca he usado, me gusta la fricción de aprender nuevas herramientas en contextos reales.",
     ],
     whatIBuild: "Lo que construyo",
     technicalSkills: "Habilidades técnicas",
@@ -324,12 +325,12 @@ export const es: Locale = {
         location: "Bombay, India (Remoto)",
         period: "Enero 2025 – Presente",
         highlights: [
-          "Elegí una arquitectura Jamstack en lugar de WordPress para un sitio de marketing de más de 11,000 páginas, con el fin de reducir las tasas de rebote mediante cargas más rápidas y acelerar la entrega de contenido a través del CMS; con una reducción proyectada del 60% en los tiempos de carga de página.",
+          "Lideré la decisión arquitectónica de reemplazar WordPress con Jamstack para un sitio de marketing de más de 11,000 páginas, con el objetivo de reducir los tiempos de carga de página y las tasas de rebote mediante una entrega de contenido más rápida.",
           "Diseñé y construí una integración LTI 1.3 certificada por 1EdTech que conecta Testlify con plataformas LMS como Canvas y Moodle, permitiendo a los instructores asignar evaluaciones y sincronizar las calificaciones de vuelta al libro de calificaciones.",
           "Diseñé la arquitectura del frontend de un anotador de reuniones impulsado por IA en colaboración con ingenieros de IA y diseñadores, eliminando $24,000 en costos operativos anuales.",
           "Lancé una plataforma de hojas de horas usada en toda la empresa y por clientes externos, reemplazando una herramienta de terceros y recortando más de $9,000 en costos anuales de licencias.",
-          "Desarrollé una extensión de VS Code para todo el equipo que registra automáticamente el tiempo de Jira desde las ramas de Git en Appforest Timesheets, reduciendo el esfuerzo de seguimiento manual en un 70%.",
-          "Decidí usar una biblioteca de componentes sin estado en lugar de duplicarla por aplicación, para lograr una UI consistente y reutilizable en un conjunto de 4 aplicaciones; publicada como un paquete npm privado, acortando la entrega de funciones en un 30%.",
+          "Desarrollé una extensión de VS Code que automatiza el registro de hojas de horas en Appforest detectando tickets de Jira a partir del contexto de las ramas de Git, reduciendo el esfuerzo de seguimiento manual.",
+          "Introduje una biblioteca de componentes sin estado compartida entre 4 aplicaciones, publicada como un paquete npm privado, eliminando la duplicación de UI por aplicación.",
         ],
       },
       {
@@ -338,11 +339,11 @@ export const es: Locale = {
         location: "Gurugram, India",
         period: "Septiembre 2023 – Diciembre 2024",
         highlights: [
-          "Construí una aplicación de kiosco desde cero junto con los equipos de sistemas embebidos, backend y operaciones, reduciendo el tiempo de despacho de combustible en un 60%.",
+          "Construí desde cero una aplicación de quiosco para nuevo hardware de suministro de combustible, desplegada en más de 50 camiones cisterna procesando más de 1,000 transacciones diarias mediante datos IoT en tiempo real, automatizando los cálculos de entrega y la facturación.",
           "Migré una Progressive Web App a React Native, alcanzando una paridad de funciones del 100% en 14 flujos de usuario en 8 semanas.",
-          "Estandaricé TanStack Query en múltiples productos, alineando a los equipos de frontend en una arquitectura unificada de estado del servidor y reduciendo los defectos por datos obsoletos en un 50%.",
-          "Establecí Playwright como el framework E2E del equipo, reduciendo el esfuerzo de QA manual en un 40%.",
-          "Fui mentor de siete ingenieros mediante revisión de código y programación en pareja, reduciendo el tiempo de adaptación de los nuevos empleados en un 25%.",
+          "Estandaricé TanStack Query en 5 productos, alineando a 4 equipos de frontend en una arquitectura unificada de estado del servidor y eliminando defectos por datos obsoletos.",
+          "Introduje Vitest para pruebas unitarias y Playwright para pruebas E2E, automatizando más de 16,000 casos de prueba y reduciendo el esfuerzo manual de QA por lanzamiento.",
+          "Fui mentor de 8 ingenieros mediante revisión de código, programación en pareja y apoyo de incorporación, impulsando una integración más rápida y estándares de código más sólidos en el equipo.",
         ],
       },
       {
@@ -351,9 +352,9 @@ export const es: Locale = {
         location: "Ciudad de Nueva York, EE. UU. (Remoto)",
         period: "Julio 2021 – Agosto 2023",
         highlights: [
-          "Realicé ingeniería inversa de los componentes internos de Directus para optimizar el aprovisionamiento de esquemas de PostgreSQL, reduciendo el tiempo de arranque de nuevos proyectos en más de un 70%.",
-          "Desarrollé un dashboard de analítica social que consolidaba métricas de video multiplataforma para un cliente de medios de noticias, reduciendo el esfuerzo de generación de informes en un 60%.",
-          "Modernicé 7 sitios web heredados con Astro.js y un CMS headless, duplicando la velocidad de publicación de contenido.",
+          "Realicé ingeniería inversa del comportamiento de escritura de esquemas de Directus y reemplacé la configuración manual de UI con scripts SQL, reduciendo la configuración del esquema de 3 horas a 5 minutos.",
+          "Desarrollé un panel de análisis social que automatiza el seguimiento del rendimiento de video multiplataforma para un cliente de medios de noticias, eliminando más de 15 informes manuales semanales en hojas de cálculo.",
+          "Modernicé 7 sitios web heredados con Astro.js y Directus CMS, duplicando la velocidad de publicación de contenido.",
           "Entregué y optimicé 4 sitios web responsivos impulsados por CMS que se lanzaron a producción y siguen activos hoy en día.",
         ],
       },
@@ -376,7 +377,7 @@ export const es: Locale = {
     },
     success: {
       title: "Mensaje enviado",
-      body: "Gracias por contactarme — te responderé por correo en 24 horas.",
+      body: "Gracias por contactarme, te responderé por correo en 24 horas.",
       again: "Enviar otro mensaje",
     },
     error: {

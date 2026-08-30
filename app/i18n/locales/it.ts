@@ -28,12 +28,13 @@ export const it: Locale = {
     inProgress: "In corso",
     all: "Tutti",
     personal: "Personale",
-    moreTitle: "Altri progetti"
+    moreTitle: "Altri progetti",
+    viewAll: "Vedi tutto",
   },
   blogs: {
     title: "Blog",
     subtitle: "Note su ingegneria, strumenti e come costruire cose che durano.",
-    empty: "Ancora nessun articolo — torna presto.",
+    empty: "Ancora nessun articolo, torna presto.",
     minRead: "min di lettura",
     moreTitle: "Altro dal blog",
     viewAll: "Vedi tutto",
@@ -147,7 +148,7 @@ export const it: Locale = {
         ctaKey: "buildDesktop",
         title: "Sviluppo di applicazioni desktop",
         tagline: "App dal feeling nativo per Mac, Windows e Linux.",
-        description: "Applicazioni desktop multipiattaforma realizzate con Electron e Tauri — un'unica base di codice, tre sistemi operativi. Dagli strumenti di produttività offline-first alle app interne ad alta intensità di dati, spedisco build firmate, con aggiornamento automatico, menu nativi, system tray e integrazioni con il sistema operativo che risultano a proprio agio su ogni piattaforma.",
+        description: "Applicazioni desktop multipiattaforma realizzate con Electron e Tauri: un'unica base di codice, tre sistemi operativi. Dagli strumenti di produttività offline-first alle app interne ad alta intensità di dati, spedisco build firmate, con aggiornamento automatico, menu nativi, system tray e integrazioni con il sistema operativo che risultano a proprio agio su ogni piattaforma.",
         stack: [
           "Electron",
           "Tauri (Rust)",
@@ -171,7 +172,7 @@ export const it: Locale = {
         ctaKey: "buildMobile",
         title: "Sviluppo di app mobili",
         tagline: "iOS e Android da un'unica base di codice.",
-        description: "App mobili multipiattaforma con React Native ed Expo — prestazioni native senza dover mantenere due basi di codice. Gestisco l'intero percorso dall'architettura all'approvazione sullo store: notifiche push, deep link, sincronizzazione offline e integrazioni native con i dispositivi, spedite sia sull'App Store che sul Play Store.",
+        description: "App mobili multipiattaforma con React Native ed Expo: prestazioni native senza dover mantenere due basi di codice. Gestisco l'intero percorso dall'architettura all'approvazione sullo store: notifiche push, deep link, sincronizzazione offline e integrazioni native con i dispositivi, spedite sia sull'App Store che sul Play Store.",
         stack: [
           "React Native / Expo",
           "TypeScript",
@@ -341,12 +342,12 @@ export const it: Locale = {
         location: "Mumbai, India (Remoto)",
         period: "Gennaio 2025 – Presente",
         highlights: [
-          "Ho scelto un'architettura Jamstack al posto di WordPress per un sito di marketing con oltre 11.000 pagine, per ridurre le frequenze di rimbalzo grazie a caricamenti più rapidi e velocizzare la distribuzione dei contenuti tramite il CMS; previsto un taglio dei tempi di caricamento delle pagine del 60%.",
+          "Ho guidato la decisione architetturale di sostituire WordPress con Jamstack per un sito di marketing con oltre 11.000 pagine, con l'obiettivo di ridurre i tempi di caricamento delle pagine e le frequenze di rimbalzo grazie a una distribuzione dei contenuti più rapida.",
           "Ho progettato e realizzato un'integrazione LTI 1.3 certificata 1EdTech che collega Testlify a piattaforme LMS come Canvas e Moodle, consentendo ai docenti di assegnare valutazioni e sincronizzare i voti nel registro.",
           "Ho progettato il frontend di uno strumento per prendere appunti nelle riunioni basato sull'AI in collaborazione con ingegneri AI e designer, eliminando 24.000 $ di costi operativi annuali.",
           "Ho rilasciato una piattaforma di schede attività usata in tutta l'azienda e dai clienti esterni, sostituendo uno strumento di terze parti e tagliando oltre 9.000 $ di costi di licenza annuali.",
-          "Ho realizzato un'estensione VS Code a livello di team che registra automaticamente il tempo Jira dai rami Git in Appforest Timesheets, riducendo del 70% l'impegno manuale di monitoraggio.",
-          "Ho deciso di adottare una libreria di componenti stateless invece della duplicazione per ogni app, per un'interfaccia coerente e riutilizzabile in una suite di 4 applicazioni; pubblicata come pacchetto npm privato, ha accorciato del 30% i tempi di consegna delle funzionalità."
+          "Ho sviluppato un'estensione VS Code che automatizza la registrazione delle ore in Appforest rilevando i ticket Jira dal contesto dei rami Git, riducendo l'impegno di monitoraggio manuale.",
+          "Ho introdotto una libreria di componenti stateless condivisa tra 4 applicazioni, pubblicata come pacchetto npm privato, eliminando la duplicazione dell'interfaccia utente per singola app."
         ]
       },
       {
@@ -355,11 +356,11 @@ export const it: Locale = {
         location: "Gurugram, India",
         period: "Settembre 2023 – Dicembre 2024",
         highlights: [
-          "Ho costruito da zero un'applicazione kiosk insieme ai team embedded, backend e operations, riducendo del 60% i tempi di erogazione del carburante.",
+          "Ho sviluppato da zero un'app per chiosco per il nuovo hardware di erogazione carburante, implementata su oltre 50 autocisterne che gestiscono più di 1.000 transazioni giornaliere tramite dati IoT in tempo reale, automatizzando i calcoli di consegna e la fatturazione.",
           "Ho migrato una Progressive Web App a React Native, raggiungendo il 100% di parità funzionale su 14 flussi utente in 8 settimane.",
-          "Ho standardizzato TanStack Query su più prodotti, allineando i team frontend su un'architettura unificata dello stato lato server e riducendo del 50% i difetti da dati obsoleti.",
-          "Ho stabilito Playwright come framework E2E del team, riducendo del 40% l'impegno di QA manuale.",
-          "Ho fatto da mentore a sette ingegneri tramite revisione del codice e pair programming, riducendo del 25% i tempi di avviamento dei nuovi assunti."
+          "Ho standardizzato TanStack Query su 5 prodotti, allineando 4 team frontend su un'architettura unificata dello stato lato server ed eliminando i difetti da dati obsoleti.",
+          "Ho introdotto Vitest per i test unitari e Playwright per i test E2E, automatizzando oltre 16.000 casi di test e riducendo l'impegno di QA manuale per ogni rilascio.",
+          "Ho fatto da mentore a 8 ingegneri tramite revisione del codice, pair programming e supporto all'onboarding, favorendo un inserimento più rapido e standard di codice più elevati in tutto il team."
         ]
       },
       {
@@ -368,9 +369,9 @@ export const it: Locale = {
         location: "New York City, Stati Uniti (Remoto)",
         period: "Luglio 2021 – Agosto 2023",
         highlights: [
-          "Ho decodificato le componenti interne di Directus per semplificare il provisioning dello schema PostgreSQL, riducendo di oltre il 70% i tempi di avvio dei nuovi progetti.",
-          "Ho sviluppato una dashboard di analisi social che consolidava le metriche video multipiattaforma per un cliente dei media giornalistici, riducendo del 60% l'impegno di reportistica.",
-          "Ho modernizzato 7 siti web legacy con Astro.js e un CMS headless, raddoppiando la velocità di pubblicazione dei contenuti.",
+          "Ho decodificato il comportamento di scrittura dello schema di Directus e sostituito la configurazione manuale della UI con script SQL, riducendo la configurazione dello schema da 3 ore a 5 minuti.",
+          "Ho sviluppato una dashboard di analisi social che automatizza il monitoraggio delle prestazioni video multipiattaforma per un cliente dei media, eliminando oltre 15 report manuali settimanali su fogli di calcolo.",
+          "Ho modernizzato 7 siti web legacy con Astro.js e Directus CMS, raddoppiando la velocità di pubblicazione dei contenuti.",
           "Ho consegnato e ottimizzato 4 siti web reattivi basati su CMS che sono andati in produzione e sono ancora online oggi."
         ]
       }
@@ -392,7 +393,7 @@ export const it: Locale = {
     },
     success: {
       title: "Messaggio inviato",
-      body: "Grazie per avermi contattato — risponderò alla tua email entro 24 ore.",
+      body: "Grazie per avermi contattato, risponderò alla tua email entro 24 ore.",
       again: "Invia un altro messaggio",
     },
     error: {
