@@ -13,8 +13,8 @@ export async function generateMetadata({
   const locale: AppLocale = isLocale(params.locale) ? params.locale : DEFAULT_LOCALE;
   const alternates = alternatesFor("/projects", locale);
   return {
-    title: "Projects — Paurush Rai | Senior Frontend Engineer",
-    description: "Enterprise SaaS, AI-integrated apps, and developer tools by Paurush Rai — a Senior Frontend Engineer building with React, Next.js, and TypeScript.",
+    title: "Projects | Paurush Rai | Senior Frontend Engineer",
+    description: "Enterprise SaaS, AI-integrated apps, and developer tools by Paurush Rai, a Senior Frontend Engineer building with React, Next.js, and TypeScript.",
     keywords: [
       "Senior Frontend Engineer Portfolio",
       "Frontend Expert Portfolio",
@@ -33,7 +33,7 @@ export async function generateMetadata({
     ],
     alternates,
     openGraph: {
-      title: "Projects — Paurush Rai | Senior Frontend Engineer",
+      title: "Projects | Paurush Rai | Senior Frontend Engineer",
       description: "Enterprise SaaS, AI-integrated apps, fintech platforms and developer tools built with React, Next.js, and TypeScript.",
       url: alternates.canonical,
       images: [{ url: "https://paurushrai.in/og.png", width: 1200, height: 630 }],

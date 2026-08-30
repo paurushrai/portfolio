@@ -1,25 +1,25 @@
 ---
-title: Gits Standardeinstellungen verschwenden deine Zeit
-description: Elf globale Git-Einstellungen und zwanzig Aliase, die die täglichen Ärgernisse killen, die Git standardmäßig eingeschaltet lässt — Upstream-Branches, Merge-Rauschen, Identitätsverwechslungen und wiederkehrende Rebase-Konflikte.
+title: "Gits Standardeinstellungen verschwenden deine Zeit"
+description: "Elf globale Git-Einstellungen und zwanzig Aliase, die die täglichen Ärgernisse killen, die Git standardmäßig eingeschaltet lässt: Upstream-Branches, Merge-Rauschen, Identitätsverwechslungen und wiederkehrende Rebase-Konflikte."
 date: 2026-06-08
 published: true
 coverImage: /blogs/git-defaults-wasting-time/1.png
 tags: ["Git", "Developer Tools", "Productivity"]
 ---
 
-*Hier ist die Git-Konfiguration, die ich auf jedem Rechner laufen lasse — elf globale Einstellungen und zwanzig Aliase, jede einzelne da, weil sie ein konkretes tägliches Ärgernis killt. Klau dir das alles.*
+*Hier ist die Git-Konfiguration, die ich auf jedem Rechner laufen lasse, elf globale Einstellungen und zwanzig Aliase, jede einzelne da, weil sie ein konkretes tägliches Ärgernis killt. Klau dir das alles.*
 
 Vor einer Weile sah mir ein Kollege dabei zu, wie ich einen brandneuen Branch pushte, und hielt mich an:
 
-> "Moment — wie hat das gerade funktioniert? Kein `--set-upstream`?"
+> "Moment, wie hat das gerade funktioniert? Kein `--set-upstream`?"
 
 Eine Zeile Konfiguration. Er hatte den Workaround jahrelang getippt.
 
-Dieses Gespräch ist der Grund, warum dieser Artikel existiert. Die meisten Entwickler betreiben Git mit **Werkseinstellungen** — und Gits Werkseinstellungen sind nicht für dich gemacht. Sie sind für *Kompatibilität* gemacht. Git unterbricht dich lieber tausendmal, als dich einmal zu überraschen.
+Dieses Gespräch ist der Grund, warum dieser Artikel existiert. Die meisten Entwickler betreiben Git mit **Werkseinstellungen**, und Gits Werkseinstellungen sind nicht für dich gemacht. Sie sind für *Kompatibilität* gemacht. Git unterbricht dich lieber tausendmal, als dich einmal zu überraschen.
 
 Also zahlt jeder still dieselbe tägliche Steuer, meist ohne es noch zu bemerken:
 
-- `fatal: The current branch has no upstream branch` — den Fix so oft getippt, dass er Muskelgedächtnis ist
+- `fatal: The current branch has no upstream branch`, den Fix so oft getippt, dass er Muskelgedächtnis ist
 - Merge-Commits, die die Historie verschmutzen, weil ein einfacher Pull mergt
 - `.DS_Store`, das in jedem `git status` in jedem Mac-Projekt auftaucht
 - Denselben Rebase-Konflikt zum fünften Mal lösen
@@ -27,11 +27,11 @@ Also zahlt jeder still dieselbe tägliche Steuer, meist ohne es noch zu bemerken
 
 Jedes davon ist ein Ein-Zeilen-Fix, den Git mitliefert, aber standardmäßig ausgeschaltet lässt.
 
-![die tägliche Steuer von Gits Werkseinstellungen — jedes Ärgernis und sein Ein-Zeilen-Fix](/blogs/git-defaults-wasting-time/1.png)
+![die tägliche Steuer von Gits Werkseinstellungen: jedes Ärgernis und sein Ein-Zeilen-Fix](/blogs/git-defaults-wasting-time/1.png)
 
-Was folgt, ist meine tatsächliche Konfiguration — die, die mit mir auf jeden Rechner reist. Kein Dump von allem, was Git unterstützt: Jede Zeile hier hat sich ihren Platz verdient, indem sie ein echtes Ärgernis killt. Zwei Akte: zuerst die **globalen Einstellungen**, weil sie Gits Verhalten überall ändern; dann die **Aliase**, weil sie ändern, wie schnell man es steuern kann.
+Was folgt, ist meine tatsächliche Konfiguration, die, die mit mir auf jeden Rechner reist. Kein Dump von allem, was Git unterstützt: Jede Zeile hier hat sich ihren Platz verdient, indem sie ein echtes Ärgernis killt. Zwei Akte: zuerst die **globalen Einstellungen**, weil sie Gits Verhalten überall ändern; dann die **Aliase**, weil sie ändern, wie schnell man es steuern kann.
 
-## 🪪 Akt eins: Identität — die Einstellung, die dir peinlich werden kann
+## 🪪 Akt eins: Identität, die Einstellung, die dir peinlich werden kann
 
 Beginnen wir mit der, die *Konsequenzen* hat:
 
@@ -58,9 +58,9 @@ Und `~/.gitconfig-work` enthält genau eine Sache:
 
 ![includeIf routet Git-Identität automatisch danach, wo das Repo liegt](/blogs/git-defaults-wasting-time/2.png)
 
-Jetzt wird die Identität davon entschieden, **wo das Repo liegt**. Alles nach `company/` klonen → automatisch Arbeits-E-Mail. Alles andere → privat. Kein Merken, kein Pro-Repo-Setup, keine private E-Mail im Firmen-Audit-Log — und keine Arbeits-E-Mail bei Wochenend-Nebenprojekten.
+Jetzt wird die Identität davon entschieden, **wo das Repo liegt**. Alles nach `company/` klonen → automatisch Arbeits-E-Mail. Alles andere → privat. Kein Merken, kein Pro-Repo-Setup, keine private E-Mail im Firmen-Audit-Log, und keine Arbeits-E-Mail bei Wochenend-Nebenprojekten.
 
-(Beachte, was *nicht* in der Arbeitsdatei steht: der Name. `includeIf` legt sich über die globale Konfiguration, also deklariert die Arbeitsdatei nur das, was abweicht — die E-Mail. Alles andere erbt.)
+(Beachte, was *nicht* in der Arbeitsdatei steht: der Name. `includeIf` legt sich über die globale Konfiguration, also deklariert die Arbeitsdatei nur das, was abweicht, die E-Mail. Alles andere erbt.)
 
 Das zählt mehr, als es aussieht, weil Commit-E-Mails **dauerhaft** sind. Mit der falschen Identität pushen, und es steht für immer in der Historie; GitHub schreibt den Commit dem Account zu, dem diese E-Mail gehört. Identität sollte eine Eigenschaft des Repos sein, nicht dessen, was man zuletzt zu tippen wusste.
 
@@ -74,7 +74,7 @@ Elf Zeilen. Jede killt ein konkretes, wiederkehrendes Ärgernis.
 git config --global push.autoSetupRemote true
 ```
 
-Der Fehler, den sich jeder Entwickler eingeprägt hat — `fatal: The current branch has no upstream branch` — existiert, damit Git um Erlaubnis fragen kann, das Offensichtliche zu tun. Diese Einstellung erteilt sie dauerhaft. Der erste Push auf einem neuen Branch funktioniert einfach. (Das ist die Zeile, die meinen Kollegen mitten im Satz stoppte.)
+Der Fehler, den sich jeder Entwickler eingeprägt hat, `fatal: The current branch has no upstream branch`, existiert, damit Git um Erlaubnis fragen kann, das Offensichtliche zu tun. Diese Einstellung erteilt sie dauerhaft. Der erste Push auf einem neuen Branch funktioniert einfach. (Das ist die Zeile, die meinen Kollegen mitten im Satz stoppte.)
 
 ### Aufhören, versehentliche Merge-Commits zu erzeugen
 
@@ -82,7 +82,7 @@ Der Fehler, den sich jeder Entwickler eingeprägt hat — `fatal: The current br
 git config --global pull.rebase true
 ```
 
-Ein Standard-`git pull` ist Fetch + Merge — so entstehen die `"Merge branch 'main' of github.com..."`-Commits, die die Historie tapezieren. Damit spielt Pull deine lokalen Commits oben auf das, was ankam. Lineare Historie, kein Rauschen.
+Ein Standard-`git pull` ist Fetch + Merge, so entstehen die `"Merge branch 'main' of github.com..."`-Commits, die die Historie tapezieren. Damit spielt Pull deine lokalen Commits oben auf das, was ankam. Lineare Historie, kein Rauschen.
 
 ### Neue Repos auf main starten lassen
 
@@ -107,7 +107,7 @@ git config --global core.excludesfile ~/.gitignore_global
 echo ".DS_Store" > ~/.gitignore_global
 ```
 
-Eine globale Ignore-Datei gilt zusätzlich zur eigenen `.gitignore` jedes Repos. macOS-Hinterlassenschaften, Editor-Swap-Dateien — einmal geregelt, rechnerweit, statt pro Projekt.
+Eine globale Ignore-Datei gilt zusätzlich zur eigenen `.gitignore` jedes Repos. macOS-Hinterlassenschaften, Editor-Swap-Dateien, einmal geregelt, rechnerweit, statt pro Projekt.
 
 ### Die Dreifaltigkeit der Konfliktlösung
 
@@ -119,11 +119,11 @@ git config --global rebase.autostash true
 
 Drei Einstellungen, die zusammen die Konfliktlösung verwandeln:
 
-**zdiff3** fügt Konfliktmarkern einen dritten Abschnitt hinzu — den *ursprünglichen* Text, von dem beide Seiten ausgingen. Standardmarker zeigen "yours" und "theirs" und lassen dich die Absicht erraten. Den gemeinsamen Vorfahren zu sehen macht aus Raten Lesen.
+**zdiff3** fügt Konfliktmarkern einen dritten Abschnitt hinzu, den *ursprünglichen* Text, von dem beide Seiten ausgingen. Standardmarker zeigen "yours" und "theirs" und lassen dich die Absicht erraten. Den gemeinsamen Vorfahren zu sehen macht aus Raten Lesen.
 
 ![zdiff3-Konfliktmarker zeigen den ursprünglichen gemeinsamen Vorfahren neben beiden Seiten](/blogs/git-defaults-wasting-time/3.png)
 
-**rerere** ("reuse recorded resolution") ist der Überraschungshit aller elf. Git *merkt sich*, wie du jeden Konflikt löst — und wenn derselbe Konflikt wieder auftaucht (Rebases lieben es, Konflikte zu wiederholen), spielt es deine Lösung automatisch ab. Der fünfte identische Konflikt löst sich von selbst.
+**rerere** ("reuse recorded resolution") ist der Überraschungshit aller elf. Git *merkt sich*, wie du jeden Konflikt löst, und wenn derselbe Konflikt wieder auftaucht (Rebases lieben es, Konflikte zu wiederholen), spielt es deine Lösung automatisch ab. Der fünfte identische Konflikt löst sich von selbst.
 
 **autostash** beseitigt den "cannot rebase: you have unstaged changes"-Tanz. Git stasht deine Arbeit, rebased, stellt sie wieder her. Was du gerade gemacht hast, überlebt.
 
@@ -134,11 +134,11 @@ git config --global diff.algorithm histogram
 git config --global branch.sort -committerdate
 ```
 
-Histogram erzeugt spürbar sauberere Diffs als der Myers-Standardalgorithmus — weniger von diesen verwürfelten Blöcken, in denen Git unzusammenhängende Zeilen paart. Und Branches nach letzter Aktivität zu sortieren bedeutet, dass `git branch` zuerst zeigt, woran man *tatsächlich arbeitet*, nicht alphabetische Archäologie.
+Histogram erzeugt spürbar sauberere Diffs als der Myers-Standardalgorithmus, weniger von diesen verwürfelten Blöcken, in denen Git unzusammenhängende Zeilen paart. Und Branches nach letzter Aktivität zu sortieren bedeutet, dass `git branch` zuerst zeigt, woran man *tatsächlich arbeitet*, nicht alphabetische Archäologie.
 
 ## ⌨️ Akt zwei: Die Aliase
 
-Einstellungen ändern Gits Verhalten. Aliase ändern dein Tempo. Ich halte zwanzig kuratierte — gruppiert nach dem, was sie sparen.
+Einstellungen ändern Gits Verhalten. Aliase ändern dein Tempo. Ich halte zwanzig kuratierte, gruppiert nach dem, was sie sparen.
 
 ![die zwanzig Git-Aliase, gruppiert in Daily Drivers, klar sehen, Rückgängig ohne Angst und Profi-Moves](/blogs/git-defaults-wasting-time/4.png)
 
@@ -164,7 +164,7 @@ ds     = diff --staged
 whoami = !echo "$(git config user.name) <$(git config user.email)>"
 ```
 
-`git lg` ist mein "wo bin ich" — zwanzig Commits, als Graph gezeichnet. Und `git whoami` schließt den Kreis zu Akt eins: in jedem Repo ausgeführt, zeigt es genau, welche Identität den nächsten Commit signiert. In `company/` zeigt es meine Arbeits-E-Mail, überall sonst die private. Vertrauen, mit einem Befehl verifiziert.
+`git lg` ist mein "wo bin ich", zwanzig Commits, als Graph gezeichnet. Und `git whoami` schließt den Kreis zu Akt eins: in jedem Repo ausgeführt, zeigt es genau, welche Identität den nächsten Commit signiert. In `company/` zeigt es meine Arbeits-E-Mail, überall sonst die private. Vertrauen, mit einem Befehl verifiziert.
 
 ### Rückgängig ohne Angst
 
@@ -174,7 +174,7 @@ undo    = reset --soft HEAD~1
 wip     = !git add -A && git commit -m "wip: checkpoint"
 ```
 
-`undo` macht Commits rückgängig, ohne etwas zu zerstören — Änderungen landen zurück im Staging. `wip` schnappschießt alles vor riskanten Eingriffen. Die meiste Git-Angst kommt daher, den sicheren Weg zurück nicht zu kennen; das *sind* die sicheren Wege zurück.
+`undo` macht Commits rückgängig, ohne etwas zu zerstören, Änderungen landen zurück im Staging. `wip` schnappschießt alles vor riskanten Eingriffen. Die meiste Git-Angst kommt daher, den sicheren Weg zurück nicht zu kennen; das *sind* die sicheren Wege zurück.
 
 ### Die Profi-Moves
 
@@ -185,7 +185,7 @@ ri      = rebase -i --autosquash
 cleanup = !git branch --merged | grep -vE "^\*|main|master" | xargs git branch -d
 ```
 
-`pf` ist der wichtige: `--force-with-lease` force-pusht **nur, wenn das Remote dort ist, wo man es zuletzt gesehen hat** — es weigert sich also physisch, die Arbeit eines Kollegen zu überschreiben, die in der Zwischenzeit gelandet ist. Es gibt keine Situation, in der rohes `--force` die bessere Wahl wäre. Es zu aliasen bedeutet, dass meine Finger nie die gefährliche Version tippen.
+`pf` ist der wichtige: `--force-with-lease` force-pusht **nur, wenn das Remote dort ist, wo man es zuletzt gesehen hat**, es weigert sich also physisch, die Arbeit eines Kollegen zu überschreiben, die in der Zwischenzeit gelandet ist. Es gibt keine Situation, in der rohes `--force` die bessere Wahl wäre. Es zu aliasen bedeutet, dass meine Finger nie die gefährliche Version tippen.
 
 Das Paar `fixup` + `ri` ist der Clean-History-Workflow: einen Fix committen, der *auf einen früheren Commit zielt*, dann faltet ein interaktives Rebase alles automatisch an seinen Platz.
 
@@ -193,9 +193,9 @@ Das Paar `fixup` + `ri` ist der Clean-History-Workflow: einen Fix committen, der
 
 Hier ist die Sache mit Konfiguration: Sie zu bauen ist einfach. Sie zu *behalten* ist das eigentliche Problem. Eine Konfiguration, die nur auf deinem aktuellen Rechner lebt, ist eine Konfiguration, die du auf deinem nächsten aus dem Gedächtnis wieder aufbauen wirst.
 
-Meine `~/.gitconfig` ist keine lose Datei — sie ist ein Symlink in ein Dotfiles-Repo, das jede Änderung im Moment ihres Entstehens automatisch committet und pusht. Als ich kürzlich einen neuen Alias hinzufügte, hatte ein Hintergrund-Agent ihn schon auf GitHub committet, bevor ich mit dem Testen fertig war.
+Meine `~/.gitconfig` ist keine lose Datei, sie ist ein Symlink in ein Dotfiles-Repo, das jede Änderung im Moment ihres Entstehens automatisch committet und pusht. Als ich kürzlich einen neuen Alias hinzufügte, hatte ein Hintergrund-Agent ihn schon auf GitHub committet, bevor ich mit dem Testen fertig war.
 
-(Dieses System — Symlinks plus ein launchd-Agent, kein cron, keine Drittanbieter-Tools — ist eine eigene Geschichte, die ich separat aufgeschrieben habe.)
+(Dieses System, Symlinks plus ein launchd-Agent, kein cron, keine Drittanbieter-Tools, ist eine eigene Geschichte, die ich separat aufgeschrieben habe.)
 
 Die Konsequenz: Dieses ganze Setup, Identitäts-Routing und alle zwanzig Aliase inklusive, landet mit einem `install.sh` auf jedem Rechner. Einmal konfigurieren, für immer behalten.
 
@@ -252,9 +252,9 @@ printf '[user]\n    email = you@work.com\n' > ~/.gitconfig-work
 
 Keine dieser Einstellungen ist für sich genommen beeindruckend. Das ist der Punkt.
 
-Gits Standardeinstellungen optimieren dafür, niemanden zu überraschen, was bedeutet, dass sie jeden unterbrechen. Jede Zeile oben verwandelt eine wiederkehrende Unterbrechung in Stille — und Stille summiert sich. Multipliziere ein paar gesparte Sekunden und einen vermiedenen Falsch-E-Mail-Commit über jedes Repo, das du je anfassen wirst, und diese halbe Stunde Konfiguration ist eine der höchst-hebelnden Zeiten, die du in Tooling investieren wirst.
+Gits Standardeinstellungen optimieren dafür, niemanden zu überraschen, was bedeutet, dass sie jeden unterbrechen. Jede Zeile oben verwandelt eine wiederkehrende Unterbrechung in Stille, und Stille summiert sich. Multipliziere ein paar gesparte Sekunden und einen vermiedenen Falsch-E-Mail-Commit über jedes Repo, das du je anfassen wirst, und diese halbe Stunde Konfiguration ist eine der höchst-hebelnden Zeiten, die du in Tooling investieren wirst.
 
-Mein Kollege hat `push.autoSetupRemote` am selben Nachmittag eingerichtet, an dem er es sah. Der Workaround, den er jahrelang getippt hatte, verschwand mit einer Zeile — es brauchte nur *zu sehen*, wie jemand die Steuer nicht zahlt, um zu merken, dass sie optional war.
+Mein Kollege hat `push.autoSetupRemote` am selben Nachmittag eingerichtet, an dem er es sah. Der Workaround, den er jahrelang getippt hatte, verschwand mit einer Zeile, es brauchte nur *zu sehen*, wie jemand die Steuer nicht zahlt, um zu merken, dass sie optional war.
 
 Betrachte diesen Artikel als diesen Moment, in schriftlicher Form. Führ `cat ~/.gitconfig` aus und schau dir an, was da tatsächlich drin steht.
 
@@ -262,4 +262,4 @@ Standardeinstellungen sind für Kompatibilität da. Konfiguration ist für dich 
 
 ## Was steht in deiner gitconfig?
 
-Ich bin immer auf der Suche nach dem nächsten Ein-Zeilen-Fix. Wenn du eine Einstellung oder einen Alias hast, der sich seinen Platz verdient hat — so habe ich die Hälfte meiner gefunden.
+Ich bin immer auf der Suche nach dem nächsten Ein-Zeilen-Fix. Wenn du eine Einstellung oder einen Alias hast, der sich seinen Platz verdient hat, so habe ich die Hälfte meiner gefunden.

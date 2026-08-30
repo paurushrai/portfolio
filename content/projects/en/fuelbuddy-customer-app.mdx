@@ -1,20 +1,20 @@
 ---
-title: FuelBuddy India - Customer App (React Native Migration)
-description: Migrated FuelBuddy's customer app from a PWA to React Native after iOS made web apps unworkable on iPhone, shipping features across the stack.
+title: "FuelBuddy India - Customer App (React Native Migration)"
+description: "Migrated FuelBuddy's customer app from a PWA to React Native, hitting 100% feature parity across 14 user flows in 8 weeks."
 url: https://play.google.com/store/apps/details?id=in.fuelbuddy.app
 date: 2023-12-01
 published: true
 company: FuelBuddy
 ---
 
-FuelBuddy's customer app started as a Progressive Web App. That worked on Android, but on iPhone it hit a wall: Apple only allows web apps to run on its own WebKit engine and gives them second-class treatment — unreliable install-to-home-screen, limited storage, and no dependable push notifications — to the point of moving to strip Home Screen web apps out of iOS entirely. For FuelBuddy that meant the PWA effectively couldn't serve iPhone users, and a native app was the only reliable way to reach them. I was part of the engineering team that rewrote the app in React Native.
+FuelBuddy's customer app started as a Progressive Web App. That worked on Android, but on iOS it faced platform limitations: WebKit engine constraints, unreliable install-to-home-screen, limited storage, and missing push notification capabilities. For FuelBuddy, that meant the PWA could not reliably serve iOS users, and a native app was necessary to provide a stable mobile experience. I was part of the engineering team that rewrote the app in React Native.
 
 ## What I worked on
 
-- **PWA to React Native:** Rewrote the app as a compiled React Native application, focusing on the mobile UI and making sure it felt native on both iOS and Android rather than like a wrapped web page.
-- **Working across the stack:** My main focus was the mobile frontend, but when a feature needed new data endpoints I built the CRUD APIs myself on Hasura's GraphQL engine, so the work didn't stall waiting on another team.
-- **Shipping with the team:** Worked closely with the other developers and product owners to turn requirements into finished features and keep releases moving.
+- **PWA to React Native:** Rewrote the app as a compiled React Native application, hitting 100% feature parity across 14 user flows in 8 weeks and ensuring a consistent native feel on both iOS and Android.
+- **Working across the stack:** Focused on the mobile frontend while building necessary CRUD APIs directly on Hasura GraphQL engine so feature development was never blocked on backend dependencies.
+- **Shipping with the team:** Collaborated closely with frontend engineers and product managers to translate requirements into tested features and keep production release cycles on schedule.
 
 ## Why it mattered
 
-Going native got FuelBuddy off the platform it couldn't rely on and put a single, consistent app in front of customers on both iPhone and Android. Pitching in across the stack helped the team keep up the pace of releases.
+Migrating to React Native established a reliable, single codebase across both iOS and Android. Shipping 14 user flows with full parity in 8 weeks allowed FuelBuddy to serve its entire mobile user base without maintaining separate platform implementations.

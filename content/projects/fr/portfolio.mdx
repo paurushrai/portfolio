@@ -1,6 +1,6 @@
 ---
-title: "Portfolio personnel — paurushrai.in"
-description: "Le site portfolio lui-même — un build Next.js 14 avec la prise en charge de 12 langues, un proxy d'analytics de première partie qui résiste aux bloqueurs de pub, et un score Lighthouse de 99/100. Open source."
+title: "Portfolio personnel: paurushrai.in"
+description: "Le site portfolio lui-même: un build Next.js 14 avec la prise en charge de 12 langues, un proxy d'analytics de première partie qui résiste aux bloqueurs de pub, et un score Lighthouse de 99/100. Open source."
 url: https://paurushrai.in
 repository: paurushrai/portfolio
 date: 2026-04-01
@@ -8,15 +8,15 @@ published: true
 company: Projet personnel
 ---
 
-C'est le site sur lequel vous êtes en ce moment. C'est un projet Next.js 14 construit et maintenu comme un petit produit plutôt que comme un template — le code est public, donc tous les détails ci-dessous sont vérifiables. Il obtient 99/100 sur ordinateur et 97/100 sur mobile dans Lighthouse, avec 100 en Accessibilité et en SEO.
+C'est le site sur lequel vous êtes en ce moment. C'est un projet Next.js 14 construit et maintenu comme un petit produit plutôt que comme un template, le code est public, donc tous les détails ci-dessous sont vérifiables. Il obtient 99/100 sur ordinateur et 97/100 sur mobile dans Lighthouse, avec 100 en Accessibilité et en SEO.
 
-![Portfolio personnel — paurushrai.in](/projects/portfolio/portfolio.gif)
+![Portfolio personnel: paurushrai.in](/projects/portfolio/portfolio.gif)
 
 ## Ce qu'il contient
 
 - **12 langues :** Le site est disponible en anglais, allemand, espagnol, français, hindi, italien, japonais, coréen, portugais, russe, turc et chinois. Un contexte de langue typé et une table de traduction pilotent le sélecteur, qui retient votre choix et met à jour l'attribut `lang` de la page pour que les lecteurs d'écran et les moteurs de recherche lisent la bonne langue. Chaque chaîne est couverte, y compris le formulaire de contact.
 
-- **Un fond de particules qui reste rapide :** Les points qui suivent le curseur sont dessinés sur un canvas. Une première version saccadait parce qu'elle mesurait la position du canvas à chaque mouvement de souris, forçant un recalcul de mise en page constant. Mettre cette mesure en cache a supprimé les à-coups, et le chargement différé des particules les tient à l'écart du premier rendu — ce qui explique l'essentiel du passage à 99 sur ordinateur.
+- **Un fond de particules qui reste rapide :** Les points qui suivent le curseur sont dessinés sur un canvas. Une première version saccadait parce qu'elle mesurait la position du canvas à chaque mouvement de souris, forçant un recalcul de mise en page constant. Mettre cette mesure en cache a supprimé les à-coups, et le chargement différé des particules les tient à l'écart du premier rendu, ce qui explique l'essentiel du passage à 99 sur ordinateur.
 
 - **Des analytics que les bloqueurs de pub ne cassent pas en silence :** Les scripts d'analytics chargés depuis des domaines tiers sont discrètement supprimés par des bloqueurs comme uBlock et Brave, perdant 20 à 40 % des événements sans le moindre avertissement. Faire transiter les analytics par le propre domaine du site garde les données de première partie et intactes. Umami gère les statistiques respectueuses de la vie privée ; Google Tag Manager gère le reste.
 
@@ -24,8 +24,8 @@ C'est le site sur lequel vous êtes en ce moment. C'est un projet Next.js 14 con
 
 - **Accessibilité :** Un lien d'accès direct au contenu, des contours de focus visibles pour les utilisateurs au clavier, un contraste de texte conforme AA, des animations décoratives masquées aux lecteurs d'écran, et un menu de langue construit comme un vrai balisage navigable plutôt qu'un div stylisé.
 
-- **Le contenu n'est que du Markdown :** Ajouter un projet consiste à déposer un fichier Markdown dans le bon dossier de langue — il apparaît au prochain déploiement, entièrement typé, sans aucun changement de code. Les vues de page sont comptées par une petite fonction serverless qui hache les IP au lieu de les stocker, il n'y a donc ni cookies ni données personnelles.
+- **Le contenu n'est que du Markdown :** Ajouter un projet consiste à déposer un fichier Markdown dans le bon dossier de langue, il apparaît au prochain déploiement, entièrement typé, sans aucun changement de code. Les vues de page sont comptées par une petite fonction serverless qui hache les IP au lieu de les stocker, il n'y a donc ni cookies ni données personnelles.
 
 ## Pourquoi c'est important
 
-Le site fait aussi office d'exemple concret de la manière dont le reste de ces projets sont construits — performance, analytics respectueux de la vie privée, prise en charge multilingue et accessibilité, le tout au même endroit que vous pouvez inspecter. Comme le dépôt est ouvert, le code peut être confronté à la description.
+Le site fait aussi office d'exemple concret de la manière dont le reste de ces projets sont construits, performance, analytics respectueux de la vie privée, prise en charge multilingue et accessibilité, le tout au même endroit que vous pouvez inspecter. Comme le dépôt est ouvert, le code peut être confronté à la description.

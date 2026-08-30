@@ -25,7 +25,7 @@ export function Footer() {
     { href: "/about", label: t.nav.about },
     { href: "/projects", label: t.nav.projects },
     { href: "/blogs", label: t.nav.blogs },
-    // Hidden from footer — shared directly with freelance clients, kept in sitemap.ts.
+    // Hidden from footer - shared directly with freelance clients, kept in sitemap.ts.
     // { href: "/services", label: t.nav.services },
   ];
 

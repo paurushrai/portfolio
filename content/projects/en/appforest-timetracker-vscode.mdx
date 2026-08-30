@@ -1,20 +1,20 @@
 ---
-title: AppForest Timetracker - VS Code Extension
-description: A VS Code companion to the AppForest Timesheets Jira plugin — tracks coding activity and logs time to Timesheets without leaving the editor.
+title: "AppForest Timetracker - VS Code Extension"
+description: "VS Code extension companion to AppForest Timesheets: tracks editor activity and logs time directly to Jira from Git branch context."
 url: https://marketplace.visualstudio.com/items?itemName=AppforestTimetracker.appforest-timetracker
 date: 2025-07-01
 published: true
 company: Testlify
 ---
 
-Our Jira plugin, [Timesheets by AppForest](/projects/timesheets-appforest), had centralized time tracking at Testlify — but developers still had to stop and switch over to log their hours by hand. The AppForest Timetracker closes that gap. It's a VS Code extension that tracks coding activity right in the editor and turns time logging into a quick action, so engineers can log to Timesheets without leaving the IDE. I owned it end to end, from the idea through publishing on the Marketplace.
+Our Jira plugin, [Timesheets by AppForest](/projects/timesheets-appforest), centralized time tracking at Testlify, but developers still had to stop and switch tools to log their hours by hand. The AppForest Timetracker closes that gap. It is a VS Code extension that tracks coding activity right in the editor and turns time logging into a quick action, so engineers can log to Timesheets without leaving the IDE. I owned it end to end, from the concept through publishing on the Visual Studio Marketplace.
 
 ## What I built
 
-- **The extension itself:** Built on the official VS Code Extension API, with background processes that track active editor time, file switches, and workspace changes quietly — nothing interrupts the developer.
-- **Git-aware time logging:** The extension reads the current Git branch and pulls the ticket ID out of it, so the time it captures is already tied to the right issue when it's logged into the Timesheets plugin — no hunting for the ticket, no retyping.
-- **Full lifecycle:** I handled the local config UX, secure token storage, and packaging and publishing the build to the Visual Studio Marketplace.
+- **The extension core:** Built on the official VS Code Extension API, with background processes that track active editor time, file switches, and workspace changes quietly without interrupting the developer.
+- **Git-aware time logging:** The extension reads the current Git branch and extracts the Jira ticket ID automatically, ensuring logged time is linked to the right issue without manual ticket search or retyping.
+- **Full lifecycle:** Handled local settings configuration, secure token storage, packaging, and the release pipeline for the Visual Studio Marketplace.
 
 ## Why it mattered
 
-Taking the manual step out of logging meant the time data flowing into Timesheets was both more complete and more accurate — roughly a 60–70% drop in the effort spent logging hours and far fewer reporting mistakes. That gave leadership cleaner data to plan sprints and bill against.
+Automating ticket matching from Git branch context eliminated manual timesheet logging steps, reduced reporting mistakes, and gave leadership cleaner data for sprint planning and client billing.

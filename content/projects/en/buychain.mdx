@@ -1,6 +1,6 @@
 ---
-title: BuyChain - Headless Jamstack Site
-description: A decoupled marketing site for a B2B supply-chain company, built on Astro and a Directus headless CMS so the team can publish without developer help.
+title: "BuyChain - Headless Jamstack Site"
+description: "A decoupled marketing site for a B2B supply-chain company, built on Astro and a Directus headless CMS so the team can publish without developer help."
 url: https://www.buychain.co/
 date: 2023-04-01
 published: true
@@ -8,16 +8,16 @@ company: Modocosm
 coverImage: /projects/buychain/image.png
 ---
 
-[BuyChain](https://www.buychain.co/) needed a site that could explain a fairly complex B2B supply-chain product while staying fast and easy to update. I led the frontend build. After weighing the tradeoffs, I proposed a Jamstack approach — a static frontend with content managed separately — and owned it through to launch, walking the BuyChain team through how they'd run content day to day so the choice stuck after handoff.
+[BuyChain](https://www.buychain.co/) needed a site that could explain a complex B2B supply-chain product while staying fast and easy to update. I led the frontend build. After weighing the tradeoffs, I proposed a Jamstack approach (a static frontend with content managed separately) and owned it through to launch, walking the BuyChain team through how they would run content day to day so the setup was sustainable after handoff.
 
 ![BuyChain B2B supply-chain marketing site homepage](/projects/buychain/image.png)
 
 ## What I built
 
-- **Astro frontend:** Built with Astro's island architecture, so interactive pieces hydrate only where they're needed and the rest ships as static HTML. That keeps pages quick to load.
+- **Astro frontend:** Built with Astro's island architecture, so interactive pieces hydrate only where needed and the rest ships as static HTML. That keeps pages quick to load.
 - **Directus CMS:** Set up Directus as the content layer, including the SQL schemas behind it, so localized pages and marketing content are all driven from one place.
-- **Static build pipeline:** Content is pulled from Directus at build time into read-only static pages, which keeps the live site insulated from the CMS and cheap to host.
+- **Static build pipeline:** Content is pulled from Directus at build time into read-only static pages, which keeps the live site insulated from the CMS and economical to host.
 
 ## Why it mattered
 
-Because content lives in the CMS and the site rebuilds statically, the BuyChain team can spin up new landing pages and verticals without waiting on a developer. That removed a recurring bottleneck and kept hosting costs low.
+Because content lives in the CMS and the site rebuilds statically, the BuyChain team can launch new landing pages and verticals without waiting on engineering. That removed a recurring bottleneck and kept hosting costs low.

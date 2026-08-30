@@ -16,19 +16,19 @@ export default function Home() {
     { name: t.nav.about, href: "/about" },
     { name: t.nav.projects, href: "/projects" },
     { name: t.nav.blogs, href: "/blogs" },
-    // Hidden from primary nav — shared directly with freelance clients, kept in sitemap.ts.
+    // Hidden from primary nav - shared directly with freelance clients, kept in sitemap.ts.
     // { name: t.nav.services, href: "/services" },
     { name: t.nav.contact, href: "/contact" },
   ];
 
   return (
     <div className="flex flex-col items-center justify-center w-screen h-dvh overflow-hidden bg-linear-to-tl from-black via-zinc-900/50 to-black">
-      {/* Language switcher — top right on home page */}
+      {/* Language switcher - top right on home page */}
       <div className="absolute top-6 right-6 z-50">
         <LanguageSwitcher />
       </div>
 
-      {/* Privacy link — bottom right */}
+      {/* Privacy link - bottom right */}
       <div className="absolute bottom-6 right-6 z-50">
         <Link
           href={localePath("/privacy")}
@@ -68,7 +68,7 @@ export default function Home() {
             <span className="block text-zinc-300 font-medium">{t.home.tagline.role}</span>
             <span className="block">{t.home.tagline.detail}</span>
           </p>
-          {/* Hidden — "open for collaboration" pill and resume download, removed from hero per branding pivot.
+          {/* Hidden - "open for collaboration" pill and resume download, removed from hero per branding pivot.
           <div className="flex items-center gap-3 flex-wrap justify-center">
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-zinc-700/60 bg-zinc-900/40 backdrop-blur-xs">
               <span className="relative flex h-2 w-2">

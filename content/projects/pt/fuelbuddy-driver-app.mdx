@@ -1,20 +1,20 @@
 ---
 title: "FuelBuddy Índia - App de Entrega para Motoristas"
-description: "Construí features de ponta a ponta para o app de motoristas da FuelBuddy — fluxos tolerantes a falta de conexão, rastreamento de localização ao vivo, uma UI pronta para o campo e as APIs CRUD por trás delas sobre GraphQL da Hasura."
+description: "Construí features de ponta a ponta para o app de motoristas da FuelBuddy: fluxos tolerantes a falta de conexão, rastreamento de localização ao vivo, uma UI pronta para o campo e as APIs CRUD por trás delas sobre GraphQL da Hasura."
 url: https://play.google.com/store/apps/details?id=in.fuelbuddy.driver
 date: 2024-04-01
 published: true
 company: FuelBuddy
 ---
 
-O [App de Motoristas da FuelBuddy](https://play.google.com/store/apps/details?id=in.fuelbuddy.driver) é o que os motoristas usam para de fato entregar combustível aos clientes. Construir para motoristas é um tipo de problema à parte: a tela precisa ser legível sob luz solar direta, os toques precisam ser tolerantes e a rede pode cair a qualquer ponto da estrada. Construí um conjunto de features de ponta a ponta voltadas exatamente para essas condições — o frontend e as APIs de dados por trás delas.
+O [App de Motoristas da FuelBuddy](https://play.google.com/store/apps/details?id=in.fuelbuddy.driver) é o que os motoristas usam para de fato entregar combustível aos clientes. Construir para motoristas é um tipo de problema à parte: a tela precisa ser legível sob luz solar direta, os toques precisam ser tolerantes e a rede pode cair a qualquer ponto da estrada. Construí um conjunto de features de ponta a ponta voltadas exatamente para essas condições, o frontend e as APIs de dados por trás delas.
 
 ## O que construí
 
 - **UI tolerante a falta de conexão:** Os motoristas perdem sinal com frequência, então armazenei em cache os dados de rota e de pedido localmente e deixei que continuassem trabalhando em áreas mortas. O app enfileira as mudanças e as sincroniza de volta assim que a conexão retorna, em vez de travar.
 - **Localização e mapas:** Cuidei do frontend do rastreamento GPS ao vivo e do roteamento no mapa, mantendo as atualizações frequentes de localização e as redesenhagens do mapa eficientes para que não drenassem a bateria ao longo de um turno longo.
-- **UX pronta para o campo:** Cuidei de várias features operacionais de ponta a ponta, desenhando-as para condições reais — layouts de alto contraste, áreas de toque grandes e formulários curtos para que os motoristas possam registrar uma entrega de forma rápida e segura.
-- **As APIs por trás delas:** Construí as APIs CRUD das quais essas features leem e escrevem sobre o motor GraphQL da Hasura, para que eu pudesse entregar uma feature de ponta a ponta — a fila offline, os dados de pedido e o registro de entrega conversam todos com endpoints dos quais eu era dono.
+- **UX pronta para o campo:** Cuidei de várias features operacionais de ponta a ponta, desenhando-as para condições reais, layouts de alto contraste, áreas de toque grandes e formulários curtos para que os motoristas possam registrar uma entrega de forma rápida e segura.
+- **As APIs por trás delas:** Construí as APIs CRUD das quais essas features leem e escrevem sobre o motor GraphQL da Hasura, para que eu pudesse entregar uma feature de ponta a ponta, a fila offline, os dados de pedido e o registro de entrega conversam todos com endpoints dos quais eu era dono.
 
 ## Por que importou
 

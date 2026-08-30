@@ -1,20 +1,20 @@
 ---
-title: "FuelBuddy 印度 — 司机配送 App"
-description: "为 FuelBuddy 的司机 App 端到端构建功能——容忍离线的工作流、实时位置跟踪、适合现场使用的 UI，以及它们背后基于 Hasura GraphQL 的 CRUD API。"
+title: "FuelBuddy 印度: 司机配送 App"
+description: "为 FuelBuddy 的司机 App 端到端构建功能 -  - 容忍离线的工作流、实时位置跟踪、适合现场使用的 UI，以及它们背后基于 Hasura GraphQL 的 CRUD API。"
 url: https://play.google.com/store/apps/details?id=in.fuelbuddy.driver
 date: 2024-04-01
 published: true
 company: FuelBuddy
 ---
 
-[FuelBuddy 司机 App](https://play.google.com/store/apps/details?id=in.fuelbuddy.driver) 是司机真正用来给客户送油的工具。为司机做开发是另一种问题：屏幕得在阳光直射下也看得清，点击得容错，而网络在路上随时可能断掉。我针对这些情况端到端构建了一整套功能——前端加上它们背后的数据 API。
+[FuelBuddy 司机 App](https://play.google.com/store/apps/details?id=in.fuelbuddy.driver) 是司机真正用来给客户送油的工具。为司机做开发是另一种问题：屏幕得在阳光直射下也看得清，点击得容错，而网络在路上随时可能断掉。我针对这些情况端到端构建了一整套功能 -  - 前端加上它们背后的数据 API。
 
 ## 我做了什么
 
 - **容忍离线的 UI：** 司机经常没信号，所以我把路线和订单数据缓存到本地，让他们在信号盲区也能继续操作。App 会把改动排队，等连接恢复后再同步回去，而不是卡死。
 - **定位与地图：** 负责实时 GPS 跟踪和地图路径规划的前端，让频繁的位置更新和地图重绘保持高效，这样一整个班次下来也不会耗光电量。
-- **贴合现场的使用体验：** 端到端负责了几个运营功能，按真实条件来设计——高对比度布局、大点击区域、简短表单，让司机能又快又稳地记录一次配送。
-- **背后的 API：** 用 Hasura 的 GraphQL 引擎构建了这些功能读写所依赖的 CRUD API，这样我就能把一个功能端到端做完——离线队列、订单数据、配送记录，全都对接我自己负责的接口。
+- **贴合现场的使用体验：** 端到端负责了几个运营功能，按真实条件来设计 -  - 高对比度布局、大点击区域、简短表单，让司机能又快又稳地记录一次配送。
+- **背后的 API：** 用 Hasura 的 GraphQL 引擎构建了这些功能读写所依赖的 CRUD API，这样我就能把一个功能端到端做完 -  - 离线队列、订单数据、配送记录，全都对接我自己负责的接口。
 
 ## 为什么它有意义
 

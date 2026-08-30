@@ -1,13 +1,13 @@
 ---
-title: Smetti di usare cron sul tuo Mac — usa launchd
-description: cron fa polling su un intervallo e perde i job mentre il laptop dorme. WatchPaths di launchd reagisce agli eventi del filesystem invece che aspettarli — ed è l'automazione che ha sostituito cron per sempre.
+title: "Smetti di usare cron sul tuo Mac: usa launchd"
+description: "cron fa polling su un intervallo e perde i job mentre il laptop dorme. WatchPaths di launchd reagisce agli eventi del filesystem invece che aspettarli: ed è l'automazione che ha sostituito cron per sempre."
 date: 2026-06-09
 published: true
 coverImage: /blogs/stop-using-cron-on-mac/1.png
 tags: ["macOS", "launchd", "Automation", "DevOps"]
 ---
 
-*Avevo bisogno che la mia macchina reagisse ai cambiamenti, non che li interrogasse a intervalli. La risposta era una funzionalità macOS vecchia di vent'anni che quasi nessuno usa — e ha battuto cron in ogni modo che contasse.*
+*Avevo bisogno che la mia macchina reagisse ai cambiamenti, non che li interrogasse a intervalli. La risposta era una funzionalità macOS vecchia di vent'anni che quasi nessuno usa, e ha battuto cron in ogni modo che contasse.*
 
 La settimana scorsa ho costruito un sistema che fa auto-commit della configurazione della mia macchina: installo un pacchetto Homebrew, e otto secondi dopo c'è un commit git su GitHub che lo registra.
 
@@ -46,11 +46,11 @@ Non è una programmazione temporale. È un **evento**.
 
 ## ⚙️ Il demone che hai già
 
-macOS include launchd — è letteralmente il processo 1, la cosa che avvia ogni servizio sul sistema. Apple ha sostituito cron con esso internamente anni fa (i tuoi job cron su Mac sono a loro volta eseguiti *da* launchd).
+macOS include launchd, è letteralmente il processo 1, la cosa che avvia ogni servizio sul sistema. Apple ha sostituito cron con esso internamente anni fa (i tuoi job cron su Mac sono a loro volta eseguiti *da* launchd).
 
 La maggior parte degli sviluppatori sa che launchd esiste. Quasi nessuno usa la sua funzionalità migliore:
 
-**WatchPaths** — launchd sorveglierà un percorso del filesystem a livello di sistema operativo, e farà scattare il tuo job nel momento in cui cambia.
+**WatchPaths**, launchd sorveglierà un percorso del filesystem a livello di sistema operativo, e farà scattare il tuo job nel momento in cui cambia.
 
 ```xml
 <key>WatchPaths</key>
@@ -60,7 +60,7 @@ La maggior parte degli sviluppatori sa che launchd esiste. Quasi nessuno usa la 
 </array>
 ```
 
-Questo è tutto il trucco. Homebrew installa ogni pacchetto in `/opt/homebrew/Cellar` — quindi *qualsiasi* install o uninstall, da qualsiasi shell, script o strumento, cambia quella directory. Il sistema operativo se ne accorge. Il mio script parte.
+Questo è tutto il trucco. Homebrew installa ogni pacchetto in `/opt/homebrew/Cellar`, quindi *qualsiasi* install o uninstall, da qualsiasi shell, script o strumento, cambia quella directory. Il sistema operativo se ne accorge. Il mio script parte.
 
 Nessun polling. Nessuna esecuzione sprecata. Zero CPU da inattivo. Il job esiste come un'**intenzione registrata**, ed è il kernel a fare la sorveglianza.
 
@@ -107,7 +107,7 @@ launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.paurushrai.dotfiles-
 
 Sopravvive ai riavvii. Gira che ci sia o meno un terminale aperto. Fa parte del sistema operativo ora.
 
-L'ho testato nel modo onesto — ho installato un pacchetto e non ho toccato nient'altro:
+L'ho testato nel modo onesto, ho installato un pacchetto e non ho toccato nient'altro:
 
 ```bash
 $ brew install jq
@@ -123,15 +123,15 @@ Il plist qui sopra ha tre decisioni di design incorporate, e ognuna ha sostituit
 
 ![le tre chiavi launchd: ThrottleInterval, StartCalendarInterval e StandardOutPath](/blogs/stop-using-cron-on-mac/3.png)
 
-**ThrottleInterval: 60 è un debouncer gratuito.** Installa cinque pacchetti di fila e il filesystem genera cinque eventi — ma launchd non eseguirà il job più di una volta ogni 60 secondi, quindi ottengo *un* commit che li copre tutti e cinque. Nel mondo di cron, un batching così è logica che devi scrivere e testare tu. Qui è un intero.
+**ThrottleInterval: 60 è un debouncer gratuito.** Installa cinque pacchetti di fila e il filesystem genera cinque eventi, ma launchd non eseguirà il job più di una volta ogni 60 secondi, quindi ottengo *un* commit che li copre tutti e cinque. Nel mondo di cron, un batching così è logica che devi scrivere e testare tu. Qui è un intero.
 
-**StartCalendarInterval è la programmazione di cron — meno il problema del laptop di cron.** Mi dà un'esecuzione giornaliera a mezzogiorno come rete di sicurezza per tutto quello che le sorveglianze si perdono. E a differenza di cron, se la macchina dorme a mezzogiorno, **launchd esegue il job quando si risveglia**. Le programmazioni mancate vengono eseguite in ritardo invece che mai. Per un laptop, questo singolo comportamento chiude il confronto.
+**StartCalendarInterval è la programmazione di cron, meno il problema del laptop di cron.** Mi dà un'esecuzione giornaliera a mezzogiorno come rete di sicurezza per tutto quello che le sorveglianze si perdono. E a differenza di cron, se la macchina dorme a mezzogiorno, **launchd esegue il job quando si risveglia**. Le programmazioni mancate vengono eseguite in ritardo invece che mai. Per un laptop, questo singolo comportamento chiude il confronto.
 
 **StandardOutPath è osservabilità gratuita.** L'output di ogni esecuzione viene aggiunto a un file di log che ho scelto. Quando mi sono chiesto perché qualcosa non scattava, la risposta era già scritta.
 
 ## 🔁 La trappola che morde tutti
 
-Ora la confessione. Il mio script fa commit su un repository git — e il primo istinto è stato sorvegliare la directory del repository stessa. Un'unica voce di watch, copre ogni file. Elegante.
+Ora la confessione. Il mio script fa commit su un repository git, e il primo istinto è stato sorvegliare la directory del repository stessa. Un'unica voce di watch, copre ogni file. Elegante.
 
 È anche un ciclo infinito.
 
@@ -147,7 +147,7 @@ Sorveglio **singoli file** invece: ogni dotfile tracciato ha la sua voce WatchPa
 
 Altre due trappole dello stesso pomeriggio, così non paghi tu il mio scotto:
 
-- **Non simlinkare il plist.** Tengo il plist nel mio repository di dotfiles e lo *copio* in `~/Library/LaunchAgents/` — launchd è inaffidabile con definizioni di job simlinkate sul macOS moderno. Il repository custodisce la fonte di verità; l'installer distribuisce una copia.
+- **Non simlinkare il plist.** Tengo il plist nel mio repository di dotfiles e lo *copio* in `~/Library/LaunchAgents/`, launchd è inaffidabile con definizioni di job simlinkate sul macOS moderno. Il repository custodisce la fonte di verità; l'installer distribuisce una copia.
 - **I job launchd ottengono un ambiente minimale.** Nessun `PATH` della tua shell, nessun alias, niente del tuo `.zshrc`. Il mio script imposta il proprio `PATH` nella prima riga. Se il tuo job "funziona nel terminale ma non in launchd", è quasi sempre questo.
 
 ## 🔔 Fallo parlare, poi fallo aspettare
@@ -162,9 +162,9 @@ osascript -e 'display notification "Committed & pushed: .Brewfile" with title "d
 
 Primo test: non l'ho mai vista. Le notifiche a banner svaniscono in cinque secondi.
 
-La soluzione non era codice — era un'impostazione che quasi nessuno cambia: **Impostazioni di Sistema → Notifiche → Script Editor → Avvisi**. Le notifiche in stile avviso restano sullo schermo finché non le chiudi. Ora ogni sincronizzazione aspetta nell'angolo che io la confermi, con i nomi dei file cambiati nel messaggio.
+La soluzione non era codice, era un'impostazione che quasi nessuno cambia: **Impostazioni di Sistema → Notifiche → Script Editor → Avvisi**. Le notifiche in stile avviso restano sullo schermo finché non le chiudi. Ora ogni sincronizzazione aspetta nell'angolo che io la confermi, con i nomi dei file cambiati nel messaggio.
 
-Dettaglio di design che conta: lo script notifica solo quando qualcosa è stato *davvero* committato. Un'esecuzione a vuoto è silenziosa. Una notifica che scatta di continuo è una notifica che hai già imparato a ignorare — l'affaticamento da allerta uccide l'osservabilità più in fretta di nessuna allerta.
+Dettaglio di design che conta: lo script notifica solo quando qualcosa è stato *davvero* committato. Un'esecuzione a vuoto è silenziosa. Una notifica che scatta di continuo è una notifica che hai già imparato a ignorare, l'affaticamento da allerta uccide l'osservabilità più in fretta di nessuna allerta.
 
 ## 🛠 Lo schema riassuntivo
 
@@ -202,7 +202,7 @@ E la tabella decisionale che avrei voluto avere:
 
 L'automazione che ho costruito è piccola. Il principio no.
 
-Ho quasi scelto cron perché cron è quello che *conoscevo* — e ho quasi scelto un pacchetto npm per il file-watching perché è quello che suggeriscono i risultati di ricerca. Entrambi avrebbero funzionato, ma male: uno interrogando a intervalli, l'altro aggiungendo una dipendenza per fare quello che il sistema operativo fa nativamente.
+Ho quasi scelto cron perché cron è quello che *conoscevo*, e ho quasi scelto un pacchetto npm per il file-watching perché è quello che suggeriscono i risultati di ricerca. Entrambi avrebbero funzionato, ma male: uno interrogando a intervalli, l'altro aggiungendo una dipendenza per fare quello che il sistema operativo fa nativamente.
 
 Lo strumento noioso, integrato, vecchio di vent'anni era migliore di entrambi. Guidato dagli eventi invece che interrogato. Consapevole del laptop invece che presuppone un server. Zero dipendenze invece che un'altra cosa da installare sulla prossima macchina.
 
@@ -212,4 +212,4 @@ La risposta è più spesso di quanto pensi: **tutto quello che ti serviva, sedut
 
 ## Cosa gira nella tua cartella LaunchAgents?
 
-Sono curioso di sapere cos'hanno automatizzato altri a livello di sistema operativo — e in quali trappole sono caduti facendolo. Il ciclo di feedback di WatchPaths non può essere l'unico.
+Sono curioso di sapere cos'hanno automatizzato altri a livello di sistema operativo, e in quali trappole sono caduti facendolo. Il ciclo di feedback di WatchPaths non può essere l'unico.

@@ -5,7 +5,7 @@ export const contentType = "image/png";
 
 const ICON_STROKE = "#d4d4d8";
 
-/** Icon paths ported from lucide-react — satori doesn't reliably render lucide's <svg> wrapper. */
+/** Icon paths ported from lucide-react: satori doesn't reliably render lucide's <svg> wrapper. */
 const SOCIAL_ICONS = [
   {
     label: "GitHub",

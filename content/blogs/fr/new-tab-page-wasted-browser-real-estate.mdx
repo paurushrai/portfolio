@@ -1,27 +1,27 @@
 ---
-title: Votre page de nouvel onglet est de l'espace gâché
-description: Pourquoi la page de nouvel onglet moyenne est un espace mort, et comment un tableau de bord Chrome 100% local avec liens épinglés, rappels et espaces par profil a réglé le problème sans aucun tracking.
+title: "Votre page de nouvel onglet est de l'espace gâché"
+description: "Pourquoi la page de nouvel onglet moyenne est un espace mort, et comment un tableau de bord Chrome 100% local avec liens épinglés, rappels et espaces par profil a réglé le problème sans aucun tracking."
 date: 2026-06-14
 published: true
 coverImage: /blogs/new-tab-page-wasted-browser-real-estate/1.png
 tags: ["Chrome Extensions", "Productivity", "Browsers", "Privacy"]
 ---
 
-*La quarantaine d'onglets ouverts, un ventilateur qui ne s'arrêtait jamais, et un « nouvel onglet » qui ne servait à rien. Alors je me suis construit un petit tableau de bord — et un par un, il a éliminé les problèmes avec lesquels je vivais.*
+*La quarantaine d'onglets ouverts, un ventilateur qui ne s'arrêtait jamais, et un « nouvel onglet » qui ne servait à rien. Alors je me suis construit un petit tableau de bord, et un par un, il a éliminé les problèmes avec lesquels je vivais.*
 
-![Le tableau de bord MonoStart — liens épinglés, recherche, groupes et widgets de productivité sur un seul nouvel onglet](/blogs/new-tab-page-wasted-browser-real-estate/1.png)
+![Le tableau de bord MonoStart: liens épinglés, recherche, groupes et widgets de productivité sur un seul nouvel onglet](/blogs/new-tab-page-wasted-browser-real-estate/1.png)
 
-J'ouvre un nouvel onglet environ 200 fois par jour — c'est la « page » la plus visitée de toute mon activité informatique. Et pendant des années, elle ne m'a offert qu'une barre de recherche et une grille de sites devinés par Google. L'espace le plus fréquenté de mon navigateur était de l'espace mort.
+J'ouvre un nouvel onglet environ 200 fois par jour, c'est la « page » la plus visitée de toute mon activité informatique. Et pendant des années, elle ne m'a offert qu'une barre de recherche et une grille de sites devinés par Google. L'espace le plus fréquenté de mon navigateur était de l'espace mort.
 
 Mais la page blanche n'était pas le vrai problème. Le vrai problème, c'était tout ce que je faisais pour la contourner. Voici ce contre quoi je me battais, et ce qui a disparu.
 
 ## 🗂️ Problème : j'accumulais les onglets pour éviter de retaper des URL
 
-Le tableau Jira, la doc, trois pages Notion, le calendrier, ce fameux onglet Stack Overflow « qui pourrait me servir » — tout restait ouvert, regroupé en groupes d'onglets colorés bien nets pour *donner l'impression* d'être organisé. Sur trois profils.
+Le tableau Jira, la doc, trois pages Notion, le calendrier, ce fameux onglet Stack Overflow « qui pourrait me servir », tout restait ouvert, regroupé en groupes d'onglets colorés bien nets pour *donner l'impression* d'être organisé. Sur trois profils.
 
-Ça avait l'air productif. Ça ne l'était pas. Chaque onglet est un processus actif et gourmand en mémoire que Chrome garde au chaud. Je n'organisais pas mon travail — je payais une taxe RAM-et-ventilateur pour éviter de retaper des URL.
+Ça avait l'air productif. Ça ne l'était pas. Chaque onglet est un processus actif et gourmand en mémoire que Chrome garde au chaud. Je n'organisais pas mon travail, je payais une taxe RAM-et-ventilateur pour éviter de retaper des URL.
 
-**La solution :** j'ai réalisé que je ne gardais pas la *page*, je gardais le *pointeur*. Un lien ne coûte rien ; un onglet coûte un processus. Alors j'ai construit un seul endroit rapide pour stocker les liens — épinglés dans l'en-tête, triés en groupes, à un clic.
+**La solution :** j'ai réalisé que je ne gardais pas la *page*, je gardais le *pointeur*. Un lien ne coûte rien ; un onglet coûte un processus. Alors j'ai construit un seul endroit rapide pour stocker les liens, épinglés dans l'en-tête, triés en groupes, à un clic.
 
 **Disparu :** le mur de 40 onglets, le ventilateur, la taxe RAM. J'ouvre ce dont j'ai besoin et je le ferme.
 
@@ -29,52 +29,52 @@ Le tableau Jira, la doc, trois pages Notion, le calendrier, ce fameux onglet Sta
 
 J'ai d'abord essayé les extensions de nouvel onglet existantes. Chacune échangeait ma page blanche contre quelque chose de pire :
 
-- **Elles ressemblaient à une appli étrangère** — déplaçaient la barre de recherche, cachaient mon historique, cassaient mes automatismes. → La mienne garde la vraie barre de recherche Google, mes vraies suggestions d'historique, et le look natif de Chrome.
+- **Elles ressemblaient à une appli étrangère**, déplaçaient la barre de recherche, cachaient mon historique, cassaient mes automatismes. → La mienne garde la vraie barre de recherche Google, mes vraies suggestions d'historique, et le look natif de Chrome.
 - **Elles voulaient un compte** et une synchronisation cloud avec des « partenaires analytiques ». → La mienne n'a ni connexion ni backend.
-- **Elles me monétisaient** — liens sponsorisés, télémétrie. → La mienne a zéro publicité et zéro tracking.
-- **Elles étaient lourdes** — une demi-seconde de spinner. → La mienne *est* la page de nouvel onglet : instantanée, sans spinner.
+- **Elles me monétisaient**, liens sponsorisés, télémétrie. → La mienne a zéro publicité et zéro tracking.
+- **Elles étaient lourdes**, une demi-seconde de spinner. → La mienne *est* la page de nouvel onglet : instantanée, sans spinner.
 
-Je voulais une page qui soit entièrement à moi tout en donnant l'impression de n'avoir rien installé. Alors la seule règle que je me suis refusé à enfreindre : *on ne devrait pas pouvoir dire où Chrome s'arrête et où le tableau de bord commence.* J'appuie sur `⌘T` et je suis chez moi — même recherche, mêmes réflexes, juste avec mes affaires dessus.
+Je voulais une page qui soit entièrement à moi tout en donnant l'impression de n'avoir rien installé. Alors la seule règle que je me suis refusé à enfreindre : *on ne devrait pas pouvoir dire où Chrome s'arrête et où le tableau de bord commence.* J'appuie sur `⌘T` et je suis chez moi, même recherche, mêmes réflexes, juste avec mes affaires dessus.
 
 ## 👥 Problème : trois profils, une seule page morte pour tous
 
-Je répartissais ma navigation sur des profils Chrome — personnel, entreprise, freelance — mais les trois atterrissaient sur le même onglet vide. Changer de profil changeait mes identifiants de connexion et rien d'autre.
+Je répartissais ma navigation sur des profils Chrome, personnel, entreprise, freelance, mais les trois atterrissaient sur le même onglet vide. Changer de profil changeait mes identifiants de connexion et rien d'autre.
 
-**La solution :** tout est stocké localement, par profil (`chrome.storage.local`), donc chaque profil obtient gratuitement son propre tableau de bord indépendant — le personnel ouvre sur des listes de lecture et des side projects, le travail sur Jira et un rappel « standup à 10h », le freelance sur les dossiers clients et un chronomètre d'heures facturables.
+**La solution :** tout est stocké localement, par profil (`chrome.storage.local`), donc chaque profil obtient gratuitement son propre tableau de bord indépendant, le personnel ouvre sur des listes de lecture et des side projects, le travail sur Jira et un rappel « standup à 10h », le freelance sur les dossiers clients et un chronomètre d'heures facturables.
 
-**Disparu :** la confusion de contexte. Changer de profil, c'est maintenant changer d'*espace de travail* — le tableau de bord me dit quelle version de moi-même je suis.
+**Disparu :** la confusion de contexte. Changer de profil, c'est maintenant changer d'*espace de travail*, le tableau de bord me dit quelle version de moi-même je suis.
 
 ## ⚡ Problème : l'écart entre « j'ai besoin d'un site » et « j'y suis »
 
-Atteindre un site était un rituel — `⌘L`, taper, attendre, arriver — ou pire, fouiller douze groupes d'onglets à la recherche de celui que je jurais avoir laissé ouvert.
+Atteindre un site était un rituel, `⌘L`, taper, attendre, arriver, ou pire, fouiller douze groupes d'onglets à la recherche de celui que je jurais avoir laissé ouvert.
 
-**La solution :** mes sites les plus utilisés sont épinglés dans l'en-tête ; le reste vit dans des groupes colorés. Sur toute page qui vaut la peine d'être gardée, l'icône de la barre d'outils la classe en un clic — dans la grille, l'en-tête, ou un groupe.
+**La solution :** mes sites les plus utilisés sont épinglés dans l'en-tête ; le reste vit dans des groupes colorés. Sur toute page qui vaut la peine d'être gardée, l'icône de la barre d'outils la classe en un clic, dans la grille, l'en-tête, ou un groupe.
 
 **Disparu :** l'écart. `⌘T` → c'est là → clic. Multipliez une seconde ou deux économisées par 200 onglets par jour et ça cesse d'être une erreur d'arrondi.
 
 ## 🛠️ Les problèmes que chaque widget a discrètement réglés
 
-Je voulais remplacer une page blanche ; elle est devenue l'endroit où mes petites contrariétés quotidiennes vont mourir. Chacun a commencé comme un problème, pas comme une fonctionnalité — tous locaux, à une touche de distance :
+Je voulais remplacer une page blanche ; elle est devenue l'endroit où mes petites contrariétés quotidiennes vont mourir. Chacun a commencé comme un problème, pas comme une fonctionnalité, tous locaux, à une touche de distance :
 
-- **🔔 Je ratais mes standups et je faisais trop infuser mon thé.** Les rappels se déclenchent comme de vraies notifications avec un carillon — même tous onglets fermés, même à travers le mode Ne pas déranger. Celui sur lequel je m'appuie le plus.
+- **🔔 Je ratais mes standups et je faisais trop infuser mon thé.** Les rappels se déclenchent comme de vraies notifications avec un carillon, même tous onglets fermés, même à travers le mode Ne pas déranger. Celui sur lequel je m'appuie le plus.
 - **⏱️ Je perdais la notion du temps en pleine concentration.** Des minuteurs étiquetés (« Thé », « Standup ») tournent côte à côte. Le découpage du temps a enfin tenu.
 - **✅ Ma liste de tâches vivait là où je ne regardais jamais.** Maintenant la checklist et les notes autocollantes sont sur la page que j'ouvre 200 fois par jour.
-- **🌐 J'avais des onglets ouverts juste pour jeter un œil à une chose.** Des mini-widgets intégrés — un calendrier, un tableau de statut — consultables d'un coup d'œil sans onglet dédié.
+- **🌐 J'avais des onglets ouverts juste pour jeter un œil à une chose.** Des mini-widgets intégrés, un calendrier, un tableau de statut, consultables d'un coup d'œil sans onglet dédié.
 - **🎨 Les thèmes des autres ne correspondaient jamais à ma configuration.** Clair, sombre, ou suivant mon OS, avec des accents personnalisés et mon propre fond d'écran.
 
 ## 🔒 Le problème que j'ai refusé de sacrifier
 
-Chaque correctif aurait pu venir avec un coût caché : donner mes données au serveur de quelqu'un. Je ne l'ai pas fait. Donc — pas de comptes, pas de serveurs, pas d'analytics, pas de pub. Tout vit dans `chrome.storage.local` ; il n'y a nulle part où l'envoyer parce qu'il n'y a pas de backend. La seule chose qui quitte le navigateur, c'est ce que je tape dans la recherche, envoyé à Google pour l'autocomplétion comme n'importe quelle barre de recherche.
+Chaque correctif aurait pu venir avec un coût caché : donner mes données au serveur de quelqu'un. Je ne l'ai pas fait. Donc, pas de comptes, pas de serveurs, pas d'analytics, pas de pub. Tout vit dans `chrome.storage.local` ; il n'y a nulle part où l'envoyer parce qu'il n'y a pas de backend. La seule chose qui quitte le navigateur, c'est ce que je tape dans la recherche, envoyé à Google pour l'autocomplétion comme n'importe quelle barre de recherche.
 
 **Le compromis honnête :** les données locales ne se synchronisent pas entre machines. Pour une page de nouvel onglet, je le prends à chaque fois.
 
 ## 🧰 Pour les curieux
 
-Une extension Manifest V3 — React 19, TypeScript, Vite, Tailwind, shadcn/ui — disponible en source sous licence PolyForm Noncommercial, pour que vous puissiez lire chaque ligne et vérifier que les promesses de confidentialité ne sont pas du marketing. Elle ne demande que les permissions nécessaires à son unique mission.
+Une extension Manifest V3, React 19, TypeScript, Vite, Tailwind, shadcn/ui, disponible en source sous licence PolyForm Noncommercial, pour que vous puissiez lire chaque ligne et vérifier que les promesses de confidentialité ne sont pas du marketing. Elle ne demande que les permissions nécessaires à son unique mission.
 
 ## 🚀 Si vous vous battez contre les mêmes problèmes
 
-J'ai construit ça pour réparer mon propre navigateur. Si le vôtre est de l'espace mort — ou un mur de groupes d'onglets qui fait cuire votre ordinateur portable — ça pourrait régler les mêmes problèmes pour vous.
+J'ai construit ça pour réparer mon propre navigateur. Si le vôtre est de l'espace mort, ou un mur de groupes d'onglets qui fait cuire votre ordinateur portable, ça pourrait régler les mêmes problèmes pour vous.
 
 👉 [MonoStart sur le Chrome Web Store](https://chromewebstore.google.com/detail/hhfeihcppmfepeeainafmaifpmdemmlg)
 

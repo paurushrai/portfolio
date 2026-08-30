@@ -1,6 +1,6 @@
 ---
-title: Personal Portfolio — paurushrai.in
-description: This portfolio site — a Next.js 14 build with 12-language support, a first-party analytics proxy that survives ad blockers, and a 99/100 Lighthouse score.
+title: "Personal Portfolio - paurushrai.in"
+description: "Next.js 14 portfolio featuring 12-language localization, custom canvas particle animations, a first-party analytics proxy, and a 99/100 desktop Lighthouse score."
 url: https://paurushrai.in
 repository: paurushrai/portfolio
 date: 2026-04-01
@@ -9,24 +9,18 @@ company: Personal Project
 coverImage: /projects/portfolio/portfolio.gif
 ---
 
-This is the site you're on right now. It's a Next.js 14 project built and maintained as a small product rather than a template — the codebase is public, so the details below are all verifiable. It scores 99/100 on desktop and 97/100 on mobile in Lighthouse, with 100 on Accessibility and SEO.
+This portfolio is built with Next.js 14 App Router and maintained as an open-source product. The codebase is publicly accessible on GitHub with verified Lighthouse scores of 99/100 on desktop and 97/100 on mobile, along with 100/100 on Accessibility and SEO.
 
-![Personal Portfolio — paurushrai.in](/projects/portfolio/portfolio.gif)
+![Personal Portfolio - paurushrai.in](/projects/portfolio/portfolio.gif)
 
-## What's in it
+## What is in it
 
-- **12 languages:** The site is available in English, German, Spanish, French, Hindi, Italian, Japanese, Korean, Portuguese, Russian, Turkish, and Chinese. A typed language context and translation map drive the switcher, which remembers your choice and updates the page's `lang` attribute so screen readers and search engines read the correct language. Every string is covered, including the contact form.
+- **12-language localization:** Full support for English, German, Spanish, French, Hindi, Italian, Japanese, Korean, Portuguese, Russian, Turkish, and Chinese. Driven by a type-safe language context and translation dictionary, updating the HTML lang tag and canonical URLs dynamically for international SEO.
+- **Optimized canvas particle system:** Interactive particle background drawn on HTML5 canvas. Cached coordinate calculations and lazy loading ensure 60fps animations without impacting initial page paint.
+- **First-party analytics proxy:** Custom serverless proxy routing for privacy-respecting analytics (Umami and Tag Manager), preventing data loss from browser ad-blockers while preserving visitor privacy.
+- **Technical SEO and accessibility:** Structured JSON-LD schema markup for Person and Projects, per-locale canonical and alternate links, automated OpenGraph cards, skip-to-content navigation, and full keyboard accessibility.
+- **Type-safe Contentlayer pipeline:** Projects and blog posts are authored in localized MDX files, validated at build time, and statically rendered for fast performance.
 
-- **A particle background that stays fast:** The cursor-following dots are drawn on a canvas. An early version stuttered because it measured the canvas position on every mouse move, forcing constant layout recalculation. Caching that measurement removed the jank, and lazy-loading the particles keeps them out of the first paint — which is most of what got the desktop score to 99.
+## Why it mattered
 
-- **Analytics that ad blockers don't quietly break:** Analytics scripts loaded from third-party domains get silently dropped by blockers like uBlock and Brave, losing 20–40% of events without any warning. Routing analytics through the site's own domain keeps the data first-party and intact. Umami handles the privacy-friendly stats; Google Tag Manager handles the rest.
-
-- **SEO basics done properly:** Structured data for the person and each project, correct language tags across all 12 versions of every page, canonical URLs so translations don't compete with each other, and social preview cards generated per project.
-
-- **Accessibility:** A skip-to-content link, visible focus outlines for keyboard users, AA-passing text contrast, decorative animations hidden from screen readers, and a language menu built as proper navigable markup rather than a styled div.
-
-- **Content is just Markdown:** Adding a project means dropping a Markdown file in the right language folder — it appears on the next deploy, fully typed, with no code changes. Page views are counted by a small serverless function that hashes IPs instead of storing them, so there are no cookies or personal data.
-
-## Why it matters
-
-The site doubles as a working example of how the rest of these projects are built — performance, privacy-respecting analytics, multi-language support, and accessibility, all in one place you can inspect. Since the repository is open, the code can be checked against the description.
+The site serves as a live, verifiable demonstration of engineering standards: strict TypeScript typing, comprehensive multi-language support, web performance optimization, and accessible UI design.

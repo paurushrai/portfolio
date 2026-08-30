@@ -10,10 +10,10 @@ Testlify, dört ayrı uygulamadan oluşan bir paket olarak çalışıyor ve her 
 
 ## Ne yaptım
 
-- **Karar:** Her uygulamanın kendi kopyasını tutmasına izin vermek yerine UI'ı tek bir kütüphanede birleştirmeyi savundum — ön maliyeti, halihazırda ödediğimiz uyumsuzluk ve tekrarlanan emeğe karşı tarttım. Üzerinde anlaşıldıktan sonra kurulumunu ben üstlendim.
+- **Karar:** Her uygulamanın kendi kopyasını tutmasına izin vermek yerine UI'ı tek bir kütüphanede birleştirmeyi savundum, ön maliyeti, halihazırda ödediğimiz uyumsuzluk ve tekrarlanan emeğe karşı tarttım. Üzerinde anlaşıldıktan sonra kurulumunu ben üstlendim.
 - **Tasarım gereği durumsuz:** Bileşenleri durumsuz ve sunum odaklı tuttum; böylece uygulamaya özel hiçbir mantık taşımıyorlar ve dört ürünün herhangi birine sorunsuzca yerleşiyorlar. Her uygulama kendi verisini ve davranışını bağlıyor; kütüphane yalnızca şeylerin nasıl göründüğünü ve hissettirdiğini üstleniyor.
-- **Özel npm paketi olarak yayınlandı:** Onu sürümlenmiş özel bir npm paketi olarak yayınladım; böylece her uygulama aynı bileşenleri normal bir bağımlılık üzerinden çekiyor ve düzeltmeleri ile iyileştirmeleri bir sürüm yükseltmesiyle alıyor — kopyala-yapıştır yok, çatallanma yok.
+- **Özel npm paketi olarak yayınlandı:** Onu sürümlenmiş özel bir npm paketi olarak yayınladım; böylece her uygulama aynı bileşenleri normal bir bağımlılık üzerinden çekiyor ve düzeltmeleri ile iyileştirmeleri bir sürüm yükseltmesiyle alıyor, kopyala-yapıştır yok, çatallanma yok.
 
 ## Neden önemliydi
 
-UI'ı bir kez kurup dört uygulamanın tamamında yeniden kullanmak, özellik teslim süresini yaklaşık **%30** azalttı — ekipler aynı temel parçaları tekrar tekrar yazmayı bıraktı ve ortak bir setten birleştirmeye başladı. Ayrıca tüm pakete tutarlı bir görünüm kazandırdı; çünkü kütüphanedeki bir değişiklik dört yerde elle yeniden uygulanmak yerine tek seferde her yere iniyor.
+UI'ı bir kez kurup dört uygulamanın tamamında yeniden kullanmak, özellik teslim süresini yaklaşık **%30** azalttı, ekipler aynı temel parçaları tekrar tekrar yazmayı bıraktı ve ortak bir setten birleştirmeye başladı. Ayrıca tüm pakete tutarlı bir görünüm kazandırdı; çünkü kütüphanedeki bir değişiklik dört yerde elle yeniden uygulanmak yerine tek seferde her yere iniyor.

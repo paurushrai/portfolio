@@ -1,27 +1,27 @@
 ---
-title: Yeni Sekme Sayfanız Boşa Harcanan Bir Tarayıcı Alanı
-description: Ortalama bir yeni sekme sayfası neden ölü bir alandır ve sabitlenmiş bağlantılar, hatırlatıcılar ve profil başına çalışma alanlarıyla sıfır takip içeren yerel bir Chrome panosu bunu nasıl çözdü.
+title: "Yeni Sekme Sayfanız Boşa Harcanan Bir Tarayıcı Alanı"
+description: "Ortalama bir yeni sekme sayfası neden ölü bir alandır ve sabitlenmiş bağlantılar, hatırlatıcılar ve profil başına çalışma alanlarıyla sıfır takip içeren yerel bir Chrome panosu bunu nasıl çözdü."
 date: 2026-06-14
 published: true
 coverImage: /blogs/new-tab-page-wasted-browser-real-estate/1.png
 tags: ["Chrome Extensions", "Productivity", "Browsers", "Privacy"]
 ---
 
-*Kırkın üzerinde açık sekme, hiç durmayan bir fan sesi ve hiçbir işe yaramayan bir "yeni sekme". Bunun üzerine kendim için küçük bir pano yaptım — ve birer birer, yıllardır çektiğim sorunları ortadan kaldırdı.*
+*Kırkın üzerinde açık sekme, hiç durmayan bir fan sesi ve hiçbir işe yaramayan bir "yeni sekme". Bunun üzerine kendim için küçük bir pano yaptım, ve birer birer, yıllardır çektiğim sorunları ortadan kaldırdı.*
 
-![MonoStart panosu — sabitlenmiş bağlantılar, arama, gruplar ve tek bir yeni sekmede üretkenlik bileşenleri](/blogs/new-tab-page-wasted-browser-real-estate/1.png)
+![MonoStart panosu: sabitlenmiş bağlantılar, arama, gruplar ve tek bir yeni sekmede üretkenlik bileşenleri](/blogs/new-tab-page-wasted-browser-real-estate/1.png)
 
-Günde belki 200 kez yeni sekme açıyorum — bilgisayar hayatımda en çok ziyaret ettiğim "sayfa" bu. Ve yıllarca bana bir arama çubuğundan ve Google'ın tahmin ettiği bir site ızgarasından başka bir şey vermedi. Tarayıcımdaki en yoğun trafikli alan, ölü bir alandı.
+Günde belki 200 kez yeni sekme açıyorum, bilgisayar hayatımda en çok ziyaret ettiğim "sayfa" bu. Ve yıllarca bana bir arama çubuğundan ve Google'ın tahmin ettiği bir site ızgarasından başka bir şey vermedi. Tarayıcımdaki en yoğun trafikli alan, ölü bir alandı.
 
 Ama boş sayfa asıl sorun değildi. Asıl sorun, onunla başa çıkmak için yaptığım her şeydi. İşte savaştığım şeyler ve neyin ortadan kalktığı.
 
 ## 🗂️ Sorun: URL'leri Tekrar Yazmamak İçin Sekme Biriktiriyordum
 
-Jira panosu, dokümanlar, üç Notion sayfası, takvim, "belki lazım olur" dediğim şu Stack Overflow sekmesi — hepsi açık kalıyordu, düzenli görünsün diye renkli sekme gruplarına ayrılmış halde. Üç profilde birden.
+Jira panosu, dokümanlar, üç Notion sayfası, takvim, "belki lazım olur" dediğim şu Stack Overflow sekmesi, hepsi açık kalıyordu, düzenli görünsün diye renkli sekme gruplarına ayrılmış halde. Üç profilde birden.
 
-Üretken hissettiriyordu. Değildi. Her sekme, Chrome'un sıcak tuttuğu, canlı ve bellek açlığı çeken bir süreçtir. Ben işimi organize etmiyordum — URL'leri tekrar yazmamak için RAM ve fan vergisi ödüyordum.
+Üretken hissettiriyordu. Değildi. Her sekme, Chrome'un sıcak tuttuğu, canlı ve bellek açlığı çeken bir süreçtir. Ben işimi organize etmiyordum, URL'leri tekrar yazmamak için RAM ve fan vergisi ödüyordum.
 
-**Çözüm:** Fark ettim ki tuttuğum şey *sayfa* değil, *işaretçiydi*. Bir bağlantının maliyeti yoktur; bir sekmenin bir süreç maliyeti vardır. Bu yüzden bağlantıları tutacak tek ve hızlı bir yer yaptım — üst bilgiye sabitlenmiş, gruplara ayrılmış, bir tık uzakta.
+**Çözüm:** Fark ettim ki tuttuğum şey *sayfa* değil, *işaretçiydi*. Bir bağlantının maliyeti yoktur; bir sekmenin bir süreç maliyeti vardır. Bu yüzden bağlantıları tutacak tek ve hızlı bir yer yaptım, üst bilgiye sabitlenmiş, gruplara ayrılmış, bir tık uzakta.
 
 **Ortadan kalkan:** 40 sekmelik duvar, fan sesi, RAM vergisi. İhtiyacım olanı açıyorum ve kapatıyorum.
 
@@ -29,52 +29,52 @@ Jira panosu, dokümanlar, üç Notion sayfası, takvim, "belki lazım olur" dedi
 
 Önce mevcut yeni sekme eklentilerini denedim. Her biri boş sayfamı daha kötüsüyle değiştirdi:
 
-- **Yabancı bir uygulama gibi hissettiriyorlardı** — arama çubuğunu taşıdılar, geçmişimi gizlediler, kas hafızamı bozdular. → Benimki gerçek Google arama çubuğunu, gerçek geçmiş önerilerimi ve Chrome'un kendi görünümünü koruyor.
+- **Yabancı bir uygulama gibi hissettiriyorlardı**, arama çubuğunu taşıdılar, geçmişimi gizlediler, kas hafızamı bozdular. → Benimki gerçek Google arama çubuğunu, gerçek geçmiş önerilerimi ve Chrome'un kendi görünümünü koruyor.
 - **Hesap istiyorlardı** ve "analitik ortaklarıyla" bulut senkronizasyonu. → Benimkinde giriş yok, arka uç yok.
-- **Beni parayla değerlendiriyorlardı** — sponsorlu bağlantılar, telemetri. → Benimkinde sıfır reklam ve sıfır takip var.
-- **Ağırdılar** — yarım saniyelik bir yükleniyor animasyonu. → Benimki yeni sekme sayfasının *ta kendisi*: anında, animasyonsuz.
+- **Beni parayla değerlendiriyorlardı**, sponsorlu bağlantılar, telemetri. → Benimkinde sıfır reklam ve sıfır takip var.
+- **Ağırdılar**, yarım saniyelik bir yükleniyor animasyonu. → Benimki yeni sekme sayfasının *ta kendisi*: anında, animasyonsuz.
 
-Tamamen bana ait ama hiçbir şey kurmamışım gibi hissettiren bir sayfa istedim. Bu yüzden kırmayı reddettiğim tek kural şuydu: *Chrome'un nerede bittiğini, panonun nerede başladığını anlayamamalısın.* `⌘T`'ye basıyorum ve evdeyim — aynı arama, aynı refleksler, sadece üzerinde benim eşyalarım var.
+Tamamen bana ait ama hiçbir şey kurmamışım gibi hissettiren bir sayfa istedim. Bu yüzden kırmayı reddettiğim tek kural şuydu: *Chrome'un nerede bittiğini, panonun nerede başladığını anlayamamalısın.* `⌘T`'ye basıyorum ve evdeyim, aynı arama, aynı refleksler, sadece üzerinde benim eşyalarım var.
 
 ## 👥 Sorun: Üç Profil, Hepsi İçin Aynı Ölü Sayfa
 
-Göz atmayı Chrome profilleri arasında bölüyordum — kişisel, şirket, serbest çalışma — ama üçü de aynı boş sekmeye açılıyordu. Profil değiştirmek girişlerimi değiştiriyordu, başka bir şeyi değil.
+Göz atmayı Chrome profilleri arasında bölüyordum, kişisel, şirket, serbest çalışma, ama üçü de aynı boş sekmeye açılıyordu. Profil değiştirmek girişlerimi değiştiriyordu, başka bir şeyi değil.
 
-**Çözüm:** her şey yerel olarak, profil başına saklanıyor (`chrome.storage.local`), böylece her profil bedavaya kendi bağımsız panosuna kavuşuyor — kişisel profil okuma listelerine ve yan projelere açılıyor, iş profili Jira'ya ve "saat 10'da standup" hatırlatıcısına, serbest çalışma profili müşteri klasörlerine ve faturalandırılabilir saat sayacına.
+**Çözüm:** her şey yerel olarak, profil başına saklanıyor (`chrome.storage.local`), böylece her profil bedavaya kendi bağımsız panosuna kavuşuyor, kişisel profil okuma listelerine ve yan projelere açılıyor, iş profili Jira'ya ve "saat 10'da standup" hatırlatıcısına, serbest çalışma profili müşteri klasörlerine ve faturalandırılabilir saat sayacına.
 
-**Ortadan kalkan:** bağlam sızıntısı. Profil değiştirmek artık *çalışma alanı* değiştirmek anlamına geliyor — pano bana kendimin hangi versiyonu olduğumu söylüyor.
+**Ortadan kalkan:** bağlam sızıntısı. Profil değiştirmek artık *çalışma alanı* değiştirmek anlamına geliyor, pano bana kendimin hangi versiyonu olduğumu söylüyor.
 
 ## ⚡ Sorun: "Bir Siteye İhtiyacım Var" ile "Oradayım" Arasındaki Boşluk
 
-Bir siteye ulaşmak bir ritüeldi — `⌘L`, yaz, bekle, ulaş — ya da daha kötüsü, açık bıraktığıma yemin ettiğim sekmeyi on iki sekme grubunda aramak.
+Bir siteye ulaşmak bir ritüeldi, `⌘L`, yaz, bekle, ulaş, ya da daha kötüsü, açık bıraktığıma yemin ettiğim sekmeyi on iki sekme grubunda aramak.
 
-**Çözüm:** en çok kullandığım siteler üst bilgiye sabitli; geri kalanı renkli gruplarda yaşıyor. Saklamaya değer herhangi bir sayfada, araç çubuğu simgesi onu tek tıkla dosyalıyor — ızgaraya, üst bilgiye veya bir gruba.
+**Çözüm:** en çok kullandığım siteler üst bilgiye sabitli; geri kalanı renkli gruplarda yaşıyor. Saklamaya değer herhangi bir sayfada, araç çubuğu simgesi onu tek tıkla dosyalıyor, ızgaraya, üst bilgiye veya bir gruba.
 
 **Ortadan kalkan:** o boşluk. `⌘T` → orada → tıkla. Günde 200 sekme üzerinden kazanılan bir iki saniyeyi çarpınca, önemsiz bir sayı olmaktan çıkıyor.
 
 ## 🛠️ Her Bileşenin Sessizce Ortadan Kaldırdığı Sorunlar
 
-Boş bir sayfayı değiştirmek için yola çıktım; günlük küçük can sıkıcılıklarımın öldüğü yer haline geldi. Her biri bir özellik değil, bir sorun olarak başladı — hepsi yerel, bir tuş vuruşu uzağında:
+Boş bir sayfayı değiştirmek için yola çıktım; günlük küçük can sıkıcılıklarımın öldüğü yer haline geldi. Her biri bir özellik değil, bir sorun olarak başladı, hepsi yerel, bir tuş vuruşu uzağında:
 
-- **🔔 Standup'ları kaçırıyor, çayı fazla demliyordum.** Hatırlatıcılar gerçek bildirimler ve bir zil sesiyle tetikleniyor — tüm sekmeler kapalıyken bile, Rahatsız Etmeyin modundayken bile. En çok güvendiğim özellik.
+- **🔔 Standup'ları kaçırıyor, çayı fazla demliyordum.** Hatırlatıcılar gerçek bildirimler ve bir zil sesiyle tetikleniyor, tüm sekmeler kapalıyken bile, Rahatsız Etmeyin modundayken bile. En çok güvendiğim özellik.
 - **⏱️ Kafamı verdiğimde zamanın farkına varamıyordum.** Etiketli zamanlayıcılar ("Çay", "Standup") yan yana çalışıyor. Zaman kutulama sonunda kalıcı oldu.
 - **✅ Yapılacaklar listem hiç bakmadığım bir yerde yaşıyordu.** Şimdi kontrol listesi ve yapışkan notlar günde 200 kez açtığım sayfada duruyor.
-- **🌐 Sadece bir şeye göz atmak için sekme açık tutuyordum.** Gömülü mini bileşenler — bir takvim, bir durum panosu — özel bir sekme olmadan göz atılabiliyor.
+- **🌐 Sadece bir şeye göz atmak için sekme açık tutuyordum.** Gömülü mini bileşenler, bir takvim, bir durum panosu, özel bir sekme olmadan göz atılabiliyor.
 - **🎨 Başkalarının temaları asla kurulumuma uymuyordu.** Açık, koyu veya işletim sistemimi takip eden, özel vurgu renkleri ve kendi duvar kağıdımla.
 
 ## 🔒 Vazgeçmeyi Reddettiğim Sorun
 
-Her çözümün gizli bir bedeli olabilirdi: verilerimi birinin sunucusuna teslim etmek. Bunu yapmadım. Yani — hesap yok, sunucu yok, analitik yok, reklam yok. Her şey `chrome.storage.local` içinde yaşıyor; yükleyecek bir yer yok çünkü arka uç yok. Tarayıcıdan çıkan tek şey, arama çubuğuna yazdıklarım — herhangi bir arama çubuğu gibi, otomatik tamamlama için Google'a gönderiliyor.
+Her çözümün gizli bir bedeli olabilirdi: verilerimi birinin sunucusuna teslim etmek. Bunu yapmadım. Yani, hesap yok, sunucu yok, analitik yok, reklam yok. Her şey `chrome.storage.local` içinde yaşıyor; yükleyecek bir yer yok çünkü arka uç yok. Tarayıcıdan çıkan tek şey, arama çubuğuna yazdıklarım, herhangi bir arama çubuğu gibi, otomatik tamamlama için Google'a gönderiliyor.
 
 **Dürüst ödünleşim:** yerel veri makineler arasında senkronize olmaz. Bir yeni sekme sayfası için, bunu her zaman kabul ederim.
 
 ## 🧰 Meraklısı İçin
 
-Bir Manifest V3 eklentisi — React 19, TypeScript, Vite, Tailwind, shadcn/ui — PolyForm Noncommercial lisansı altında kaynak kodu açık, yani her satırı okuyup gizlilik iddialarının pazarlama olmadığını doğrulayabilirsiniz. Yalnızca tek işi için gereken izinleri istiyor.
+Bir Manifest V3 eklentisi, React 19, TypeScript, Vite, Tailwind, shadcn/ui, PolyForm Noncommercial lisansı altında kaynak kodu açık, yani her satırı okuyup gizlilik iddialarının pazarlama olmadığını doğrulayabilirsiniz. Yalnızca tek işi için gereken izinleri istiyor.
 
 ## 🚀 Aynı Şeylerle Savaşıyorsanız
 
-Bunu kendi tarayıcımı düzeltmek için yaptım. Sizinki de ölü bir alansa — ya da dizüstü bilgisayarınızı pişiren bir sekme grupları duvarıysa — sizin için de aynı sorunları ortadan kaldırabilir.
+Bunu kendi tarayıcımı düzeltmek için yaptım. Sizinki de ölü bir alansa, ya da dizüstü bilgisayarınızı pişiren bir sekme grupları duvarıysa, sizin için de aynı sorunları ortadan kaldırabilir.
 
 👉 [Chrome Web Store'da MonoStart](https://chromewebstore.google.com/detail/hhfeihcppmfepeeainafmaifpmdemmlg)
 

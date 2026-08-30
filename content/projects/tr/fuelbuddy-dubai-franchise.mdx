@@ -1,18 +1,18 @@
 ---
 title: "FuelBuddy Dubai - Bölgesel Franchise Platformu"
-description: "FuelBuddy'nin BAE operasyonları için sıfırdan bir franchise uygulaması geliştirdim — frontend ve Hasura GraphQL üzerinde kendi CRUD API'lerim, istemcide TanStack Query ve bölgesel gereksinimler için yeniden düzenlenmiş bir kimlik doğrulama/güvenlik akışı."
+description: "FuelBuddy'nin BAE operasyonları için sıfırdan bir franchise uygulaması geliştirdim: frontend ve Hasura GraphQL üzerinde kendi CRUD API'lerim, istemcide TanStack Query ve bölgesel gereksinimler için yeniden düzenlenmiş bir kimlik doğrulama/güvenlik akışı."
 date: 2024-10-01
 published: true
 company: FuelBuddy
 ---
 
-FuelBuddy'nin BAE genişlemesi kendi franchise uygulamasına ihtiyaç duyuyordu — Dubai pazarının mevcut platformlardan farklı düzenleyici, güvenlik ve iş akışı gereksinimleri vardı; öyle ki eskisini yeniden kullanmak iyi bir seçenek değildi. Dubai Franchise Uygulamasını sıfırdan geliştirdim, hem frontend hem de arkasındaki CRUD API'leri boyunca.
+FuelBuddy'nin BAE genişlemesi kendi franchise uygulamasına ihtiyaç duyuyordu, Dubai pazarının mevcut platformlardan farklı düzenleyici, güvenlik ve iş akışı gereksinimleri vardı; öyle ki eskisini yeniden kullanmak iyi bir seçenek değildi. Dubai Franchise Uygulamasını sıfırdan geliştirdim, hem frontend hem de arkasındaki CRUD API'leri boyunca.
 
 ## Ne geliştirdim
 
 - **Sıfırdan yeni frontend:** Bileşen sistemini baştan geliştirdim; bu, uygulamanın yerini aldığı eski sürümlerden daha duyarlı ve daha derli toplu olmasını sağladı.
-- **Hasura üzerinde kendi CRUD API'lerim:** Uygulamanın üzerinde çalıştığı arka uç veri API'lerini geliştirdim; ihtiyaç duyduğum CRUD işlemlerini açığa çıkarmak için veritabanının üzerinde Hasura'nın GraphQL motorunu kullandım — böylece ayrı arka uç uç noktalarını beklemek yerine veri katmanını uçtan uca tasarlayabildim.
-- **TanStack Query üzerinde veri katmanı:** Bu API'leri tüketmek için frontend'de TanStack React Query kullandım — önbelleğe alma, arka planda yeniden getirme ve iyimser güncellemeler — böylece arayüz çok fazla manuel durum bağlantısı olmadan hızlı ve tutarlı kaldı.
+- **Hasura üzerinde kendi CRUD API'lerim:** Uygulamanın üzerinde çalıştığı arka uç veri API'lerini geliştirdim; ihtiyaç duyduğum CRUD işlemlerini açığa çıkarmak için veritabanının üzerinde Hasura'nın GraphQL motorunu kullandım, böylece ayrı arka uç uç noktalarını beklemek yerine veri katmanını uçtan uca tasarlayabildim.
+- **TanStack Query üzerinde veri katmanı:** Bu API'leri tüketmek için frontend'de TanStack React Query kullandım, önbelleğe alma, arka planda yeniden getirme ve iyimser güncellemeler, böylece arayüz çok fazla manuel durum bağlantısı olmadan hızlı ve tutarlı kaldı.
 - **Kimlik doğrulama ve güvenlik:** Bölgenin uyumluluk gereksinimlerini karşılamak için kimlik doğrulamayı, token işlemeyi ve API yük doğrulamasını yeniden düzenledim.
 
 ## Neden önemliydi

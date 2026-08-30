@@ -22,23 +22,23 @@
 
 @layer base {
   /* ============================================================
-     THEME TOKENS — single source of truth for the site's palette.
+     THEME TOKENS: single source of truth for the site's palette.
 
      To re-theme the site's accent, swap the --accent-* ramp below;
      nothing else needs to change. Values are space-separated RGB
      channels (not hex) so Tailwind opacity modifiers keep working via
-     `rgb(var(--token) / <alpha-value>)` — e.g. `bg-accent-500/40`.
+     `rgb(var(--token) / <alpha-value>)`, e.g. `bg-accent-500/40`.
      See tailwind.config.js where these map to the `accent` color name.
 
      Neutrals (backgrounds, text, borders) intentionally stay on
-     Tailwind's `zinc` scale — they are theme-stable. The accent is the
+     Tailwind's `zinc` scale: they are theme-stable. The accent is the
      site's one brand color (the "open to work" dot, contact-success
      state, article-card glow). To add a second theme, scope a block:
        [data-theme="ocean"] { --accent-500: 14 165 233; ... }
      and toggle `data-theme` on <html>.
      ============================================================ */
   :root {
-    /* Accent — the brand hue (currently: emerald) */
+    /* Accent: the brand hue (currently: emerald) */
     --accent-50: 236 253 245;
     --accent-100: 209 250 229;
     --accent-200: 167 243 208;
@@ -51,7 +51,7 @@
     --accent-900: 6 78 59;
     --accent-950: 2 44 34;
 
-    /* Particle — ambient canvas field hue, read by particles.tsx */
+    /* Particle: ambient canvas field hue, read by particles.tsx */
     --particle: 255 255 255;
   }
 
@@ -70,14 +70,14 @@
     display: none; /* Chrome, Safari and Opera */
   }
 
-  /* WCAG 2.4.7 — visible focus ring for all interactive elements */
+  /* WCAG 2.4.7: visible focus ring for all interactive elements */
   :focus-visible {
     outline: 2px solid #a1a1aa;
     outline-offset: 3px;
     border-radius: 4px;
   }
 
-  /* Skip-to-content link — visually hidden until focused */
+  /* Skip-to-content link: visually hidden until focused */
   .skip-link {
     position: absolute;
     top: -100%;
@@ -96,7 +96,7 @@
     top: 1rem;
   }
 
-  /* Flag emoji rendering — "Twemoji Country Flags" is injected at runtime by
+  /* Flag emoji rendering: "Twemoji Country Flags" is injected at runtime by
      country-flag-emoji-polyfill on platforms without native flag glyphs (Windows) */
   .font-flag {
     font-family:

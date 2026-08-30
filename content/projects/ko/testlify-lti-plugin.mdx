@@ -1,24 +1,24 @@
 ---
 title: "Testlify LTI 1.3 Advantage 플러그인"
-description: "강사가 Testlify 평가를 코스에 배정하고 자신의 LMS 안에서 점수를 추적할 수 있게 해주는 1EdTech 인증 LTI Advantage(1.3) 통합 — 커스텀 OIDC/JWT 핸드셰이크, 로스터 동기화, 성적 패스백을 Next.js 14로 만들었다."
+description: "강사가 Testlify 평가를 코스에 배정하고 자신의 LMS 안에서 점수를 추적할 수 있게 해주는 1EdTech 인증 LTI Advantage(1.3) 통합: 커스텀 OIDC/JWT 핸드셰이크, 로스터 동기화, 성적 패스백을 Next.js 14로 만들었다."
 url: https://lti.testlify.com/
 date: 2026-03-01
 published: true
 company: Testlify
 ---
 
-Canvas, Moodle, Blackboard 같은 학습 관리 시스템(LMS)은 학교와 기업 교육 팀이 매일의 일을 처리하는 곳이다. Testlify의 평가를 그 시스템 안에서 쓸 수 있게 하려면, 안전하고 표준을 지키는 다리가 필요했다. 나는 Testlify LTI 플러그인을 유일한 풀스택 엔지니어로서 만들었다 — 강사가 Testlify에서 만든 평가를 코스에 등록된 지원자에게 배정하고 점수를 추적할 수 있게 해준다. 모두 LMS 안에서.
+Canvas, Moodle, Blackboard 같은 학습 관리 시스템(LMS)은 학교와 기업 교육 팀이 매일의 일을 처리하는 곳이다. Testlify의 평가를 그 시스템 안에서 쓸 수 있게 하려면, 안전하고 표준을 지키는 다리가 필요했다. 나는 Testlify LTI 플러그인을 유일한 풀스택 엔지니어로서 만들었다, 강사가 Testlify에서 만든 평가를 코스에 등록된 지원자에게 배정하고 점수를 추적할 수 있게 해준다. 모두 LMS 안에서.
 
 ![Testlify LTI 1.3 플러그인 데모](/projects/testlify-lti-plugin/plugin.gif)
 
-이 통합은 LTI Advantage(v1.3)에 대해 **[1EdTech의 공식 인증](https://site.imsglobal.org/certifications/testlify-inc/testlify#cert_pane_nid_626241)**을 받았다 — Names and Role Provisioning Services 2.0과 Assignment & Grade Services 2.0. 1EdTech가 적합성 테스트를 진행하므로, 이것은 자체 신고한 주장이 아니다. 독립 기관이 구현이 스펙을 따른다는 것을 검증했다.
+이 통합은 LTI Advantage(v1.3)에 대해 **[1EdTech의 공식 인증](https://site.imsglobal.org/certifications/testlify-inc/testlify#cert_pane_nid_626241)**을 받았다, Names and Role Provisioning Services 2.0과 Assignment & Grade Services 2.0. 1EdTech가 적합성 테스트를 진행하므로, 이것은 자체 신고한 주장이 아니다. 독립 기관이 구현이 스펙을 따른다는 것을 검증했다.
 
 ## 내가 만든 것
 
-- **커스텀 LTI 1.3 구현:** 무거운 서드파티 LTI 라이브러리에 기대는 대신, 스펙을 Next.js 14에서 직접 구현했다 — LMS와 Testlify 사이의 신뢰를 성립시키는 OpenID Connect 핸드셰이크, JWT 서명 검증, JWKS 공개 키 엔드포인트.
-- **배정 및 추적 흐름:** 전체 워크플로 뒤의 API 계층을 만들었다 — 강사가 Testlify 평가를 골라 코스에 과제로 넣는 Deep Linking, 그 코스에 등록된 지원자를 가져오는 Names and Role Provisioning Services(NRPS), 그리고 각 지원자의 점수를 LMS 성적부로 다시 보내서 강사가 원래 일하던 곳에서 결과를 보게 하는 Assignment & Grade Services(AGS).
+- **커스텀 LTI 1.3 구현:** 무거운 서드파티 LTI 라이브러리에 기대는 대신, 스펙을 Next.js 14에서 직접 구현했다, LMS와 Testlify 사이의 신뢰를 성립시키는 OpenID Connect 핸드셰이크, JWT 서명 검증, JWKS 공개 키 엔드포인트.
+- **배정 및 추적 흐름:** 전체 워크플로 뒤의 API 계층을 만들었다, 강사가 Testlify 평가를 골라 코스에 과제로 넣는 Deep Linking, 그 코스에 등록된 지원자를 가져오는 Names and Role Provisioning Services(NRPS), 그리고 각 지원자의 점수를 LMS 성적부로 다시 보내서 강사가 원래 일하던 곳에서 결과를 보게 하는 Assignment & Grade Services(AGS).
 - **풀스택 시스템:** 멀티테넌트 API 라우팅과 React 18 대시보드를 한 앱에 결합했고, 플랫폼별 설정을 위한 MongoDB 스키마를 설계했으며, 로컬 테스트용으로 격리된 LMS 환경을 시뮬레이션하기 위해 Docker를 사용했다.
 
 ## 왜 중요했나
 
-표준을 지키는 LTI 통합은 Testlify를 고등 교육과 기업 교육 시장으로 열어줬다 — 그리고 내가 만든 플러그인은 1EdTech의 적합성 테스트를 통과하고 인증을 받았다. 강사들은 코스 전체에 평가를 배정하고 점수를 성적부로 자동으로 돌려받을 수 있었다 — 로스터를 내보내거나 결과를 손으로 옮겨 적을 필요가 없다 — 이것이야말로 보통 LMS 도입을 가로막는 종류의 마찰이다.
+표준을 지키는 LTI 통합은 Testlify를 고등 교육과 기업 교육 시장으로 열어줬다, 그리고 내가 만든 플러그인은 1EdTech의 적합성 테스트를 통과하고 인증을 받았다. 강사들은 코스 전체에 평가를 배정하고 점수를 성적부로 자동으로 돌려받을 수 있었다, 로스터를 내보내거나 결과를 손으로 옮겨 적을 필요가 없다, 이것이야말로 보통 LMS 도입을 가로막는 종류의 마찰이다.

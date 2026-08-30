@@ -109,7 +109,7 @@ export default function AboutPage() {
                   <span className="text-xs text-zinc-400 shrink-0">{job.period}</span>
                 </div>
                 <p className="text-sm text-zinc-400 mb-4">
-                  {job.role} &mdash; {job.location}
+                  {job.role} · {job.location}
                 </p>
 
                 <ul className="space-y-2">

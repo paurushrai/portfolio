@@ -26,7 +26,7 @@ export async function generateMetadata({
   return {
     title: "Hire a Senior Frontend Engineer & Expert | Paurush Rai",
     description:
-      "Hire Paurush Rai for freelance software engineering — full-stack web apps, AI integrations, internal tooling, LMS plugins, and more.",
+      "Hire Paurush Rai for freelance software engineering: full-stack web apps, AI integrations, internal tooling, LMS plugins, and more.",
     keywords: [
       "Hire Senior Frontend Engineer",
       "Hire Senior Frontend Expert",
@@ -42,7 +42,7 @@ export async function generateMetadata({
     openGraph: {
       title: "Hire a Senior Frontend Engineer & Expert | Paurush Rai",
       description:
-        "Hire Paurush Rai for freelance software engineering — full-stack web apps, AI integrations, internal tooling, LMS plugins, and more.",
+        "Hire Paurush Rai for freelance software engineering: full-stack web apps, AI integrations, internal tooling, LMS plugins, and more.",
       url: alternates.canonical,
     },
   };

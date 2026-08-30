@@ -19,7 +19,7 @@ export async function generateMetadata({
   return {
     title: "Privacy Policy",
     description:
-      "Privacy policy for paurushrai.in — how analytics tools, contact form data, and third-party services are used.",
+      "Privacy policy for paurushrai.in: how analytics tools, contact form data, and third-party services are used.",
     alternates: alternatesFor("/privacy", locale),
   };
 }
@@ -167,15 +167,15 @@ export default function PrivacyPage({ params }: { params: { locale: string } }) 
             </p>
             <ul className="mt-4 space-y-2 text-sm text-zinc-400 list-disc list-inside">
               <li>
-                <span className="text-zinc-200">Microsoft Clarity</span> — may
+                <span className="text-zinc-200">Microsoft Clarity</span>: may
                 set session and persistent cookies for session replay
               </li>
               <li>
-                <span className="text-zinc-200">Google Tag Manager</span> — may
+                <span className="text-zinc-200">Google Tag Manager</span>: may
                 set cookies depending on which tags are active
               </li>
               <li>
-                <span className="text-zinc-200">Umami</span> — cookie-free by
+                <span className="text-zinc-200">Umami</span>: cookie-free by
                 design
               </li>
             </ul>

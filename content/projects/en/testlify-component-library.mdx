@@ -1,19 +1,19 @@
 ---
-title: Testlify - Shared Component Library
-description: Chose one stateless component library over duplicating UI across four apps, shipped as a private npm package, cutting feature delivery by ~30%.
+title: "Testlify - Shared Component Library"
+description: "Introduced a stateless component library shared across 4 applications, published as a private npm package, removing per-app UI duplication."
 date: 2026-06-01
 published: true
 company: Testlify
 ---
 
-Testlify runs as a suite of four separate applications, and each one had been rebuilding the same buttons, forms, modals, and tables its own way. That meant the same work done four times and a UI that drifted out of sync between products. I made the case for a single shared component library instead of per-app duplication, then built and shipped it.
+Testlify operates as a suite of 4 separate web applications. Previously, each product team developed and styled common UI components independently, causing duplicate engineering effort and visual inconsistencies across products. I proposed and built a unified, shared component library to standardize UI development.
 
 ## What I built
 
-- **The decision:** Argued for consolidating UI into one library rather than letting each app keep its own copy — weighing the upfront cost against the drift and duplicated effort we were already paying. Once it was agreed, I owned the build.
-- **Stateless by design:** Kept the components stateless and presentational, so they carry no app-specific logic and drop cleanly into any of the four products. Each app wires in its own data and behavior; the library just owns how things look and feel.
-- **Shipped as a private npm package:** Published it as a versioned private npm package, so every app pulls the same components through a normal dependency and picks up fixes and improvements with a version bump — no copy-paste, no forks.
+- **Architectural consolidation:** Led the initiative to consolidate common UI primitives into a centralized library, establishing consistent design tokens and component contracts across teams.
+- **Stateless component design:** Kept library components strictly stateless and presentational, allowing them to integrate cleanly into any of the 4 applications while keeping business logic decoupled.
+- **Private npm package distribution:** Published and maintained the library as a versioned private npm package, enabling teams to adopt bug fixes and new components via standard dependency updates without code duplication.
 
 ## Why it mattered
 
-Building UI once and reusing it across all four apps cut feature delivery time by roughly **30%** — teams stopped rebuilding the same primitives and started composing from a shared set. It also gave the whole suite a consistent look, since a change in the library lands everywhere at once instead of being reapplied by hand in four places.
+Centralizing UI development in a shared package eliminated redundant code across 4 applications, accelerated feature delivery cycles, and ensured a cohesive design system across Testlify's entire product suite.
