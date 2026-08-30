@@ -11,7 +11,7 @@ export const pt: Locale = {
   },
   home: {
     tagline: {
-      role: "Engenheiro Frontend Sênior",
+      role: "Engenheiro de Software Sênior",
       detail: "construo produtos, ferramentas e integrações que entregam rápido e duram muito.",
     },
     openToWork: "Aberto para colaboração",
@@ -284,7 +284,7 @@ export const pt: Locale = {
     title: "Sobre mim",
     subtitle: "Um pouco de contexto sobre quem eu sou e o que faço.",
     bio: [
-      "Sou Paurush Rai, um Senior Frontend Engineer baseado na Índia: um núcleo de frontend com alcance full-stack e mais de 5 anos construindo plataformas web empresariais, aplicações impulsionadas por IA e ferramentas de produtividade para desenvolvedores. Meu trabalho abrange dashboards B2B complexos, uma integração LMS certificada pela 1EdTech e plugins personalizados para Jira e VS Code.",
+      "Sou Paurush Rai, um Engenheiro de Software Sênior baseado na Índia: com profunda experiência full-stack e mais de 5 anos construindo plataformas web empresariais, aplicações impulsionadas por IA e ferramentas de produtividade para desenvolvedores. Meu trabalho abrange dashboards B2B complexos, uma integração LMS certificada pela 1EdTech e plugins personalizados para Jira e VS Code.",
       "Me importo profundamente com performance, arquitetura limpa e entregar coisas que realmente importam. Seja construindo um portal de franquias do zero, desenvolvendo fluxos de entrevista com IA em tempo real ou criando ferramentas internas que economizam milhares de dólares por ano para o negócio, meu foco é sempre em trabalho que move o ponteiro de forma mensurável.",
       "Fora do trabalho, geralmente estou iniciando um projeto paralelo, automatizando um fluxo de trabalho tedioso ou recorrendo a uma biblioteca que nunca usei antes, gosto da fricção de aprender novas ferramentas em contextos reais.",
     ],
@@ -298,12 +298,12 @@ export const pt: Locale = {
       "Aplicativos e fluxos de trabalho de IA",
       "Painéis de administração e franquia",
       "Integrações LMS/LTI",
-      "CMS sem cabeça e Jamstack",
+      "CMS e Jamstack sem cabeça",
       "Ferramentas internas para desenvolvedores",
-      "Código VS e plug-ins Jira",
+      "Plugins VS Code e Jira",
       "Pipelines de dados e automação",
       "Bibliotecas de componentes personalizados",
-      "Aplicativos da Web progressivos",
+      "Aplicativos web progressivos",
       "Extensões de navegador",
     ],
     skills: {
@@ -311,17 +311,17 @@ export const pt: Locale = {
       "Frameworks": ["React.js", "Next.js", "React Native", "Node.js", "Express.js"],
       "Frontend": ["Tailwind CSS", "Shadcn", "HTML/CSS", "Vue.js", "Nuxt.js", "Astro.js"],
       "Bibliotecas": ["Zod", "Clerk", "Stripe"],
-      "IA, Cloud & Automação": ["OpenAI API", "LLM Integration", "MCP", "AWS", "n8n"],
+      "IA, Nuvem e Automação": ["OpenAI API", "LLM Integration", "MCP", "AWS", "n8n"],
       "Dados": ["PostgreSQL", "MongoDB", "Redis", "Prisma", "GraphQL", "REST APIs"],
       "Infraestrutura": ["Hasura", "Directus", "Payload", "BullMQ", "WebSocket"],
       "Testes": ["Vitest", "Playwright"],
-      "DevOps & Monitoramento": ["Docker", "GitHub Actions", "Git", "GitHub", "GitLab", "Vercel", "Turborepo", "Sentry"],
-      "Extensões & Plugins": ["VS Code Extension", "Chrome Extension", "LTI 1.3 Plugin", "Jira Plugin"],
+      "DevOps e Monitoramento": ["Docker", "GitHub Actions", "Git", "GitHub", "GitLab", "Vercel", "Turborepo", "Sentry"],
+      "Extensões e Plugins": ["VS Code Extension", "Chrome Extension", "LTI 1.3 Plugin", "Jira Plugin"],
     },
     experience: [
       {
         company: "Testlify",
-        role: "Engenheiro Frontend Sênior",
+        role: "Engenheiro de Software Sênior",
         location: "Bombaim, Índia (Remoto)",
         period: "Janeiro de 2025 – Presente",
         highlights: [
@@ -335,7 +335,7 @@ export const pt: Locale = {
       },
       {
         company: "FuelBuddy",
-        role: "Engenheiro Frontend",
+        role: "Engenheiro de Software",
         location: "Gurugram, Índia",
         period: "Setembro de 2023 – Dezembro de 2024",
         highlights: [
@@ -348,7 +348,7 @@ export const pt: Locale = {
       },
       {
         company: "Modocosm",
-        role: "Engenheiro Frontend",
+        role: "Engenheiro de Software",
         location: "Cidade de Nova York, EUA (Remoto)",
         period: "Julho de 2021 – Agosto de 2023",
         highlights: [

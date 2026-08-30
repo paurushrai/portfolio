@@ -11,7 +11,7 @@ export const ko: Locale = {
   },
   home: {
     tagline: {
-      role: "수석 프론트엔드 엔지니어",
+      role: "수석 소프트웨어 엔지니어",
       detail: "빠르고 오래 지속되는 제품, 도구 및 통합을 구축합니다.",
     },
     openToWork: "협업 환영",
@@ -292,7 +292,7 @@ export const ko: Locale = {
     title: "나에 대해",
     subtitle: "내가 누구이고 무엇을 하는지에 대한 간략한 배경지식입니다.",
     bio: [
-      "저는 Paurush Rai입니다, 인도에 기반을 둔 Senior Frontend Engineer로, 프런트엔드를 핵심으로 하면서 풀스택까지 아우르며 엔터프라이즈 웹 플랫폼, AI 기반 애플리케이션, 개발자 생산성 도구를 5년 이상 만들어 왔습니다. 제 작업은 복잡한 B2B 대시보드, 1EdTech 인증 LMS 통합, 그리고 사용자 정의 Jira 및 VS Code 플러그인에 이릅니다.",
+      "저는 Paurush Rai입니다, 인도에 기반을 둔 수석 소프트웨어 엔지니어로, 깊은 풀스택 전문성을 바탕으로 엔터프라이즈 웹 플랫폼, AI 기반 애플리케이션, 개발자 생산성 도구를 5년 이상 만들어 왔습니다. 제 작업은 복잡한 B2B 대시보드, 1EdTech 인증 LMS 통합, 그리고 사용자 정의 Jira 및 VS Code 플러그인에 이릅니다.",
       "저는 성능, 깔끔한 아키텍처, 그리고 진짜로 중요한 것을 출시하는 데 깊은 관심을 두고 있습니다. 그린필드 프랜차이즈 포털을 처음부터 구축하든, 실시간 AI 인터뷰 워크플로우를 설계하든, 매년 수천 달러를 절감하는 내부 도구를 개발하든, 제 초점은 언제나 측정 가능한 성과를 내는 작업에 있습니다.",
       "업무 외에는 보통 사이드 프로젝트를 시작하거나, 지루한 작업 흐름을 자동화하거나, 한 번도 써본 적 없는 라이브러리에 손을 뻗곤 합니다, 저는 실제 상황에서 새로운 도구를 배우는 마찰을 좋아합니다."
     ],
@@ -329,7 +329,7 @@ export const ko: Locale = {
     experience: [
       {
         company: "Testlify",
-        role: "수석 프론트엔드 엔지니어",
+        role: "수석 소프트웨어 엔지니어",
         location: "인도 뭄바이 (원격)",
         period: "2025년 1월 – 현재",
         highlights: [
@@ -343,7 +343,7 @@ export const ko: Locale = {
       },
       {
         company: "FuelBuddy",
-        role: "프론트엔드 엔지니어",
+        role: "소프트웨어 엔지니어",
         location: "구루그람, 인도",
         period: "2023년 9월 – 2024년 12월",
         highlights: [
@@ -356,7 +356,7 @@ export const ko: Locale = {
       },
       {
         company: "Modocosm",
-        role: "프론트엔드 엔지니어",
+        role: "소프트웨어 엔지니어",
         location: "미국 뉴욕시 (원격)",
         period: "2021년 7월 – 2023년 8월",
         highlights: [

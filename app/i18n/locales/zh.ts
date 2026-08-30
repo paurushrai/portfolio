@@ -11,7 +11,7 @@ export const zh: Locale = {
   },
   home: {
     tagline: {
-      role: "高级前端工程师",
+      role: "高级软件工程师",
       detail: "构建快速交付、经久耐用的产品、工具与集成方案。",
     },
     openToWork: "开放合作",
@@ -284,7 +284,7 @@ export const zh: Locale = {
     title: "关于我",
     subtitle: "简单介绍一下我是谁以及我的工作。",
     bio: [
-      "我是 Paurush Rai, 一名常驻印度的 Senior Frontend Engineer：以前端为核心，兼具全栈能力，拥有 5 年以上构建企业级 Web 平台、AI 驱动应用和开发者生产力工具的经验。我的工作涵盖复杂的 B2B 仪表盘、通过 1EdTech 认证的 LMS 集成，以及自定义 Jira 和 VS Code 插件。",
+      "我是 Paurush Rai, 一名常驻印度的高级软件工程师：拥有深厚的全栈能力与 5 年以上构建企业级 Web 平台、AI 驱动应用和开发者生产力工具的经验。我的工作涵盖复杂的 B2B 仪表盘、通过 1EdTech 认证的 LMS 集成，以及自定义 Jira 和 VS Code 插件。",
       "我十分注重性能、整洁的架构，以及交付真正有价值的产品。无论是从零打造全新的特许经营门户、构建实时 AI 面试工作流，还是开发每年为公司节省数千美元的内部工具，我始终专注于能够切实产生可量化影响的工作。",
       "工作之余，我通常在启动一个副项目、自动化繁琐的工作流程，或者上手一个从未接触过的库, 我喜欢在真实场景中学习新工具所带来的那种摩擦感。",
     ],
@@ -321,7 +321,7 @@ export const zh: Locale = {
     experience: [
       {
         company: "Testlify",
-        role: "高级前端工程师",
+        role: "高级软件工程师",
         location: "印度孟买（远程）",
         period: "2025 年 1 月 – 至今",
         highlights: [
@@ -335,7 +335,7 @@ export const zh: Locale = {
       },
       {
         company: "FuelBuddy",
-        role: "前端工程师",
+        role: "软件工程师",
         location: "印度古尔冈",
         period: "2023 年 9 月 – 2024 年 12 月",
         highlights: [
@@ -348,7 +348,7 @@ export const zh: Locale = {
       },
       {
         company: "Modocosm",
-        role: "前端工程师",
+        role: "软件工程师",
         location: "美国纽约市（远程）",
         period: "2021 年 7 月 – 2023 年 8 月",
         highlights: [

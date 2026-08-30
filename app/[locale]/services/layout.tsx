@@ -24,12 +24,17 @@ export async function generateMetadata({
   const locale: AppLocale = isLocale(params.locale) ? params.locale : DEFAULT_LOCALE;
   const alternates = alternatesFor("/services", locale);
   return {
-    title: "Hire a Senior Frontend Engineer & Expert | Paurush Rai",
+    title: "Hire a Senior Software Engineer & Full-Stack Developer | Paurush Rai",
     description:
-      "Hire Paurush Rai for freelance software engineering: full-stack web apps, AI integrations, internal tooling, LMS plugins, and more.",
+      "Hire Paurush Rai for freelance software engineering: full-stack web apps, frontend architecture, AI integrations, internal tooling, LMS plugins, and performance audits.",
     keywords: [
+      "Hire Senior Software Engineer",
       "Hire Senior Frontend Engineer",
-      "Hire Senior Frontend Expert",
+      "Hire Full-Stack Developer",
+      "Hire Frontend-Focused Full Stack Developer",
+      "Frontend Expert",
+      "Expert Frontend Engineer",
+      "Freelance Software Engineer",
       "Freelance Frontend Engineer",
       "Freelance Full-Stack Developer",
       "AI Integration Services",
@@ -40,9 +45,9 @@ export async function generateMetadata({
     ],
     alternates,
     openGraph: {
-      title: "Hire a Senior Frontend Engineer & Expert | Paurush Rai",
+      title: "Hire a Senior Software Engineer & Full-Stack Developer | Paurush Rai",
       description:
-        "Hire Paurush Rai for freelance software engineering: full-stack web apps, AI integrations, internal tooling, LMS plugins, and more.",
+        "Hire Paurush Rai for freelance software engineering: full-stack web apps, frontend architecture, AI integrations, internal tooling, LMS plugins, and performance audits.",
       url: alternates.canonical,
     },
   };

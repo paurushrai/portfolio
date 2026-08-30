@@ -12,21 +12,24 @@ export async function generateMetadata({
   const locale: AppLocale = isLocale(params.locale) ? params.locale : DEFAULT_LOCALE;
   const alternates = alternatesFor("/blogs", locale);
   return {
-    title: "Blog | Paurush Rai | Senior Frontend Engineer",
+    title: "Blog | Paurush Rai | Senior Software Engineer & Full-Stack Developer",
     description:
-      "Writing on software engineering, developer tooling, automation, and building products that last, from a Senior Frontend Engineer.",
+      "Writing on software engineering, modern frontend architecture, full-stack development, developer tooling, and automation from a Senior Software Engineer.",
     keywords: [
       "Paurush Rai Blog",
       "Software Engineering Blog",
+      "Full-Stack Development",
+      "Frontend Engineering",
+      "Frontend-Focused Full Stack",
+      "Frontend Expert",
       "Developer Productivity",
       "Git Workflow",
       "macOS Automation",
-      "Frontend Engineering",
     ],
     alternates,
     openGraph: {
-      title: "Blog | Paurush Rai | Senior Frontend Engineer",
-      description: "Writing on software engineering, developer tooling, and building products that last.",
+      title: "Blog | Paurush Rai | Senior Software Engineer & Full-Stack Developer",
+      description: "Writing on software engineering, developer tooling, frontend architecture, and building products that last.",
       url: alternates.canonical,
       type: "website",
       images: [{ url: "https://paurushrai.in/og.png", width: 1200, height: 630 }],

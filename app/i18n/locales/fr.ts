@@ -11,7 +11,7 @@ export const fr: Locale = {
   },
   home: {
     tagline: {
-      role: "Ingénieur Frontend Senior",
+      role: "Ingénieur Logiciel Senior",
       detail: "créer des produits, des outils et des intégrations qui sont livrés rapidement et durent longtemps.",
     },
     openToWork: "Ouvert à la collaboration",
@@ -292,7 +292,7 @@ export const fr: Locale = {
     title: "Sur moi",
     subtitle: "Un petit aperçu de qui je suis et de ce que je fais.",
     bio: [
-      "Je m'appelle Paurush Rai, un Senior Frontend Engineer basé en Inde : un socle front-end doublé d'une portée full-stack, et plus de 5 ans passés à construire des plates-formes web d'entreprise, des applications pilotées par l'IA et des outils de productivité pour les développeurs. Mon travail couvre des tableaux de bord B2B complexes, une intégration LMS certifiée 1EdTech, ainsi que des plugins Jira et VS Code sur mesure.",
+      "Je m'appelle Paurush Rai, un Ingénieur Logiciel Senior basé en Inde : une solide expérience full-stack et plus de 5 ans passés à construire des plates-formes web d'entreprise, des applications pilotées par l'IA et des outils de productivité pour les développeurs. Mon travail couvre des tableaux de bord B2B complexes, une intégration LMS certifiée 1EdTech, ainsi que des plugins Jira et VS Code sur mesure.",
       "J'accorde une grande importance à la performance, à une architecture propre et à la livraison de choses qui comptent réellement. Qu'il s'agisse de créer un portail de franchise de toutes pièces, de concevoir des flux de travail d'entretien IA en temps réel ou de développer des outils internes qui font économiser à l'entreprise des milliers de dollars par an, je me concentre toujours sur un travail qui fait bouger les lignes de façon mesurable.",
       "En dehors du travail, je suis généralement en train de lancer un projet parallèle, d'automatiser un flux de travail fastidieux ou d'essayer une bibliothèque à laquelle je n'avais jamais touché, j'aime la friction de l'apprentissage de nouveaux outils dans des contextes réels."
     ],
@@ -308,74 +308,23 @@ export const fr: Locale = {
       "Intégrations LMS/LTI",
       "CMS et Jamstack sans tête",
       "Outils de développement internes",
-      "Plugins VSCode et Jira",
+      "Plugins VS Code et Jira",
       "Pipelines de données et automatisation",
       "Bibliothèques de composants personnalisés",
       "Applications Web progressives",
       "Extensions de navigateur"
     ],
     skills: {
-      Langages: [
-        "JavaScript",
-        "TypeScript"
-      ],
-      Frameworks: [
-        "React.js",
-        "Next.js",
-        "React Native",
-        "Node.js",
-        "Express.js"
-      ],
-      Frontend: [
-        "Tailwind CSS",
-        "Shadcn",
-        "HTML/CSS",
-        "Vue.js",
-        "Nuxt.js",
-        "Astro.js"
-      ],
-      "Bibliothèques": [
-        "Zod",
-        "Clerk",
-        "Stripe"
-      ],
-      "IA, Cloud & Automatisation": [
-        "OpenAI API",
-        "LLM Integration",
-        "MCP",
-        "AWS",
-        "n8n"
-      ],
-      "Données": [
-        "PostgreSQL",
-        "MongoDB",
-        "Redis",
-        "Prisma",
-        "GraphQL",
-        "REST APIs"
-      ],
-      Infrastructure: [
-        "Hasura",
-        "Directus",
-        "Payload",
-        "BullMQ",
-        "WebSocket"
-      ],
-      Tests: [
-        "Vitest",
-        "Playwright"
-      ],
-      "DevOps & Supervision": [
-        "Docker",
-        "GitHub Actions",
-        "Git",
-        "GitHub",
-        "GitLab",
-        "Vercel",
-        "Turborepo",
-        "Sentry"
-      ],
-      "Extensions & Plugins": [
+      Langues: ["JavaScript", "TypeScript"],
+      Frameworks: ["React.js", "Next.js", "React Native", "Node.js", "Express.js"],
+      Frontend: ["Tailwind CSS", "Shadcn", "HTML/CSS", "Vue.js", "Nuxt.js", "Astro.js"],
+      Bibliothèques: ["Zod", "Clerk", "Stripe"],
+      "IA, Cloud et automatisation": ["OpenAI API", "LLM Integration", "MCP", "AWS", "n8n"],
+      Données: ["PostgreSQL", "MongoDB", "Redis", "Prisma", "GraphQL", "REST APIs"],
+      Infrastructure: ["Hasura", "Directus", "Payload", "BullMQ", "WebSocket"],
+      Essai: ["Vitest", "Playwright"],
+      "DevOps et surveillance": ["Docker", "GitHub Actions", "Git", "GitHub", "GitLab", "Vercel", "Turborepo", "Sentry"],
+      "Extensions et plugins": [
         "VS Code Extension",
         "Chrome Extension",
         "LTI 1.3 Plugin",
@@ -385,7 +334,7 @@ export const fr: Locale = {
     experience: [
       {
         company: "Testlify",
-        role: "Ingénieur Frontend Senior",
+        role: "Ingénieur Logiciel Senior",
         location: "Bombay, Inde (à distance)",
         period: "Janvier 2025 – Aujourd’hui",
         highlights: [
@@ -399,7 +348,7 @@ export const fr: Locale = {
       },
       {
         company: "FuelBuddy",
-        role: "Ingénieur Frontend",
+        role: "Ingénieur Logiciel",
         location: "Gurugram, Inde",
         period: "Septembre 2023 – décembre 2024",
         highlights: [
@@ -412,7 +361,7 @@ export const fr: Locale = {
       },
       {
         company: "Modocosm",
-        role: "Ingénieur Frontend",
+        role: "Ingénieur Logiciel",
         location: "New York, États-Unis (à distance)",
         period: "Juillet 2021 – août 2023",
         highlights: [

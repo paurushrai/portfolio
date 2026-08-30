@@ -33,23 +33,29 @@ export async function generateMetadata({
       process.env.NODE_ENV === "development" ? "http://localhost:3000" : BASE_URL,
     ),
     title: {
-      default: "Paurush Rai | Senior Frontend Engineer & Frontend Expert",
+      default:
+        "Paurush Rai | Senior Software Engineer | Full Stack & Frontend Expert",
       template: "%s | Paurush Rai",
     },
     description:
-      "Senior Frontend Engineer & Frontend Expert with 5+ years building enterprise SaaS, AI-integrated platforms, and developer tools. Open to new roles.",
+      "Senior Software Engineer & Frontend-Focused Full-Stack Developer with 5+ years building enterprise SaaS, AI-integrated platforms, and developer tools. Open to new roles.",
     keywords: [
-      "Senior Frontend Engineer",
-      "Frontend Expert",
-      "Hire Senior Frontend Engineer",
-      "Hire Senior Frontend Expert",
       "Senior Software Engineer",
-      "Senior Frontend Developer",
+      "Senior Frontend Engineer",
       "Full-Stack Developer",
+      "Frontend-Focused Full Stack Developer",
+      "Frontend Expert",
+      "Expert Frontend Engineer",
+      "Senior Full-Stack Engineer",
+      "Hire Senior Software Engineer",
+      "Hire Senior Frontend Engineer",
+      "Hire Full-Stack Developer",
+      "Senior Frontend Developer",
       "React Developer",
       "Next.js Developer",
       "React Native Developer",
       "TypeScript Engineer",
+      "Node.js Developer",
       "AI Integration Engineer",
       "Enterprise Web Development",
       "Developer Tools Engineer",
@@ -57,9 +63,10 @@ export async function generateMetadata({
     ],
     alternates: { canonical, languages },
     openGraph: {
-      title: "Paurush Rai | Senior Frontend Engineer & Frontend Expert",
+      title:
+        "Paurush Rai | Senior Software Engineer | Full Stack & Frontend Expert",
       description:
-        "Senior Frontend Engineer & Frontend Expert specializing in AI integration, enterprise SaaS, and developer tools. 5+ years building scalable web platforms.",
+        "Senior Software Engineer & Frontend-Focused Full-Stack Developer specializing in full-stack web platforms, modern frontend architecture, AI integration, and developer tools.",
       url: canonical,
       siteName: "paurushrai.in",
       locale,
@@ -77,9 +84,10 @@ export async function generateMetadata({
       },
     },
     twitter: {
-      title: "Paurush Rai | Senior Frontend Engineer & Frontend Expert",
+      title:
+        "Paurush Rai | Senior Software Engineer | Full Stack & Frontend Expert",
       description:
-        "Senior Frontend Engineer & Frontend Expert specializing in AI integration, enterprise SaaS, and developer tools. 5+ years building scalable web platforms.",
+        "Senior Software Engineer & Frontend-Focused Full-Stack Developer specializing in full-stack web platforms, modern frontend architecture, AI integration, and developer tools.",
       card: "summary_large_image",
     },
     icons: {
@@ -161,9 +169,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               "@type": "Person",
               name: "Paurush Rai",
               url: BASE_URL,
-              jobTitle: "Senior Frontend Engineer",
+              jobTitle:
+                "Senior Software Engineer | Full Stack & Frontend Expert",
               description:
-                "Senior Frontend Engineer and Frontend Expert specializing in AI integration, enterprise SaaS platforms, and developer productivity tools.",
+                "Senior Software Engineer & Frontend-Focused Full-Stack Developer specializing in modern frontend architecture, AI integration, enterprise SaaS platforms, and developer productivity tools.",
               image: `${BASE_URL}/og.png`,
               sameAs: [
                 "https://github.com/paurushrai",
@@ -171,9 +180,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 "https://discord.com/users/paurushrai",
               ],
               knowsAbout: [
+                "Full-Stack Development",
+                "Frontend Architecture",
+                "Frontend-Focused Full-Stack Engineering",
+                "Senior Frontend Engineering",
                 "Product Engineering",
-                "Full-Stack Engineering",
-                "Frontend Development",
                 "AI Integration",
                 "React",
                 "Next.js",
@@ -187,13 +198,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               ],
               hasOccupation: {
                 "@type": "Occupation",
-                name: "Senior Frontend Engineer",
+                name: "Senior Software Engineer & Full-Stack Developer",
                 occupationLocation: {
                   "@type": "Country",
                   name: "India",
                 },
                 skills:
-                  "React, Next.js, TypeScript, Node.js, AI Integration, Full-Stack Development",
+                  "React, Next.js, TypeScript, Node.js, AI Integration, Full-Stack Development, Frontend Architecture",
               },
             }),
           }}

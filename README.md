@@ -1,7 +1,7 @@
 <div align="center">
     <a href="https://paurushrai.in"><h1 align="center">Paurush Rai - Personal Portfolio</h1></a>
 
-Senior Frontend Engineer — personal website and professional portfolio. Built for speed, performance, and multilingual support.
+Senior Software Engineer — personal website and professional portfolio. Built for speed, performance, and multilingual support.
 
 [![CI](https://github.com/paurushrai/portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/paurushrai/portfolio/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)

@@ -78,7 +78,7 @@ export default function OpengraphImage() {
             color: "#a1a1aa",
           }}
         >
-          Senior Frontend Engineer
+          Senior Software Engineer
         </div>
         <div
           style={{

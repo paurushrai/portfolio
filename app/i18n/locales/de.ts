@@ -11,7 +11,7 @@ export const de: Locale = {
   },
   home: {
     tagline: {
-      role: "Senior Frontend Engineer",
+      role: "Senior Software Engineer",
       detail: "Entwicklung von Produkten, Tools und Integrationen, die schnell geliefert werden und lange halten.",
     },
     openToWork: "Offen für Zusammenarbeit",
@@ -292,7 +292,7 @@ export const de: Locale = {
     title: "Über mich",
     subtitle: "Ein kleiner Hintergrund darüber, wer ich bin und was ich tue.",
     bio: [
-      "Ich bin Paurush Rai – ein Senior Frontend Engineer mit Sitz in Indien: ein Frontend-Kern mit Full-Stack-Reichweite und 5+ Jahren Erfahrung im Aufbau von Unternehmens-Webplattformen, KI-gesteuerten Anwendungen und Tools zur Entwicklerproduktivität. Meine Arbeit umfasst komplexe B2B-Dashboards, eine 1EdTech-zertifizierte LMS-Integration sowie benutzerdefinierte Jira- und VS-Code-Plugins.",
+      "Ich bin Paurush Rai – ein Senior Software Engineer mit Sitz in Indien: tiefe Full-Stack-Erfahrung und 5+ Jahren Erfahrung im Aufbau von Unternehmens-Webplattformen, KI-gesteuerten Anwendungen und Tools zur Entwicklerproduktivität. Meine Arbeit umfasst komplexe B2B-Dashboards, eine 1EdTech-zertifizierte LMS-Integration sowie benutzerdefinierte Jira- und VS-Code-Plugins.",
       "Ich lege großen Wert auf Leistung, saubere Architektur und das Ausliefern von Dingen, die wirklich wichtig sind. Ganz gleich, ob es darum geht, ein Greenfield-Franchise-Portal von Grund auf aufzubauen, KI-Interview-Workflows in Echtzeit zu entwickeln oder interne Tools zu entwickeln, die dem Unternehmen jährlich Tausende von Dollar einsparen – mein Fokus liegt immer auf Arbeit, die messbar etwas bewegt.",
       "Außerhalb der Arbeit starte ich meist ein Nebenprojekt, automatisiere einen mühsamen Arbeitsablauf oder greife nach einer Bibliothek, die ich noch nie zuvor angefasst habe – ich mag die Reibung, neue Tools in realen Kontexten zu erlernen."
     ],
@@ -329,7 +329,7 @@ export const de: Locale = {
     experience: [
       {
         company: "Testlify",
-        role: "Senior Frontend-Ingenieur",
+        role: "Senior Software-Ingenieur",
         location: "Mumbai, Indien (Remote)",
         period: "Januar 2025 – Heute",
         highlights: [
@@ -343,7 +343,7 @@ export const de: Locale = {
       },
       {
         company: "FuelBuddy",
-        role: "Frontend-Ingenieur",
+        role: "Software-Ingenieur",
         location: "Gurugram, Indien",
         period: "September 2023 – Dezember 2024",
         highlights: [
@@ -356,7 +356,7 @@ export const de: Locale = {
       },
       {
         company: "Modocosm",
-        role: "Frontend-Ingenieur",
+        role: "Software-Ingenieur",
         location: "New York City, USA (Remote)",
         period: "Juli 2021 – August 2023",
         highlights: [

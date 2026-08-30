@@ -10,15 +10,19 @@ export async function generateMetadata({
   const locale: AppLocale = isLocale(params.locale) ? params.locale : DEFAULT_LOCALE;
   const alternates = alternatesFor("/about", locale);
   return {
-    title: "About Paurush Rai | Senior Frontend Engineer",
-    description: "Meet Paurush Rai, Senior Frontend Engineer with 5+ years building enterprise SaaS, AI platforms, and developer tools. Based in India.",
+    title: "About Paurush Rai | Senior Software Engineer & Full-Stack Developer",
+    description: "Meet Paurush Rai, Senior Software Engineer & Frontend-Focused Full-Stack Developer with 5+ years building enterprise SaaS, AI platforms, and developer tools. Based in India.",
     keywords: [
-      "Senior Frontend Engineer",
-      "Frontend Expert",
-      "Hire Senior Frontend Engineer",
-      "Hire Senior Frontend Expert",
       "Senior Software Engineer",
+      "Senior Frontend Engineer",
       "Full-Stack Developer",
+      "Frontend-Focused Full Stack Developer",
+      "Frontend Expert",
+      "Expert Frontend Engineer",
+      "Senior Full-Stack Engineer",
+      "Hire Senior Software Engineer",
+      "Hire Senior Frontend Engineer",
+      "Hire Full-Stack Developer",
       "React Developer",
       "Next.js Developer",
       "React Native Developer",
@@ -31,8 +35,8 @@ export async function generateMetadata({
     ],
     alternates,
     openGraph: {
-      title: "About Paurush Rai | Senior Frontend Engineer",
-      description: "5+ years building enterprise SaaS, AI platforms, and developer tools. React, Next.js, TypeScript, Node.js specialist based in India.",
+      title: "About Paurush Rai | Senior Software Engineer & Full-Stack Developer",
+      description: "5+ years building enterprise SaaS, AI platforms, and developer tools. Full-stack TypeScript and frontend architecture specialist based in India.",
       url: alternates.canonical,
     },
   };
