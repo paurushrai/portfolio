@@ -45,4 +45,8 @@ next-env.d.ts
 .claude
 # Local Netlify folder
 .netlify
+
+# Docs and temporary notes
+docs/
 /docs
+*.docx
