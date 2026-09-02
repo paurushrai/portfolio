@@ -7,16 +7,50 @@ published: true
 company: Testlify
 ---
 
-[MetaNotes](https://app.metanotes.ai/) ist ein KI-Meeting-Assistent, der an Google Meet-, Teams- und Zoom-Anrufen teilnimmt und sie nach dem Meeting in Transkripte, Zusammenfassungen und Gesprächsanalysen verwandelt. Es ist ein öffentliches Produkt und ersetzte intern außerdem einen kostenpflichtigen Notiz-Dienst eines Drittanbieters. Ich habe das Frontend von Anfang bis Ende verantwortet.
+[MetaNotes](https://app.metanotes.ai/) ist ein KI-Meeting-Assistent, der an Google Meet-, Microsoft Teams- und Zoom-Anrufen teilnimmt und daraus Transkripte, Aufgaben und Gesprächszusammenfassungen erzeugt. Es ist ein öffentliches Produkt und ersetzte intern [Fireflies](https://fireflies.ai/) und [tl;dv](https://tldv.io/), deren Funktionen hinter teureren Tarifen versteckt waren und deren Speicherkosten mit der Zeit zu hoch für die Anforderungen des Teams wurden. Ich war der einzige Frontend-Engineer des Projekts und verantwortete Feature-Umfang, Deployments und Produktentscheidungen über die gesamte rund fünfmonatige Entwicklung hinweg.
 
 ![MetaNotes](/projects/metanotes/metanotes.gif)
 
 ## Was ich gebaut habe
 
-- **Transkript-Ansicht:** Das Frontend gebaut, das das Transkript eines Meetings rendert, sobald es verarbeitet ist, und es auch bei langen, über einstündigen Anrufen schnell und navigierbar hält.
-- **Das Dashboard:** Ein dichtes, aber nutzbares Dashboard gestaltet mit KI-Zusammenfassungen per Klick, Stimmungsanalyse und Themen-Tagging, sodass Nutzer aus einem vollständigen Transkript Wert ziehen können, ohne das Ganze zu lesen.
-- **Frontend-Verantwortung:** War der einzige Frontend-Engineer vom Start bis zur Produktion – habe das Repository und die Architektur aufgesetzt, die Entscheidungen zu State-Management und Struktur selbst getroffen und direkt mit dem Backend-Team gearbeitet, um deren KI-Orchestrierung in eine saubere, verlässliche Oberfläche zu übersetzen.
+- **Transkript-Oberfläche:** Einen Transkript-Viewer mit zeitstempelsynchronisierter Hervorhebung gebaut. Die aktive Zeile folgt der Wiedergabeposition des Videos, und ein Klick auf eine Zeile springt im Player zu diesem Moment.
+- **Meeting-Intelligence-Dashboard:** Interaktive Ansichten für KI-Zusammenfassungen, Aufgabenverfolgung, Stimmungsindikatoren und Themen-Tags entwickelt.
+- **Frontend-Architektur:** Einziger Frontend-Engineer von der ersten Idee bis zur Produktion. Feature-Umfang, Komponentenarchitektur, State-Management und Deployments lagen komplett in meiner Verantwortung. Die Backend-Pipeline ist asynchron und läuft über Webhooks und geplante Cron-Jobs: Transkripte und Zusammenfassungen werden erst nach Abschluss der Verarbeitung auf einmal abgerufen, nicht live gestreamt.
 
 ## Warum es wichtig war
 
-MetaNotes wird als öffentliches Produkt ausgeliefert und ermöglichte dem Unternehmen im internen Einsatz, seinen kostenpflichtigen Transkriptions-Anbieter fallenzulassen – eine Einsparung von rund **24.000 $ pro Jahr**. So oder so nimmt es den Menschen das manuelle Mitschreiben ab und liefert Zusammenfassungen und Erkenntnisse direkt nach einem Anruf.
+MetaNotes wurde als öffentliches SaaS-Produkt eingeführt und wird intern von **über 200 Testlify-Mitarbeitenden** für Meeting-Aufzeichnungen und Kundengespräche genutzt, wodurch Fireflies und tl;dv ersetzt wurden. Das eliminierte **24.000 US-Dollar an jährlichen Betriebskosten**, die zuvor an diese Anbieter gezahlt wurden.
+
+<CaseStudy summary="Vollständige technische Fallstudie lesen →">
+
+## Allein gebaut, Verantwortung von Anfang bis Ende
+
+Ich war der einzige Frontend-Engineer bei MetaNotes, und die Verantwortung ging über die Oberfläche hinaus. Feature-Umfang, Deployments und tägliche Produktentscheidungen lagen ebenfalls bei mir. Vom ersten Commit bis zum internen Launch vergingen rund 5 Monate.
+
+## Warum Transkripte erst nach dem Meeting erscheinen, nicht währenddessen
+
+MetaNotes streamt den Transkripttext nicht, während der Bot im Anruf ist. Während der Aufnahme zeigt die Oberfläche nur ein Statusabzeichen (Capturing/Paused) mit Steuerelementen zum Pausieren, Fortsetzen und Stoppen. Die Verarbeitung läuft über den Webhook von [Attendee](https://attendee.dev/) (die Meeting-Bot-API, die dem Anruf beitritt und Medien aufzeichnet) und eine Reihe geplanter Cron-Jobs: Transkription und Zusammenfassung über OpenAI laufen asynchron nach Ende des Anrufs, und das Frontend ruft das fertige Transkript, die Zusammenfassung und die Aufgaben in einem einzigen Server-Action-Aufruf ab.
+
+Angesichts eines fünfmonatigen Alleingangs, der auch Feature-Umfang, Deployments und Produktentscheidungen umfasste, war Live-Streaming seinen Aufwand nicht wert. Es hätte eine WebSocket-Verbindung zum Verwalten, den Abgleich unvollständiger Transkripte und das Handling von Reconnects bedeutet, alles für eine Funktion (das Transkript in Echtzeit entstehen zu sehen), die Nutzer gar nicht wirklich brauchten. Asynchrone Verarbeitung nach dem Anruf liefert dasselbe Transkript, dieselbe Zusammenfassung und dieselben Aufgaben mit deutlich weniger beweglichen Teilen, deshalb wurde genau das ausgeliefert.
+
+## Zeitstempelsynchronisierte Transkript-Hervorhebung
+
+Eine einfache bidirektionale Verknüpfung zwischen Videoplayer und Transkriptliste: Ein `timeupdate`-Listener verfolgt die Wiedergabeposition, ein Scan über das Transkript-Array findet die aktuell aktive Zeile und hebt sie hervor, und ein Klick auf eine Zeile springt im Player zu diesem Zeitstempel. Bei typischer Meeting-Länge braucht das weder eine virtualisierte Liste noch eine dedizierte Sync-Bibliothek. Eines von beidem einzusetzen würde bedeuten, ein Problem zu lösen, das die Daten noch gar nicht haben.
+
+## Datenmodell und Skalierung
+
+- Das Transkript wird als einzelnes JSON-Blob pro Konversation gespeichert, ohne Aufteilung in Chunks oder Paginierung auf Datenbankebene.
+- Konversations- und Kalenderlisten werden mit 10 bis 20 Einträgen pro Seite paginiert.
+- Zusammenfassungsanfragen an OpenAI sind auf 800 Ausgabe-Tokens pro Anfrage begrenzt.
+
+Das funktioniert beim aktuellen Meeting-Volumen und der aktuellen Länge gut. Die Transkriptspalte mit einem einzelnen Blob und die lineare Suche für die Hervorhebung sind die beiden Dinge, die ich zuerst überdenken würde, wenn eines von beiden um eine Größenordnung wächst. Bekannte Kompromisse, keine blinden Flecken.
+
+## Selbst bauen oder einkaufen
+
+Testlify zahlte für Fireflies und tl;dv, aber beide sperrten wichtige Funktionen hinter teureren Tarifen und wurden mit wachsendem Speicherbedarf für aufgezeichnete Meetings immer teurer. Die Eigenentwicklung beseitigte beide Einschränkungen; nach der internen Einführung bei über 200 Mitarbeitenden für Meeting-Aufzeichnungen und Kundengespräche sparte das die 24.000 US-Dollar jährlich, die zuvor an diese Anbieter gingen.
+
+## Stack
+
+[Next.js](https://nextjs.org/) 16 / [React](https://react.dev/) 19 App Router, TypeScript, [Zustand](https://github.com/pmndrs/zustand) für Client-State (mit localStorage-Persistenz), [Clerk](https://clerk.com/) für Auth, [Radix](https://www.radix-ui.com/) + [Tailwind](https://tailwindcss.com/) für die Oberfläche, [Vidstack](https://vidstack.io/) für den Aufnahmeplayer, [Attendee](https://attendee.dev/) als Meeting-Bot-API für die Aufzeichnung auf Zoom/Meet/Teams.
+
+</CaseStudy>
