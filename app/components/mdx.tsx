@@ -1,12 +1,56 @@
 import type { MDXComponents } from "mdx/types";
+import { Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useMDXComponent } from "next-contentlayer2/hooks";
+import { useState } from "react";
 
 function clsx(...args: unknown[]): string {
 	return args.filter(Boolean).join(" ");
 }
+
+// Native <details> can't animate its open/close height smoothly across
+// browsers, so authors write <CaseStudy summary="..."> in MDX instead of raw
+// <details>/<summary> HTML (which the MDX pipeline renders as literal DOM
+// elements, bypassing this components map entirely). This is a controlled
+// disclosure using a CSS grid-row transition.
+function CaseStudy({
+	summary,
+	className,
+	children,
+}: {
+	summary: string;
+	className?: string;
+	children?: React.ReactNode;
+}) {
+	const [open, setOpen] = useState(false);
+
+	return (
+		<div className={clsx("mdx-details", className)}>
+			<button
+				type="button"
+				className="mdx-details-summary"
+				aria-expanded={open}
+				onClick={() => setOpen((value) => !value)}
+			>
+				<span>{summary}</span>
+				<Plus
+					className="mdx-details-icon"
+					style={{ transform: open ? "rotate(45deg)" : "rotate(0deg)" }}
+					aria-hidden="true"
+				/>
+			</button>
+			<div className="mdx-details-panel" data-open={open}>
+				<div className="mdx-details-panel-inner">
+					<div className="mdx-details-content">{children}</div>
+				</div>
+			</div>
+		</div>
+	);
+}
+
 const components: MDXComponents = {
+	CaseStudy,
 	h1: ({ className, children, ...props }) => (
 		<h1
 			className={clsx(
