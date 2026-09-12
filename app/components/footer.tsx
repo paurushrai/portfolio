@@ -1,17 +1,18 @@
 "use client";
 
-import { Github, LinkedinIcon, Mail, MessageCircle, Send } from "lucide-react";
+import { Mail, MessageCircle, Send } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { stripLocale } from "../i18n/config";
 import { useLanguage } from "../i18n/LanguageContext";
 import { SOCIAL_LINKS } from "../lib/social-links";
+import { GithubIcon, LinkedinIcon } from "./icons";
 
 const DETAIL_PAGE_RE = /^\/(projects|blogs)\/.+/;
 
 const ICONS: Record<(typeof SOCIAL_LINKS)[number]["id"], React.ReactNode> = {
   linkedin: <LinkedinIcon className="w-4 h-4" aria-hidden="true" />,
-  github: <Github className="w-4 h-4" aria-hidden="true" />,
+  github: <GithubIcon className="w-4 h-4" aria-hidden="true" />,
   email: <Mail className="w-4 h-4" aria-hidden="true" />,
   discord: <MessageCircle className="w-4 h-4" aria-hidden="true" />,
 };

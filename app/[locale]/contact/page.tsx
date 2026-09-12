@@ -1,5 +1,6 @@
 "use client";
-import { Github, LinkedinIcon, Mail, MessageCircle, Send, CheckCircle, AlertCircle } from "lucide-react";
+import { Mail, MessageCircle, Send, CheckCircle, AlertCircle } from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "../../components/icons";
 import Link from "next/link";
 import type React from "react";
 import { useState } from "react";
@@ -27,7 +28,7 @@ const socials = [
     handle: "paurushrai",
   },
   {
-    icon: <Github size={20} />,
+    icon: <GithubIcon size={20} />,
     href: "https://github.com/paurushrai",
     label: "Github",
     handle: "paurushrai",
