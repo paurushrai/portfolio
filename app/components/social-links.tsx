@@ -2,7 +2,10 @@ import { Mail, MessageCircle } from "lucide-react";
 import { SOCIAL_LINKS } from "../lib/social-links";
 import { GithubIcon, LinkedinIcon } from "./icons";
 
-const SOCIAL_ICONS: Record<(typeof SOCIAL_LINKS)[number]["id"], React.ReactNode> = {
+const SOCIAL_ICONS: Record<
+  (typeof SOCIAL_LINKS)[number]["id"],
+  React.ReactNode
+> = {
   linkedin: <LinkedinIcon className="w-4 h-4" aria-hidden="true" />,
   github: <GithubIcon className="w-4 h-4" aria-hidden="true" />,
   email: <Mail className="w-4 h-4" aria-hidden="true" />,
@@ -14,7 +17,10 @@ type SocialLinksProps = {
   tone?: "muted" | "bright";
 };
 
-export function SocialLinks({ className = "", tone = "muted" }: SocialLinksProps) {
+export function SocialLinks({
+  className = "",
+  tone = "muted",
+}: SocialLinksProps) {
   const linkClassName =
     tone === "bright"
       ? "text-zinc-400 duration-200 hover:text-white hover:scale-110"
