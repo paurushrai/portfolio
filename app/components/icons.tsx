@@ -18,6 +18,7 @@ function BrandIcon({ size = 24, children, ...props }: BrandIconProps & { childre
       strokeWidth={2}
       strokeLinecap="round"
       strokeLinejoin="round"
+      aria-hidden="true"
       {...props}
     >
       {children}
