@@ -14,12 +14,49 @@ At Testlify, engineering time tracking relied on an expensive third-party applic
 
 ## What I built
 
-- **Atlassian Marketplace integration:** Built against Jira REST and Connect APIs, adhering to enterprise security guidelines and scoped OAuth permissions.
-- **Embedded Jira interface:** Designed a responsive interface embedded inside Jira issue panels, offering one-click time logging, calendar views, and daily/weekly timesheet submissions without context switching.
-- **Reporting and analytics:** Developed interactive team velocity dashboards and automated CSV/PDF export capabilities for sprint accounting and client invoicing.
+- **Atlassian Marketplace integration:** Built on Atlassian Forge, Atlassian's sandboxed serverless app runtime, with tightly scoped, least-privilege Jira read/write permissions rather than a self-hosted backend.
+- **Embedded Jira interface:** A time-logging panel embedded directly in Jira issues for quick entries, plus a full dashboard app for calendar views and daily/weekly timesheet submissions, without context switching.
+- **Reporting and analytics:** Report views combining Jira and internal time-log data for sprint accounting and project cost tracking.
 
 ![Timesheets by AppForest - Time Logging](/projects/timesheets-appforest/time-logging.gif)
 
 ## Why it mattered
 
 Published on the Atlassian Marketplace for external customers, the plugin also replaced our legacy time-tracking software internally, saving **$9,000+ in annual licensing costs** and giving leadership real-time visibility into engineering allocations.
+
+<CaseStudy summary="Read the full technical case study →">
+
+## Team & Ownership
+
+I led frontend development on a small team: 397 commits from 4 contributors since mid-2024, still actively maintained today. This is a multi-year, multi-person product, not a solo build, and my role was frontend-scoped rather than full-stack ownership.
+
+## Forge, Not Connect
+
+The app runs on Atlassian Forge, a sandboxed serverless runtime, not the older Connect framework (a self-hosted app with its own backend, communicating with Jira over iframes and webhooks). Forge means no server to run or patch for the Jira-facing surface: Atlassian hosts the execution environment, enforces the permission scopes declared in the manifest, and imposes serverless-style constraints (Node 22 on ARM64, 1024MB memory, bounded execution time per invocation) rather than leaving that infrastructure to us.
+
+## Two Surfaces for Two Different Intents
+
+The product deliberately splits into two UIs instead of one. An issue-context panel handles the common case: log time against the ticket you're already looking at, in one click, without leaving it. A separate full dashboard app (calendar views, reports, admin settings, cost tracking) handles planning and oversight, the tasks that need a real workspace rather than a sidebar panel. Each surface is built for the job it does rather than forcing one interface to do both.
+
+## A Real Cross-Project Integration
+
+This isn't an isolated app. Resolver functions explicitly ingest and clear time-entry suggestions sourced from Google Calendar, Outlook Calendar, and the companion [AppForest Timetracker VS Code extension](/projects/appforest-timetracker-vscode), so a developer's coding activity in VS Code can surface here as a suggested timesheet entry instead of requiring manual re-entry.
+
+## Data Model & Scale
+
+- Forge permission scopes are narrow and explicit (`read:jira-work`, `write:jira-work`, `manage:jira-configuration`, plus user/token reads), not a broad catch-all grant.
+- UI components use Atlassian's own design tokens (`@atlaskit`), so the plugin visually matches native Jira instead of reading as a bolted-on third party.
+- The dashboard app is Vue 3 with Pinia for state, 46 components, separate from the React-based issue-context panel; two frontend stacks in one product, not one shared codebase artificially stretched across both surfaces.
+- The Forge function's memory allocation was raised from 256MB to 1024MB after a real performance problem, not set to 1024MB as an initial default.
+
+Known limitation, honestly stated: this repo doesn't contain CSV/PDF export or a dedicated team-velocity dashboard, despite being described that way previously. A separate remote backend service handles some server-side operations and wasn't available to inspect locally, so those features may live there; this case study describes what's verifiable in this repo rather than assume either way.
+
+## Build vs. Buy
+
+Forge over a self-hosted Connect app: Atlassian's runtime and permission model replace infrastructure this team would otherwise build and secure itself. Native Atlassian design tokens over a custom UI kit: the plugin inherits Jira's own look and interaction patterns instead of maintaining a parallel design system just for this app.
+
+## Stack
+
+Atlassian [Forge](https://developer.atlassian.com/platform/forge/) (Node 22, ARM64), [React](https://react.dev/) 18 for the issue-context panel, [Vue](https://vuejs.org/) 3 with [Pinia](https://pinia.vuejs.org/) for the dashboard app, [Atlassian Design System](https://atlassian.design/) tokens and primitives, deployed via the [Atlassian Marketplace](https://marketplace.atlassian.com/).
+
+</CaseStudy>
