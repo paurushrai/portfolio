@@ -1,24 +1,24 @@
 ---
 title: "Testlify LTI 1.3 Advantage 插件"
-description: "一个通过 1EdTech 认证的 LTI Advantage（1.3）集成，让讲师能把 Testlify 测评布置到某门课程，并在自己的 LMS 里查看成绩——自定义 OIDC/JWT 握手、名册同步和成绩回传，用 Next.js 14 构建。"
+description: "一个通过 1EdTech 认证的 LTI Advantage（1.3）集成，让讲师能把 Testlify 测评布置到某门课程，并在自己的 LMS 里查看成绩 -  - 自定义 OIDC/JWT 握手、名册同步和成绩回传，用 Next.js 14 构建。"
 url: https://lti.testlify.com/
 date: 2026-03-01
 published: true
 company: Testlify
 ---
 
-Canvas、Moodle、Blackboard 这类学习管理系统（LMS）是学校和企业培训团队日常运转的地方。要让 Testlify 的测评能在这些系统里用起来，我们需要一座安全、符合标准的桥梁。我作为唯一的全栈工程师构建了 Testlify LTI 插件——它让讲师能把用 Testlify 创建的测评布置给某门课程里的学员，并跟踪他们的成绩，全都在 LMS 里完成。
+Canvas、Moodle、Blackboard 这类学习管理系统（LMS）是学校和企业培训团队日常运转的地方。要让 Testlify 的测评能在这些系统里用起来，我们需要一座安全、符合标准的桥梁。我作为唯一的全栈工程师构建了 Testlify LTI 插件 -  - 它让讲师能把用 Testlify 创建的测评布置给某门课程里的学员，并跟踪他们的成绩，全都在 LMS 里完成。
 
 ![Testlify LTI 1.3 插件演示](/projects/testlify-lti-plugin/plugin.gif)
 
-这个集成已经**[由 1EdTech 正式认证](https://site.imsglobal.org/certifications/testlify-inc/testlify#cert_pane_nid_626241)**，符合 LTI Advantage（v1.3）——Names and Role Provisioning Services 2.0 和 Assignment & Grade Services 2.0。一致性测试由 1EdTech 来跑，所以这些不是自说自话：有一个独立机构核实了实现符合规范。
+这个集成已经**[由 1EdTech 正式认证](https://site.imsglobal.org/certifications/testlify-inc/testlify#cert_pane_nid_626241)**，符合 LTI Advantage（v1.3） -  - Names and Role Provisioning Services 2.0 和 Assignment & Grade Services 2.0。一致性测试由 1EdTech 来跑，所以这些不是自说自话：有一个独立机构核实了实现符合规范。
 
 ## 我做了什么
 
-- **自定义的 LTI 1.3 实现：** 我没有依赖某个笨重的第三方 LTI 库，而是在 Next.js 14 里直接实现了规范——OpenID Connect 握手、JWT 签名校验，以及在 LMS 和 Testlify 之间建立信任的 JWKS 公钥端点。
-- **布置与跟踪流程：** 构建了整个工作流背后的 API 层——用 Deep Linking 让讲师选一个 Testlify 测评、作为作业放进课程里，用 Names and Role Provisioning Services（NRPS）拉取选了这门课的学员，用 Assignment & Grade Services（AGS）把每个学员的成绩推回 LMS 成绩册，让讲师在自己本来就用的地方看到结果。
+- **自定义的 LTI 1.3 实现：** 我没有依赖某个笨重的第三方 LTI 库，而是在 Next.js 14 里直接实现了规范 -  - OpenID Connect 握手、JWT 签名校验，以及在 LMS 和 Testlify 之间建立信任的 JWKS 公钥端点。
+- **布置与跟踪流程：** 构建了整个工作流背后的 API 层 -  - 用 Deep Linking 让讲师选一个 Testlify 测评、作为作业放进课程里，用 Names and Role Provisioning Services（NRPS）拉取选了这门课的学员，用 Assignment & Grade Services（AGS）把每个学员的成绩推回 LMS 成绩册，让讲师在自己本来就用的地方看到结果。
 - **全栈系统：** 在一个应用里把多租户 API 路由和一个 React 18 仪表盘结合起来，为每个平台的配置设计了 MongoDB 数据结构，并用 Docker 模拟隔离的 LMS 环境来做本地测试。
 
 ## 为什么它有意义
 
-一个符合标准的 LTI 集成把 Testlify 打开到了高等教育和企业培训市场——而我做的这个插件后来通过了 1EdTech 的一致性测试、拿到了认证。讲师可以把测评布置给一整门课，并自动在成绩册里拿回成绩——不用导出名册、也不用手动抄结果——而这类摩擦通常正是拖住 LMS 采用的原因。
+一个符合标准的 LTI 集成把 Testlify 打开到了高等教育和企业培训市场 -  - 而我做的这个插件后来通过了 1EdTech 的一致性测试、拿到了认证。讲师可以把测评布置给一整门课，并自动在成绩册里拿回成绩 -  - 不用导出名册、也不用手动抄结果 -  - 而这类摩擦通常正是拖住 LMS 采用的原因。

@@ -10,10 +10,10 @@ A Testlify funciona como um conjunto de quatro aplicações separadas, e cada um
 
 ## O que construí
 
-- **A decisão:** Argumentei a favor de consolidar a UI numa única biblioteca em vez de deixar cada aplicação manter a sua própria cópia — pesando o custo inicial contra a perda de sincronia e o esforço duplicado que já estávamos pagando. Uma vez acordado, assumi a construção.
+- **A decisão:** Argumentei a favor de consolidar a UI numa única biblioteca em vez de deixar cada aplicação manter a sua própria cópia, pesando o custo inicial contra a perda de sincronia e o esforço duplicado que já estávamos pagando. Uma vez acordado, assumi a construção.
 - **Sem estado por design:** Mantive os componentes sem estado e apenas de apresentação, para que não carreguem nenhuma lógica específica de aplicação e se encaixem de forma limpa em qualquer um dos quatro produtos. Cada aplicação conecta seus próprios dados e comportamento; a biblioteca cuida apenas da aparência e da sensação das coisas.
-- **Publicada como um pacote npm privado:** Publiquei-a como um pacote npm privado versionado, para que cada aplicação puxe os mesmos componentes através de uma dependência normal e receba correções e melhorias com um incremento de versão — sem copiar e colar, sem forks.
+- **Publicada como um pacote npm privado:** Publiquei-a como um pacote npm privado versionado, para que cada aplicação puxe os mesmos componentes através de uma dependência normal e receba correções e melhorias com um incremento de versão, sem copiar e colar, sem forks.
 
 ## Por que importou
 
-Construir a UI uma vez e reutilizá-la em todas as quatro aplicações reduziu o tempo de entrega de funcionalidades em cerca de **30%** — as equipes deixaram de reconstruir os mesmos elementos básicos e passaram a compor a partir de um conjunto compartilhado. Também deu a todo o conjunto uma aparência consistente, já que uma mudança na biblioteca chega a todos os lugares de uma só vez, em vez de ser reaplicada à mão em quatro lugares.
+Construir a UI uma vez e reutilizá-la em todas as quatro aplicações reduziu o tempo de entrega de funcionalidades em cerca de **30%**, as equipes deixaram de reconstruir os mesmos elementos básicos e passaram a compor a partir de um conjunto compartilhado. Também deu a todo o conjunto uma aparência consistente, já que uma mudança na biblioteca chega a todos os lugares de uma só vez, em vez de ser reaplicada à mão em quatro lugares.

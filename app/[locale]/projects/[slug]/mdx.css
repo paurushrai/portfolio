@@ -34,3 +34,63 @@
   [data-rehype-pretty-code-title] + pre {
     @apply mt-0;
   }
+
+  .mdx-details {
+    @apply mt-10 overflow-hidden rounded-xl border border-zinc-300 shadow-sm;
+  }
+  .mdx-details-summary {
+    @apply flex w-full cursor-pointer select-none items-center gap-2 bg-zinc-900 px-5 py-4 text-left font-semibold text-zinc-100 duration-200 hover:bg-zinc-800;
+  }
+  .mdx-details-icon {
+    @apply ml-auto h-4 w-4 shrink-0;
+    transition: transform 300ms ease;
+  }
+  .mdx-details-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 350ms ease;
+  }
+  .mdx-details-panel[data-open="true"] {
+    grid-template-rows: 1fr;
+  }
+  .mdx-details-panel-inner {
+    min-height: 0;
+    overflow: hidden;
+  }
+  .mdx-details-content {
+    @apply border-t border-zinc-300 bg-white px-5 pt-6 pb-6;
+  }
+  .mdx-details-content > :first-child {
+    @apply mt-0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mdx-details-panel,
+    .mdx-details-icon {
+      transition: none;
+    }
+  }
+
+  /* Subtle entrance + hover motion for project case-study media. */
+  .mdx img {
+    animation: mdx-image-in 600ms ease-out both;
+    transition: transform 400ms ease;
+  }
+  .mdx img:hover {
+    transform: scale(1.015);
+  }
+  @keyframes mdx-image-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px) scale(0.99);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mdx img {
+      animation: none;
+      transition: none;
+    }
+  }

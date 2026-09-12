@@ -4,13 +4,16 @@ export const de: Locale = {
   nav: {
     about: "Um",
     projects: "Projekte",
-    articles: "Artikel",
+    blogs: "Blog",
     services: "Dienstleistungen",
     contact: "Kontakt",
     privacy: "Datenschutz",
   },
   home: {
-    tagline: "Senior Product Engineer – Entwicklung von Produkten, Tools und Integrationen, die schnell geliefert werden und lange halten.",
+    tagline: {
+      role: "Senior Software Engineer",
+      detail: "Entwicklung von Produkten, Tools und Integrationen, die schnell geliefert werden und lange halten.",
+    },
     openToWork: "Offen für Zusammenarbeit",
     resume: "Lebenslauf"
   },
@@ -24,14 +27,17 @@ export const de: Locale = {
     associatedWith: "Assoziiert mit",
     inProgress: "In Arbeit",
     all: "Alle",
-    personal: "PersÃ¶nlich"
+    personal: "Persönlich",
+    moreTitle: "Weitere Projekte",
+    viewAll: "Alle ansehen",
   },
-  articles: {
-    title: "Artikel",
-    subtitle:
-      "Gedanken über Engineering, Tools und Produktentwicklung — veröffentlicht auf Medium.",
-    viewAll: "Alle auf Medium ansehen",
-    empty: "Noch keine Artikel — schau bald wieder vorbei.",
+  blogs: {
+    title: "Blog",
+    subtitle: "Notizen zu Engineering, Tools und dem Bau von Dingen, die Bestand haben.",
+    empty: "Noch keine Beiträge, schau bald wieder vorbei.",
+    minRead: "Min. Lesezeit",
+    moreTitle: "Mehr aus dem Blog",
+    viewAll: "Alle ansehen",
   },
   services: {
     badge: "Verfügbar für Freiberufler",
@@ -286,7 +292,7 @@ export const de: Locale = {
     title: "Über mich",
     subtitle: "Ein kleiner Hintergrund darüber, wer ich bin und was ich tue.",
     bio: [
-      "Ich bin Paurush Rai – ein Senior Product Engineer mit Sitz in Indien: ein Frontend-Kern mit Full-Stack-Reichweite und 5+ Jahren Erfahrung im Aufbau von Unternehmens-Webplattformen, KI-gesteuerten Anwendungen und Tools zur Entwicklerproduktivität. Meine Arbeit umfasst komplexe B2B-Dashboards, eine 1EdTech-zertifizierte LMS-Integration sowie benutzerdefinierte Jira- und VS-Code-Plugins.",
+      "Ich bin Paurush Rai – ein Senior Software Engineer mit Sitz in Indien: tiefe Full-Stack-Erfahrung und 5+ Jahren Erfahrung im Aufbau von Unternehmens-Webplattformen, KI-gesteuerten Anwendungen und Tools zur Entwicklerproduktivität. Meine Arbeit umfasst komplexe B2B-Dashboards, eine 1EdTech-zertifizierte LMS-Integration sowie benutzerdefinierte Jira- und VS-Code-Plugins.",
       "Ich lege großen Wert auf Leistung, saubere Architektur und das Ausliefern von Dingen, die wirklich wichtig sind. Ganz gleich, ob es darum geht, ein Greenfield-Franchise-Portal von Grund auf aufzubauen, KI-Interview-Workflows in Echtzeit zu entwickeln oder interne Tools zu entwickeln, die dem Unternehmen jährlich Tausende von Dollar einsparen – mein Fokus liegt immer auf Arbeit, die messbar etwas bewegt.",
       "Außerhalb der Arbeit starte ich meist ein Nebenprojekt, automatisiere einen mühsamen Arbeitsablauf oder greife nach einer Bibliothek, die ich noch nie zuvor angefasst habe – ich mag die Reibung, neue Tools in realen Kontexten zu erlernen."
     ],
@@ -323,40 +329,40 @@ export const de: Locale = {
     experience: [
       {
         company: "Testlify",
-        role: "Leitender Software-Ingenieur",
+        role: "Senior Software-Ingenieur",
         location: "Mumbai, Indien (Remote)",
         period: "Januar 2025 – Heute",
         highlights: [
-          "Entschied mich für eine Jamstack-Architektur anstelle von WordPress für eine Marketing-Website mit über 11.000 Seiten, um durch schnellere Ladezeiten die Absprungrate zu senken und die Inhaltsauslieferung über das CMS zu beschleunigen; voraussichtliche Reduzierung der Seitenladezeiten um 60 %.",
+          "Leitete die Architekturentscheidung, WordPress durch Jamstack für eine Marketing-Website mit über 11.000 Seiten zu ersetzen, mit dem Ziel, Ladezeiten zu verkürzen und Absprungraten durch schnellere Inhaltsauslieferung zu senken.",
           "Konzipierte und entwickelte eine 1EdTech-zertifizierte LTI 1.3-Integration, die Testlify mit LMS-Plattformen wie Canvas und Moodle verbindet und es Dozenten ermöglicht, Assessments zuzuweisen und Noten zurück in das Notenbuch zu synchronisieren.",
           "Konzipierte das Frontend für einen KI-gestützten Meeting-Notizierer in Zusammenarbeit mit KI-Ingenieuren und Designern und eliminierte damit jährliche Betriebskosten in Höhe von 24.000 US-Dollar.",
           "Lieferte eine unternehmensweit und von externen Kunden genutzte Zeiterfassungsplattform aus, die ein Drittanbieter-Tool ersetzte und jährliche Lizenzkosten von über 9.000 US-Dollar einsparte.",
-          "Entwickelte eine teamweite VS-Code-Erweiterung, die Jira-Zeiten aus Git-Branches automatisch in Appforest Timesheets protokolliert und den manuellen Erfassungsaufwand um 70 % reduziert.",
-          "Entschied mich für eine zustandslose Komponentenbibliothek anstelle von Duplizierung pro App, um eine konsistente, wiederverwendbare Benutzeroberfläche über eine Suite von 4 Anwendungen hinweg zu gewährleisten; als privates npm-Paket veröffentlicht, wodurch die Feature-Auslieferung um 30 % verkürzt wurde."
+          "Entwickelte eine VS-Code-Erweiterung, die die Zeiterfassung in Appforest durch Erkennung von Jira-Tickets aus dem Git-Branch-Kontext automatisiert und den manuellen Erfassungsaufwand reduziert.",
+          "Führte eine zustandslose Komponentenbibliothek ein, die von 4 Anwendungen gemeinsam genutzt und als privates npm-Paket veröffentlicht wurde, wodurch UI-Duplizierungen pro App beseitigt wurden."
         ]
       },
       {
         company: "FuelBuddy",
-        role: "Softwareentwickler",
+        role: "Software-Ingenieur",
         location: "Gurugram, Indien",
         period: "September 2023 – Dezember 2024",
         highlights: [
-          "Entwickelte von Grund auf eine Kiosk-Anwendung gemeinsam mit den Embedded-, Backend- und Ops-Teams und verkürzte die Zeit für die Kraftstoffausgabe um 60 %.",
+          "Entwickelte von Grund auf eine Kiosk-App für neue Kraftstoffausgabe-Hardware, die auf über 50 Tankfahrzeugen eingesetzt wird und täglich über 1.000 Transaktionen über Echtzeit-IoT-Daten verarbeitet, wodurch Lieferberechnungen und Rechnungsstellung automatisiert wurden.",
           "Migrierte eine Progressive Web App zu React Native und erreichte in 8 Wochen 100 % Funktionsparität über 14 Benutzerflüsse hinweg.",
-          "Standardisierte TanStack Query über mehrere Produkte hinweg, brachte die Frontend-Teams auf eine einheitliche Server-State-Architektur und reduzierte Fehler durch veraltete Daten um 50 %.",
-          "Etablierte Playwright als E2E-Framework des Teams und senkte den manuellen QA-Aufwand um 40 %.",
-          "Betreute sieben Entwickler durch Code-Reviews und Pair-Programming und verkürzte die Einarbeitungszeit neuer Mitarbeiter um 25 %."
+          "Standardisierte TanStack Query über 5 Produkte hinweg, brachte 4 Frontend-Teams auf eine einheitliche Server-State-Architektur und beseitigte Fehler durch veraltete Daten.",
+          "Führte Vitest für Unit-Tests und Playwright für E2E-Tests ein, wodurch über 16.000 Testfälle automatisiert und der manuelle QA-Aufwand pro Release gesenkt wurden.",
+          "Betreute 8 Entwickler durch Code-Reviews, Pairing und Onboarding-Unterstützung und förderte so eine schnellere Einarbeitung und stärkere Coding-Standards im gesamten Team."
         ]
       },
       {
         company: "Modocosm",
-        role: "Softwareentwickler",
+        role: "Software-Ingenieur",
         location: "New York City, USA (Remote)",
         period: "Juli 2021 – August 2023",
         highlights: [
-          "Analysierte die Interna von Directus durch Reverse Engineering, um die Bereitstellung von PostgreSQL-Schemata zu optimieren, und verkürzte die Bootstrap-Zeit für neue Projekte um über 70 %.",
-          "Entwickelte ein Social-Analytics-Dashboard, das plattformübergreifende Videometriken für einen Nachrichtenmedienkunden konsolidierte und den Reporting-Aufwand um 60 % reduzierte.",
-          "Modernisierte 7 ältere Websites mit Astro.js und einem Headless CMS und verdoppelte die Geschwindigkeit der Inhaltsveröffentlichung.",
+          "Analysierte das Schema-Schreibverhalten von Directus durch Reverse Engineering und ersetzte manuelle UI-Einrichtungen durch SQL-Skripte, wodurch das Schema-Setup von 3 Stunden auf 5 Minuten verkürzt wurde.",
+          "Entwickelte ein Social-Analytics-Dashboard zur automatisierten plattformübergreifenden Video-Performance-Verfolgung für einen Nachrichtenmedienkunden, wodurch über 15 wöchentliche manuelle Tabellenberichte überflüssig wurden.",
+          "Modernisierte 7 ältere Websites mit Astro.js und Directus CMS und verdoppelte die Geschwindigkeit der Inhaltsveröffentlichung.",
           "Lieferte und optimierte 4 CMS-gesteuerte responsive Websites, die in Produktion gingen und bis heute live sind."
         ]
       }
@@ -365,7 +371,7 @@ export const de: Locale = {
   contact: {
     title: "Kontakt",
     heading: "Kontakt aufnehmen",
-    subtitle: "Haben Sie ein Projekt, eine Frage oder möchten Sie einfach Hallo sagen? Schreiben Sie mir eine Nachricht — ich antworte innerhalb eines Tages.",
+    subtitle: "Haben Sie ein Projekt, eine Frage oder möchten Sie einfach Hallo sagen? Schreiben Sie mir eine Nachricht: ich antworte innerhalb eines Tages.",
     form: {
       name: "Name",
       email: "E-Mail",
@@ -378,7 +384,7 @@ export const de: Locale = {
     },
     success: {
       title: "Nachricht gesendet",
-      body: "Danke für Ihre Nachricht — ich antworte innerhalb von 24 Stunden.",
+      body: "Danke für Ihre Nachricht, ich antworte innerhalb von 24 Stunden.",
       again: "Weitere Nachricht senden",
     },
     error: {

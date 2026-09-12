@@ -1,6 +1,6 @@
 ---
-title: "Portfólio Pessoal — paurushrai.in"
-description: "O próprio site do portfólio — uma build em Next.js 14 com suporte a 12 idiomas, um proxy de analytics próprio que sobrevive a bloqueadores de anúncios e uma nota 99/100 no Lighthouse. Open source."
+title: "Portfólio Pessoal: paurushrai.in"
+description: "O próprio site do portfólio: uma build em Next.js 14 com suporte a 12 idiomas, um proxy de analytics próprio que sobrevive a bloqueadores de anúncios e uma nota 99/100 no Lighthouse. Open source."
 url: https://paurushrai.in
 repository: paurushrai/portfolio
 date: 2026-04-01
@@ -8,15 +8,15 @@ published: true
 company: Projeto Pessoal
 ---
 
-Este é o site em que você está agora. É um projeto Next.js 14 construído e mantido como um pequeno produto em vez de um template — o código é público, então os detalhes abaixo são todos verificáveis. Ele pontua 99/100 no desktop e 97/100 no mobile no Lighthouse, com 100 em Acessibilidade e SEO.
+Este é o site em que você está agora. É um projeto Next.js 14 construído e mantido como um pequeno produto em vez de um template, o código é público, então os detalhes abaixo são todos verificáveis. Ele pontua 99/100 no desktop e 97/100 no mobile no Lighthouse, com 100 em Acessibilidade e SEO.
 
-![Portfólio Pessoal — paurushrai.in](/projects/portfolio/portfolio.gif)
+![Portfólio Pessoal: paurushrai.in](/projects/portfolio/portfolio.gif)
 
 ## O que tem nele
 
 - **12 idiomas:** O site está disponível em inglês, alemão, espanhol, francês, hindi, italiano, japonês, coreano, português, russo, turco e chinês. Um contexto de idioma tipado e um mapa de traduções conduzem o seletor, que lembra sua escolha e atualiza o atributo `lang` da página para que leitores de tela e mecanismos de busca leiam o idioma correto. Todo texto está coberto, inclusive o formulário de contato.
 
-- **Um fundo de partículas que se mantém rápido:** Os pontos que seguem o cursor são desenhados em um canvas. Uma versão inicial engasgava porque media a posição do canvas a cada movimento do mouse, forçando um recálculo constante de layout. Guardar essa medição em cache removeu a lentidão, e carregar as partículas de forma preguiçosa as mantém fora do primeiro paint — o que é boa parte do que levou a nota de desktop a 99.
+- **Um fundo de partículas que se mantém rápido:** Os pontos que seguem o cursor são desenhados em um canvas. Uma versão inicial engasgava porque media a posição do canvas a cada movimento do mouse, forçando um recálculo constante de layout. Guardar essa medição em cache removeu a lentidão, e carregar as partículas de forma preguiçosa as mantém fora do primeiro paint, o que é boa parte do que levou a nota de desktop a 99.
 
 - **Analytics que os bloqueadores de anúncios não quebram silenciosamente:** Scripts de analytics carregados de domínios de terceiros são descartados silenciosamente por bloqueadores como uBlock e Brave, perdendo 20–40% dos eventos sem nenhum aviso. Rotear o analytics pelo próprio domínio do site mantém os dados em primeira mão e intactos. O Umami cuida das estatísticas amigáveis à privacidade; o Google Tag Manager cuida do resto.
 
@@ -24,8 +24,8 @@ Este é o site em que você está agora. É um projeto Next.js 14 construído e 
 
 - **Acessibilidade:** Um link de pular para o conteúdo, contornos de foco visíveis para quem usa teclado, contraste de texto que passa no nível AA, animações decorativas escondidas dos leitores de tela e um menu de idiomas construído como markup navegável de verdade em vez de uma div estilizada.
 
-- **Conteúdo é só Markdown:** Adicionar um projeto significa colocar um arquivo Markdown na pasta de idioma certa — ele aparece no próximo deploy, totalmente tipado, sem mudanças de código. As visualizações de página são contadas por uma pequena função serverless que faz hash dos IPs em vez de armazená-los, então não há cookies nem dados pessoais.
+- **Conteúdo é só Markdown:** Adicionar um projeto significa colocar um arquivo Markdown na pasta de idioma certa, ele aparece no próximo deploy, totalmente tipado, sem mudanças de código. As visualizações de página são contadas por uma pequena função serverless que faz hash dos IPs em vez de armazená-los, então não há cookies nem dados pessoais.
 
 ## Por que importa
 
-O site também serve como um exemplo funcional de como o resto desses projetos é construído — desempenho, analytics que respeita a privacidade, suporte a múltiplos idiomas e acessibilidade, tudo em um lugar que você pode inspecionar. Como o repositório é aberto, o código pode ser conferido contra a descrição.
+O site também serve como um exemplo funcional de como o resto desses projetos é construído, desempenho, analytics que respeita a privacidade, suporte a múltiplos idiomas e acessibilidade, tudo em um lugar que você pode inspecionar. Como o repositório é aberto, o código pode ser conferido contra a descrição.

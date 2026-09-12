@@ -1,20 +1,20 @@
 ---
 title: "FuelBuddy Hindistan - Sürücü Teslimat Uygulaması"
-description: "FuelBuddy'nin sürücü uygulaması için uçtan uca özellikler geliştirdim — çevrimdışına dayanıklı iş akışları, canlı konum takibi, sahaya hazır bir arayüz ve arkalarındaki CRUD API'lerini Hasura GraphQL üzerinde."
+description: "FuelBuddy'nin sürücü uygulaması için uçtan uca özellikler geliştirdim: çevrimdışına dayanıklı iş akışları, canlı konum takibi, sahaya hazır bir arayüz ve arkalarındaki CRUD API'lerini Hasura GraphQL üzerinde."
 url: https://play.google.com/store/apps/details?id=in.fuelbuddy.driver
 date: 2024-04-01
 published: true
 company: FuelBuddy
 ---
 
-[FuelBuddy Sürücü Uygulaması](https://play.google.com/store/apps/details?id=in.fuelbuddy.driver), sürücülerin müşterilere gerçekten yakıt teslim etmek için kullandığı şey. Sürücüler için geliştirme yapmak kendine özgü bir problem: ekranın doğrudan güneş ışığında okunabilir olması, dokunuşların hoşgörülü olması ve ağın yolda herhangi bir noktada kesilebilmesi gerekiyor. Tam olarak bu koşullara yönelik uçtan uca bir dizi özellik geliştirdim — frontend ve arkalarındaki veri API'leri.
+[FuelBuddy Sürücü Uygulaması](https://play.google.com/store/apps/details?id=in.fuelbuddy.driver), sürücülerin müşterilere gerçekten yakıt teslim etmek için kullandığı şey. Sürücüler için geliştirme yapmak kendine özgü bir problem: ekranın doğrudan güneş ışığında okunabilir olması, dokunuşların hoşgörülü olması ve ağın yolda herhangi bir noktada kesilebilmesi gerekiyor. Tam olarak bu koşullara yönelik uçtan uca bir dizi özellik geliştirdim, frontend ve arkalarındaki veri API'leri.
 
 ## Ne geliştirdim
 
 - **Çevrimdışına dayanıklı arayüz:** Sürücüler düzenli olarak sinyal kaybettiği için rota ve sipariş verilerini yerel olarak önbelleğe aldım ve ölü bölgelerde çalışmaya devam edebilmelerini sağladım. Uygulama donmak yerine değişiklikleri kuyruğa alıyor ve bağlantı geri geldiğinde geri senkronize ediyor.
 - **Konum ve haritalar:** Canlı GPS takibi ve harita rotalaması için frontend'i üstlendim; sık konum güncellemelerini ve harita yeniden çizimlerini verimli tutarak uzun bir vardiya boyunca pili tüketmemelerini sağladım.
-- **Sahaya uygun deneyim:** Birkaç operasyonel özelliği uçtan uca sahiplendim ve bunları gerçek koşullar için tasarladım — yüksek kontrastlı düzenler, büyük dokunma hedefleri ve kısa formlar; böylece sürücüler bir teslimatı hızlı ve güvenli bir şekilde kaydedebiliyor.
-- **Arkalarındaki API'ler:** Bu özelliklerin okuyup yazdığı CRUD API'lerini Hasura'nın GraphQL motoru üzerinde geliştirdim; böylece bir özelliği uçtan uca teslim edebildim — çevrimdışı kuyruk, sipariş verisi ve teslimat kaydı hepsi benim sahiplendiğim uç noktalarla konuşuyor.
+- **Sahaya uygun deneyim:** Birkaç operasyonel özelliği uçtan uca sahiplendim ve bunları gerçek koşullar için tasarladım, yüksek kontrastlı düzenler, büyük dokunma hedefleri ve kısa formlar; böylece sürücüler bir teslimatı hızlı ve güvenli bir şekilde kaydedebiliyor.
+- **Arkalarındaki API'ler:** Bu özelliklerin okuyup yazdığı CRUD API'lerini Hasura'nın GraphQL motoru üzerinde geliştirdim; böylece bir özelliği uçtan uca teslim edebildim, çevrimdışı kuyruk, sipariş verisi ve teslimat kaydı hepsi benim sahiplendiğim uç noktalarla konuşuyor.
 
 ## Neden önemliydi
 
