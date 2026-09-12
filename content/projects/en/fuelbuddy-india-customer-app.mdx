@@ -31,15 +31,19 @@ CRUD APIs run on Hasura, consumed through `urql` rather than Apollo, with GraphQ
 
 ## Location and Payments, Not Just CRUD
 
-Delivery tracking pulls in `react-native-maps`, a dedicated geolocation service, and Turf.js for the actual geospatial math (distance, bounds, routing calculations), not just a marker on a map. Payment goes through Easebuzz, an India-specific gateway, integrated as a vendored local package rather than a registry dependency. Firebase covers both auth and analytics.
+Delivery tracking pulls in `react-native-maps`, a dedicated geolocation service, and Turf.js for the actual geospatial math (distance, bounds, routing calculations), not just a marker on a map. Payment runs through two independent gateways: Easebuzz, integrated as a vendored local package rather than a registry dependency, and Axis Bank, whose API requires every request signed with AES-256-CBC (PBKDF2-derived key) and HMAC-SHA512, done in a hand-written native Android module (`NdpsAESLibrary`, bridged into JS via `NativeModules`) rather than a JS crypto library, since a payment gateway's signing requirement isn't something the RN layer can satisfy generically. Firebase covers both auth and analytics.
+
+## Reports, Not Just a Table
+
+The reports flow renders delivery and business data as charts through Victory Native, then exports the same data to CSV: encoded with `json2csv`, written to disk through Android's Scoped Storage API (`react-native-scoped-storage`, required on Android 10+ once apps lost direct filesystem access), and handed off through the native share sheet.
 
 ## Data Model & Scale
 
 - 13-14 distinct flow containers (address, assets, business, delivery, home, location, order, pickup, reports, settings, support, user, wallet) organize the app's navigation, consistent with the "14 user flows" figure.
-- Native Android and iOS project structures confirm this is a fully compiled app, not a wrapped webview.
+- A dedicated native Android module owns bank-grade request signing; everything else in the app stays in JS/TypeScript on top of React Native's bridge.
 
 ## Stack
 
-[React Native](https://reactnative.dev/), [urql](https://commerce.nearform.com/open-source/urql/) with [GraphQL Code Generator](https://the-guild.dev/graphql/codegen), [Zustand](https://zustand.docs.pmnd.rs/) for state, [MMKV](https://github.com/mrousavy/react-native-mmkv) for storage, [Zod](https://zod.dev/) for validation, [react-native-maps](https://github.com/react-native-maps/react-native-maps), [Turf.js](https://turfjs.org/) for geospatial calculations, [Firebase](https://firebase.google.com/) for auth and analytics, on [Hasura](https://hasura.io/) GraphQL.
+[React Native](https://reactnative.dev/), [urql](https://commerce.nearform.com/open-source/urql/) with [GraphQL Code Generator](https://the-guild.dev/graphql/codegen), [Zustand](https://zustand.docs.pmnd.rs/) for state, [MMKV](https://github.com/mrousavy/react-native-mmkv) for storage, [Zod](https://zod.dev/) for validation, [react-native-maps](https://github.com/react-native-maps/react-native-maps), [Turf.js](https://turfjs.org/) for geospatial calculations, Easebuzz and Axis Bank for payments (the latter behind a custom native AES/HMAC signing module), [Victory Native](https://formidable.com/open-source/victory/docs/native/) for reporting charts, [Firebase](https://firebase.google.com/) for auth and analytics, on [Hasura](https://hasura.io/) GraphQL.
 
 </CaseStudy>
