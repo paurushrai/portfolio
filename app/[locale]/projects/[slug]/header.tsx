@@ -47,20 +47,20 @@ export const Header: React.FC<Props> = ({ project }) => {
   return (
     <header
       ref={ref}
-      className="relative isolate overflow-hidden bg-linear-to-tl from-black via-zinc-900 to-black"
+      className="relative z-20 isolate overflow-hidden bg-linear-to-tl from-black via-zinc-900 to-black"
     >
       <div
-        className={`fixed inset-x-0 top-0 z-50 backdrop-blur-sm lg:backdrop-blur-none duration-200 border-b lg:bg-transparent ${
+        className={`fixed inset-x-0 top-0 z-50 backdrop-blur-sm duration-200 border-b ${
           isIntersecting
             ? "bg-zinc-900/0 border-transparent"
-            : "bg-white/10  border-zinc-200 lg:border-transparent"
+            : "bg-zinc-900/50 border-zinc-800"
         }`}
       >
         <div className="container flex flex-row-reverse items-center justify-between p-6 mx-auto">
           <div className="flex justify-between gap-8">
             <span
               className={`duration-200 text-sm font-medium flex items-center ${
-                isIntersecting ? "text-zinc-400" : "text-zinc-600"
+                isIntersecting ? "text-zinc-400" : "text-zinc-100"
               }`}
             >
               {project.company && project.company !== "Personal Project"
@@ -75,7 +75,7 @@ export const Header: React.FC<Props> = ({ project }) => {
             className={`duration-200 hover:font-medium ${
               isIntersecting
                 ? " text-zinc-400 hover:text-zinc-100"
-                : "text-zinc-600 hover:text-zinc-900"
+                : "text-zinc-100 hover:text-white"
             } `}
           >
             <ArrowLeft className="w-6 h-6" aria-hidden="true" />
