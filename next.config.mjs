@@ -7,7 +7,10 @@ import { withContentlayer } from "next-contentlayer2";
 const ANALYTICS_HOSTS = [
 	"https://www.googletagmanager.com",
 	"https://www.google-analytics.com",
-	"https://www.clarity.ms",
+	// Clarity spreads its script, beacon, and cookie-sync traffic across
+	// several subdomains (scripts./u./c.clarity.ms); wildcard rather than
+	// enumerate them one CSP violation at a time.
+	"https://*.clarity.ms",
 ];
 
 const CONTENT_SECURITY_POLICY = [
