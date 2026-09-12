@@ -1,6 +1,6 @@
 ---
 title: "Personal Portfolio - paurushrai.in"
-description: "Next.js 14 portfolio featuring 12-language localization, custom canvas particle animations, a first-party analytics proxy, and a 99/100 desktop Lighthouse score."
+description: "Next.js 16 portfolio featuring 12-language localization, custom canvas particle animations, a first-party analytics proxy, and a 100/100 Lighthouse score for performance, accessibility, and SEO."
 url: https://paurushrai.in
 repository: paurushrai/portfolio
 date: 2026-04-01
@@ -9,7 +9,7 @@ company: Personal Project
 coverImage: /projects/portfolio/portfolio.gif
 ---
 
-This portfolio is built with Next.js 14 App Router and maintained as an open-source product. The codebase is publicly accessible on GitHub with verified Lighthouse scores of 99/100 on desktop and 97/100 on mobile, along with 100/100 on Accessibility and SEO.
+This portfolio is built with Next.js 16 App Router and maintained as an open-source product. The codebase is publicly accessible on GitHub with a 100/100 Lighthouse score for Performance, Accessibility, and SEO.
 
 ![Personal Portfolio - paurushrai.in](/projects/portfolio/portfolio.gif)
 
@@ -17,10 +17,50 @@ This portfolio is built with Next.js 14 App Router and maintained as an open-sou
 
 - **12-language localization:** Full support for English, German, Spanish, French, Hindi, Italian, Japanese, Korean, Portuguese, Russian, Turkish, and Chinese. Driven by a type-safe language context and translation dictionary, updating the HTML lang tag and canonical URLs dynamically for international SEO.
 - **Optimized canvas particle system:** Interactive particle background drawn on HTML5 canvas. Cached coordinate calculations and lazy loading ensure 60fps animations without impacting initial page paint.
-- **First-party analytics proxy:** Custom serverless proxy routing for privacy-respecting analytics (Umami and Tag Manager), preventing data loss from browser ad-blockers while preserving visitor privacy.
-- **Technical SEO and accessibility:** Structured JSON-LD schema markup for Person and Projects, per-locale canonical and alternate links, automated OpenGraph cards, skip-to-content navigation, and full keyboard accessibility.
+- **First-party analytics proxy:** Next.js rewrites route Umami's script and API calls through the same origin (`/um/*`), so ad-blockers that target known third-party analytics domains don't strip it, with no custom serverless function to maintain.
+- **Technical SEO and accessibility:** Structured JSON-LD schema markup (Person, WebSite, SoftwareApplication, BlogPosting, BreadcrumbList), per-locale canonical and alternate links, automated OpenGraph cards, skip-to-content navigation, and full keyboard accessibility.
 - **Type-safe Contentlayer pipeline:** Projects and blog posts are authored in localized MDX files, validated at build time, and statically rendered for fast performance.
 
 ## Why it mattered
 
 The site serves as a live, verifiable demonstration of engineering standards: strict TypeScript typing, comprehensive multi-language support, web performance optimization, and accessible UI design.
+
+<CaseStudy summary="Read the full technical case study →">
+
+## Built Solo, Still Evolving
+
+I'm the only person who has ever committed to this repo, 188 commits since March 2026. It doesn't have a single ship date; it's a living site I keep iterating on as I add projects, fix bugs, and refine the UI, this exact case study included.
+
+## A Live CSP Bug, Found by Actually Running Lighthouse
+
+Rather than assert a Lighthouse score, I ran a fresh audit against a production build. Best Practices came back at 73/100, not from a minor nitpick but because Microsoft Clarity was failing to load entirely. The Content Security Policy allowlisted `www.clarity.ms`, but Clarity's script actually loads from `scripts.clarity.ms` and posts its analytics beacon to `u.clarity.ms`, neither of which was allowlisted. Adding each subdomain as Chrome reported the next violation would have been a losing game, so the CSP entry became a `https://*.clarity.ms` wildcard instead, fixing script loading and beacon delivery in one change.
+
+## Why Best Practices Still Isn't 100
+
+After the fix, Best Practices sits at 77, and closing that gap further isn't worth it. The remaining loss is entirely Microsoft Clarity's own third-party cookies, used for its cross-site ad-conversion sync with Bing. Dropping Clarity would close the gap, but it would also drop the session replays and heatmaps it provides. Keeping it is a deliberate tradeoff, not a blind spot.
+
+## Analytics Proxy Is Config, Not Code
+
+The site's own copy used to describe this as a "custom serverless proxy." It isn't: it's two `rewrites()` entries in `next.config.mjs` mapping `/um/script.js` and `/um/api/send` to Umami's real hosts. Requests look same-origin to the browser, so ad-blockers that target known third-party analytics domains leave them alone, and there's no server code to maintain. Boring on purpose: a declarative platform feature does the whole job.
+
+## Translation Type Safety, Enforced at Compile Time
+
+12 locale files, roughly 400 lines each, all typed against the shape of `en.ts`'s inferred `Locale` type. A locale file missing a key `en.ts` has, or carrying an extra one, fails `tsc`. A missing translation is a build error caught before deploy, not a blank string a visitor finds first.
+
+## Data Model & Scale
+
+- Content (projects, blog posts) is authored as per-locale MDX files, validated and statically generated at build time by Contentlayer2; the current build produces 288 generated documents and statically renders 200+ localized project and blog pages.
+- The translation dictionary is 12 locale files, type-checked against one shared shape, not a runtime-loaded JSON blob per locale.
+- The contact form's rate limiter is in-memory, per serverless instance: 5 requests per 10 minutes per IP, added after a self-audit found the endpoint had a spam honeypot and nothing else. It doesn't share state across cold starts or multiple instances; a distributed store (Netlify Blobs, Redis) would be the next step if abuse ever got coordinated faster than a single instance sees it.
+
+These are the two things I'd revisit first if traffic or abuse patterns grew past what a single-instance, in-memory model can absorb. Known tradeoffs, not blind spots.
+
+## Build vs. Buy
+
+No i18n framework (`next-intl`, `next-i18next`): locale is a dynamic route segment (`[locale]`) plus a React context, with the default locale left unprefixed at the root instead of forcing every URL through `/en/`. No headless CMS: content is MDX in the repo itself, versioned with the code that renders it, validated at build time by Contentlayer2 instead of trusted at runtime.
+
+## Stack
+
+[Next.js](https://nextjs.org/) 16 / [React](https://react.dev/) 19 App Router, [TypeScript](https://www.typescriptlang.org/), [Tailwind CSS](https://tailwindcss.com/) 4, [Contentlayer2](https://github.com/timlrx/contentlayer2) for the MDX pipeline, [Biome](https://biomejs.dev/) for lint and format, [Vitest](https://vitest.dev/) for tests, [Framer Motion](https://motion.dev/) for UI animation, [Resend](https://resend.com/) for the contact form, [Umami](https://umami.is/) and [Microsoft Clarity](https://clarity.microsoft.com/) for privacy-respecting analytics, deployed on [Netlify](https://www.netlify.com/).
+
+</CaseStudy>
