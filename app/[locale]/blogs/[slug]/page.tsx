@@ -16,10 +16,10 @@ const BASE_URL = "https://paurushrai.in";
 const AUTHOR_NAME = "Paurush Rai";
 
 type Props = {
-  params: {
+  params: Promise<{
     locale: string;
     slug: string;
-  };
+  }>;
 };
 
 export function generateStaticParams() {
@@ -27,7 +27,8 @@ export function generateStaticParams() {
   return Array.from(slugs, (slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const locale: AppLocale = isLocale(params.locale) ? params.locale : DEFAULT_LOCALE;
   const blog =
     allBlogs.find((b) => b.slug === params.slug && b.locale === locale) ??
@@ -69,7 +70,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function BlogPostPage({ params }: Props) {
+export default async function BlogPostPage(props: Props) {
+  const params = await props.params;
   const slug = params?.slug;
   const blogLocales = allBlogs.filter((blog) => blog.slug === slug);
 

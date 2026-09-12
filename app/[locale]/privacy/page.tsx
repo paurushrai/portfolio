@@ -10,11 +10,12 @@ import {
   localizedPath,
 } from "../../i18n/config";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { locale: string };
-}): Promise<Metadata> {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ locale: string }>;
+  }
+): Promise<Metadata> {
+  const params = await props.params;
   const locale: AppLocale = isLocale(params.locale) ? params.locale : DEFAULT_LOCALE;
   return {
     title: "Privacy Policy",
@@ -28,7 +29,8 @@ const LAST_UPDATED = "May 1, 2025";
 const CONTACT_EMAIL = "paurushrai96@gmail.com";
 const BASE_URL = "https://paurushrai.in";
 
-export default function PrivacyPage({ params }: { params: { locale: string } }) {
+export default async function PrivacyPage(props: { params: Promise<{ locale: string }> }) {
+  const params = await props.params;
   const locale: AppLocale = isLocale(params.locale) ? params.locale : DEFAULT_LOCALE;
   return (
     <div className="min-h-screen bg-linear-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0">

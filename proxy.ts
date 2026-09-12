@@ -9,7 +9,7 @@ const NON_DEFAULT_LOCALES = LOCALES.filter((locale) => locale !== DEFAULT_LOCALE
  * - `/en` or `/en/...`   → redirected to the canonical unprefixed URL
  * - everything else      → rewritten to `/en/...` internally (URL unchanged)
  */
-export function middleware(req: NextRequest): NextResponse {
+export function proxy(req: NextRequest): NextResponse {
 	const { pathname } = req.nextUrl;
 
 	// Canonicalize the default locale to its unprefixed form.
