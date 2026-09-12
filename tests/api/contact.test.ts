@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import handler from "../../pages/api/contact";
+import handler, { __resetRateLimitForTests } from "../../pages/api/contact";
 
 type MockRes = NextApiResponse & {
   statusCode: number;
@@ -43,6 +43,7 @@ const validBody = {
 
 describe("contact handler", () => {
   beforeEach(() => {
+    __resetRateLimitForTests();
     process.env.RESEND_API_KEY = "test-key";
     vi.stubGlobal(
       "fetch",
@@ -87,7 +88,10 @@ describe("contact handler", () => {
 
   it("should reject missing required fields with 422", async () => {
     const res = createRes();
-    await handler(createReq({ body: { name: "", email: "", message: "" } }), res);
+    await handler(
+      createReq({ body: { name: "", email: "", message: "" } }),
+      res,
+    );
     expect(res.statusCode).toBe(422);
     expect(fetch).not.toHaveBeenCalled();
   });
@@ -104,7 +108,10 @@ describe("contact handler", () => {
 
   it("should reject an invalid email with 422", async () => {
     const res = createRes();
-    await handler(createReq({ body: { ...validBody, email: "not-an-email" } }), res);
+    await handler(
+      createReq({ body: { ...validBody, email: "not-an-email" } }),
+      res,
+    );
     expect(res.statusCode).toBe(422);
     expect(fetch).not.toHaveBeenCalled();
   });
@@ -126,5 +133,15 @@ describe("contact handler", () => {
     const res = createRes();
     await handler(createReq({ body: validBody }), res);
     expect(res.statusCode).toBe(502);
+  });
+
+  it("should rate-limit an IP after too many requests with 429", async () => {
+    const req = createReq({ body: validBody });
+    for (let i = 0; i < 5; i++) {
+      await handler(req, createRes());
+    }
+    const res = createRes();
+    await handler(req, res);
+    expect(res.statusCode).toBe(429);
   });
 });
