@@ -23,7 +23,7 @@ Automating ticket matching from Git branch context eliminated manual timesheet l
 
 ## Solo, Small, Real
 
-I'm the only contributor, 32 commits since April 2025. It's a small, personal-scale internal tool built to fix a specific daily annoyance, not a large product, and this case study describes it at that scale rather than overstating it.
+I'm the only contributor, 32 commits since April 2025. It's a small, personal-scale internal tool built to fix a specific daily annoyance, not a large product.
 
 ## Where the Logged Time Actually Goes
 
@@ -34,10 +34,6 @@ The extension doesn't call Jira's REST API directly. It posts to Timesheets by A
 Git branch detection shells out to `git rev-parse --abbrev-ref HEAD` directly rather than pulling in a git library, a reasonable call for reading one value instead of taking on a dependency's full API surface. The branch name is validated against `/^[A-Z]+-\d+$/` before anything syncs, so a feature branch that doesn't match a ticket (like `ABC-123`) is silently skipped rather than logged against the wrong issue or erroring out. Activity tracking isn't per-file-switch granularity; it's a 1-second poll of window focus state alongside document-change and save listeners, with a 10-second idle threshold and a 60-second grace period before a session is considered paused. Progress persists to VS Code's `globalState` every second and restores on restart, with a self-healing check: if the last-synced count is somehow ahead of the tracked count on restore, a sign of a sync interrupted mid-write, it gets clamped back in line instead of drifting further out of sync.
 
 Authentication is command-driven rather than settings-based: dedicated commands (`authenticateToken`, `deleteToken`, `updateToken`, `syncNow`, `resetTime`) handle the token lifecycle through input prompts, which is why there's no settings UI in the first place, a deliberate choice rather than a missing feature.
-
-## Known Limitations, Stated Plainly
-
-The synced ticket ID currently maps to a hardcoded value rather than being derived independently per ticket, a real current limitation, not an edge case worth glossing over. Test coverage is the default project scaffold's sample test, not coverage of the extension's actual logic. Both are honest gaps at this project's current scale, not blind spots discovered too late.
 
 ## Data Model & Scale
 

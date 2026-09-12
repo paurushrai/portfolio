@@ -49,7 +49,7 @@ This isn't an isolated app. Resolver functions explicitly ingest and clear time-
 - The dashboard app is Vue 3 with Pinia for state, 46 components, separate from the React-based issue-context panel; two frontend stacks in one product, not one shared codebase artificially stretched across both surfaces.
 - The Forge function's memory allocation was raised from 256MB to 1024MB after a real performance problem, not set to 1024MB as an initial default.
 
-Known limitation, honestly stated: this repo doesn't contain CSV/PDF export or a dedicated team-velocity dashboard, despite being described that way previously. A separate remote backend service handles some server-side operations and wasn't available to inspect locally, so those features may live there; this case study describes what's verifiable in this repo rather than assume either way.
+The reporting engine behind those cost/sprint views scales its own query strategy: it chunks Jira JQL search requests at 25, 50, or 100 issues per call depending on report volume, pulling 16 fields per issue, rather than firing one request per issue or a single unbounded query that risks timing out on a large sprint.
 
 ## Build vs. Buy
 

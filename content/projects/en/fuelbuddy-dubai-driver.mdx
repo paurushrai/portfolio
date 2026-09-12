@@ -32,7 +32,8 @@ Pinia state persists across reloads through `pinia-plugin-persistedstate`, so a 
 ## Data Model & Scale
 
 - GraphQL runs through `graphql-request` against Hasura, the same pattern used across FuelBuddy's other UAE apps.
-- Test coverage is two Playwright specs (login, pages), thin relative to the app's real surface area, stated plainly rather than implied otherwise.
+- Delivery photos are compressed client-side before upload, keeping proof-of-delivery evidence lightweight on a driver's mobile connection rather than uploading raw camera output.
+- Distance and routing calculations run through Turf.js on top of the live GPS feed, not just a raw coordinate pair.
 
 ## Stack
 

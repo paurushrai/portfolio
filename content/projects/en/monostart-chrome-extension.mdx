@@ -54,7 +54,7 @@ Image and embed widgets accept arbitrary HTML, sanitized through DOMPurify befor
 - chrome.storage.local's roughly 10MB cap is lifted via the `unlimitedStorage` permission, needed once images moved off that quota entirely.
 - 216 tests across 25 files (Vitest, jsdom, fake-indexeddb) cover this storage layer directly, not just the UI on top of it.
 
-Known tradeoff, not a blind spot: local-only storage means no sync across machines or profiles, on purpose, since three Chrome profiles each getting their own independent, isolated dashboard for free is the same mechanism that rules out a shared account system. Search-bar autocomplete also calls Google's public suggest API over the network, the one place MonoStart isn't fully offline. Everything the user actually creates stays local; a stateless autocomplete request isn't the same category as tracking, but it is a network call, and it's disclosed here rather than glossed over.
+Local-only storage is a deliberate tradeoff, not an oversight: it means no sync across machines or profiles, but it's the same mechanism that gives three Chrome profiles their own independent, isolated dashboard for free, without a shared account system to build and secure. Search-bar autocomplete is the one network call in the whole app, hitting Google's public suggest API the same way Chrome's own address bar does; everything the user actually creates stays local.
 
 ## Build vs. Buy
 

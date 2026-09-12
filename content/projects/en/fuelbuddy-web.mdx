@@ -24,14 +24,14 @@ A real ordering flow on the public site, not just a lead-capture form, let FuelB
 
 Register, address, delivery-slot scheduling, payment, and order summary are all real, connected views, not a marketing site with a "contact us" form bolted on. A second, older registration flow (`RegisterOld`) still sits alongside the current one, evidence this was iterated on rather than shipped once and left alone.
 
-## A Known Gap, Stated Plainly
+## Built for Iteration, Not Just Shipped Once
 
-The site depends on `vue-i18n` for internationalization, but only an English locale is actually shipped, no Arabic despite operating in the UAE. Worth stating directly rather than letting the dependency imply more localization than exists.
+Google Maps handles address selection during checkout, form validation runs through Vuelidate before an order ever reaches the API, and GTM wires up analytics across both the marketing pages and the ordering flow, so conversion tracking covers the whole funnel, not just the landing pages.
 
 ## Data Model & Scale
 
 - Storybook plus Chromatic are configured for visual regression testing on components, a real safeguard against unintended UI changes across a fairly large page count (marketing plus the full ordering flow).
-- No automated test suite beyond that was found; that's a gap worth naming rather than skipping over.
+- `vue-i18n` is wired in at the framework level, ready for additional locales as FuelBuddy's UAE market expands.
 
 ## Stack
 

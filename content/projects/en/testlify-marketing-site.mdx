@@ -24,7 +24,7 @@ Moving an 11,000+ page site off WordPress to a cache-first architecture cuts pag
 
 ## Ownership, Still in Progress
 
-I led the architectural decision to move off WordPress. It's not a solo build: over 2,500 commits from roughly 15-20 contributors since July 2026, active as recently as this month. The migration itself is still in progress; DNS cutover to production hadn't happened as of the last status check, and this case study describes the architecture as built, not a finished rollout.
+I led the architectural decision to move off WordPress. It's not a solo build: over 2,500 commits from roughly 15-20 contributors since July 2026, active as recently as this month, with DNS cutover to production the one remaining step as of the last status check.
 
 ## Why This Isn't Classic Jamstack
 
@@ -47,8 +47,6 @@ Under Cache Components' streaming, Next's automatic `notFound()` can't commit a 
 - 11,000+ pages come from multiple content types (category, author, hr-tools, hr-guide, leadership, test-library) crossed with every supported locale via `next-intl`, not one flat content source.
 - Every production WordPress URL is checked against this project's output in a dedicated audit (`docs/audits/url-parity-with-production.md`): a URL WordPress serves today that this project 404s is lost traffic, not an acceptable gap.
 - Unit tests (Vitest) cover sitemap generation, catalog seed fallback, and related-content rotation; Playwright covers end-to-end flows.
-
-Known limitation, not a blind spot: DNS cutover to production is the one step not yet done as of the last status check. Everything above describes the built architecture, not a completed migration.
 
 ## Build vs. Buy
 

@@ -22,7 +22,7 @@ Fleet tracking made dispatch logistics more predictable and reduced truck idle t
 
 ## What "Live" Actually Means Here
 
-The truck map updates on a polling interval, not a GraphQL subscription, even though the same client is wired up for subscriptions elsewhere in the app (`graphql-ws` is configured and used, just not for this particular map). Worth stating plainly rather than implying push-based real-time tracking that isn't what's running.
+The truck map updates on a polling interval, not a GraphQL subscription, even though the same client is wired up for subscriptions elsewhere in the app (`graphql-ws` is configured and used, just not for this particular map).
 
 ## Assignment and Inventory, in More Detail
 
@@ -30,8 +30,8 @@ Driver assignment covers single, bulk, reassignment, and unassignment flows, not
 
 ## Data Model & Scale
 
-- urql's normalized cache plus a Firebase-token auth layer that refreshes automatically on 401/expired-token responses.
-- Test coverage exists via Playwright, though the earlier "optimized for weak cellular connections" framing wasn't backed by any retry or offline-queueing code found in this repo, so it's dropped here rather than repeated without evidence.
+- urql's normalized cache plus a Firebase-token auth layer that refreshes automatically on 401/expired-token responses, so an expired session doesn't interrupt a dispatcher mid-task.
+- Playwright covers login and order management end to end, the two flows every other screen in the app depends on.
 
 ## Stack
 

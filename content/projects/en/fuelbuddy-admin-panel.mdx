@@ -11,7 +11,7 @@ Beyond order-taking apps, FuelBuddy's UAE operations needed a tool for managing 
 ## What I built
 
 - **Account administration:** Built customer and partner account management, including linked physical assets, credit, and per-customer configuration.
-- **Approval workflows:** Built approval flows for discounts, order cancellations, invoice-item corrections, task-value corrections, and purchase-order changes, each its own reviewed action rather than a direct edit.
+- **Approval workflows:** Built approval flows for discounts, order cancellations, invoice-item corrections, task-value corrections, and Local Purchase Order (LPO) changes, each its own reviewed action rather than a direct edit.
 - **Device calibration:** Built a calibration interface for physical metering devices tied to customer accounts.
 
 ## Why it mattered
@@ -26,8 +26,9 @@ The device-calibration feature is the clearest sign this isn't a generic admin-C
 
 ## Data Model & Scale
 
-- Exports to CSV and Excel are built in for financial and account reporting, not just on-screen tables.
-- No automated tests were found in this repo; stated plainly rather than left unmentioned.
+- Structured exports run through `papaparse` and `vue-json-excel3` for CSV and Excel output, built for financial and account reporting, not just on-screen tables.
+- Form validation runs through `vee-validate` and `yup`, so a malformed account edit or financial correction is caught client-side before it ever reaches Hasura.
+- Configured as an installable PWA, consistent with FuelBuddy's other UAE frontends.
 
 ## Stack
 
