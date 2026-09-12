@@ -44,6 +44,8 @@ const SECURITY_HEADERS = [
 const nextConfig = {
 	pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
 	output: "standalone",
+	// `next dev` otherwise writes an agent-rules block into CLAUDE.md on every run.
+	agentRules: false,
 	async headers() {
 		return [{ source: "/:path*", headers: SECURITY_HEADERS }];
 	},
@@ -58,12 +60,6 @@ const nextConfig = {
 				destination: "https://api-gateway.umami.dev/api/send",
 			},
 		];
-	},
-	webpack: (config) => {
-		config.infrastructureLogging = {
-			level: "error",
-		};
-		return config;
 	},
 };
 

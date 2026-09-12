@@ -15,10 +15,10 @@ import { RelatedProjects } from "./RelatedProjects";
 const BASE_URL = "https://paurushrai.in";
 
 type Props = {
-  params: {
+  params: Promise<{
     locale: string;
     slug: string;
-  };
+  }>;
 };
 
 export function generateStaticParams() {
@@ -26,7 +26,8 @@ export function generateStaticParams() {
   return Array.from(slugs, (slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const locale: AppLocale = isLocale(params.locale) ? params.locale : DEFAULT_LOCALE;
   const project =
     allProjects.find((p) => p.slug === params.slug && p.locale === locale) ??
@@ -65,7 +66,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function PostPage({ params }: Props) {
+export default async function PostPage(props: Props) {
+  const params = await props.params;
   const slug = params?.slug;
   const projectLocales = allProjects.filter((project) => project.slug === slug);
 
