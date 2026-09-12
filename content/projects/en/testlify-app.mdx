@@ -1,20 +1,41 @@
 ---
-title: "Testlify App - AI-Driven Assessment Platform"
-description: "Built frontend interfaces for Testlify's AI interview workflows (chat, voice, and video) with live media capture and real-time interview state management."
+title: "Testlify - Voice & Video AI Question Authoring"
+description: "Built the recruiter-facing UI for authoring voice, video, and chat AI interview questions inside Testlify's assessment builder, including AI prompt setup, competency scoring, and TTS voice selection."
 url: https://app.testlify.com/
 date: 2025-02-01
 published: true
 company: Testlify
 ---
 
-[Testlify](https://testlify.com/) is a skills assessment and interviewing platform used by organizations to evaluate candidates. I built the frontend architecture for Testlify's multi-modal AI interview modules, collaborating with AI engineers and backend teams to define real-time interaction flows.
+[Testlify](https://testlify.com/) is a skills assessment and interviewing platform. Inside its recruiter-facing test builder, I built the UI for authoring three AI-driven question types, voice, video, and chat simulation, that recruiters use to configure automated candidate assessments: recording-time limits, AI prompt setup, competency scoring, and text-to-speech voice selection.
 
 ## What I built
 
-- **Multi-modal AI interview UI:** Developed real-time interfaces supporting text chat, live voice interaction, and video assessment modes.
-- **Browser media capture:** Implemented browser MediaStream APIs for audio and video capture, device permission handling, live audio waveform visualization, and low-latency interaction feedback.
-- **State and connection management:** Engineered client-side state handling to manage question sequencing, network reconnection scenarios, and AI processing states smoothly during live assessments.
+- **Voice AI question authoring:** Built the UI for configuring voice-based AI interview questions in the test builder, recording limits, AI prompt setup, and competency scoring.
+- **Question-builder integration:** Integrated voice, video, and chat simulation question types into the recruiter's assessment-builder flow.
+- **Styling and tooling:** Contributed component styling for the voice/chat question UI, alongside repo tooling setup (ESLint, Husky, Renovate, Tailwind config).
 
 ## Why it mattered
 
-Delivering a responsive, dependable interview interface allowed automated AI evaluations to scale across enterprise candidate pipelines while reducing administrative overhead for hiring teams.
+Voice, video, and chat AI questions are how recruiters configure Testlify's automated interview assessments. This work made those question types configurable and consistent within the same shared design system used across Testlify's product suite.
+
+<CaseStudy summary="Read the full technical case study →">
+
+## A Small Contribution, Inside a Massive Codebase
+
+This repo is Testlify's recruiter/admin dashboard: 16,216 commits, dozens of contributors, running since September 2021. My own commits are 86 of those, about half a percent, over roughly a year and a half. Most of that count sits in a `component-library` git submodule, the same shared Vue design system already covered as [its own case study](/projects/testlify-component-library); outside that submodule, the real work is a focused set of files: the voice question modal, the interview-questions view that wires question types into the builder, and the styling and tooling around them. This case study describes that scope honestly rather than the whole app.
+
+## What "Multi-Modal AI Interview" Actually Means Here
+
+An earlier version of this case study described a candidate-facing app with live browser media capture (`getUserMedia`, waveform visualization, real-time reconnection handling). That doesn't exist in this repo, verified by searching the entire source tree for any of it and finding nothing. This app is the other side of the product: recruiters configuring what an AI-driven question actually asks, not candidates answering it live. Voice, video, and chat simulation are question *types* a recruiter sets up in the test builder, each with its own recording-time limit, AI prompt, competency-scoring rubric, and (for voice) a choice of text-to-speech voice. The candidate-facing interview experience that takes those configured questions live is a separate application, not this one.
+
+## Data Model & Scale
+
+- 16,216 commits across 4+ years, with a top contributor alone responsible for over 1,800 of them, a genuinely large, long-running team codebase, not a small project.
+- The shared component library is consumed as a git submodule rather than copy-pasted or forked, keeping this app on the same versioned design system as Testlify's other three products.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [TypeScript](https://www.typescriptlang.org/), [Vuex](https://vuex.vuejs.org/) for state, [Vite](https://vite.dev/), the shared [Testlify component library](/projects/testlify-component-library) as a git submodule, [ESLint](https://eslint.org/), [Husky](https://typicode.github.io/husky/), [Renovate](https://docs.renovatebot.com/) for dependency updates, [Tailwind CSS](https://tailwindcss.com/).
+
+</CaseStudy>
