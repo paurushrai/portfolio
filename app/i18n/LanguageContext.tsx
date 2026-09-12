@@ -39,7 +39,12 @@ export function LanguageProvider({
 
   useEffect(() => {
     // Windows has no native flag emoji glyphs; inject a Twemoji flags-only font.
-    polyfillCountryFlagEmojis();
+    // Self-hosted (not the package's jsdelivr default) so it isn't at the mercy
+    // of a blocked or slow CDN.
+    polyfillCountryFlagEmojis(
+      "Twemoji Country Flags",
+      "/fonts/TwemojiCountryFlags.woff2",
+    );
   }, []);
 
   // Switching language navigates to the same page under the target locale.
@@ -58,7 +63,12 @@ export function LanguageProvider({
 
   return (
     <LanguageContext.Provider
-      value={{ language: locale, setLanguage, localePath, t: translations[locale] }}
+      value={{
+        language: locale,
+        setLanguage,
+        localePath,
+        t: translations[locale],
+      }}
     >
       {children}
     </LanguageContext.Provider>

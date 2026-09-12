@@ -1,8 +1,11 @@
 "use client";
-import Link from "next/link";
+import { Download, Send } from "lucide-react";
 import dynamic from "next/dynamic";
-import { useLanguage } from "../i18n/LanguageContext";
+import Link from "next/link";
 import { LanguageSwitcher } from "../components/LanguageSwitcher";
+import { SocialLinks } from "../components/social-links";
+import { useLanguage } from "../i18n/LanguageContext";
+import { RESUME_URL } from "../lib/resume";
 
 const Particles = dynamic(() => import("../components/particles"), {
   ssr: false,
@@ -18,7 +21,6 @@ export default function Home() {
     { name: t.nav.blogs, href: "/blogs" },
     // Hidden from primary nav - shared directly with freelance clients, kept in sitemap.ts.
     // { name: t.nav.services, href: "/services" },
-    { name: t.nav.contact, href: "/contact" },
   ];
 
   return (
@@ -36,6 +38,14 @@ export default function Home() {
         >
           {t.nav.privacy}
         </Link>
+      </div>
+
+      {/* Socials - bottom left */}
+      <div className="absolute bottom-6 left-6 z-50">
+        <SocialLinks
+          tone="bright"
+          className="rounded-full border border-zinc-800/60 bg-zinc-900/60 px-3.5 py-2 backdrop-blur-xs"
+        />
       </div>
 
       <nav aria-label="Main navigation" className="my-16 animate-fade-in">
@@ -68,31 +78,26 @@ export default function Home() {
 
         <div className="hidden w-screen h-px animate-glow md:block animate-fade-right bg-linear-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
         <div className="my-16 text-center animate-fade-in flex flex-col items-center gap-4 px-6 md:px-0">
-          <p className="text-sm text-zinc-400 max-w-sm">
-            <span className="block text-zinc-300 font-medium">{t.home.tagline.role}</span>
-            <span className="block">{t.home.tagline.detail}</span>
+          <p className="text-sm text-zinc-400 whitespace-nowrap">
+            {t.home.tagline.role}, {t.home.tagline.detail}
           </p>
-          {/* Hidden - "open for collaboration" pill and resume download, removed from hero per branding pivot.
           <div className="flex items-center gap-3 flex-wrap justify-center">
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-zinc-700/60 bg-zinc-900/40 backdrop-blur-xs">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-500"></span>
-              </span>
-              <span className="text-xs text-zinc-400 tracking-wide">
-                {t.home.openToWork}
-              </span>
-            </div>
-            <a
-              href="/resume.pdf"
-              download="Paurush_Rai_Resume.pdf"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-zinc-700/60 bg-zinc-900/40 backdrop-blur-xs text-xs text-zinc-400 hover:text-zinc-100 hover:border-zinc-500 duration-200"
+            <Link
+              href={localePath("/contact")}
+              className="inline-flex items-center gap-[9px] rounded-full bg-zinc-100 px-4 py-[9px] text-[13.5px] font-semibold tracking-[0.2px] text-zinc-900 duration-200 hover:bg-white hover:scale-105 active:scale-95"
             >
-              <Download className="w-3 h-3" />
+              <Send className="w-3.5 h-3.5" />
+              {t.nav.contact}
+            </Link>
+            <a
+              href={RESUME_URL}
+              download="Paurush_Rai_Resume.pdf"
+              className="inline-flex items-center gap-[9px] rounded-full bg-zinc-800 px-4 py-[9px] text-[13.5px] font-semibold tracking-[0.2px] text-zinc-200 hover:bg-zinc-700 duration-200"
+            >
+              <Download className="w-3.5 h-3.5" />
               {t.home.resume}
             </a>
           </div>
-          */}
         </div>
       </main>
     </div>
