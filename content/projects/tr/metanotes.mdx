@@ -7,16 +7,50 @@ published: true
 company: Testlify
 ---
 
-[MetaNotes](https://app.metanotes.ai/), Google Meet, Teams ve Zoom çağrılarına katılan ve toplantıdan sonra onları transkriptlere, özetlere ve konuşma analizlerine dönüştüren bir yapay zeka toplantı asistanı. Herkese açık bir ürün ve dahili olarak da ücretli bir üçüncü taraf not alıcısının yerini aldı. Frontend'i uçtan uca sahiplendim.
+[MetaNotes](https://app.metanotes.ai/), Google Meet, Microsoft Teams ve Zoom çağrılarına katılıp transkript, aksiyon maddesi ve konuşma özetleri üreten bir yapay zeka toplantı asistanı. Herkese açık bir ürün ve şirket içinde [Fireflies](https://fireflies.ai/) ile [tl;dv](https://tldv.io/) yerine kullanılıyor: ikisi de temel özellikleri daha pahalı planların arkasına kilitlemişti ve depolama maliyetleri arttıkça takımın ihtiyaçlarına artık uymuyordu. Bu projede tek frontend mühendisiydim; özellik kapsamı, dağıtım ve ürün kararları yaklaşık 5 aylık geliştirme sürecinde baştan sona bana aitti.
 
 ![MetaNotes](/projects/metanotes/metanotes.gif)
 
 ## Ne geliştirdim
 
-- **Transkript görünümü:** Bir toplantının transkriptini işlendikten sonra oluşturan frontend'i geliştirdim; bir saati aşan uzun çağrılarda bile hızlı ve gezinilebilir tuttum.
-- **Pano:** Yoğun ama kullanılabilir bir pano tasarladım; tek tıklamayla yapay zeka özetleri, duygu analizleri ve konu etiketleme ile, böylece kullanıcılar tüm transkripti okumadan değer elde edebiliyor.
-- **Frontend sahipliği:** Başlangıçtan üretime kadar tek frontend mühendisiydim, depoyu ve mimariyi kurdum, durum yönetimi ve yapı kararlarını kendim verdim ve arka uç ekibinin yapay zeka orkestrasyonunu temiz, güvenilir bir arayüze dönüştürmek için doğrudan onlarla çalıştım.
+- **Transkript arayüzü:** Zaman damgasına senkronize vurgulamalı bir transkript görüntüleyici geliştirdim. Aktif satır video oynatma konumunu takip ediyor, herhangi bir satıra tıklamak oynatıcıyı o ana atlıyor.
+- **Toplantı zekası panosu:** Tek tıkla yapay zeka özetleri, aksiyon maddesi takibi, duygu göstergeleri ve konu etiketleme için etkileşimli görünümler geliştirdim.
+- **Frontend mimarisi:** İlk fikirden üretime kadar tek frontend mühendisiydim. Özellik kapsamı, bileşen mimarisi, durum yönetimi ve dağıtımların tamamı benim sorumluluğumdaydı. Backend hattı asenkron, webhook ve zamanlanmış cron görevleriyle çalışıyor: transkript ve özetler işleme tamamlandığında tek seferde alınıyor, canlı olarak akıtılmıyor.
 
 ## Neden önemliydi
 
-MetaNotes herkese açık bir ürün olarak yayınlanıyor ve dahili olarak kullanıldığında şirketin ücretli transkripsiyon tedarikçisini bırakmasını sağladı, **yılda yaklaşık 24.000 dolar** tasarruf. Her iki durumda da manuel not almayı insanların üzerinden alıyor ve bir çağrının hemen ardından özetleri ve içgörüleri geri veriyor.
+MetaNotes herkese açık bir SaaS ürünü olarak piyasaya sürüldü ve şirket içinde **200'den fazla Testlify çalışanı** tarafından toplantı kaydı ve müşteri görüşmeleri için kullanılarak Fireflies ve tl;dv'nin yerini aldı. Bu, daha önce o tedarikçilere ödenen **yıllık 24.000 dolarlık işletme maliyetini** ortadan kaldırdı.
+
+<CaseStudy summary="Tam teknik vaka analizini oku →">
+
+## Tek başıma geliştirildi, baştan sona sahiplenildi
+
+MetaNotes'ta tek frontend mühendisi bendim ve sorumluluk arayüzün ötesine geçiyordu. Özellik kapsamı, dağıtımlar ve günlük ürün kararları da bana aitti. İlk commit'ten şirket içi lansmana kadar yaklaşık 5 ay sürdü.
+
+## Transkript neden toplantı sırasında değil, toplantıdan sonra görünüyor
+
+MetaNotes, bot çağrıdayken transkript metnini canlı olarak akıtmıyor. Kayıt sırasında arayüz sadece bir durum rozeti (Capturing/Paused) ile duraklat, devam ettir, durdur kontrollerini gösteriyor. Veri alımı, [Attendee](https://attendee.dev/)'nin webhook'u (çağrıya katılıp medyayı yakalayan toplantı bot API'si) ve bir dizi zamanlanmış cron görevi üzerinden yürüyor: transkript ve OpenAI ile yapılan özetleme çağrı bittikten sonra asenkron olarak gerçekleşiyor ve frontend, tamamlanmış transkripti, özeti ve aksiyon maddelerini tek bir sunucu eylemi çağrısıyla bir kerede alıyor.
+
+Özellik kapsamını, dağıtımları ve ürün kararlarını da kapsayan beş aylık tek kişilik bir zaman çizelgesi göz önüne alındığında, canlı yayın maliyetine değmezdi. Bir WebSocket bağlantısını yönetmek, kısmi transkript uzlaştırmasını ve yeniden bağlanma işlemlerini halletmek gerekecekti, hem de kullanıcıların gerçekten ihtiyaç duymadığı bir özellik (transkriptin gerçek zamanlı olarak oluşumunu izlemek) için. Çağrı bittikten sonra asenkron veri alımı, çok daha az hareketli parçayla aynı transkripti, özeti ve aksiyon maddelerini sunuyor, bu yüzden yayınlanan çözüm bu oldu.
+
+## Zaman damgasına senkronize transkript vurgulama
+
+Video oynatıcı ile transkript listesi arasında basit, iki yönlü bir bağlama: bir `timeupdate` dinleyicisi oynatma konumunu takip ediyor, transkript dizisi üzerinde bir tarama o anki aktif satırı bulup vurguluyor ve herhangi bir satıra tıklamak oynatıcıyı o zaman damgasına atlıyor. Tipik bir toplantı uzunluğunda bunun için sanallaştırılmış bir liste veya özel bir senkronizasyon kütüphanesi gerekmiyor. İkisinden birini kullanmak, verinin henüz sahip olmadığı bir sorunu çözmek olurdu.
+
+## Veri modeli ve ölçek
+
+- Transkript, her konuşma için veritabanı seviyesinde parçalara bölünmeden veya sayfalanmadan tek bir JSON blob'u olarak saklanıyor.
+- Konuşma ve takvim listeleri sayfa başına 10-20 öğe olarak sayfalanıyor.
+- OpenAI'ye yapılan özetleme çağrıları istek başına 800 çıktı token'ı ile sınırlı.
+
+Bunlar mevcut toplantı hacmi ve süresinde sorunsuz çalışıyor. İkisinden biri on kat büyürse ilk gözden geçireceğim şeyler tek blob'lu transkript sütunu ve doğrusal tarama ile vurgulama araması olur. Bunlar bilinen ödünleşimler, fark edilmemiş kör noktalar değil.
+
+## Kendin yap mı, satın al mı
+
+Testlify, Fireflies ve tl;dv için ödeme yapıyordu ama ikisi de temel özellikleri daha pahalı planların arkasına kilitliyordu ve kaydedilen toplantı depolaması büyüdükçe daha da pahalılaşıyordu. Şirket içinde geliştirmek her iki kısıtlamayı da ortadan kaldırdı; 200'den fazla çalışan tarafından toplantı kaydı ve müşteri görüşmeleri için benimsendikten sonra, daha önce o tedarikçilere ödenen yıllık 24.000 doları kesti.
+
+## Teknoloji yığını
+
+[Next.js](https://nextjs.org/) 16 / [React](https://react.dev/) 19 App Router, TypeScript, istemci durumu için [Zustand](https://github.com/pmndrs/zustand) (localStorage kalıcılığıyla), kimlik doğrulama için [Clerk](https://clerk.com/), arayüz için [Radix](https://www.radix-ui.com/) ve [Tailwind](https://tailwindcss.com/), kayıt oynatıcısı için [Vidstack](https://vidstack.io/), Zoom/Meet/Teams yakalama için toplantı bot API'si olarak [Attendee](https://attendee.dev/).
+
+</CaseStudy>

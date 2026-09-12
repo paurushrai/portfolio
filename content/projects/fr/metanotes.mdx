@@ -7,16 +7,50 @@ published: true
 company: Testlify
 ---
 
-[MetaNotes](https://app.metanotes.ai/) est un assistant de réunion IA qui rejoint les appels Google Meet, Teams et Zoom et les transforme en transcriptions, résumés et analyses de conversation après la réunion. C'est un produit public, et en interne il a aussi remplacé un preneur de notes tiers payant. J'ai pris en charge le frontend de bout en bout.
+[MetaNotes](https://app.metanotes.ai/) est un assistant de réunion IA qui rejoint les appels Google Meet, Microsoft Teams et Zoom pour générer des transcriptions, des actions à suivre et des résumés de conversation. C'est un produit public, et en interne il a remplacé [Fireflies](https://fireflies.ai/) et [tl;dv](https://tldv.io/), dont les fonctionnalités clés étaient verrouillées derrière des offres payantes plus chères et dont le coût de stockage grimpait, au point de ne plus convenir aux besoins de l'équipe. J'étais l'unique ingénieur frontend du projet, responsable du périmètre fonctionnel, des déploiements et des décisions produit de bout en bout sur environ 5 mois de développement.
 
 ![MetaNotes](/projects/metanotes/metanotes.gif)
 
 ## Ce que j'ai construit
 
-- **Vue transcription :** Construction du frontend qui affiche la transcription d'une réunion une fois traitée, en la gardant rapide et navigable même pour de longs appels de plus d'une heure.
-- **Le tableau de bord :** Conception d'un tableau de bord dense mais utilisable avec des résumés IA en un clic, des analyses de sentiment et le marquage de sujets, pour que les utilisateurs tirent de la valeur d'une transcription complète sans tout lire.
-- **Prise en charge du frontend :** J'étais l'unique ingénieur frontend du départ jusqu'à la production, j'ai mis en place le dépôt et l'architecture, pris moi-même les décisions de gestion d'état et de structure, et travaillé directement avec l'équipe backend pour transformer leur orchestration IA en une UI propre et fiable.
+- **Interface de transcription :** Construction d'un lecteur de transcription avec surlignage synchronisé sur l'horodatage. La ligne active suit la position de lecture de la vidéo, et cliquer sur une ligne fait avancer le lecteur jusqu'à ce moment.
+- **Tableau de bord d'intelligence de réunion :** Développement de vues interactives pour les résumés IA, le suivi des actions à suivre, les indicateurs de sentiment et le marquage de sujets.
+- **Architecture frontend :** Unique ingénieur frontend depuis l'idée initiale jusqu'à la production. Le périmètre fonctionnel, l'architecture des composants, la gestion d'état et les déploiements étaient entièrement de ma responsabilité. Le pipeline backend est asynchrone, piloté par webhook et par cron : les transcriptions et résumés sont récupérés en une fois une fois le traitement terminé, et non diffusés en direct.
 
 ## Pourquoi c'était important
 
-MetaNotes est livré comme produit public et, utilisé en interne, il a permis à l'entreprise d'abandonner son prestataire de transcription payant, soit une économie d'environ **24 000 $ par an**. Dans les deux cas, il retire la prise de notes manuelle des épaules des gens et restitue résumés et enseignements juste après un appel.
+MetaNotes a été lancé comme produit SaaS public et a été adopté en interne par **plus de 200 employés de Testlify** pour l'enregistrement de réunions et les appels clients, en remplacement de Fireflies et tl;dv. Cela a supprimé **24 000 $ de coûts opérationnels annuels** auparavant versés à ces prestataires.
+
+<CaseStudy summary="Lire l'étude de cas technique complète →">
+
+## Construit seul, responsabilité de bout en bout
+
+J'étais l'unique ingénieur frontend sur MetaNotes, et cette responsabilité allait au-delà de l'interface. Le périmètre fonctionnel, les déploiements et les décisions produit du quotidien étaient aussi de mon ressort. Du premier commit au lancement interne, il a fallu environ 5 mois.
+
+## Pourquoi la transcription apparaît après la réunion, et non pendant
+
+MetaNotes ne diffuse pas le texte de la transcription pendant que le bot est en appel. Pendant l'enregistrement, l'interface affiche uniquement un badge de statut (Capturing/Paused) avec des contrôles pause, reprise et arrêt. L'ingestion passe par le webhook d'[Attendee](https://attendee.dev/) (l'API de bot de réunion qui rejoint l'appel et capture les médias) et un ensemble de tâches cron planifiées : la transcription et le résumé via OpenAI se font de façon asynchrone une fois l'appel terminé, et le frontend récupère la transcription finale, le résumé et les actions à suivre en un seul appel de server action.
+
+Sur un calendrier solo de cinq mois qui couvrait aussi le périmètre fonctionnel, les déploiements et les décisions produit, le streaming en direct ne valait pas son coût. Il aurait fallu gérer une connexion WebSocket, réconcilier des transcriptions partielles et gérer les reconnexions, tout ça pour une fonctionnalité (voir la transcription se construire en temps réel) dont les utilisateurs n'avaient pas vraiment besoin. L'ingestion asynchrone après l'appel fournit la même transcription, le même résumé et les mêmes actions à suivre avec beaucoup moins de pièces mobiles, c'est donc ce qui a été livré.
+
+## Surlignage de transcription synchronisé sur l'horodatage
+
+Une simple liaison bidirectionnelle entre le lecteur vidéo et la liste de transcription : un listener `timeupdate` suit la position de lecture, un parcours du tableau de transcription trouve la ligne actuellement active et la surligne, et cliquer sur une ligne fait avancer le lecteur jusqu'à cet horodatage. Pour une durée de réunion classique, cela ne nécessite ni liste virtualisée ni bibliothèque de synchronisation dédiée. Recourir à l'une ou l'autre reviendrait à résoudre un problème que les données n'ont pas encore.
+
+## Modèle de données et échelle
+
+- La transcription est stockée sous forme d'un unique blob JSON par conversation, sans découpage en morceaux ni pagination au niveau de la base de données.
+- Les listes de conversations et de calendrier sont paginées par 10 à 20 éléments par page.
+- Les appels de résumé vers OpenAI sont limités à 800 tokens de sortie par requête.
+
+Ces choix tiennent bien face au volume et à la durée actuels des réunions. La colonne de transcription en blob unique et la recherche de surlignage par parcours linéaire sont les deux points que je reverrais en premier si l'un des deux devait être multiplié par dix. Des compromis assumés, pas des angles morts.
+
+## Construire ou acheter
+
+Testlify payait pour Fireflies et tl;dv, mais tous deux verrouillaient des fonctionnalités clés derrière des offres plus chères et devenaient plus coûteux à mesure que le stockage des réunions enregistrées augmentait. Développer en interne a levé ces deux contraintes ; une fois adopté en interne par plus de 200 employés pour l'enregistrement de réunions et les appels clients, cela a supprimé les 24 000 $ annuels auparavant dépensés auprès de ces prestataires.
+
+## Stack
+
+[Next.js](https://nextjs.org/) 16 / [React](https://react.dev/) 19 App Router, TypeScript, [Zustand](https://github.com/pmndrs/zustand) pour l'état côté client (avec persistance localStorage), [Clerk](https://clerk.com/) pour l'authentification, [Radix](https://www.radix-ui.com/) + [Tailwind](https://tailwindcss.com/) pour l'interface, [Vidstack](https://vidstack.io/) pour le lecteur d'enregistrement, [Attendee](https://attendee.dev/) comme API de bot de réunion pour la capture sur Zoom/Meet/Teams.
+
+</CaseStudy>
