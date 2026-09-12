@@ -1,12 +1,12 @@
-import type { MDXComponents } from "mdx/types";
 import { Plus } from "lucide-react";
+import type { MDXComponents } from "mdx/types";
 import Image from "next/image";
 import Link from "next/link";
 import { useMDXComponent } from "next-contentlayer2/hooks";
 import { useState } from "react";
 
 function clsx(...args: unknown[]): string {
-	return args.filter(Boolean).join(" ");
+  return args.filter(Boolean).join(" ");
 }
 
 // Native <details> can't animate its open/close height smoothly across
@@ -15,226 +15,242 @@ function clsx(...args: unknown[]): string {
 // elements, bypassing this components map entirely). This is a controlled
 // disclosure using a CSS grid-row transition.
 function CaseStudy({
-	summary,
-	className,
-	children,
+  summary,
+  className,
+  children,
 }: {
-	summary: string;
-	className?: string;
-	children?: React.ReactNode;
+  summary: string;
+  className?: string;
+  children?: React.ReactNode;
 }) {
-	const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const arrowMatch = summary.match(/^(.*?)(\s*(?:→|->))\s*$/);
+  const summaryText = arrowMatch ? arrowMatch[1] : summary;
+  const summaryArrow = arrowMatch ? arrowMatch[2].trim() : null;
 
-	return (
-		<div className={clsx("mdx-details", className)}>
-			<button
-				type="button"
-				className="mdx-details-summary"
-				aria-expanded={open}
-				onClick={() => setOpen((value) => !value)}
-			>
-				<span>{summary}</span>
-				<Plus
-					className="mdx-details-icon"
-					style={{ transform: open ? "rotate(45deg)" : "rotate(0deg)" }}
-					aria-hidden="true"
-				/>
-			</button>
-			<div className="mdx-details-panel" data-open={open}>
-				<div className="mdx-details-panel-inner">
-					<div className="mdx-details-content">{children}</div>
-				</div>
-			</div>
-		</div>
-	);
+  return (
+    <div className={clsx("mdx-details", className)}>
+      <button
+        type="button"
+        className="mdx-details-summary group"
+        aria-expanded={open}
+        onClick={() => setOpen((value) => !value)}
+      >
+        <span>
+          {summaryText}
+          {summaryArrow ? (
+            <span
+              aria-hidden="true"
+              className="ml-1 inline-block transition-transform duration-200 group-hover:translate-x-1"
+            >
+              {summaryArrow}
+            </span>
+          ) : null}
+        </span>
+        <Plus
+          className="mdx-details-icon"
+          style={{ transform: open ? "rotate(45deg)" : "rotate(0deg)" }}
+          aria-hidden="true"
+        />
+      </button>
+      <div className="mdx-details-panel" data-open={open}>
+        <div className="mdx-details-panel-inner">
+          <div className="mdx-details-content">{children}</div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 const components: MDXComponents = {
-	CaseStudy,
-	h1: ({ className, children, ...props }) => (
-		<h1
-			className={clsx(
-				"mt-2 scroll-m-20 text-4xl font-bold tracking-tight",
-				className,
-			)}
-			{...props}
-		>
-			{children}
-		</h1>
-	),
-	h2: ({ className, children, ...props }) => (
-		<h2
-			className={clsx(
-				"mt-10 scroll-m-20 border-b border-b-zinc-800 pb-1 text-3xl font-semibold tracking-tight first:mt-0",
-				className,
-			)}
-			{...props}
-		>
-			{children}
-		</h2>
-	),
-	h3: ({ className, children, ...props }) => (
-		<h3
-			className={clsx(
-				"mt-8 scroll-m-20 text-2xl font-semibold tracking-tight",
-				className,
-			)}
-			{...props}
-		>
-			{children}
-		</h3>
-	),
-	h4: ({ className, children, ...props }) => (
-		<h4
-			className={clsx(
-				"mt-8 scroll-m-20 text-xl font-semibold tracking-tight",
-				className,
-			)}
-			{...props}
-		>
-			{children}
-		</h4>
-	),
-	h5: ({ className, children, ...props }) => (
-		<h5
-			className={clsx(
-				"mt-8 scroll-m-20 text-lg font-semibold tracking-tight",
-				className,
-			)}
-			{...props}
-		>
-			{children}
-		</h5>
-	),
-	h6: ({ className, children, ...props }) => (
-		<h6
-			className={clsx(
-				"mt-8 scroll-m-20 text-base font-semibold tracking-tight",
-				className,
-			)}
-			{...props}
-		>
-			{children}
-		</h6>
-	),
-	a: ({ className, children, href, ...props }) => (
-		<Link
-			href={href ?? "#"}
-			className={clsx(
-				"font-medium text-zinc-900 underline underline-offset-4",
-				className,
-			)}
-			{...props}
-		>
-			{children}
-		</Link>
-	),
-	p: ({ className, ...props }) => (
-		<p
-			className={clsx("leading-7 not-first:mt-6", className)}
-			{...props}
-		/>
-	),
-	ul: ({ className, ...props }) => (
-		<ul className={clsx("my-6 ml-6 list-disc", className)} {...props} />
-	),
-	ol: ({ className, ...props }) => (
-		<ol className={clsx("my-6 ml-6 list-decimal", className)} {...props} />
-	),
-	li: ({ className, ...props }) => (
-		<li className={clsx("mt-2", className)} {...props} />
-	),
-	blockquote: ({ className, ...props }) => (
-		<blockquote
-			className={clsx(
-				"mt-6 border-l-2 border-zinc-300 pl-6 italic text-zinc-800 *:text-zinc-600",
-				className,
-			)}
-			{...props}
-		/>
-	),
-	img: ({ className, alt, ...props }) => (
-		// biome-ignore lint/performance/noImgElement: MDX content images have arbitrary sources; next/image is impractical here
-		<img
-			className={clsx("rounded-md border border-zinc-200 w-full", className)}
-			alt={alt}
-			{...props}
-		/>
-	),
-	hr: ({ ...props }) => (
-		<hr className="my-4 border-zinc-200 md:my-8" {...props} />
-	),
-	table: ({ className, children, ...props }) => (
-		<div className="w-full my-6 overflow-y-auto">
-			<table className={clsx("w-full", className)} {...props}>
-				{children}
-			</table>
-		</div>
-	),
-	tr: ({ className, children, ...props }) => (
-		<tr
-			className={clsx(
-				"m-0 border-t border-zinc-300 p-0 even:bg-zinc-100",
-				className,
-			)}
-			{...props}
-		>
-			{children}
-		</tr>
-	),
-	th: ({ className, children, ...props }) => (
-		<th
-			className={clsx(
-				"border border-zinc-200 px-4 py-2 text-left font-bold [[align=center]]:text-center [[align=right]]:text-right",
-				className,
-			)}
-			{...props}
-		>
-			{children}
-		</th>
-	),
-	td: ({ className, children, ...props }) => (
-		<td
-			className={clsx(
-				"border border-zinc-200 px-4 py-2 text-left [[align=center]]:text-center [[align=right]]:text-right",
-				className,
-			)}
-			{...props}
-		>
-			{children}
-		</td>
-	),
-	pre: ({ className, ...props }) => (
-		<pre
-			className={clsx(
-				"mt-6 mb-4 overflow-x-auto rounded-lg bg-zinc-900 py-4",
-				className,
-			)}
-			{...props}
-		/>
-	),
-	code: ({ className, ...props }) => (
-		<code
-			className={clsx(
-				"relative rounded-sm border bg-zinc-300/25 py-[0.2rem] px-[0.3rem] font-mono text-sm text-zinc-600",
-				className,
-			)}
-			{...props}
-		/>
-	),
-	Image,
+  CaseStudy,
+  h1: ({ className, children, ...props }) => (
+    <h1
+      className={clsx(
+        "mt-2 scroll-m-20 text-4xl font-bold tracking-tight",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </h1>
+  ),
+  h2: ({ className, children, ...props }) => (
+    <h2
+      className={clsx(
+        "mt-10 scroll-m-20 border-b border-b-zinc-800 pb-1 text-3xl font-semibold tracking-tight first:mt-0",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </h2>
+  ),
+  h3: ({ className, children, ...props }) => (
+    <h3
+      className={clsx(
+        "mt-8 scroll-m-20 text-2xl font-semibold tracking-tight",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </h3>
+  ),
+  h4: ({ className, children, ...props }) => (
+    <h4
+      className={clsx(
+        "mt-8 scroll-m-20 text-xl font-semibold tracking-tight",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </h4>
+  ),
+  h5: ({ className, children, ...props }) => (
+    <h5
+      className={clsx(
+        "mt-8 scroll-m-20 text-lg font-semibold tracking-tight",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </h5>
+  ),
+  h6: ({ className, children, ...props }) => (
+    <h6
+      className={clsx(
+        "mt-8 scroll-m-20 text-base font-semibold tracking-tight",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </h6>
+  ),
+  a: ({ className, children, href, ...props }) => (
+    <Link
+      href={href ?? "#"}
+      className={clsx(
+        "font-medium text-zinc-900 underline underline-offset-4",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </Link>
+  ),
+  p: ({ className, ...props }) => (
+    <p className={clsx("leading-7 not-first:mt-6", className)} {...props} />
+  ),
+  ul: ({ className, ...props }) => (
+    <ul
+      className={clsx("my-6 list-disc pl-6 marker:text-zinc-400", className)}
+      {...props}
+    />
+  ),
+  ol: ({ className, ...props }) => (
+    <ol
+      className={clsx("my-6 list-decimal pl-6 marker:text-zinc-400", className)}
+      {...props}
+    />
+  ),
+  li: ({ className, ...props }) => (
+    <li className={clsx("mt-2 pl-1.5", className)} {...props} />
+  ),
+  blockquote: ({ className, ...props }) => (
+    <blockquote
+      className={clsx(
+        "mt-6 border-l-2 border-zinc-300 pl-6 italic text-zinc-800 *:text-zinc-600",
+        className,
+      )}
+      {...props}
+    />
+  ),
+  img: ({ className, alt, ...props }) => (
+    // biome-ignore lint/performance/noImgElement: MDX content images have arbitrary sources; next/image is impractical here
+    <img
+      className={clsx("rounded-md border border-zinc-200 w-full", className)}
+      alt={alt}
+      {...props}
+    />
+  ),
+  hr: ({ ...props }) => (
+    <hr className="my-4 border-zinc-200 md:my-8" {...props} />
+  ),
+  table: ({ className, children, ...props }) => (
+    <div className="w-full my-6 overflow-y-auto">
+      <table className={clsx("w-full", className)} {...props}>
+        {children}
+      </table>
+    </div>
+  ),
+  tr: ({ className, children, ...props }) => (
+    <tr
+      className={clsx(
+        "m-0 border-t border-zinc-300 p-0 even:bg-zinc-100",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </tr>
+  ),
+  th: ({ className, children, ...props }) => (
+    <th
+      className={clsx(
+        "border border-zinc-200 px-4 py-2 text-left font-bold [[align=center]]:text-center [[align=right]]:text-right",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </th>
+  ),
+  td: ({ className, children, ...props }) => (
+    <td
+      className={clsx(
+        "border border-zinc-200 px-4 py-2 text-left [[align=center]]:text-center [[align=right]]:text-right",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </td>
+  ),
+  pre: ({ className, ...props }) => (
+    <pre
+      className={clsx(
+        "mt-6 mb-4 overflow-x-auto rounded-lg bg-zinc-900 py-4",
+        className,
+      )}
+      {...props}
+    />
+  ),
+  code: ({ className, ...props }) => (
+    <code
+      className={clsx(
+        "relative rounded-sm border bg-zinc-300/25 py-[0.2rem] px-[0.3rem] font-mono text-sm text-zinc-600",
+        className,
+      )}
+      {...props}
+    />
+  ),
+  Image,
 };
 
 interface MdxProps {
-	readonly code: string;
+  readonly code: string;
 }
 
 export function Mdx({ code }: MdxProps) {
-	const Component = useMDXComponent(code);
+  const Component = useMDXComponent(code);
 
-	return (
-		<div className="mdx">
-			<Component components={components} />
-		</div>
-	);
+  return (
+    <div className="mdx">
+      <Component components={components} />
+    </div>
+  );
 }
