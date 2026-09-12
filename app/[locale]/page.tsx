@@ -40,14 +40,17 @@ export default function Home() {
 
       <nav aria-label="Main navigation" className="my-16 animate-fade-in">
         <ul className="flex items-center justify-center gap-4">
-          {navigation.map((item) => (
+          {navigation.map((item, index) => (
             <li key={item.href}>
               <Link
                 href={localePath(item.href)}
                 className="group relative text-sm text-zinc-500 duration-500 hover:text-zinc-300"
               >
                 {item.name}
-                <span className="absolute inset-x-0 -bottom-1 h-px origin-center scale-x-0 bg-zinc-300 transition-transform duration-300 group-hover:scale-x-100 group-focus-visible:scale-x-100" />
+                <span
+                  className="absolute inset-x-0 -bottom-1 h-px origin-center scale-x-0 bg-zinc-300 transition-transform duration-300 animate-nav-hint group-hover:scale-x-100 group-focus-visible:scale-x-100"
+                  style={{ animationDelay: `${2.6 + index * 0.15}s` }}
+                />
               </Link>
             </li>
           ))}
