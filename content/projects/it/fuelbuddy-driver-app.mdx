@@ -7,14 +7,14 @@ published: true
 company: FuelBuddy
 ---
 
-La [FuelBuddy Driver App](https://play.google.com/store/apps/details?id=in.fuelbuddy.driver) è ciò che gli autisti usano per consegnare davvero il carburante ai clienti. Sviluppare per gli autisti è un problema a sé: lo schermo deve essere leggibile sotto il sole diretto, i tocchi devono perdonare gli errori e la rete può cadere in qualsiasi punto della strada. Ho costruito una serie di funzionalità end-to-end pensate proprio per queste condizioni — frontend e le API dati sottostanti.
+La [FuelBuddy Driver App](https://play.google.com/store/apps/details?id=in.fuelbuddy.driver) è ciò che gli autisti usano per consegnare davvero il carburante ai clienti. Sviluppare per gli autisti è un problema a sé: lo schermo deve essere leggibile sotto il sole diretto, i tocchi devono perdonare gli errori e la rete può cadere in qualsiasi punto della strada. Ho costruito una serie di funzionalità end-to-end pensate proprio per queste condizioni, frontend e le API dati sottostanti.
 
 ## Cosa ho realizzato
 
 - **UI tollerante all'assenza di rete:** Gli autisti perdono segnale con regolarità, quindi ho memorizzato in locale i dati di percorso e ordini e ho fatto in modo che potessero continuare a lavorare anche nelle zone morte. L'app mette in coda le modifiche e le sincronizza al ritorno della connessione, invece di bloccarsi.
 - **Posizione e mappe:** Mi sono occupato del frontend per il tracciamento GPS in tempo reale e per la navigazione su mappa, mantenendo efficienti i frequenti aggiornamenti di posizione e i ridisegni della mappa così da non scaricare la batteria durante un turno lungo.
-- **UX adatta al campo:** Ho gestito end-to-end diverse funzionalità operative, progettandole per le condizioni reali — layout ad alto contrasto, ampie aree di tocco e moduli brevi così che gli autisti possano registrare una consegna in modo rapido e sicuro.
-- **Le API sottostanti:** Ho costruito le API CRUD da cui queste funzionalità leggono e scrivono sul motore GraphQL di Hasura, così da poter rilasciare una funzionalità end-to-end — la coda offline, i dati degli ordini e la registrazione delle consegne dialogano tutti con endpoint di cui mi occupavo io.
+- **UX adatta al campo:** Ho gestito end-to-end diverse funzionalità operative, progettandole per le condizioni reali, layout ad alto contrasto, ampie aree di tocco e moduli brevi così che gli autisti possano registrare una consegna in modo rapido e sicuro.
+- **Le API sottostanti:** Ho costruito le API CRUD da cui queste funzionalità leggono e scrivono sul motore GraphQL di Hasura, così da poter rilasciare una funzionalità end-to-end, la coda offline, i dati degli ordini e la registrazione delle consegne dialogano tutti con endpoint di cui mi occupavo io.
 
 ## Perché è stato importante
 

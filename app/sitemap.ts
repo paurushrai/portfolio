@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { allProjects } from "contentlayer/generated";
+import { allBlogs, allProjects } from "contentlayer/generated";
 import { DEFAULT_LOCALE, LOCALES, localizedPath } from "./i18n/config";
 
 const BASE_URL = "https://paurushrai.in";
@@ -31,7 +31,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 		{ path: "/", changeFrequency: "monthly", priority: 1 },
 		{ path: "/about", changeFrequency: "monthly", priority: 0.8 },
 		{ path: "/projects", changeFrequency: "weekly", priority: 0.9 },
-		{ path: "/articles", changeFrequency: "weekly", priority: 0.8 },
+		{ path: "/blogs", changeFrequency: "weekly", priority: 0.8 },
 		{ path: "/services", changeFrequency: "monthly", priority: 0.7 },
 		{ path: "/contact", changeFrequency: "yearly", priority: 0.5 },
 		{ path: "/privacy", changeFrequency: "yearly", priority: 0.3 },
@@ -46,5 +46,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
 			lastModified: p.date ? new Date(p.date) : new Date(),
 		}));
 
-	return [...staticRoutes, ...projectRoutes].map(localizedEntry);
+	const blogRoutes: RouteSpec[] = allBlogs
+		.filter((b) => b.published && b.locale === DEFAULT_LOCALE)
+		.map((b) => ({
+			path: `/blogs/${b.slug}`,
+			changeFrequency: "monthly" as const,
+			priority: 0.7,
+			lastModified: new Date(b.date),
+		}));
+
+	return [...staticRoutes, ...projectRoutes, ...blogRoutes].map(localizedEntry);
 }

@@ -1,18 +1,18 @@
 ---
-title: "FuelBuddy 迪拜 — 区域特许经营平台"
-description: "为 FuelBuddy 的阿联酋业务从零构建一个特许经营 App——前端加上我自己在 Hasura GraphQL 上的 CRUD API，客户端用 TanStack Query，并针对区域要求重做了认证与安全流程。"
+title: "FuelBuddy 迪拜: 区域特许经营平台"
+description: "为 FuelBuddy 的阿联酋业务从零构建一个特许经营 App -  - 前端加上我自己在 Hasura GraphQL 上的 CRUD API，客户端用 TanStack Query，并针对区域要求重做了认证与安全流程。"
 date: 2024-10-01
 published: true
 company: FuelBuddy
 ---
 
-FuelBuddy 的阿联酋扩张需要它自己的特许经营 App——迪拜市场在监管、安全和工作流上的要求跟现有平台都不一样，差异大到复用旧的并不合适。我从零构建了迪拜特许经营应用，横跨前端和它背后的 CRUD API。
+FuelBuddy 的阿联酋扩张需要它自己的特许经营 App -  - 迪拜市场在监管、安全和工作流上的要求跟现有平台都不一样，差异大到复用旧的并不合适。我从零构建了迪拜特许经营应用，横跨前端和它背后的 CRUD API。
 
 ## 我做了什么
 
 - **从零搭建的新前端：** 重新构建了组件体系，让这个 App 比它取代的旧版本更灵敏、也更整齐。
-- **我自己在 Hasura 上的 CRUD API：** 构建了这个 App 运行所依赖的后端数据 API，在数据库之上用 Hasura 的 GraphQL 引擎暴露我需要的 CRUD 操作——这样我就能端到端设计数据层，而不用等别的后端接口。
-- **基于 TanStack Query 的数据层：** 前端用 TanStack React Query 来消费这些 API——缓存、后台重新拉取、乐观更新——让 UI 保持快速一致，不用写一大堆手动的状态逻辑。
+- **我自己在 Hasura 上的 CRUD API：** 构建了这个 App 运行所依赖的后端数据 API，在数据库之上用 Hasura 的 GraphQL 引擎暴露我需要的 CRUD 操作 -  - 这样我就能端到端设计数据层，而不用等别的后端接口。
+- **基于 TanStack Query 的数据层：** 前端用 TanStack React Query 来消费这些 API -  - 缓存、后台重新拉取、乐观更新 -  - 让 UI 保持快速一致，不用写一大堆手动的状态逻辑。
 - **认证与安全：** 重做了认证、令牌处理和 API 载荷校验，以满足该地区的合规要求。
 
 ## 为什么它有意义

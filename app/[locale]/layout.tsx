@@ -33,20 +33,29 @@ export async function generateMetadata({
       process.env.NODE_ENV === "development" ? "http://localhost:3000" : BASE_URL,
     ),
     title: {
-      default: "Paurush Rai — Senior Product Engineer & Full-Stack Developer",
+      default:
+        "Paurush Rai | Senior Software Engineer | Full Stack & Frontend Expert",
       template: "%s | Paurush Rai",
     },
     description:
-      "Paurush Rai is a Senior Product Engineer and Full-Stack Developer with 5+ years of experience building enterprise SaaS, AI-integrated platforms, and developer tools. Available for Senior Product Engineer, Senior Frontend Developer, and Senior Software Engineer roles.",
+      "Senior Software Engineer & Frontend-Focused Full-Stack Developer with 5+ years building enterprise SaaS, AI-integrated platforms, and developer tools. Open to new roles.",
     keywords: [
-      "Senior Product Engineer",
       "Senior Software Engineer",
-      "Senior Frontend Developer",
+      "Senior Frontend Engineer",
       "Full-Stack Developer",
+      "Frontend-Focused Full Stack Developer",
+      "Frontend Expert",
+      "Expert Frontend Engineer",
+      "Senior Full-Stack Engineer",
+      "Hire Senior Software Engineer",
+      "Hire Senior Frontend Engineer",
+      "Hire Full-Stack Developer",
+      "Senior Frontend Developer",
       "React Developer",
       "Next.js Developer",
       "React Native Developer",
       "TypeScript Engineer",
+      "Node.js Developer",
       "AI Integration Engineer",
       "Enterprise Web Development",
       "Developer Tools Engineer",
@@ -54,19 +63,12 @@ export async function generateMetadata({
     ],
     alternates: { canonical, languages },
     openGraph: {
-      title: "Paurush Rai — Senior Product Engineer & Full-Stack Developer",
+      title:
+        "Paurush Rai | Senior Software Engineer | Full Stack & Frontend Expert",
       description:
-        "Senior Product Engineer & Full-Stack Developer specializing in AI integration, enterprise SaaS, and developer tools. 5+ years building scalable web platforms.",
+        "Senior Software Engineer & Frontend-Focused Full-Stack Developer specializing in full-stack web platforms, modern frontend architecture, AI integration, and developer tools.",
       url: canonical,
       siteName: "paurushrai.in",
-      images: [
-        {
-          url: `${BASE_URL}/og.png`,
-          width: 1920,
-          height: 1080,
-          alt: "Paurush Rai — Senior Product Engineer & Full-Stack Developer",
-        },
-      ],
       locale,
       type: "website",
     },
@@ -82,11 +84,11 @@ export async function generateMetadata({
       },
     },
     twitter: {
-      title: "Paurush Rai — Senior Product Engineer & Full-Stack Developer",
+      title:
+        "Paurush Rai | Senior Software Engineer | Full Stack & Frontend Expert",
       description:
-        "Senior Product Engineer & Full-Stack Developer specializing in AI integration, enterprise SaaS, and developer tools. 5+ years building scalable web platforms.",
+        "Senior Software Engineer & Frontend-Focused Full-Stack Developer specializing in full-stack web platforms, modern frontend architecture, AI integration, and developer tools.",
       card: "summary_large_image",
-      images: [`${BASE_URL}/og.png`],
     },
     icons: {
       shortcut: "/favicon.ico",
@@ -167,18 +169,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               "@type": "Person",
               name: "Paurush Rai",
               url: BASE_URL,
-              jobTitle: "Senior Product Engineer",
+              jobTitle:
+                "Senior Software Engineer | Full Stack & Frontend Expert",
               description:
-                "Senior Product Engineer and Full-Stack Developer specializing in AI integration, enterprise SaaS platforms, and developer productivity tools.",
+                "Senior Software Engineer & Frontend-Focused Full-Stack Developer specializing in modern frontend architecture, AI integration, enterprise SaaS platforms, and developer productivity tools.",
               image: `${BASE_URL}/og.png`,
               sameAs: [
                 "https://github.com/paurushrai",
                 "https://linkedin.com/in/paurushrai",
+                "https://discord.com/users/paurushrai",
               ],
               knowsAbout: [
+                "Full-Stack Development",
+                "Frontend Architecture",
+                "Frontend-Focused Full-Stack Engineering",
+                "Senior Frontend Engineering",
                 "Product Engineering",
-                "Full-Stack Engineering",
-                "Frontend Development",
                 "AI Integration",
                 "React",
                 "Next.js",
@@ -192,14 +198,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               ],
               hasOccupation: {
                 "@type": "Occupation",
-                name: "Senior Product Engineer",
+                name: "Senior Software Engineer & Full-Stack Developer",
                 occupationLocation: {
                   "@type": "Country",
                   name: "India",
                 },
                 skills:
-                  "React, Next.js, TypeScript, Node.js, AI Integration, Full-Stack Development",
+                  "React, Next.js, TypeScript, Node.js, AI Integration, Full-Stack Development, Frontend Architecture",
               },
+            }),
+          }}
+        />
+        {/* JSON-LD structured data, serialized from trusted app constants (no user input). */}
+        <script
+          type="application/ld+json"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD from trusted app constants, no user input
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Paurush Rai",
+              url: BASE_URL,
             }),
           }}
         />

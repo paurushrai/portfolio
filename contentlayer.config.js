@@ -62,6 +62,9 @@ export const Project = defineDocumentType(() => ({
 		wip: {
 			type: "boolean",
 		},
+		coverImage: {
+			type: "string",
+		},
 	},
 	computedFields,
 }));
@@ -82,9 +85,50 @@ export const Page = defineDocumentType(() => ({
 	computedFields,
 }));
 
+const WORDS_PER_MINUTE = 200;
+
+export const Blog = defineDocumentType(() => ({
+	name: "Blog",
+	filePathPattern: "./blogs/**/*.mdx",
+	contentType: "mdx",
+
+	fields: {
+		published: {
+			type: "boolean",
+		},
+		title: {
+			type: "string",
+			required: true,
+		},
+		description: {
+			type: "string",
+			required: true,
+		},
+		date: {
+			type: "date",
+			required: true,
+		},
+		coverImage: {
+			type: "string",
+		},
+		tags: {
+			type: "list",
+			of: { type: "string" },
+			default: [],
+		},
+	},
+	computedFields: {
+		...computedFields,
+		readingTime: {
+			type: "number",
+			resolve: (doc) => Math.max(1, Math.ceil(doc.body.raw.split(/\s+/).length / WORDS_PER_MINUTE)),
+		},
+	},
+}));
+
 export default makeSource({
 	contentDirPath: "./content",
-	documentTypes: [Page, Project],
+	documentTypes: [Page, Project, Blog],
 	mdx: {
 		remarkPlugins: [remarkGfm],
 		rehypePlugins: [

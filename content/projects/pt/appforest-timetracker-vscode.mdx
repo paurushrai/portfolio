@@ -1,20 +1,20 @@
 ---
 title: "AppForest Timetracker - Extensão para VS Code"
-description: "Um complemento para o VS Code do plugin AppForest Timesheets para Jira — acompanha a atividade de programação no editor e torna simples registrar o tempo no Timesheets, sem sair da IDE."
+description: "Um complemento para o VS Code do plugin AppForest Timesheets para Jira: acompanha a atividade de programação no editor e torna simples registrar o tempo no Timesheets, sem sair da IDE."
 url: https://marketplace.visualstudio.com/items?itemName=AppforestTimetracker.appforest-timetracker
 date: 2025-07-01
 published: true
 company: Testlify
 ---
 
-Nosso plugin para Jira, o [Timesheets by AppForest](/projects/timesheets-appforest), tinha centralizado o controle de tempo na Testlify — mas os desenvolvedores ainda precisavam parar e mudar de tela para registrar suas horas manualmente. O AppForest Timetracker fecha essa lacuna. É uma extensão para VS Code que acompanha a atividade de programação direto no editor e transforma o registro de tempo em uma ação rápida, para que os engenheiros possam registrar no Timesheets sem sair da IDE. Cuidei dela de ponta a ponta, da ideia até a publicação no Marketplace.
+Nosso plugin para Jira, o [Timesheets by AppForest](/projects/timesheets-appforest), tinha centralizado o controle de tempo na Testlify, mas os desenvolvedores ainda precisavam parar e mudar de tela para registrar suas horas manualmente. O AppForest Timetracker fecha essa lacuna. É uma extensão para VS Code que acompanha a atividade de programação direto no editor e transforma o registro de tempo em uma ação rápida, para que os engenheiros possam registrar no Timesheets sem sair da IDE. Cuidei dela de ponta a ponta, da ideia até a publicação no Marketplace.
 
 ## O que construí
 
-- **A extensão em si:** Construída sobre a API oficial de extensões do VS Code, com processos em segundo plano que acompanham discretamente o tempo ativo no editor, as trocas de arquivo e as mudanças no workspace — nada interrompe o desenvolvedor.
-- **Registro de tempo integrado ao Git:** A extensão lê a branch atual do Git e extrai o ID do ticket dela, então o tempo capturado já fica associado à issue certa quando é registrado no plugin Timesheets — sem procurar o ticket, sem redigitar.
+- **A extensão em si:** Construída sobre a API oficial de extensões do VS Code, com processos em segundo plano que acompanham discretamente o tempo ativo no editor, as trocas de arquivo e as mudanças no workspace, nada interrompe o desenvolvedor.
+- **Registro de tempo integrado ao Git:** A extensão lê a branch atual do Git e extrai o ID do ticket dela, então o tempo capturado já fica associado à issue certa quando é registrado no plugin Timesheets, sem procurar o ticket, sem redigitar.
 - **Ciclo de vida completo:** Cuidei da experiência de configuração local, do armazenamento seguro de tokens e do empacotamento e publicação da build no Visual Studio Marketplace.
 
 ## Por que importou
 
-Tirar a etapa manual do registro fez com que os dados de tempo que chegavam ao Timesheets fossem mais completos e mais precisos — uma queda de cerca de 60–70% no esforço gasto registrando horas e muito menos erros de relatório. Isso deu à liderança dados mais limpos para planejar sprints e faturar.
+Tirar a etapa manual do registro fez com que os dados de tempo que chegavam ao Timesheets fossem mais completos e mais precisos, uma queda de cerca de 60–70% no esforço gasto registrando horas e muito menos erros de relatório. Isso deu à liderança dados mais limpos para planejar sprints e faturar.

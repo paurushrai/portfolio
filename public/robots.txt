@@ -3,5 +3,6 @@ Allow: /
 
 # Block crawlers from non-content paths
 Disallow: /api/
+Disallow: /um
 
 Sitemap: https://paurushrai.in/sitemap.xml

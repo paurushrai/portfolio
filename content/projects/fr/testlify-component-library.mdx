@@ -10,10 +10,10 @@ Testlify fonctionne comme une suite de quatre applications distinctes, et chacun
 
 ## Ce que j'ai construit
 
-- **La décision :** J'ai plaidé pour consolider l'UI dans une seule bibliothèque plutôt que de laisser chaque application garder sa propre copie — en pesant le coût initial face à la désynchronisation et à l'effort dupliqué que nous payions déjà. Une fois l'accord obtenu, j'ai pris en charge la construction.
+- **La décision :** J'ai plaidé pour consolider l'UI dans une seule bibliothèque plutôt que de laisser chaque application garder sa propre copie, en pesant le coût initial face à la désynchronisation et à l'effort dupliqué que nous payions déjà. Une fois l'accord obtenu, j'ai pris en charge la construction.
 - **Sans état par conception :** J'ai gardé les composants sans état et purement présentationnels, de sorte qu'ils ne portent aucune logique propre à une application et s'intègrent proprement dans n'importe lequel des quatre produits. Chaque application branche ses propres données et son propre comportement ; la bibliothèque ne gère que l'apparence et le ressenti.
-- **Livrée sous forme de package npm privé :** Je l'ai publiée comme un package npm privé versionné, si bien que chaque application récupère les mêmes composants via une dépendance normale et bénéficie des corrections et améliorations avec une simple montée de version — pas de copier-coller, pas de forks.
+- **Livrée sous forme de package npm privé :** Je l'ai publiée comme un package npm privé versionné, si bien que chaque application récupère les mêmes composants via une dépendance normale et bénéficie des corrections et améliorations avec une simple montée de version, pas de copier-coller, pas de forks.
 
 ## Pourquoi c'était important
 
-Construire l'UI une seule fois et la réutiliser sur les quatre applications a réduit le temps de livraison des fonctionnalités d'environ **30 %** — les équipes ont cessé de reconstruire les mêmes primitives et se sont mises à composer à partir d'un ensemble partagé. Cela a aussi donné à toute la suite une apparence cohérente, puisqu'un changement dans la bibliothèque se répercute partout d'un coup au lieu d'être réappliqué à la main à quatre endroits.
+Construire l'UI une seule fois et la réutiliser sur les quatre applications a réduit le temps de livraison des fonctionnalités d'environ **30 %**, les équipes ont cessé de reconstruire les mêmes primitives et se sont mises à composer à partir d'un ensemble partagé. Cela a aussi donné à toute la suite une apparence cohérente, puisqu'un changement dans la bibliothèque se répercute partout d'un coup au lieu d'être réappliqué à la main à quatre endroits.

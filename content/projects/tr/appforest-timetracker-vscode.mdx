@@ -1,20 +1,20 @@
 ---
 title: "AppForest Timetracker - VS Code Eklentisi"
-description: "AppForest Timesheets Jira eklentisinin VS Code eşlikçisi — editör içindeki kodlama etkinliğini takip eder ve IDE'den çıkmadan Timesheets'e zaman kaydetmeyi zahmetsiz hale getirir."
+description: "AppForest Timesheets Jira eklentisinin VS Code eşlikçisi: editör içindeki kodlama etkinliğini takip eder ve IDE'den çıkmadan Timesheets'e zaman kaydetmeyi zahmetsiz hale getirir."
 url: https://marketplace.visualstudio.com/items?itemName=AppforestTimetracker.appforest-timetracker
 date: 2025-07-01
 published: true
 company: Testlify
 ---
 
-Jira eklentimiz [Timesheets by AppForest](/projects/timesheets-appforest), Testlify'da zaman takibini tek bir yerde toplamıştı — ama geliştiricilerin yine de durup saatlerini elle kaydetmek için başka bir yere geçmesi gerekiyordu. AppForest Timetracker bu boşluğu kapatıyor. Editörün tam içinde kodlama etkinliğini takip eden ve zaman kaydını hızlı bir eyleme dönüştüren bir VS Code eklentisi; böylece mühendisler IDE'den çıkmadan Timesheets'e kayıt yapabiliyor. Fikirden Marketplace'te yayınlamaya kadar uçtan uca sahibiydim.
+Jira eklentimiz [Timesheets by AppForest](/projects/timesheets-appforest), Testlify'da zaman takibini tek bir yerde toplamıştı, ama geliştiricilerin yine de durup saatlerini elle kaydetmek için başka bir yere geçmesi gerekiyordu. AppForest Timetracker bu boşluğu kapatıyor. Editörün tam içinde kodlama etkinliğini takip eden ve zaman kaydını hızlı bir eyleme dönüştüren bir VS Code eklentisi; böylece mühendisler IDE'den çıkmadan Timesheets'e kayıt yapabiliyor. Fikirden Marketplace'te yayınlamaya kadar uçtan uca sahibiydim.
 
 ## Ne geliştirdim
 
-- **Eklentinin kendisi:** Resmi VS Code Extension API üzerine inşa edildi; aktif editör süresini, dosya geçişlerini ve çalışma alanı değişikliklerini sessizce takip eden arka plan süreçleriyle — hiçbir şey geliştiriciyi bölmüyor.
-- **Git farkında zaman kaydı:** Eklenti mevcut Git dalını okuyor ve bilet kimliğini ondan çıkarıyor; böylece yakaladığı süre Timesheets eklentisine kaydedildiğinde zaten doğru sorunla ilişkilendirilmiş oluyor — bilet aramak, yeniden yazmak yok.
+- **Eklentinin kendisi:** Resmi VS Code Extension API üzerine inşa edildi; aktif editör süresini, dosya geçişlerini ve çalışma alanı değişikliklerini sessizce takip eden arka plan süreçleriyle, hiçbir şey geliştiriciyi bölmüyor.
+- **Git farkında zaman kaydı:** Eklenti mevcut Git dalını okuyor ve bilet kimliğini ondan çıkarıyor; böylece yakaladığı süre Timesheets eklentisine kaydedildiğinde zaten doğru sorunla ilişkilendirilmiş oluyor, bilet aramak, yeniden yazmak yok.
 - **Tam yaşam döngüsü:** Yerel yapılandırma deneyimini, güvenli token depolamayı ve derlemenin Visual Studio Marketplace'e paketlenip yayınlanmasını ben üstlendim.
 
 ## Neden önemliydi
 
-Kayıt işlemindeki manuel adımı kaldırmak, Timesheets'e akan zaman verisinin hem daha eksiksiz hem de daha doğru olması anlamına geldi — saat kaydına harcanan çabada kabaca %60-70'lik bir düşüş ve çok daha az raporlama hatası. Bu, liderliğe sprint planlaması ve faturalandırma için daha temiz veri sağladı.
+Kayıt işlemindeki manuel adımı kaldırmak, Timesheets'e akan zaman verisinin hem daha eksiksiz hem de daha doğru olması anlamına geldi, saat kaydına harcanan çabada kabaca %60-70'lik bir düşüş ve çok daha az raporlama hatası. Bu, liderliğe sprint planlaması ve faturalandırma için daha temiz veri sağladı.

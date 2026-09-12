@@ -12,8 +12,8 @@ Testlify funziona come una suite di quattro applicazioni separate, e ognuna avev
 
 - **La decisione:** Ho sostenuto l'idea di consolidare la UI in un'unica libreria invece di lasciare che ogni app tenesse la propria copia, soppesando il costo iniziale rispetto al disallineamento e allo sforzo duplicato che già stavamo pagando. Una volta approvata, mi sono occupato io della realizzazione.
 - **Stateless per scelta:** Ho mantenuto i componenti stateless e presentazionali, in modo che non portino con sé alcuna logica specifica di un'app e si inseriscano in modo pulito in ognuno dei quattro prodotti. Ogni app collega i propri dati e comportamenti; la libreria si occupa solo dell'aspetto e della sensazione.
-- **Rilasciata come pacchetto npm privato:** L'ho pubblicata come pacchetto npm privato con versioni, così ogni app tira gli stessi componenti attraverso una normale dipendenza e riceve correzioni e miglioramenti con un aumento di versione — niente copia-incolla, niente fork.
+- **Rilasciata come pacchetto npm privato:** L'ho pubblicata come pacchetto npm privato con versioni, così ogni app tira gli stessi componenti attraverso una normale dipendenza e riceve correzioni e miglioramenti con un aumento di versione, niente copia-incolla, niente fork.
 
 ## Perché ha avuto importanza
 
-Costruire la UI una volta sola e riutilizzarla in tutte e quattro le app ha ridotto i tempi di consegna delle funzionalità di circa il **30%** — i team hanno smesso di ricostruire le stesse primitive e hanno iniziato a comporre a partire da un set condiviso. Ha inoltre dato all'intera suite un aspetto coerente, dato che una modifica nella libreria arriva ovunque in una volta sola invece di essere riapplicata a mano in quattro posti.
+Costruire la UI una volta sola e riutilizzarla in tutte e quattro le app ha ridotto i tempi di consegna delle funzionalità di circa il **30%**, i team hanno smesso di ricostruire le stesse primitive e hanno iniziato a comporre a partire da un set condiviso. Ha inoltre dato all'intera suite un aspetto coerente, dato che una modifica nella libreria arriva ovunque in una volta sola invece di essere riapplicata a mano in quattro posti.

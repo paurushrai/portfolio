@@ -1,20 +1,20 @@
 ---
 title: "FuelBuddy India - App de Livraison Chauffeur"
-description: "J'ai construit des fonctionnalités de bout en bout pour l'app chauffeur de FuelBuddy — des workflows tolérants au hors ligne, le suivi de position en temps réel, une UI adaptée au terrain, et les API CRUD sous-jacentes sur Hasura GraphQL."
+description: "J'ai construit des fonctionnalités de bout en bout pour l'app chauffeur de FuelBuddy: des workflows tolérants au hors ligne, le suivi de position en temps réel, une UI adaptée au terrain, et les API CRUD sous-jacentes sur Hasura GraphQL."
 url: https://play.google.com/store/apps/details?id=in.fuelbuddy.driver
 date: 2024-04-01
 published: true
 company: FuelBuddy
 ---
 
-La [FuelBuddy Driver App](https://play.google.com/store/apps/details?id=in.fuelbuddy.driver) est ce que les chauffeurs utilisent pour livrer concrètement le carburant aux clients. Concevoir pour des chauffeurs pose ses propres problèmes : l'écran doit être lisible en plein soleil, les appuis doivent être tolérants, et le réseau peut lâcher à tout moment sur la route. J'ai construit un ensemble de fonctionnalités de bout en bout visant précisément ces conditions — le frontend et les API de données sous-jacentes.
+La [FuelBuddy Driver App](https://play.google.com/store/apps/details?id=in.fuelbuddy.driver) est ce que les chauffeurs utilisent pour livrer concrètement le carburant aux clients. Concevoir pour des chauffeurs pose ses propres problèmes : l'écran doit être lisible en plein soleil, les appuis doivent être tolérants, et le réseau peut lâcher à tout moment sur la route. J'ai construit un ensemble de fonctionnalités de bout en bout visant précisément ces conditions, le frontend et les API de données sous-jacentes.
 
 ## Ce que j'ai construit
 
 - **UI tolérante au hors ligne :** Les chauffeurs perdent régulièrement le signal, j'ai donc mis en cache localement les données d'itinéraire et de commande pour qu'ils puissent continuer à travailler dans les zones blanches. L'app met les modifications en file d'attente et les synchronise une fois la connexion revenue, au lieu de se figer.
 - **Localisation et cartes :** Prise en charge du frontend pour le suivi GPS en temps réel et le routage sur carte, en gardant efficaces les mises à jour fréquentes de position et les redessins de carte pour ne pas vider la batterie sur une longue journée.
-- **UX adaptée au terrain :** J'ai piloté plusieurs fonctionnalités opérationnelles de bout en bout, en les concevant pour des conditions réelles — mises en page à fort contraste, grandes zones d'appui et formulaires courts pour que les chauffeurs enregistrent une livraison rapidement et en sécurité.
-- **Les API sous-jacentes :** J'ai construit les API CRUD que ces fonctionnalités lisent et écrivent sur le moteur GraphQL de Hasura, pour livrer une fonctionnalité de bout en bout — la file d'attente hors ligne, les données de commande et l'enregistrement des livraisons dialoguent tous avec des points d'accès dont j'avais la charge.
+- **UX adaptée au terrain :** J'ai piloté plusieurs fonctionnalités opérationnelles de bout en bout, en les concevant pour des conditions réelles, mises en page à fort contraste, grandes zones d'appui et formulaires courts pour que les chauffeurs enregistrent une livraison rapidement et en sécurité.
+- **Les API sous-jacentes :** J'ai construit les API CRUD que ces fonctionnalités lisent et écrivent sur le moteur GraphQL de Hasura, pour livrer une fonctionnalité de bout en bout, la file d'attente hors ligne, les données de commande et l'enregistrement des livraisons dialoguent tous avec des points d'accès dont j'avais la charge.
 
 ## Pourquoi c'était important
 

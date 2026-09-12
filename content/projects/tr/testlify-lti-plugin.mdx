@@ -1,24 +1,24 @@
 ---
 title: "Testlify LTI 1.3 Advantage Eklentisi"
-description: "Eğitmenlerin Testlify değerlendirmelerini bir derse atamasına ve puanları LMS'lerinin içinden takip etmesine olanak tanıyan, 1EdTech sertifikalı bir LTI Advantage (1.3) entegrasyonu — özel OIDC/JWT el sıkışması, liste senkronizasyonu ve not geri gönderimi, Next.js 14 ile inşa edildi."
+description: "Eğitmenlerin Testlify değerlendirmelerini bir derse atamasına ve puanları LMS'lerinin içinden takip etmesine olanak tanıyan, 1EdTech sertifikalı bir LTI Advantage (1.3) entegrasyonu: özel OIDC/JWT el sıkışması, liste senkronizasyonu ve not geri gönderimi, Next.js 14 ile inşa edildi."
 url: https://lti.testlify.com/
 date: 2026-03-01
 published: true
 company: Testlify
 ---
 
-Canvas, Moodle ve Blackboard gibi Öğrenme Yönetim Sistemleri, okulların ve kurumsal eğitim ekiplerinin günlük işlerini yürüttüğü yerler. Testlify'ın değerlendirmelerini bu sistemlerin içinde kullanılabilir hale getirmek için güvenli, standartlara uygun bir köprüye ihtiyacımız vardı. Testlify LTI Eklentisini tek tam yığın mühendis olarak geliştirdim — eğitmenlerin Testlify'da oluşturulan değerlendirmeleri bir derse kayıtlı adaylara atamasına ve puanlarını takip etmesine olanak tanıyor, hepsi LMS'nin içinden.
+Canvas, Moodle ve Blackboard gibi Öğrenme Yönetim Sistemleri, okulların ve kurumsal eğitim ekiplerinin günlük işlerini yürüttüğü yerler. Testlify'ın değerlendirmelerini bu sistemlerin içinde kullanılabilir hale getirmek için güvenli, standartlara uygun bir köprüye ihtiyacımız vardı. Testlify LTI Eklentisini tek tam yığın mühendis olarak geliştirdim, eğitmenlerin Testlify'da oluşturulan değerlendirmeleri bir derse kayıtlı adaylara atamasına ve puanlarını takip etmesine olanak tanıyor, hepsi LMS'nin içinden.
 
 ![Testlify LTI 1.3 Eklenti Demosu](/projects/testlify-lti-plugin/plugin.gif)
 
-Entegrasyon, LTI Advantage (v1.3) için **[1EdTech tarafından resmi olarak sertifikalandırıldı](https://site.imsglobal.org/certifications/testlify-inc/testlify#cert_pane_nid_626241)** — Names and Role Provisioning Services 2.0 ve Assignment & Grade Services 2.0. Uyumluluk testlerini 1EdTech yürütüyor, yani bunlar kendi beyan ettiğimiz iddialar değil: bağımsız bir kurum, uygulamanın spesifikasyona uyduğunu doğruladı.
+Entegrasyon, LTI Advantage (v1.3) için **[1EdTech tarafından resmi olarak sertifikalandırıldı](https://site.imsglobal.org/certifications/testlify-inc/testlify#cert_pane_nid_626241)**, Names and Role Provisioning Services 2.0 ve Assignment & Grade Services 2.0. Uyumluluk testlerini 1EdTech yürütüyor, yani bunlar kendi beyan ettiğimiz iddialar değil: bağımsız bir kurum, uygulamanın spesifikasyona uyduğunu doğruladı.
 
 ## Ne geliştirdim
 
-- **Özel LTI 1.3 uygulaması:** Ağır bir üçüncü taraf LTI kütüphanesine yaslanmak yerine, spesifikasyonu doğrudan Next.js 14 içinde uyguladım — LMS ile Testlify arasında güveni kuran OpenID Connect el sıkışması, JWT imza doğrulaması ve JWKS genel anahtar uç noktaları.
-- **Atama ve takip akışı:** Tüm iş akışının arkasındaki API katmanını geliştirdim — bir eğitmenin bir Testlify değerlendirmesini seçip bir derse ödev olarak eklemesi için Deep Linking, o derse kayıtlı adayları çekmek için Names and Role Provisioning Services (NRPS) ve her adayın puanını LMS not defterine geri göndermek için Assignment & Grade Services (AGS) — böylece eğitmenler sonuçları zaten çalıştıkları yerde görüyor.
+- **Özel LTI 1.3 uygulaması:** Ağır bir üçüncü taraf LTI kütüphanesine yaslanmak yerine, spesifikasyonu doğrudan Next.js 14 içinde uyguladım, LMS ile Testlify arasında güveni kuran OpenID Connect el sıkışması, JWT imza doğrulaması ve JWKS genel anahtar uç noktaları.
+- **Atama ve takip akışı:** Tüm iş akışının arkasındaki API katmanını geliştirdim, bir eğitmenin bir Testlify değerlendirmesini seçip bir derse ödev olarak eklemesi için Deep Linking, o derse kayıtlı adayları çekmek için Names and Role Provisioning Services (NRPS) ve her adayın puanını LMS not defterine geri göndermek için Assignment & Grade Services (AGS), böylece eğitmenler sonuçları zaten çalıştıkları yerde görüyor.
 - **Tam yığın sistem:** Çok kiracılı API yönlendirmesini tek bir uygulamada React 18 panosuyla birleştirdim, platform başına yapılandırma için MongoDB şemalarını tasarladım ve yerel testler için yalıtılmış LMS ortamlarını simüle etmek üzere Docker kullandım.
 
 ## Neden önemliydi
 
-Standartlara uygun bir LTI entegrasyonu, Testlify'ı yükseköğretim ve kurumsal eğitim pazarlarına açtı — ve geliştirdiğim eklenti 1EdTech'in uyumluluk testinden geçip sertifika kazandı. Eğitmenler, değerlendirmeleri tüm bir derse atayıp puanları not defterine otomatik olarak geri alabildi — liste dışa aktarmak veya sonuçları elle kopyalamak yok — ki bu, genellikle LMS benimsemesini takan türden bir sürtünme.
+Standartlara uygun bir LTI entegrasyonu, Testlify'ı yükseköğretim ve kurumsal eğitim pazarlarına açtı, ve geliştirdiğim eklenti 1EdTech'in uyumluluk testinden geçip sertifika kazandı. Eğitmenler, değerlendirmeleri tüm bir derse atayıp puanları not defterine otomatik olarak geri alabildi, liste dışa aktarmak veya sonuçları elle kopyalamak yok, ki bu, genellikle LMS benimsemesini takan türden bir sürtünme.
