@@ -78,7 +78,7 @@ export default function Home() {
 
         <div className="hidden w-screen h-px animate-glow md:block animate-fade-right bg-linear-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
         <div className="my-16 text-center animate-fade-in flex flex-col items-center gap-4 px-6 md:px-0">
-          <p className="text-sm text-zinc-400">
+          <p className="text-sm font-light text-zinc-400">
             <span className="block text-zinc-300">{t.home.tagline.role}</span>
             <span className="block whitespace-nowrap">
               {t.home.tagline.detail}
@@ -95,7 +95,7 @@ export default function Home() {
             <a
               href={RESUME_URL}
               download="Paurush_Rai_Resume.pdf"
-              className="inline-flex items-center gap-[9px] rounded-full bg-zinc-800 px-4 py-[9px] text-[13.5px] font-semibold tracking-[0.2px] text-zinc-200 hover:bg-zinc-700 duration-200"
+              className="inline-flex items-center gap-[9px] rounded-full border border-zinc-700 bg-zinc-800/50 px-4 py-[9px] text-[13.5px] font-semibold tracking-[0.2px] text-zinc-300 duration-200 hover:border-zinc-500 hover:bg-zinc-800 hover:text-zinc-100"
             >
               <Download className="w-3.5 h-3.5" />
               {t.home.resume}
