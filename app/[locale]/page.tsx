@@ -78,13 +78,8 @@ export default function Home() {
 
         <div className="hidden w-screen h-px animate-glow md:block animate-fade-right bg-linear-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
         <div className="my-16 text-center animate-fade-in flex flex-col items-center gap-4 px-6 md:px-0">
-          <p className="text-sm text-zinc-400">
-            <span className="block text-zinc-300 font-medium">
-              {t.home.tagline.role}
-            </span>
-            <span className="block whitespace-nowrap">
-              {t.home.tagline.detail}
-            </span>
+          <p className="text-sm text-zinc-400 whitespace-nowrap">
+            {t.home.tagline.role}, {t.home.tagline.detail}
           </p>
           <div className="flex items-center gap-3 flex-wrap justify-center">
             <Link
