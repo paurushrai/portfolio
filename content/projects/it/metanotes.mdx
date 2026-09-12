@@ -7,7 +7,7 @@ published: true
 company: Testlify
 ---
 
-[MetaNotes](https://app.metanotes.ai/) è un assistente per riunioni basato sull'AI che partecipa alle chiamate su Google Meet, Microsoft Teams e Zoom per generare trascrizioni, action item e riepiloghi della conversazione. È un prodotto pubblico e, internamente, ha sostituito [Fireflies](https://fireflies.ai/) e [tl;dv](https://tldv.io/), le cui funzionalità limitate ai piani superiori e i costi di storage in crescita non erano più adatti alle esigenze del team. Sono stato l'unico ingegnere frontend del progetto, con la responsabilità di feature scope, deployment e decisioni di prodotto dall'inizio alla fine in circa 5 mesi di sviluppo.
+[MetaNotes](https://metanotes.ai/) è un assistente per riunioni basato sull'AI che partecipa alle chiamate su Google Meet, Microsoft Teams e Zoom per generare trascrizioni, action item e riepiloghi della conversazione. È un prodotto pubblico e, internamente, ha sostituito [Fireflies](https://fireflies.ai/) e [tl;dv](https://tldv.io/), le cui funzionalità limitate ai piani superiori e i costi di storage in crescita non erano più adatti alle esigenze del team. Sono stato l'unico ingegnere frontend del progetto, con la responsabilità di feature scope, deployment e decisioni di prodotto dall'inizio alla fine in circa 5 mesi di sviluppo.
 
 ![MetaNotes](/projects/metanotes/metanotes.gif)
 
@@ -23,15 +23,15 @@ MetaNotes è stato lanciato come prodotto SaaS pubblico ed è stato adottato int
 
 <CaseStudy summary="Leggi il case study tecnico completo →">
 
-## Costruito da solo, ownership dall'inizio alla fine
+## Ho guidato il progetto, ownership dall'inizio alla fine
 
-Sono stato l'unico ingegnere frontend su MetaNotes, e la responsabilità andava oltre la UI. Feature scope, deployment e decisioni di prodotto quotidiane erano anche compito mio. Dal primo commit al lancio interno sono passati circa 5 mesi.
+Ho guidato MetaNotes come ingegnere frontend, e la responsabilità andava oltre la UI. Feature scope, deployment e decisioni di prodotto quotidiane erano anche compito mio. Dal primo commit al lancio interno sono passati circa 5 mesi.
 
 ## Perché le trascrizioni compaiono dopo la riunione, non durante
 
 MetaNotes non trasmette il testo della trascrizione mentre il bot è in chiamata. Durante la registrazione, la UI mostra solo un badge di stato (Capturing/Paused) con controlli di pausa/ripresa/stop. L'ingestione passa attraverso il webhook di [Attendee](https://attendee.dev/) (l'API di meeting bot che partecipa alla chiamata e cattura i media) e una serie di cron job pianificati: trascrizione e riepilogo con OpenAI avvengono in modo asincrono dopo la fine della chiamata, e il frontend recupera la trascrizione, il riepilogo e gli action item finali in un'unica chiamata a una server action.
 
-Data una timeline di 5 mesi da solo, che copriva anche feature scope, deployment e decisioni di prodotto, lo streaming live non valeva il suo costo. Avrebbe significato gestire una connessione WebSocket, la riconciliazione di trascrizioni parziali e la gestione delle riconnessioni, tutto per una funzionalità (vedere la trascrizione costruirsi in tempo reale) di cui gli utenti non avevano davvero bisogno. L'ingestione asincrona dopo la chiamata offre la stessa trascrizione, lo stesso riepilogo e gli stessi action item con molte meno parti in movimento, quindi è quello che è stato rilasciato.
+Data una timeline di 5 mesi, che copriva anche feature scope, deployment e decisioni di prodotto, lo streaming live non valeva il suo costo. Avrebbe significato gestire una connessione WebSocket, la riconciliazione di trascrizioni parziali e la gestione delle riconnessioni, tutto per una funzionalità (vedere la trascrizione costruirsi in tempo reale) di cui gli utenti non avevano davvero bisogno. L'ingestione asincrona dopo la chiamata offre la stessa trascrizione, lo stesso riepilogo e gli stessi action item con molte meno parti in movimento, quindi è quello che è stato rilasciato.
 
 ## Evidenziazione della trascrizione sincronizzata sul timestamp
 

@@ -7,7 +7,7 @@ published: true
 company: Testlify
 ---
 
-[MetaNotes](https://app.metanotes.ai/), Google Meet, Microsoft Teams ve Zoom çağrılarına katılıp transkript, aksiyon maddesi ve konuşma özetleri üreten bir yapay zeka toplantı asistanı. Herkese açık bir ürün ve şirket içinde [Fireflies](https://fireflies.ai/) ile [tl;dv](https://tldv.io/) yerine kullanılıyor: ikisi de temel özellikleri daha pahalı planların arkasına kilitlemişti ve depolama maliyetleri arttıkça takımın ihtiyaçlarına artık uymuyordu. Bu projede tek frontend mühendisiydim; özellik kapsamı, dağıtım ve ürün kararları yaklaşık 5 aylık geliştirme sürecinde baştan sona bana aitti.
+[MetaNotes](https://metanotes.ai/), Google Meet, Microsoft Teams ve Zoom çağrılarına katılıp transkript, aksiyon maddesi ve konuşma özetleri üreten bir yapay zeka toplantı asistanı. Herkese açık bir ürün ve şirket içinde [Fireflies](https://fireflies.ai/) ile [tl;dv](https://tldv.io/) yerine kullanılıyor: ikisi de temel özellikleri daha pahalı planların arkasına kilitlemişti ve depolama maliyetleri arttıkça takımın ihtiyaçlarına artık uymuyordu. Bu projede tek frontend mühendisiydim; özellik kapsamı, dağıtım ve ürün kararları yaklaşık 5 aylık geliştirme sürecinde baştan sona bana aitti.
 
 ![MetaNotes](/projects/metanotes/metanotes.gif)
 
@@ -23,15 +23,15 @@ MetaNotes herkese açık bir SaaS ürünü olarak piyasaya sürüldü ve şirket
 
 <CaseStudy summary="Tam teknik vaka analizini oku →">
 
-## Tek başıma geliştirildi, baştan sona sahiplenildi
+## Projeye liderlik ettim, baştan sona sahiplenildi
 
-MetaNotes'ta tek frontend mühendisi bendim ve sorumluluk arayüzün ötesine geçiyordu. Özellik kapsamı, dağıtımlar ve günlük ürün kararları da bana aitti. İlk commit'ten şirket içi lansmana kadar yaklaşık 5 ay sürdü.
+MetaNotes'a frontend mühendisi olarak liderlik ettim ve sorumluluk arayüzün ötesine geçiyordu. Özellik kapsamı, dağıtımlar ve günlük ürün kararları da bana aitti. İlk commit'ten şirket içi lansmana kadar yaklaşık 5 ay sürdü.
 
 ## Transkript neden toplantı sırasında değil, toplantıdan sonra görünüyor
 
 MetaNotes, bot çağrıdayken transkript metnini canlı olarak akıtmıyor. Kayıt sırasında arayüz sadece bir durum rozeti (Capturing/Paused) ile duraklat, devam ettir, durdur kontrollerini gösteriyor. Veri alımı, [Attendee](https://attendee.dev/)'nin webhook'u (çağrıya katılıp medyayı yakalayan toplantı bot API'si) ve bir dizi zamanlanmış cron görevi üzerinden yürüyor: transkript ve OpenAI ile yapılan özetleme çağrı bittikten sonra asenkron olarak gerçekleşiyor ve frontend, tamamlanmış transkripti, özeti ve aksiyon maddelerini tek bir sunucu eylemi çağrısıyla bir kerede alıyor.
 
-Özellik kapsamını, dağıtımları ve ürün kararlarını da kapsayan beş aylık tek kişilik bir zaman çizelgesi göz önüne alındığında, canlı yayın maliyetine değmezdi. Bir WebSocket bağlantısını yönetmek, kısmi transkript uzlaştırmasını ve yeniden bağlanma işlemlerini halletmek gerekecekti, hem de kullanıcıların gerçekten ihtiyaç duymadığı bir özellik (transkriptin gerçek zamanlı olarak oluşumunu izlemek) için. Çağrı bittikten sonra asenkron veri alımı, çok daha az hareketli parçayla aynı transkripti, özeti ve aksiyon maddelerini sunuyor, bu yüzden yayınlanan çözüm bu oldu.
+Özellik kapsamını, dağıtımları ve ürün kararlarını da kapsayan beş aylık bir zaman çizelgesi göz önüne alındığında, canlı yayın maliyetine değmezdi. Bir WebSocket bağlantısını yönetmek, kısmi transkript uzlaştırmasını ve yeniden bağlanma işlemlerini halletmek gerekecekti, hem de kullanıcıların gerçekten ihtiyaç duymadığı bir özellik (transkriptin gerçek zamanlı olarak oluşumunu izlemek) için. Çağrı bittikten sonra asenkron veri alımı, çok daha az hareketli parçayla aynı transkripti, özeti ve aksiyon maddelerini sunuyor, bu yüzden yayınlanan çözüm bu oldu.
 
 ## Zaman damgasına senkronize transkript vurgulama
 

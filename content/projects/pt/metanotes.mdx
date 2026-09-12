@@ -7,7 +7,7 @@ published: true
 company: Testlify
 ---
 
-O [MetaNotes](https://app.metanotes.ai/) é um assistente de reunião com IA que entra em chamadas do Google Meet, Microsoft Teams e Zoom para gerar transcrições, itens de ação e resumos da conversa. É um produto público e, internamente, substituiu o [Fireflies](https://fireflies.ai/) e o [tl;dv](https://tldv.io/), cujos recursos bloqueados em planos superiores e custos de armazenamento crescentes já não atendiam às necessidades do time. Fui o único engenheiro de frontend do projeto, responsável por escopo de funcionalidades, deploys e decisões de produto do início ao fim ao longo de cerca de 5 meses de desenvolvimento.
+O [MetaNotes](https://metanotes.ai/) é um assistente de reunião com IA que entra em chamadas do Google Meet, Microsoft Teams e Zoom para gerar transcrições, itens de ação e resumos da conversa. É um produto público e, internamente, substituiu o [Fireflies](https://fireflies.ai/) e o [tl;dv](https://tldv.io/), cujos recursos bloqueados em planos superiores e custos de armazenamento crescentes já não atendiam às necessidades do time. Fui o único engenheiro de frontend do projeto, responsável por escopo de funcionalidades, deploys e decisões de produto do início ao fim ao longo de cerca de 5 meses de desenvolvimento.
 
 ![MetaNotes](/projects/metanotes/metanotes.gif)
 
@@ -23,15 +23,15 @@ O MetaNotes foi lançado como produto SaaS público e foi adotado internamente p
 
 <CaseStudy summary="Leia o case técnico completo →">
 
-## Construído sozinho, com responsabilidade do início ao fim
+## Liderei o projeto, com responsabilidade do início ao fim
 
-Fui o único engenheiro de frontend no MetaNotes, e a responsabilidade ia além da interface. Escopo de funcionalidades, deploys e decisões de produto do dia a dia também eram meus. Do primeiro commit ao lançamento interno levou cerca de 5 meses.
+Liderei o MetaNotes como engenheiro de frontend, e a responsabilidade ia além da interface. Escopo de funcionalidades, deploys e decisões de produto do dia a dia também eram meus. Do primeiro commit ao lançamento interno levou cerca de 5 meses.
 
 ## Por que a transcrição aparece depois da reunião, não durante
 
 O MetaNotes não transmite o texto da transcrição enquanto o bot está na chamada. Durante a captura, a interface mostra apenas um selo de status (Capturing/Paused) com controles de pausar, retomar e parar. A ingestão passa pelo webhook do [Attendee](https://attendee.dev/) (a API de bot de reunião que entra na chamada e captura a mídia) e por um conjunto de tarefas cron agendadas: a transcrição e o resumo via OpenAI acontecem de forma assíncrona depois que a chamada termina, e o frontend busca a transcrição final, o resumo e os itens de ação de uma vez, em uma única chamada de server action.
 
-Considerando um cronograma solo de cinco meses que também cobria escopo de funcionalidades, deploys e decisões de produto, o streaming ao vivo não valia o custo. Teria significado gerenciar uma conexão WebSocket, reconciliação de transcrição parcial e tratamento de reconexão, tudo isso por uma capacidade (ver a transcrição sendo montada em tempo real) que os usuários não precisavam de fato. A ingestão assíncrona depois da chamada entrega a mesma transcrição, resumo e itens de ação com muito menos partes móveis, então foi isso que foi lançado.
+Considerando um cronograma de cinco meses que também cobria escopo de funcionalidades, deploys e decisões de produto, o streaming ao vivo não valia o custo. Teria significado gerenciar uma conexão WebSocket, reconciliação de transcrição parcial e tratamento de reconexão, tudo isso por uma capacidade (ver a transcrição sendo montada em tempo real) que os usuários não precisavam de fato. A ingestão assíncrona depois da chamada entrega a mesma transcrição, resumo e itens de ação com muito menos partes móveis, então foi isso que foi lançado.
 
 ## Destaque de transcrição sincronizado por timestamp
 

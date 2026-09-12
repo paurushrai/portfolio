@@ -7,7 +7,7 @@ published: true
 company: Testlify
 ---
 
-[MetaNotes](https://app.metanotes.ai/) est un assistant de réunion IA qui rejoint les appels Google Meet, Microsoft Teams et Zoom pour générer des transcriptions, des actions à suivre et des résumés de conversation. C'est un produit public, et en interne il a remplacé [Fireflies](https://fireflies.ai/) et [tl;dv](https://tldv.io/), dont les fonctionnalités clés étaient verrouillées derrière des offres payantes plus chères et dont le coût de stockage grimpait, au point de ne plus convenir aux besoins de l'équipe. J'étais l'unique ingénieur frontend du projet, responsable du périmètre fonctionnel, des déploiements et des décisions produit de bout en bout sur environ 5 mois de développement.
+[MetaNotes](https://metanotes.ai/) est un assistant de réunion IA qui rejoint les appels Google Meet, Microsoft Teams et Zoom pour générer des transcriptions, des actions à suivre et des résumés de conversation. C'est un produit public, et en interne il a remplacé [Fireflies](https://fireflies.ai/) et [tl;dv](https://tldv.io/), dont les fonctionnalités clés étaient verrouillées derrière des offres payantes plus chères et dont le coût de stockage grimpait, au point de ne plus convenir aux besoins de l'équipe. J'étais l'unique ingénieur frontend du projet, responsable du périmètre fonctionnel, des déploiements et des décisions produit de bout en bout sur environ 5 mois de développement.
 
 ![MetaNotes](/projects/metanotes/metanotes.gif)
 
@@ -23,15 +23,15 @@ MetaNotes a été lancé comme produit SaaS public et a été adopté en interne
 
 <CaseStudy summary="Lire l'étude de cas technique complète →">
 
-## Construit seul, responsabilité de bout en bout
+## J'ai dirigé le projet, responsabilité de bout en bout
 
-J'étais l'unique ingénieur frontend sur MetaNotes, et cette responsabilité allait au-delà de l'interface. Le périmètre fonctionnel, les déploiements et les décisions produit du quotidien étaient aussi de mon ressort. Du premier commit au lancement interne, il a fallu environ 5 mois.
+J'ai dirigé MetaNotes en tant qu'ingénieur frontend, et cette responsabilité allait au-delà de l'interface. Le périmètre fonctionnel, les déploiements et les décisions produit du quotidien étaient aussi de mon ressort. Du premier commit au lancement interne, il a fallu environ 5 mois.
 
 ## Pourquoi la transcription apparaît après la réunion, et non pendant
 
 MetaNotes ne diffuse pas le texte de la transcription pendant que le bot est en appel. Pendant l'enregistrement, l'interface affiche uniquement un badge de statut (Capturing/Paused) avec des contrôles pause, reprise et arrêt. L'ingestion passe par le webhook d'[Attendee](https://attendee.dev/) (l'API de bot de réunion qui rejoint l'appel et capture les médias) et un ensemble de tâches cron planifiées : la transcription et le résumé via OpenAI se font de façon asynchrone une fois l'appel terminé, et le frontend récupère la transcription finale, le résumé et les actions à suivre en un seul appel de server action.
 
-Sur un calendrier solo de cinq mois qui couvrait aussi le périmètre fonctionnel, les déploiements et les décisions produit, le streaming en direct ne valait pas son coût. Il aurait fallu gérer une connexion WebSocket, réconcilier des transcriptions partielles et gérer les reconnexions, tout ça pour une fonctionnalité (voir la transcription se construire en temps réel) dont les utilisateurs n'avaient pas vraiment besoin. L'ingestion asynchrone après l'appel fournit la même transcription, le même résumé et les mêmes actions à suivre avec beaucoup moins de pièces mobiles, c'est donc ce qui a été livré.
+Sur un calendrier de cinq mois qui couvrait aussi le périmètre fonctionnel, les déploiements et les décisions produit, le streaming en direct ne valait pas son coût. Il aurait fallu gérer une connexion WebSocket, réconcilier des transcriptions partielles et gérer les reconnexions, tout ça pour une fonctionnalité (voir la transcription se construire en temps réel) dont les utilisateurs n'avaient pas vraiment besoin. L'ingestion asynchrone après l'appel fournit la même transcription, le même résumé et les mêmes actions à suivre avec beaucoup moins de pièces mobiles, c'est donc ce qui a été livré.
 
 ## Surlignage de transcription synchronisé sur l'horodatage
 

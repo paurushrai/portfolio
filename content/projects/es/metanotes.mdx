@@ -7,7 +7,7 @@ published: true
 company: Testlify
 ---
 
-[MetaNotes](https://app.metanotes.ai/) es un asistente de reuniones con IA que se une a las llamadas de Google Meet, Microsoft Teams y Zoom para generar transcripciones, tareas pendientes y resúmenes de la conversación. Es un producto público y, de forma interna, reemplazó a [Fireflies](https://fireflies.ai/) y [tl;dv](https://tldv.io/), cuyas funciones clave estaban bloqueadas en planes de pago más caros y cuyos costos de almacenamiento crecían, dejando de encajar con las necesidades del equipo. Fui el único ingeniero de frontend del proyecto, responsable del alcance de funcionalidades, los despliegues y las decisiones de producto de principio a fin durante unos 5 meses de desarrollo.
+[MetaNotes](https://metanotes.ai/) es un asistente de reuniones con IA que se une a las llamadas de Google Meet, Microsoft Teams y Zoom para generar transcripciones, tareas pendientes y resúmenes de la conversación. Es un producto público y, de forma interna, reemplazó a [Fireflies](https://fireflies.ai/) y [tl;dv](https://tldv.io/), cuyas funciones clave estaban bloqueadas en planes de pago más caros y cuyos costos de almacenamiento crecían, dejando de encajar con las necesidades del equipo. Fui el único ingeniero de frontend del proyecto, responsable del alcance de funcionalidades, los despliegues y las decisiones de producto de principio a fin durante unos 5 meses de desarrollo.
 
 ![MetaNotes](/projects/metanotes/metanotes.gif)
 
@@ -23,15 +23,15 @@ MetaNotes se lanzó como producto SaaS público y fue adoptado internamente por 
 
 <CaseStudy summary="Leer el caso de estudio técnico completo →">
 
-## Construido en solitario, con responsabilidad de principio a fin
+## Lideré el proyecto, con responsabilidad de principio a fin
 
-Fui el único ingeniero de frontend en MetaNotes, y la responsabilidad iba más allá de la interfaz. El alcance de funcionalidades, los despliegues y las decisiones de producto del día a día también eran míos. Del primer commit al lanzamiento interno pasaron unos 5 meses.
+Lideré MetaNotes como ingeniero de frontend, y la responsabilidad iba más allá de la interfaz. El alcance de funcionalidades, los despliegues y las decisiones de producto del día a día también eran míos. Del primer commit al lanzamiento interno pasaron unos 5 meses.
 
 ## Por qué la transcripción aparece después de la reunión, no durante
 
 MetaNotes no transmite el texto de la transcripción mientras el bot está en la llamada. Durante la grabación, la interfaz solo muestra una etiqueta de estado (Capturing/Paused) con controles de pausar, reanudar y detener. La ingesta pasa por el webhook de [Attendee](https://attendee.dev/) (la API de bot de reuniones que se une a la llamada y captura el contenido multimedia) y un conjunto de tareas cron programadas: la transcripción y el resumen con OpenAI ocurren de forma asíncrona después de que termina la llamada, y el frontend obtiene la transcripción final, el resumen y las tareas pendientes de una sola vez, en una única llamada a una server action.
 
-Dado un cronograma en solitario de cinco meses que también cubría el alcance de funcionalidades, los despliegues y las decisiones de producto, la transmisión en vivo no valía su costo. Habría significado gestionar una conexión WebSocket, reconciliar transcripciones parciales y manejar reconexiones, todo para una función (ver la transcripción construirse en tiempo real) que los usuarios en realidad no necesitaban. La ingesta asíncrona después de la llamada entrega la misma transcripción, el mismo resumen y las mismas tareas pendientes con muchas menos piezas en movimiento, así que eso fue lo que se lanzó.
+Dado un cronograma de cinco meses que también cubría el alcance de funcionalidades, los despliegues y las decisiones de producto, la transmisión en vivo no valía su costo. Habría significado gestionar una conexión WebSocket, reconciliar transcripciones parciales y manejar reconexiones, todo para una función (ver la transcripción construirse en tiempo real) que los usuarios en realidad no necesitaban. La ingesta asíncrona después de la llamada entrega la misma transcripción, el mismo resumen y las mismas tareas pendientes con muchas menos piezas en movimiento, así que eso fue lo que se lanzó.
 
 ## Resaltado de transcripción sincronizado por marca de tiempo
 
