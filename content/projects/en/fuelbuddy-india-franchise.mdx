@@ -22,7 +22,7 @@ Fleet tracking made dispatch logistics more predictable and reduced truck idle t
 
 ## What "Live" Actually Means Here
 
-The truck map updates on a polling interval, not a GraphQL subscription, even though the same client is wired up for subscriptions elsewhere in the app (`graphql-ws` is configured and used for order-status updates, just not for this particular map). That was a deliberate cost tradeoff: Hasura bills active subscription connections differently from queries, and a live map open across every franchise dispatcher's session would have kept far more concurrent subscriptions open than the order-status use case does. Polling on an interval capped that cost while still giving dispatchers truck positions that refresh continuously.
+The truck map updates on a polling interval, not a GraphQL subscription, even though the same client is wired up for subscriptions elsewhere in the app (`graphql-ws` is configured and used for order-status updates, just not for this particular map). That was a deliberate cost call by the team at the time, not an oversight: a live map held open across every franchise dispatcher's session for hours at a stretch is a different usage pattern than a single order-status update, and polling on an interval was the cheaper way to run it.
 
 ## Assignment and Inventory, in More Detail
 
