@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, Download } from "lucide-react";
 import { Navigation } from "../../components/nav";
 import { useLanguage } from "../../i18n/LanguageContext";
+import { RESUME_URL } from "../../lib/resume";
 
 
 export default function AboutPage() {
@@ -21,7 +22,7 @@ export default function AboutPage() {
           </h1>
           <p className="mt-4 text-zinc-400">{a.subtitle}</p>
           <a
-            href="/resume.pdf"
+            href={RESUME_URL}
             download="Paurush_Rai_Resume.pdf"
             className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-zinc-700 bg-zinc-800/50 text-sm text-zinc-300 hover:text-zinc-100 hover:border-zinc-500 hover:bg-zinc-800 duration-200"
           >
