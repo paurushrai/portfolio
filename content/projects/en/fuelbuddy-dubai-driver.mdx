@@ -1,0 +1,41 @@
+---
+title: "FuelBuddy Dubai - Driver Delivery App"
+description: "Built FuelBuddy UAE's driver app: shift-based vehicle checks, meter-reading proof of delivery, and dispatch document generation."
+date: 2024-05-01
+published: true
+company: FuelBuddy
+---
+
+FuelBuddy's UAE driver app is what drivers use to run a fuel-delivery shift: from a pre-shift vehicle check through proof-of-delivery to dispatch paperwork. I built this app's frontend, covering the full shift workflow rather than just order logging.
+
+## What I built
+
+- **Shift and vehicle workflows:** Built asset selection, pre-shift health checks, and odometer logging as a connected sequence rather than standalone forms.
+- **Meter-based proof of delivery:** Built before/after totalizer (fuel meter) reading capture, the actual mechanism that proves how much fuel was delivered, plus signature capture and delivery-photo upload.
+- **Dispatch documents:** Built Challan (dispatch/delivery document) generation as part of the delivery flow.
+- **Location and identification:** Integrated live GPS, map display, and QR scanning for asset identification.
+
+## Why it mattered
+
+Meter readings and signed delivery documentation, captured directly in the driver's workflow, gave FuelBuddy a verifiable record of every delivery without a separate paper process.
+
+<CaseStudy summary="Read the full technical case study →">
+
+## What Proof of Delivery Actually Means Here
+
+The core of this app isn't order browsing, it's compliance: a health check before the shift starts, an odometer reading, a totalizer reading before dispensing and another after, a signature, and a delivery photo. Together those readings are the evidence that a delivery happened and how much fuel moved, not just a status flag flipped in a database.
+
+## Session State and Reliability
+
+Pinia state persists across reloads through `pinia-plugin-persistedstate`, so a shift in progress survives a refresh or an app restart, useful given drivers working in the field on variable connectivity. Sentry is wired in for error tracking in production. OTP handles login rather than a password, and QR scanning identifies assets without manual entry.
+
+## Data Model & Scale
+
+- GraphQL runs through `graphql-request` against Hasura, the same pattern used across FuelBuddy's other UAE apps.
+- Test coverage is two Playwright specs (login, pages), thin relative to the app's real surface area, stated plainly rather than implied otherwise.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [Vite](https://vite.dev/), [Pinia](https://pinia.vuejs.org/) with persisted state, [graphql-request](https://github.com/jasonkuhrt/graphql-request) against [Hasura](https://hasura.io/), [Mapbox](https://www.mapbox.com/) and Google Maps, [Sentry](https://sentry.io/) for error tracking, [jsQR](https://github.com/cozmo/jsQR) for QR scanning, [vue3-signature](https://www.npmjs.com/package/vue3-signature) for delivery sign-off.
+
+</CaseStudy>

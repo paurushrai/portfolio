@@ -1,20 +1,40 @@
 ---
 title: "FuelBuddy Dubai - Regional Franchise Platform"
-description: "Built FuelBuddy UAE's franchise platform from scratch: frontend architecture, Hasura GraphQL APIs, TanStack Query, and regional compliance workflows."
+description: "Built FuelBuddy UAE's franchise platform from scratch: frontend architecture, Hasura GraphQL APIs, and Firebase-backed authentication."
 date: 2024-10-01
 published: true
 company: FuelBuddy
 ---
 
-FuelBuddy's UAE expansion required a dedicated franchise application tailored to regional regulatory, security, and operational requirements. I built the Dubai Franchise Application from scratch across both the frontend and the data APIs.
+FuelBuddy's UAE expansion required a dedicated franchise application tailored to regional operational requirements. I built the Dubai Franchise Application from scratch across both the frontend and the data APIs.
 
 ## What I built
 
 - **Greenfield frontend:** Built the component system and application structure from scratch, delivering a clean and responsive interface for franchise operations.
 - **Hasura GraphQL APIs:** Built the backend data layer on Hasura GraphQL engine, defining the CRUD operations and data models needed by the application.
-- **TanStack Query data layer:** Implemented TanStack Query for caching, background synchronization, and optimistic UI updates, keeping network requests efficient and UI state consistent.
-- **Authentication and security:** Configured token management, API payload validation, and role-based access control to meet regional compliance standards.
+- **Maps, scheduling, and exports:** Integrated live maps, a calendar/Gantt scheduling view, and spreadsheet/PDF export for franchise reporting.
+- **Authentication and security:** Configured Firebase-backed authentication with role-based access enforced through Hasura's own JWT claims.
 
 ## Why it mattered
 
-Delivering a dedicated platform satisfied regional compliance requirements in Dubai while establishing a modern architecture with TanStack Query and GraphQL that minimized redundant network calls.
+Delivering a dedicated platform gave FuelBuddy's UAE franchise operators a purpose-built tool for regional operations, on a stack built for real-time map data and heavy reporting.
+
+<CaseStudy summary="Read the full technical case study →">
+
+## Correcting the Stack
+
+An earlier version of this case study named TanStack Query as the data layer. It isn't: this app fetches through `graphql-request` against a typed, codegen'd SDK, with Pinia stores holding client state, no TanStack Query anywhere in the dependency tree. Auth runs on Firebase, and role-based access comes from Hasura's own JWT custom claims (`x-hasura-default-role`, `x-hasura-user-id`) rather than a separately built permissions system.
+
+## More Than a Form Builder
+
+This is a genuinely feature-heavy app for what could have been a thin CRUD tool: Mapbox/Google Maps for location data, FullCalendar plus a Gantt-chart library for scheduling, and a real export pipeline (`xlsx`, `papaparse`, `jszip`, `html2pdf`) for franchise reporting, not just an on-screen table.
+
+## Known Limitation, Stated Plainly
+
+Test coverage is Playwright, but only two spec files (login, orders), thin relative to the size of the app. "Regional compliance workflows" from an earlier draft of this case study is dropped: no UAE-specific compliance logic (VAT handling, Arabic/RTL support) was found in the codebase to point to, so the claim wasn't kept.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [Vite](https://vite.dev/), [Pinia](https://pinia.vuejs.org/), [graphql-request](https://github.com/jasonkuhrt/graphql-request) against [Hasura](https://hasura.io/), [Firebase](https://firebase.google.com/) for auth, [Mapbox](https://www.mapbox.com/) and Google Maps, [FullCalendar](https://fullcalendar.io/), [Playwright](https://playwright.dev/) for tests.
+
+</CaseStudy>

@@ -1,6 +1,6 @@
 ---
 title: "FuelBuddy India - Franchise Logistics & Tracking App"
-description: "Core engineer on FuelBuddy's franchise app: live truck tracking, Hasura GraphQL APIs optimized for low-bandwidth areas, and streamlined logistics flows."
+description: "Core engineer on FuelBuddy's franchise app: live truck tracking, Hasura GraphQL APIs, and streamlined logistics flows."
 date: 2023-09-01
 published: true
 company: FuelBuddy
@@ -10,10 +10,31 @@ At [FuelBuddy](https://fuelbuddy.in/), I was a core engineer on the Franchise Ap
 
 ## What I built
 
-- **Live truck tracking:** Built an interactive map module displaying real-time fleet locations, giving operators continuous visibility into truck movements and dispatch statuses.
-- **GraphQL APIs and query optimization:** Built data APIs using Hasura GraphQL engine, optimizing payloads and query caching to ensure fast response times even over weak cellular connections.
-- **Workflow simplification:** Redesigned multi-step operational tasks, such as inventory reconciliation and driver assignment, into streamlined interfaces that reduced operational errors.
+- **Live truck tracking:** Built an interactive Google Maps module displaying fleet locations on a polling interval, giving operators continuous visibility into truck movements and dispatch statuses.
+- **GraphQL APIs and caching:** Built data APIs using Hasura GraphQL engine through urql, with a normalized client-side cache and automatic token refresh on expiry.
+- **Workflow simplification:** Redesigned multi-step operational tasks, inventory reconciliation and driver assignment among them, into streamlined interfaces that reduced operational errors.
 
 ## Why it mattered
 
-Real-time fleet tracking made dispatch logistics more predictable and reduced truck idle time. Optimized data fetching and simplified workflows reduced operational errors across franchise hubs.
+Fleet tracking made dispatch logistics more predictable and reduced truck idle time. Streamlined assignment and inventory workflows reduced operational errors across franchise hubs.
+
+<CaseStudy summary="Read the full technical case study →">
+
+## What "Live" Actually Means Here
+
+The truck map updates on a polling interval, not a GraphQL subscription, even though the same client is wired up for subscriptions elsewhere in the app (`graphql-ws` is configured and used, just not for this particular map). Worth stating plainly rather than implying push-based real-time tracking that isn't what's running.
+
+## Assignment and Inventory, in More Detail
+
+Driver assignment covers single, bulk, reassignment, and unassignment flows, not just a single "assign" action. Inventory tracking follows stock balances for fuel bowsers (tanker trucks) specifically, with dedicated stock-balance queries and log tables, a real operational data model, not a generic parts inventory.
+
+## Data Model & Scale
+
+- urql's normalized cache plus a Firebase-token auth layer that refreshes automatically on 401/expired-token responses.
+- Test coverage exists via Playwright, though the earlier "optimized for weak cellular connections" framing wasn't backed by any retry or offline-queueing code found in this repo, so it's dropped here rather than repeated without evidence.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [Vite](https://vite.dev/), [Pinia](https://pinia.vuejs.org/), [urql](https://commerce.nearform.com/open-source/urql/) against [Hasura](https://hasura.io/), [Firebase](https://firebase.google.com/) auth, Google Maps, [Playwright](https://playwright.dev/) for tests.
+
+</CaseStudy>

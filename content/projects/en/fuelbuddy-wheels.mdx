@@ -1,0 +1,40 @@
+---
+title: "FuelBuddy Wheels - In-Vehicle Dispensing Kiosk"
+description: "Built a locked-down Electron kiosk app for FuelBuddy's delivery trucks, bridging a driver-facing UI to a physical fuel meter over serial hardware."
+date: 2024-08-01
+published: true
+company: FuelBuddy
+---
+
+FuelBuddy's delivery trucks each carry an onboard kiosk running the dispensing workflow: choose the customer's tank, run the meter, close out the order. I built this Electron app, including the bridge between the UI and the truck's physical metering hardware.
+
+## What I built
+
+- **Kiosk application:** Built a locked-down, fullscreen Electron app (no minimize, no close in production) running the driver's shift: login, assigned orders, asset selection, and the dispensing sequence itself.
+- **Hardware bridge:** Built the IPC layer connecting the UI to a physical flow meter over a serial connection, so the renderer process never talks to hardware directly.
+- **Offline-first data:** Used an embedded local database so the app keeps working through connectivity gaps on the road, not just an API client with no fallback.
+
+## Why it mattered
+
+Reading a physical meter directly, instead of trusting a manually entered number, gives FuelBuddy a verifiable record of exactly how much fuel a delivery actually dispensed.
+
+<CaseStudy summary="Read the full technical case study →">
+
+## A Real Hardware Bridge, Not a Simulated One
+
+The renderer process calls a preload-bridged API (`window.dispenser.*`: initialize, read totalizer, start/stop pump, authorize, set/cancel/read preset, clear/read sale) and never touches the serial port itself. The main process owns the actual RS-232/RS-485 communication with the meter over the `serialport` library, delegating the hardware protocol to a private, versioned internal package configured per deployment (device type, hardware ID, baud rate all set via environment variables). That split matters: a UI bug can't corrupt hardware state, and swapping meter hardware is a configuration change, not a rewrite.
+
+## Offline by Design, Not by Accident
+
+Local data runs through an embedded reactive database (RxDB) rather than an API client with a retry wrapper bolted on, a real offline-first architecture for a truck that spends most of its shift without reliable connectivity. Order and task data (assigned orders, shift schedule, customer assets) comes from GraphQL against Hasura when connected; the local database is what keeps the dispensing flow usable when it isn't.
+
+## Data Model & Scale
+
+- The dispenser driver is a pluggable, versioned internal package, not code specific to one meter model, so a different physical meter is a config change rather than new app logic.
+- The app runs as a kiosk on purpose: window controls that would let a driver accidentally close or resize it out of the delivery flow are disabled in production.
+
+## Stack
+
+[Electron](https://www.electronjs.org/), [Vue](https://vuejs.org/) 3, [TypeScript](https://www.typescriptlang.org/), [electron-vite](https://electron-vite.org/), [RxDB](https://rxdb.info/) for offline-first local data, [serialport](https://serialport.io/) for the hardware bridge, [graphql-request](https://github.com/jasonkuhrt/graphql-request) against [Hasura](https://hasura.io/).
+
+</CaseStudy>

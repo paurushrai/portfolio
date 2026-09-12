@@ -18,3 +18,28 @@ FuelBuddy's customer app started as a Progressive Web App. That worked on Androi
 ## Why it mattered
 
 Migrating to React Native established a reliable, single codebase across both iOS and Android. Shipping 14 user flows with full parity in 8 weeks allowed FuelBuddy to serve its entire mobile user base without maintaining separate platform implementations.
+
+<CaseStudy summary="Read the full technical case study →">
+
+## Team Role, Stated Plainly
+
+I was one of the engineers on this rewrite, not the lead. This repo's own git history doesn't preserve the original development timeline (it was flattened to an archival snapshot at some point), so the "8 weeks" figure reflects the team's own account of the project rather than something independently re-verifiable from commit timestamps today.
+
+## The GraphQL Layer
+
+CRUD APIs run on Hasura, consumed through `urql` rather than Apollo, with GraphQL Codegen generating typed operations, 73 separate `.graphql` files covering the app's real surface area. Local state runs through Zustand, with MMKV as the fast key-value store backing it, and Zod validating data at the boundaries.
+
+## Location and Payments, Not Just CRUD
+
+Delivery tracking pulls in `react-native-maps`, a dedicated geolocation service, and Turf.js for the actual geospatial math (distance, bounds, routing calculations), not just a marker on a map. Payment goes through Easebuzz, an India-specific gateway, integrated as a vendored local package rather than a registry dependency. Firebase covers both auth and analytics.
+
+## Data Model & Scale
+
+- 13-14 distinct flow containers (address, assets, business, delivery, home, location, order, pickup, reports, settings, support, user, wallet) organize the app's navigation, consistent with the "14 user flows" figure.
+- Native Android and iOS project structures confirm this is a fully compiled app, not a wrapped webview.
+
+## Stack
+
+[React Native](https://reactnative.dev/), [urql](https://commerce.nearform.com/open-source/urql/) with [GraphQL Code Generator](https://the-guild.dev/graphql/codegen), [Zustand](https://zustand.docs.pmnd.rs/) for state, [MMKV](https://github.com/mrousavy/react-native-mmkv) for storage, [Zod](https://zod.dev/) for validation, [react-native-maps](https://github.com/react-native-maps/react-native-maps), [Turf.js](https://turfjs.org/) for geospatial calculations, [Firebase](https://firebase.google.com/) for auth and analytics, on [Hasura](https://hasura.io/) GraphQL.
+
+</CaseStudy>

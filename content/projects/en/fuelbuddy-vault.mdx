@@ -1,0 +1,36 @@
+---
+title: "FuelBuddy Vault - Fleet Telematics Dashboard"
+description: "Contributed to FuelBuddy Vault, a GPS/telematics fleet dashboard ingesting real vehicle-tracker hardware data: ignition, odometer, GNSS speed, and fuel-level sensors."
+date: 2024-01-01
+published: true
+company: FuelBuddy
+---
+
+FuelBuddy Vault is a GPS and telematics dashboard for tracking the delivery fleet: live vehicle positions, route playback, and driving-behavior reports. I was a contributor on the frontend team building it.
+
+## What I worked on
+
+- **Live fleet map:** Worked on the live vehicle map with status and vehicle filters, clustering, and a route-playback view with configurable speed.
+- **Reporting:** Contributed to a custom report builder and an overspeed report, both built on real vehicle-tracker telemetry rather than simulated data.
+- **Data layer:** Worked within a Relay/GraphQL data layer with Recoil for client state.
+
+## Why it mattered
+
+Turning raw GPS-tracker data into a live map and usable reports gave FuelBuddy's operations team visibility into fleet location and driving behavior without needing to read hardware telemetry directly.
+
+<CaseStudy summary="Read the full technical case study →">
+
+## Real Hardware Data, Not a Mock
+
+The overspeed report's field mapping matches Teltonika's AVL parameter ID conventions exactly (ignition state, movement sensor, total odometer, GNSS speed, and BLE-based temperature and fuel-level sensors), meaning this dashboard consumes genuine telemetry from GPS/OBD tracker hardware installed in the vehicles, not a simulated data feed built for demo purposes.
+
+## Data Model & Scale
+
+- Relay's normalized cache and GraphQL fragments back the map and report views, a data-fetching pattern built for a large, changing dataset rather than a handful of fixed queries.
+- The report builder supports flexible query composition (date range, asset type, customer asset) instead of a fixed set of canned reports.
+
+## Stack
+
+[React](https://react.dev/), [Relay](https://relay.dev/), [Recoil](https://recoiljs.org/) for state, [TanStack Table](https://tanstack.com/table/), [Chart.js](https://www.chartjs.org/), Google Maps, [Firebase](https://firebase.google.com/).
+
+</CaseStudy>

@@ -1,0 +1,36 @@
+---
+title: "FuelBuddy Dubai - Account & Approvals Admin Panel"
+description: "Built FuelBuddy UAE's account-administration tool: customer and partner management, financial-correction approvals, and physical device calibration."
+date: 2024-09-01
+published: true
+company: FuelBuddy
+---
+
+Beyond order-taking apps, FuelBuddy's UAE operations needed a tool for managing customer and partner accounts and approving financial corrections. I built this admin panel's frontend.
+
+## What I built
+
+- **Account administration:** Built customer and partner account management, including linked physical assets, credit, and per-customer configuration.
+- **Approval workflows:** Built approval flows for discounts, order cancellations, invoice-item corrections, task-value corrections, and purchase-order changes, each its own reviewed action rather than a direct edit.
+- **Device calibration:** Built a calibration interface for physical metering devices tied to customer accounts.
+
+## Why it mattered
+
+Routing financial corrections and account changes through explicit approval steps gave FuelBuddy an auditable process for changes that directly affect billing, instead of ad hoc edits.
+
+<CaseStudy summary="Read the full technical case study →">
+
+## Not Generic CRUD
+
+The device-calibration feature is the clearest sign this isn't a generic admin-CRUD tool: it manages calibration parameters on a physical metering/dispensing device attached to a customer account, a real hardware-adjacent operation, not just editing a database row. The approval flows (discount, cancellation, invoice correction, task-value correction, purchase-order changes) exist as their own reviewed steps rather than direct edits, on purpose, for anything that touches billing.
+
+## Data Model & Scale
+
+- Exports to CSV and Excel are built in for financial and account reporting, not just on-screen tables.
+- No automated tests were found in this repo; stated plainly rather than left unmentioned.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [Vite](https://vite.dev/), [Pinia](https://pinia.vuejs.org/), [graphql-request](https://github.com/jasonkuhrt/graphql-request) with GraphQL Code Generator against [Hasura](https://hasura.io/), [Firebase](https://firebase.google.com/).
+
+</CaseStudy>

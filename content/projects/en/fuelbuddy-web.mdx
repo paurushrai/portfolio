@@ -1,0 +1,40 @@
+---
+title: "FuelBuddy UAE - Consumer Website & Ordering"
+description: "Built FuelBuddy UAE's public site: marketing pages plus a real consumer ordering flow, from registration through scheduled delivery and payment."
+date: 2024-03-01
+published: true
+company: FuelBuddy
+---
+
+FuelBuddy's UAE consumer site is more than a marketing page: it's where retail customers register, schedule a delivery, and pay. I built this app's frontend, both the public-facing marketing pages and the ordering flow behind them.
+
+## What I built
+
+- **Marketing pages:** Built the public product and company pages (services, FAQs, careers) that introduce FuelBuddy's consumer offering.
+- **Ordering flow:** Built registration, address entry, delivery-slot scheduling, payment, and order summary as one connected flow, plus account, wallet, and dashboard views.
+- **Installable web app:** Configured the site as an installable PWA with a service worker and manifest.
+
+## Why it mattered
+
+A real ordering flow on the public site, not just a lead-capture form, let FuelBuddy convert UAE consumer traffic directly into scheduled deliveries.
+
+<CaseStudy summary="Read the full technical case study →">
+
+## A Full Flow, Not a Landing Page
+
+Register, address, delivery-slot scheduling, payment, and order summary are all real, connected views, not a marketing site with a "contact us" form bolted on. A second, older registration flow (`RegisterOld`) still sits alongside the current one, evidence this was iterated on rather than shipped once and left alone.
+
+## A Known Gap, Stated Plainly
+
+The site depends on `vue-i18n` for internationalization, but only an English locale is actually shipped, no Arabic despite operating in the UAE. Worth stating directly rather than letting the dependency imply more localization than exists.
+
+## Data Model & Scale
+
+- Storybook plus Chromatic are configured for visual regression testing on components, a real safeguard against unintended UI changes across a fairly large page count (marketing plus the full ordering flow).
+- No automated test suite beyond that was found; that's a gap worth naming rather than skipping over.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [Vite](https://vite.dev/), [Vuex](https://vuex.vuejs.org/), Google Maps for address selection, [Storybook](https://storybook.js.org/) with [Chromatic](https://www.chromatic.com/), [Firebase](https://firebase.google.com/), configured as an installable [PWA](https://vite-pwa-org.netlify.app/).
+
+</CaseStudy>
