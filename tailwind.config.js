@@ -59,8 +59,19 @@ module.exports = {
 				title: "title 3s ease-out forwards",
 				"fade-left": "fade-left 3s ease-in-out forwards",
 				"fade-right": "fade-right 3s ease-in-out forwards",
+				"nav-hint": "nav-hint 1.4s ease-in-out",
 			},
 			keyframes: {
+				"nav-hint": {
+					"0%, 100%": {
+						scale: "0 1",
+						opacity: "0%",
+					},
+					"40%": {
+						scale: "1 1",
+						opacity: "60%",
+					},
+				},
 				"fade-in": {
 					"0%": {
 						opacity: "0%",
