@@ -44,9 +44,10 @@ export default function Home() {
             <li key={item.href}>
               <Link
                 href={localePath(item.href)}
-                className="text-sm duration-500 text-zinc-500 hover:text-zinc-300"
+                className="group relative text-sm text-zinc-500 duration-500 hover:text-zinc-300"
               >
                 {item.name}
+                <span className="absolute inset-x-0 -bottom-1 h-px origin-center scale-x-0 bg-zinc-300 transition-transform duration-300 group-hover:scale-x-100 group-focus-visible:scale-x-100" />
               </Link>
             </li>
           ))}
