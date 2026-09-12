@@ -36,7 +36,7 @@
   }
 
   .mdx-details {
-    @apply mt-10 overflow-hidden rounded-xl border border-zinc-300 shadow-sm;
+    @apply mt-10 overflow-hidden rounded-xl shadow-sm;
   }
   .mdx-details-summary {
     @apply flex w-full cursor-pointer select-none items-center gap-2 bg-zinc-900 px-5 py-4 text-left font-semibold text-zinc-100 duration-200 hover:bg-zinc-800;
