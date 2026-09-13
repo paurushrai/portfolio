@@ -1,7 +1,30 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { DEFAULT_LOCALE, LOCALES } from "./app/i18n/config";
+import { DEFAULT_LOCALE, LOCALES, isLocale } from "./app/i18n/config";
 
 const NON_DEFAULT_LOCALES = LOCALES.filter((locale) => locale !== DEFAULT_LOCALE);
+
+// Project slugs renamed after their URLs were already live. Old URLs need a
+// permanent redirect to the new slug rather than a 404. Checked here, not in
+// next.config's redirects(), because this proxy's rewrite of unprefixed paths
+// to /en/... runs first in Next's routing pipeline and would otherwise shadow
+// a next.config redirect for the same path (verified: both `next dev` and the
+// Netlify deploy 404 on the old slug instead of redirecting when the rule
+// lives in next.config alone).
+const RENAMED_PROJECT_SLUGS: Record<string, string> = {
+	"fuelbuddy-customer-app": "fuelbuddy-india-customer-app",
+	"fuelbuddy-franchise": "fuelbuddy-india-franchise",
+	"fuelbuddy-driver-app": "fuelbuddy-india-driver-app",
+	"fuelbuddy-web": "fuelbuddy-dubai-web",
+	"fuelbuddy-wheels": "fuelbuddy-dubai-wheels",
+	"fuelbuddy-admin-panel": "fuelbuddy-dubai-admin-panel",
+};
+
+function localePrefixOf(pathname: string): string {
+	const firstSegment = pathname.split("/")[1];
+	return firstSegment && isLocale(firstSegment) && firstSegment !== DEFAULT_LOCALE
+		? `/${firstSegment}`
+		: "";
+}
 
 /**
  * As-needed locale prefixing:
@@ -11,6 +34,20 @@ const NON_DEFAULT_LOCALES = LOCALES.filter((locale) => locale !== DEFAULT_LOCALE
  */
 export function proxy(req: NextRequest): NextResponse {
 	const { pathname } = req.nextUrl;
+
+	// Redirect renamed project slugs before anything else runs, preserving
+	// whatever locale prefix (if any) the request came in with.
+	const prefix = localePrefixOf(pathname);
+	const rest = prefix ? pathname.slice(prefix.length) : pathname;
+	const renamedMatch = Object.entries(RENAMED_PROJECT_SLUGS).find(
+		([oldSlug]) => rest === `/projects/${oldSlug}`,
+	);
+	if (renamedMatch) {
+		const [, newSlug] = renamedMatch;
+		const url = req.nextUrl.clone();
+		url.pathname = `${prefix}/projects/${newSlug}`;
+		return NextResponse.redirect(url, 308);
+	}
 
 	// Canonicalize the default locale to its unprefixed form.
 	if (pathname === `/${DEFAULT_LOCALE}` || pathname.startsWith(`/${DEFAULT_LOCALE}/`)) {

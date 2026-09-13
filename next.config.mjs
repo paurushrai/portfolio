@@ -43,26 +43,6 @@ const SECURITY_HEADERS = [
 	},
 ];
 
-// Renamed to the fuelbuddy-india- prefix to match the fuelbuddy-dubai- pattern.
-// These 3 were already live, so the old URLs need a permanent redirect rather
-// than a 404. Locale-prefixed variants cover every locale but the unprefixed
-// default (en).
-const RENAMED_FUELBUDDY_SLUGS = {
-	"fuelbuddy-customer-app": "fuelbuddy-india-customer-app",
-	"fuelbuddy-franchise": "fuelbuddy-india-franchise",
-	"fuelbuddy-driver-app": "fuelbuddy-india-driver-app",
-};
-const NON_DEFAULT_LOCALES = ["de", "fr", "es", "ja", "zh", "pt", "hi", "ko", "it", "ru", "tr"];
-
-// Renamed to the fuelbuddy-dubai- prefix to match the other UAE slugs. These
-// only ever existed in the default locale (en), so no locale-prefixed
-// redirect is needed.
-const RENAMED_FUELBUDDY_DUBAI_SLUGS = {
-	"fuelbuddy-web": "fuelbuddy-dubai-web",
-	"fuelbuddy-wheels": "fuelbuddy-dubai-wheels",
-	"fuelbuddy-admin-panel": "fuelbuddy-dubai-admin-panel",
-};
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
@@ -71,30 +51,6 @@ const nextConfig = {
 	agentRules: false,
 	async headers() {
 		return [{ source: "/:path*", headers: SECURITY_HEADERS }];
-	},
-	async redirects() {
-		const localizedRedirects = Object.entries(RENAMED_FUELBUDDY_SLUGS).flatMap(
-			([oldSlug, newSlug]) => [
-				{
-					source: `/projects/${oldSlug}`,
-					destination: `/projects/${newSlug}`,
-					permanent: true,
-				},
-				{
-					source: `/:locale(${NON_DEFAULT_LOCALES.join("|")})/projects/${oldSlug}`,
-					destination: `/:locale/projects/${newSlug}`,
-					permanent: true,
-				},
-			],
-		);
-		const dubaiRedirects = Object.entries(RENAMED_FUELBUDDY_DUBAI_SLUGS).map(
-			([oldSlug, newSlug]) => ({
-				source: `/projects/${oldSlug}`,
-				destination: `/projects/${newSlug}`,
-				permanent: true,
-			}),
-		);
-		return [...localizedRedirects, ...dubaiRedirects];
 	},
 	async rewrites() {
 		return [
