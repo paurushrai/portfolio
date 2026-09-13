@@ -1,0 +1,60 @@
+---
+title: "turnbell - Sprach-, Desktop- & Webhook-Alarme für CLI-Coding-Agenten"
+description: "Ein local-first CLI, das die Antwort deines Coding-Agenten vorliest, eine Desktop-Benachrichtigung auslöst oder dein Telefon anpingt, sobald er fertig ist oder Eingaben braucht — ohne Telemetrie."
+url: https://www.npmjs.com/package/turnbell
+repository: paurushrai/turnbell
+date: 2026-09-13
+published: true
+company: Personal Project
+coverImage: /projects/turnbell/cover.png
+---
+
+turnbell meldet sich in dem Moment, in dem ein CLI-Coding-Agent einen Durchgang beendet oder wartend auf Eingaben stehen bleibt. Starte einen langen Claude-Code-, Codex- oder Gemini-CLI-Lauf, wechsle zu etwas anderem und hör auf, das Terminal zu babysitten: turnbell liest die Antwort vor, löst eine Desktop-Benachrichtigung aus, spielt einen Ton ab oder pingt einen Webhook an, in dem Moment, in dem der Agent dich braucht — nicht eine Minute früher, nicht zehn Minuten später.
+
+![turnbell - Sprach-, Desktop- & Webhook-Alarme für CLI-Coding-Agenten](/projects/turnbell/cover.png)
+
+## Was ich gebaut habe
+
+- **8 erstklassige Agent-Integrationen:** Claude Code, Codex, Gemini CLI, Copilot CLI, Cursor, opencode, Antigravity und Amp, jeder Adapter an das done/blocked/read-aloud-Signal angebunden, das das Hook-System des jeweiligen Agenten tatsächlich bereitstellt, plus ein universeller `turnbell run`-Wrapper für jeden anderen Befehl.
+- **Ledger-geführte Config-Schreibzugriffe:** jeder Hook, den turnbell in die Settings-Datei eines Agenten einträgt, wird in einem atomaren, append-only Ledger mit zeilengenauem Diff festgehalten, sodass `turnbell uninstall` chirurgisch genau das entfernen kann, was turnbell geschrieben hat, und sonst nichts, während später vorgenommene Änderungen erhalten bleiben.
+- **Read-aloud „Speakable Mode":** ein Opt-in-Hinweis, der in die eigene Memory-Datei eines Agenten (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`) geschrieben wird und ihn bittet, Antworten sprechbar zu halten und Code oder dichte Details stattdessen in eine Temp-Datei auszulagern, statt sie vorzulesen — reversibel, und nach 24h automatisch bereinigt.
+- **Background-bewusste Done-Erkennung:** Der `done`-Alarm von Claude Code wird zurückgehalten, solange Sub-Agenten, Workflows oder Teammitglieder noch laufende Arbeit melden, sodass du einmal am tatsächlichen Ende eines Durchgangs benachrichtigt wirst statt mitten in einer Delegation.
+- **Local-first Webhook-Sink:** ein einziger Serializer gibt exakt sechs Metadatenfelder aus (Zeitstempel, Agent, Event, Projekt, Zusammenfassung) an ntfy, Pushover, Slack oder einen beliebigen Endpunkt — nie das Arbeitsverzeichnis, den Code oder die tatsächliche Antwort des Agenten.
+
+## Warum es wichtig war
+
+Jeder lange Agent-Lauf bedeutete bisher entweder das Terminal zu babysitten oder den Moment zu verpassen, in dem er an einer Permission-Abfrage hängen blieb. turnbell schließt diese Lücke, ohne einen Hintergrunddienst, ein SDK oder Telemetrie hinzuzufügen: es verdrahtet die eigenen Hooks jedes Agenten, und jede Verdrahtung, die es hinzufügt, lässt sich nachverfolgen und rückgängig machen.
+
+<CaseStudy summary="Vollständige technische Fallstudie lesen →">
+
+## Warum es das gibt
+
+Lange Claude-Code- und Codex-Läufe scheitern nicht laut, sie bleiben still an einer Permission-Abfrage hängen oder werden fertig, während ich drei Tabs weiter mit etwas Unabhängigem beschäftigt bin. Die Lösung ist kein größeres Terminalfenster, sondern sofort zu erfahren, wenn ein Durchgang mich tatsächlich braucht. Ich bin der einzige Beitragende, aktiv gepflegt, gebaut, um zuerst meinen eigenen Workflow zu lösen und erst danach als öffentliches npm-Paket veröffentlicht. Es hieß zuvor `hollr`; die Umbenennung zu `turnbell` ist bewusst genug angegangen, dass das Paket weiterhin einen kompatiblen Bin-Alias und eine automatische Config-Migration für alle mitliefert, die noch den alten Namen nutzen.
+
+## Die Einschränkung: Kein SDK, kein Daemon, nichts Invasives
+
+Jede Agent-Integration in turnbell folgt einer einzigen Regel: sie bearbeitet die eigene Hook-Konfiguration des Agenten, um `turnbell emit` aufzurufen, und sonst nichts. Kein Hintergrundprozess, kein SDK, das der Agent importieren muss, kein Polling. Diese Einschränkung ist auch der Grund, warum die Uninstall-Geschichte richtig gelöst werden musste, statt sie als bekannte Limitierung zu dokumentieren.
+
+## Ledger-geführte Schreibzugriffe statt „Best Effort"-Uninstall
+
+Der naheliegende Weg, `turnbell init` zu bauen, ist, Hook-Einträge an die jeweilige Config-Datei des Agenten anzuhängen und das als erledigt zu betrachten. Der naheliegende Weg, darauf aufbauend `turnbell uninstall` zu bauen, ist, nach turnbells eigenen Markierungen zu grepen und zu hoffen, dass nichts anderes in der Datei kollidiert. Genau so sieht ein „Best Effort"-Uninstall aus, und das reicht nicht, wenn die bearbeitete Datei eine geteilte Config ist, auf die das eigene Tooling des Nutzers angewiesen ist.
+
+`src/adapters/diffwire.ts` verfolgt einen anderen Ansatz: jeder Schreibzugriff wird als `WireOp` gegen eine JSON- oder Textdatei ausgedrückt, über einen atomaren Schreibvorgang angewendet (Temp-Datei + rename, nie ein unvollständiger Schreibvorgang bei einem Absturz) und an ein Ledger (`listWiredKeys`, `appendLedgerEntry`) angehängt, das genau festhält, welche Keys oder Markierungen turnbell berührt hat und welchen Wert sie vorher hatten. `turnbell init` zeigt jede Änderung als generierten Zeilen-Diff, bevor irgendetwas geschrieben wird. `turnbell uninstall` spielt das Ledger ab, statt die Absicht neu aus dem aktuellen Zustand der Datei abzuleiten, was aus „entfernt chirurgisch nur, was turnbell hinzugefügt hat, spätere Änderungen bleiben erhalten" eine tatsächliche Garantie macht statt einer Best-Effort-Behauptung im README.
+
+## Der Codex-Sonderfall
+
+Codex erlaubt nur einen einzigen Top-Level-`notify`-Befehl in seiner Config, keine Liste von Hooks. Hatte ein Nutzer bereits einen `notify`-Befehl für etwas anderes eingerichtet, würde ein naives Überschreiben dessen bestehendes Setup stillschweigend zerstören. Der Adapter archiviert den ursprünglichen `notify`-Wert, bevor er ihn ersetzt, und `turnbell uninstall` stellt ihn aus diesem Archiv wieder her, statt den Key einfach zu löschen. Der einzige Fall, der sich nicht wiederherstellen lässt, ist, wenn `config.toml` selbst zwischen Setup und Uninstall gelöscht wird, dann gibt es nichts, in das zurückgeschrieben werden könnte, und das ist als reale Grenze dokumentiert statt kaschiert.
+
+## Kein Anpingen mitten in der Delegation
+
+Der eigene `done`-Hook von Claude Code feuert pro Top-Level-Durchgang, aber ein Durchgang kann Sub-Agenten, Workflows oder Teammitglieder starten, die weiterarbeiten, nachdem der übergeordnete Durchgang als fertig gemeldet wurde. Eine frühe Version von turnbell löste den Alarm genau dort aus, was bedeutete, ins Terminal zurückgeholt zu werden, während im Hintergrund noch gearbeitet wurde. Der Fix hält die `done`-Ankündigung zurück, bis Claude Code keine laufende delegierte Arbeit mehr meldet, während langlebige `shell`/Watcher- und `monitor`-Tasks explizit ignoriert werden, da sie als „noch laufend" zu behandeln jeden Alarm in jeder Session stumm schalten würde, die zufällig einen Hintergrundprozess laufen hat.
+
+## Der Payload ist konstruktionsbedingt nur Metadaten
+
+turnbell ist local-first: Sprache, Benachrichtigungen und Ton verlassen nie das Gerät. Das Einzige, was übers Netzwerk gehen kann, ist ein Webhook, den der Nutzer explizit konfiguriert, und dieser Pfad läuft über einen einzigen Serializer, der sechs Felder ausgibt und sonst nichts: Zeitstempel, Agent, Event, Projekt-Basisname und einen kurzen Zusammenfassungstext. Es gibt keinen zweiten Codepfad, der versehentlich das Arbeitsverzeichnis oder die tatsächliche Antwort des Agenten preisgeben könnte, weil der Serializer das Einzige in der gesamten Codebasis mit Netzwerkzugriff ist. `turnbell test --show-payload` gibt den exakten Payload aus, ohne ihn zu senden, sodass die Behauptung überprüfbar ist statt nur behauptet.
+
+## Stack
+
+TypeScript, [tsup](https://tsup.egoist.dev/) für das Bundling, [Vitest](https://vitest.dev/) mit einer 80%-Coverage-Gate, native Betriebssystem-Primitive für Sprache/Benachrichtigungen/Ton je Plattform (macOS stabil, Linux und Windows in Beta), sowie agent-spezifische Hook-/Config-Formate (Claude Code, Codex, Gemini CLI, Copilot CLI, Cursor, opencode, Antigravity, Amp) ohne gemeinsames SDK zwischen ihnen. MIT-lizenziert.
+
+</CaseStudy>

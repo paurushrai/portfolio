@@ -1,0 +1,60 @@
+---
+title: "turnbell - Alertas de Voz, Desktop e Webhook para Agentes de Código CLI"
+description: "Um CLI local-first que lê em voz alta a resposta do seu agente de código, dispara uma notificação de desktop ou avisa seu celular no momento em que ele termina ou precisa de input — zero telemetria."
+url: https://www.npmjs.com/package/turnbell
+repository: paurushrai/turnbell
+date: 2026-09-13
+published: true
+company: Personal Project
+coverImage: /projects/turnbell/cover.png
+---
+
+O turnbell avisa no exato momento em que um agente de código CLI termina uma tarefa ou trava esperando input. Inicie uma execução longa do Claude Code, Codex ou Gemini CLI, mude para outra coisa e pare de vigiar o terminal: o turnbell lê a resposta em voz alta, dispara uma notificação de desktop, toca um som ou avisa um webhook no instante em que o agente precisa de você — nem um minuto antes, nem dez minutos depois.
+
+![turnbell - Alertas de Voz, Desktop e Webhook para Agentes de Código CLI](/projects/turnbell/cover.png)
+
+## O que construí
+
+- **8 integrações de agente de primeira classe:** Claude Code, Codex, Gemini CLI, Copilot CLI, Cursor, opencode, Antigravity e Amp, cada adaptador conectado ao sinal de done/blocked/read-aloud que o próprio sistema de hooks daquele agente realmente expõe, além de um wrapper universal `turnbell run` para qualquer outro comando.
+- **Escritas de configuração rastreadas em ledger:** cada hook que o turnbell adiciona ao arquivo de configuração de um agente é registrado em um ledger atômico e append-only com diff linha a linha, para que `turnbell uninstall` possa remover cirurgicamente exatamente o que o turnbell escreveu e nada mais, preservando edições feitas depois.
+- **"Modo falável" de leitura em voz alta:** um aviso opt-in escrito no próprio arquivo de memória do agente (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`) pedindo que ele mantenha as respostas faláveis e envie código ou detalhes densos para um arquivo temporário em vez de falá-los — reversível, e limpo automaticamente após 24h.
+- **Detecção de conclusão consciente de background:** o alerta `done` do Claude Code espera enquanto sub-agentes, workflows ou colegas de equipe ainda estão reportando trabalho em andamento, para que você seja avisado uma única vez, no fim real de uma tarefa, e não no meio de uma delegação.
+- **Sink de webhook local-first:** um único serializador emite exatamente seis campos de metadados (timestamp, agente, evento, projeto, resumo) para ntfy, Pushover, Slack ou um endpoint bruto — nunca o diretório de trabalho, o código ou a resposta do agente.
+
+## Por que importou
+
+Toda execução longa de agente costumava significar vigiar o terminal ou perder o momento exato em que ele travava num prompt de permissão. O turnbell fecha essa lacuna sem adicionar um daemon em background, um SDK ou qualquer telemetria: ele conecta os próprios hooks de cada agente, e cada conexão que adiciona pode ser rastreada e revertida.
+
+<CaseStudy summary="Leia o case técnico completo →">
+
+## Por que isso existe
+
+Execuções longas do Claude Code e do Codex não falham com estardalhaço, elas travam silenciosamente num prompt de permissão ou terminam enquanto estou três abas longe, em algo sem relação. O ajuste não é uma janela de terminal maior, é ser avisado no instante em que uma tarefa realmente precisa de mim. Sou o único contribuidor, mantenho o projeto ativamente, construído primeiro para resolver o meu próprio fluxo de trabalho e lançado como pacote npm público depois. Ele se chamava `hollr` antes; o rename para `turnbell` é deliberado a ponto de o pacote ainda distribuir um alias de bin de compatibilidade e uma migração automática de configuração para quem estiver no nome antigo.
+
+## A restrição: sem SDK, sem daemon, nada invasivo
+
+Cada integração de agente no turnbell responde a uma única regra: ela edita a própria configuração de hooks do agente para chamar `turnbell emit`, e mais nada. Sem processo em background, sem SDK que o agente precise importar, sem polling. Essa restrição também é o motivo de o desinstalador ter precisado ser resolvido de verdade, em vez de documentado como uma limitação conhecida.
+
+## Escritas rastreadas em ledger em vez de desinstalação "melhor esforço"
+
+O jeito óbvio de construir `turnbell init` é anexar entradas de hook em qualquer arquivo de configuração que o agente use e considerar isso pronto. O jeito óbvio de construir `turnbell uninstall` em cima disso é fazer grep pelos próprios marcadores do turnbell e torcer para nada mais no arquivo colidir. É assim que uma desinstalação "melhor esforço" se parece, e não é suficiente quando o arquivo editado é uma configuração compartilhada da qual as próprias ferramentas do usuário dependem.
+
+`src/adapters/diffwire.ts` segue outra abordagem: cada escrita é expressa como um `WireOp` contra um arquivo JSON ou texto, aplicada por meio de uma escrita atômica (arquivo temporário + rename, nunca uma escrita parcial em caso de crash), e anexada a um ledger (`listWiredKeys`, `appendLedgerEntry`) que registra exatamente quais chaves ou marcadores o turnbell tocou e qual era o valor anterior. `turnbell init` mostra um preview de cada mudança como um diff linha a linha gerado antes de escrever qualquer coisa. `turnbell uninstall` reproduz o ledger em vez de tentar deduzir a intenção a partir do estado atual do arquivo, o que é o que transforma "remove cirurgicamente apenas o que o turnbell adicionou, edições feitas depois são preservadas" em uma garantia real, em vez de uma promessa de melhor esforço no README.
+
+## O caso especial do Codex
+
+O Codex só permite um único comando `notify` de nível superior na sua configuração, sem lista de hooks. Se um usuário já tivesse um comando `notify` conectado para outra coisa, sobrescrevê-lo ingenuamente quebraria silenciosamente sua configuração existente. O adaptador arquiva o valor original de `notify` antes de substituí-lo, e `turnbell uninstall` o restaura a partir desse arquivo em vez de simplesmente apagar a chave. O único caso que não pode ser recuperado é se o próprio `config.toml` for apagado entre a instalação e a desinstalação, não sobra nada para restaurar, e isso é documentado como um limite real em vez de escondido.
+
+## Sem avisar você no meio de uma delegação
+
+O próprio hook `done` do Claude Code dispara por tarefa de nível superior, mas uma tarefa pode gerar sub-agentes, workflows ou colegas de equipe que continuam trabalhando depois que a tarefa principal já reporta ter terminado. Uma versão inicial do turnbell disparava o alerta ali mesmo, o que significava ser puxado de volta ao terminal enquanto ainda havia trabalho em background rodando. A correção segura o anúncio de `done` até o Claude Code reportar que não há mais trabalho delegado em andamento, ignorando explicitamente tarefas `shell`/watcher e `monitor` de longa duração, já que tratá-las como "em andamento" silenciaria todo alerta em qualquer sessão que por acaso tenha um processo em background rodando.
+
+## O payload é só metadados, por construção
+
+O turnbell é local-first: voz, notificações e som nunca saem da máquina. A única coisa que pode ir para a rede é um webhook que o usuário configura explicitamente, e esse caminho passa por um único serializador que emite seis campos e nada mais: timestamp, agente, evento, nome base do projeto e uma string curta de resumo. Não existe um segundo caminho de código que possa vazar acidentalmente o diretório de trabalho ou a resposta real do agente, porque o serializador é a única coisa com acesso à rede em toda a base de código. `turnbell test --show-payload` imprime o payload exato sem enviá-lo, então a afirmação é verificável em vez de apenas declarada.
+
+## Stack
+
+TypeScript, [tsup](https://tsup.egoist.dev/) para o bundle, [Vitest](https://vitest.dev/) com um gate de 80% de cobertura, primitivas nativas do sistema operacional para voz/notificações/som por plataforma (macOS estável, Linux e Windows em beta), e formatos de hook/configuração por agente (Claude Code, Codex, Gemini CLI, Copilot CLI, Cursor, opencode, Antigravity, Amp) sem SDK compartilhado entre eles. Licenciado sob MIT.
+
+</CaseStudy>

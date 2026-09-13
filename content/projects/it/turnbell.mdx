@@ -1,0 +1,60 @@
+---
+title: "turnbell - Avvisi Vocali, Desktop e Webhook per Agenti di Coding CLI"
+description: "Una CLI local-first che legge ad alta voce la risposta del tuo agente di coding, invia una notifica desktop o avvisa il tuo telefono nel momento in cui finisce o ha bisogno di input — zero telemetria."
+url: https://www.npmjs.com/package/turnbell
+repository: paurushrai/turnbell
+date: 2026-09-13
+published: true
+company: Personal Project
+coverImage: /projects/turnbell/cover.png
+---
+
+turnbell segnala il momento in cui un agente di coding CLI termina un turno o si blocca in attesa di input. Avvia una lunga sessione di Claude Code, Codex o Gemini CLI, passa a fare altro e smetti di sorvegliare il terminale: turnbell legge la risposta ad alta voce, invia una notifica desktop, riproduce un suono o avvisa un webhook nell'istante in cui l'agente ha bisogno di te — non un minuto prima, non dieci minuti dopo.
+
+![turnbell - Avvisi Vocali, Desktop e Webhook per Agenti di Coding CLI](/projects/turnbell/cover.png)
+
+## Cosa ho costruito
+
+- **8 integrazioni di prima classe con gli agenti:** Claude Code, Codex, Gemini CLI, Copilot CLI, Cursor, opencode, Antigravity e Amp, ogni adapter collegato a qualunque segnale done/blocked/read-aloud che il sistema di hook di quell'agente espone realmente, più un wrapper universale `turnbell run` per qualsiasi altro comando.
+- **Scritture di configurazione tracciate su un ledger:** ogni hook che turnbell aggiunge al file di impostazioni di un agente viene registrato in un ledger atomico e append-only con un diff a livello di riga, così `turnbell uninstall` può rimuovere chirurgicamente esattamente ciò che turnbell ha scritto e nient'altro, preservando le modifiche fatte in seguito.
+- **Read-aloud in "modalità parlabile":** un suggerimento opt-in scritto nel file di memoria dell'agente stesso (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`) che gli chiede di mantenere le risposte parlabili e di instradare codice o dettagli densi verso un file temporaneo invece di leggerli ad alta voce — reversibile, e ripulito automaticamente dopo 24h.
+- **Rilevamento "done" consapevole dei task in background:** l'avviso `done` di Claude Code viene trattenuto finché sub-agenti, workflow o teammate stanno ancora riportando lavoro in corso, così vieni avvisato una sola volta alla vera fine di un turno invece che a metà di una delega.
+- **Sink webhook local-first:** un unico serializzatore emette esattamente sei campi di metadati (timestamp, agente, evento, progetto, riepilogo) verso ntfy, Pushover, Slack o un endpoint generico — mai la directory di lavoro, il codice o la risposta dell'agente.
+
+## Perché è stato importante
+
+Ogni lunga sessione con un agente significava prima o sorvegliare il terminale o perdere il momento in cui si bloccava su un prompt di permesso. turnbell colma quel divario senza aggiungere un demone in background, un SDK o telemetria: collega gli hook di ciascun agente, e ogni collegamento che aggiunge può essere tracciato e annullato.
+
+<CaseStudy summary="Leggi il case study tecnico completo →">
+
+## Perché esiste
+
+Le sessioni lunghe di Claude Code e Codex non falliscono rumorosamente: si bloccano silenziosamente su un prompt di permesso o finiscono mentre sono tre schede più in là a fare qualcos'altro. La soluzione non è una finestra di terminale più grande, è essere avvisato nell'istante in cui un turno ha davvero bisogno di me. Sono l'unico contributore, il progetto è attivamente mantenuto, costruito prima per risolvere il mio flusso di lavoro personale e poi rilasciato come pacchetto npm pubblico. In precedenza si chiamava `hollr`; il rebranding in `turnbell` è abbastanza deliberato che il pacchetto continua a fornire un alias bin di compatibilità e una migrazione automatica della configurazione per chi è ancora sul vecchio nome.
+
+## Il vincolo: niente SDK, niente demone, niente di invasivo
+
+Ogni integrazione con un agente in turnbell risponde a una sola regola: modifica la configurazione hook dell'agente stesso per chiamare `turnbell emit`, e nient'altro. Nessun processo in background, nessun SDK che l'agente debba importare, nessun polling. Questo vincolo è anche il motivo per cui la disinstallazione doveva essere risolta correttamente invece di essere documentata come limitazione nota.
+
+## Scritture tracciate su ledger invece di una disinstallazione "best effort"
+
+Il modo ovvio di costruire `turnbell init` è aggiungere voci di hook a qualunque file di configurazione usi l'agente e considerarlo fatto. Il modo ovvio di costruire `turnbell uninstall` sopra a questo è cercare i marker propri di turnbell con grep e sperare che nient'altro nel file collida. Questo è ciò che sembra una disinstallazione "best effort", e non è abbastanza buono quando il file modificato è una configurazione condivisa da cui dipende il resto del tooling dell'utente.
+
+`src/adapters/diffwire.ts` adotta un approccio diverso: ogni scrittura è espressa come una `WireOp` contro un file JSON o di testo, applicata tramite una scrittura atomica (file temporaneo + rename, mai una scrittura parziale in caso di crash), e aggiunta a un ledger (`listWiredKeys`, `appendLedgerEntry`) che registra esattamente quali chiavi o marker turnbell ha toccato e quale fosse il valore precedente. `turnbell init` mostra in anteprima ogni modifica come un diff di riga generato prima di scrivere qualsiasi cosa. `turnbell uninstall` riesegue il ledger invece di ridedurre l'intento dallo stato attuale del file, ed è proprio questo che rende "rimuove chirurgicamente solo ciò che turnbell ha aggiunto, le modifiche fatte in seguito sono preservate" una garanzia effettiva invece di un'affermazione best-effort nel README.
+
+## Il caso speciale di Codex
+
+Codex permette un solo comando `notify` di primo livello nella sua configurazione, non un elenco di hook. Se un utente aveva già un comando `notify` collegato per qualcos'altro, sovrascriverlo ingenuamente avrebbe silenziosamente rotto la sua configurazione esistente. L'adapter archivia il valore originale di `notify` prima di sostituirlo, e `turnbell uninstall` lo ripristina da quell'archivio invece di eliminare del tutto la chiave. L'unico caso non recuperabile è se `config.toml` stesso viene eliminato tra il setup e la disinstallazione: non resta nulla da cui ripristinare, ed è documentato come un limite reale invece di essere nascosto.
+
+## Non avvisarti a metà di una delega
+
+L'hook `done` di Claude Code scatta per ogni turno di primo livello, ma un turno può generare sub-agenti, workflow o teammate che continuano a lavorare dopo che il turno padre ha riportato di aver finito. Una versione iniziale di turnbell lanciava l'avviso proprio in quel momento, il che significava essere richiamati al terminale mentre il lavoro in background era ancora in corso. La soluzione trattiene l'annuncio `done` finché Claude Code non riporta che non c'è più lavoro delegato in corso, ignorando esplicitamente i task `shell`/watcher e `monitor` di lunga durata, poiché trattarli come "in corso" silenzierebbe ogni avviso su qualunque sessione che abbia semplicemente un processo in background attivo.
+
+## Il payload è solo metadati, per costruzione
+
+turnbell è local-first: voce, notifiche e suono non lasciano mai la macchina. L'unica cosa che può passare in rete è un webhook che l'utente configura esplicitamente, e quel percorso attraversa un unico serializzatore che emette sei campi e nient'altro: timestamp, agente, evento, nome base del progetto e una breve stringa di riepilogo. Non esiste un secondo percorso di codice che possa far trapelare accidentalmente la directory di lavoro o la risposta effettiva dell'agente, perché il serializzatore è l'unica cosa con accesso alla rete in tutto il codebase. `turnbell test --show-payload` stampa il payload esatto senza inviarlo, così l'affermazione è verificabile invece che semplicemente asserita.
+
+## Stack
+
+TypeScript, [tsup](https://tsup.egoist.dev/) per il bundle, [Vitest](https://vitest.dev/) con una soglia di copertura dell'80%, primitive native del sistema operativo per voce/notifiche/suono per piattaforma (macOS stabile, Linux e Windows in beta) e i formati hook/configurazione specifici di ciascun agente (Claude Code, Codex, Gemini CLI, Copilot CLI, Cursor, opencode, Antigravity, Amp) senza alcun SDK condiviso tra loro. Licenza MIT.
+
+</CaseStudy>
