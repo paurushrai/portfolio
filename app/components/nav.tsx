@@ -47,7 +47,7 @@ export const Navigation: React.FC = () => {
         />
       )}
       <div
-        className={`fixed inset-x-0 top-0 z-50 backdrop-blur-sm transition-colors duration-200 border-b transform-gpu ${
+        className={`fixed inset-x-0 top-0 z-50 backdrop-blur-sm transition-colors duration-200 border-b ${
           isIntersecting && !menuOpen
             ? "bg-zinc-900/0 border-transparent"
             : "bg-zinc-900/50 border-zinc-800"
