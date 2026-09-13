@@ -1,13 +1,13 @@
 ---
-title: "AppForest Timetracker - VS Code Extension"
-description: "VS-Code-Erweiterung als Begleiter zu AppForest Timesheets: erfasst die Editor-Aktivität und protokolliert Zeit in Timesheets by AppForest anhand des Git-Branch-Kontexts."
+title: "Appforest Timetracker - VS Code Extension"
+description: "VS-Code-Erweiterung als Begleiter zu Appforest Timesheets: erfasst die Editor-Aktivität und protokolliert Zeit in Timesheets by Appforest anhand des Git-Branch-Kontexts."
 url: https://marketplace.visualstudio.com/items?itemName=AppforestTimetracker.appforest-timetracker
 date: 2025-07-01
 published: true
 company: Testlify
 ---
 
-Unser Jira-Plugin [Timesheets by AppForest](/projects/timesheets-appforest) zentralisierte die Zeiterfassung bei Testlify, aber Entwickler mussten trotzdem innehalten und das Tool wechseln, um ihre Stunden von Hand einzutragen. Der AppForest Timetracker schließt diese Lücke. Es ist eine VS-Code-Erweiterung, die die Programmieraktivität direkt im Editor erfasst und das Erfassen der Zeit zu einer schnellen Aktion macht, sodass Entwickler ihre Zeiten in Timesheets eintragen können, ohne die IDE zu verlassen. Ich habe das Projekt end to end verantwortet, vom Konzept bis zum Packaging für den Visual Studio Marketplace.
+Unser Jira-Plugin [Timesheets by Appforest](/projects/timesheets-appforest) zentralisierte die Zeiterfassung bei Testlify, aber Entwickler mussten trotzdem innehalten und das Tool wechseln, um ihre Stunden von Hand einzutragen. Der Appforest Timetracker schließt diese Lücke. Es ist eine VS-Code-Erweiterung, die die Programmieraktivität direkt im Editor erfasst und das Erfassen der Zeit zu einer schnellen Aktion macht, sodass Entwickler ihre Zeiten in Timesheets eintragen können, ohne die IDE zu verlassen. Ich habe das Projekt end to end verantwortet, vom Konzept bis zum Packaging für den Visual Studio Marketplace.
 
 ## Was ich gebaut habe
 
@@ -27,7 +27,7 @@ Ich bin der einzige Beitragende, 32 Commits seit April 2025. Es ist ein kleines,
 
 ## Wohin die erfasste Zeit tatsächlich geht
 
-Die Erweiterung ruft nicht direkt Jiras REST-API auf. Sie sendet an das eigene Backend von Timesheets by AppForest, denselben Remote-Dienst, den die [Forge-App](/projects/timesheets-appforest) in ihrem Manifest deklariert und der die Jira-seitige Kommunikation selbst übernimmt. Die beiden Projekte wurden gebaut, um miteinander zu sprechen, nicht um jeweils unabhängig mit Jira zu kommunizieren, weshalb die Resolver der Forge-App auch eigene Funktionen enthalten, um aus VS Code stammende Vorschläge zu löschen, sobald sie erfasst wurden.
+Die Erweiterung ruft nicht direkt Jiras REST-API auf. Sie sendet an das eigene Backend von Timesheets by Appforest, denselben Remote-Dienst, den die [Forge-App](/projects/timesheets-appforest) in ihrem Manifest deklariert und der die Jira-seitige Kommunikation selbst übernimmt. Die beiden Projekte wurden gebaut, um miteinander zu sprechen, nicht um jeweils unabhängig mit Jira zu kommunizieren, weshalb die Resolver der Forge-App auch eigene Funktionen enthalten, um aus VS Code stammende Vorschläge zu löschen, sobald sie erfasst wurden.
 
 ## Wie Aktivitäts- und Ticket-Erkennung tatsächlich funktionieren
 

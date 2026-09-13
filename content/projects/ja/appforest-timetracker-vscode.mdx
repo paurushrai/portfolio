@@ -1,13 +1,13 @@
 ---
-title: "AppForest Timetracker - VS Code 拡張機能"
-description: "AppForest Timesheets(Timesheets by AppForest)を補完するVS Code拡張機能。エディターでの作業を記録し、Gitブランチのコンテキストからチケットを特定してTimesheets by AppForestに工数を記録する。"
+title: "Appforest Timetracker - VS Code 拡張機能"
+description: "Appforest Timesheets(Timesheets by Appforest)を補完するVS Code拡張機能。エディターでの作業を記録し、Gitブランチのコンテキストからチケットを特定してTimesheets by Appforestに工数を記録する。"
 url: https://marketplace.visualstudio.com/items?itemName=AppforestTimetracker.appforest-timetracker
 date: 2025-07-01
 published: true
 company: Testlify
 ---
 
-私たちのJiraプラグイン、[Timesheets by AppForest](/projects/timesheets-appforest)はTestlifyでの工数管理を一元化しましたが、それでも開発者は手を止めてツールを切り替え、工数を手入力する必要がありました。AppForest Timetrackerはそのギャップを埋めます。エディター内でコーディング活動を記録し、工数の記録をワンアクションに変えるVS Code拡張機能で、エンジニアはIDEを離れることなくTimesheetsに記録できます。コンセプトからVisual Studio Marketplace向けのパッケージングまで、私が一貫して担当しました。
+私たちのJiraプラグイン、[Timesheets by Appforest](/projects/timesheets-appforest)はTestlifyでの工数管理を一元化しましたが、それでも開発者は手を止めてツールを切り替え、工数を手入力する必要がありました。Appforest Timetrackerはそのギャップを埋めます。エディター内でコーディング活動を記録し、工数の記録をワンアクションに変えるVS Code拡張機能で、エンジニアはIDEを離れることなくTimesheetsに記録できます。コンセプトからVisual Studio Marketplace向けのパッケージングまで、私が一貫して担当しました。
 
 ## 作ったもの
 
@@ -27,7 +27,7 @@ Gitブランチのコンテキストからチケットの照合を自動化し�
 
 ## 記録した時間は実際どこへ行くのか
 
-この拡張機能はJiraのREST APIを直接呼び出しません。Timesheets by AppForest自身のバックエンド、つまり[Forgeアプリ](/projects/timesheets-appforest)がマニフェストで宣言しているのと同じリモートサービスに投稿し、Jira側の処理はそちらが担います。この2つのプロジェクトは、それぞれ独立してJiraと話すのではなく、互いに通信するように作られています。Forgeアプリのリゾルバーに、VS Code由来の提案を記録後にクリアするための専用関数が含まれているのも、そのためです。
+この拡張機能はJiraのREST APIを直接呼び出しません。Timesheets by Appforest自身のバックエンド、つまり[Forgeアプリ](/projects/timesheets-appforest)がマニフェストで宣言しているのと同じリモートサービスに投稿し、Jira側の処理はそちらが担います。この2つのプロジェクトは、それぞれ独立してJiraと話すのではなく、互いに通信するように作られています。Forgeアプリのリゾルバーに、VS Code由来の提案を記録後にクリアするための専用関数が含まれているのも、そのためです。
 
 ## アクティビティとチケット検出の実際の仕組み
 

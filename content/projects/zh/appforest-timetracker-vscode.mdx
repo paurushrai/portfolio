@@ -1,13 +1,13 @@
 ---
-title: "AppForest Timetracker - VS Code 扩展"
-description: "AppForest Timesheets 的 VS Code 配套扩展：跟踪编辑器活动，并根据 Git 分支上下文向 Timesheets by AppForest 记录工时。"
+title: "Appforest Timetracker - VS Code 扩展"
+description: "Appforest Timesheets 的 VS Code 配套扩展：跟踪编辑器活动，并根据 Git 分支上下文向 Timesheets by Appforest 记录工时。"
 url: https://marketplace.visualstudio.com/items?itemName=AppforestTimetracker.appforest-timetracker
 date: 2025-07-01
 published: true
 company: Testlify
 ---
 
-我们的 Jira 插件 [Timesheets by AppForest](/projects/timesheets-appforest) 把 Testlify 的工时跟踪集中了起来，但开发者仍然得停下手头的工作、切换到别的工具去手动填报工时。AppForest Timetracker 填补了这个空档：它是一个 VS Code 扩展，直接在编辑器里跟踪编码活动，把工时记录变成一个快捷操作，让工程师无需离开 IDE 就能记录到 Timesheets。从概念构思到打包发布至 Visual Studio Marketplace，我从头到尾都负责。
+我们的 Jira 插件 [Timesheets by Appforest](/projects/timesheets-appforest) 把 Testlify 的工时跟踪集中了起来，但开发者仍然得停下手头的工作、切换到别的工具去手动填报工时。Appforest Timetracker 填补了这个空档：它是一个 VS Code 扩展，直接在编辑器里跟踪编码活动，把工时记录变成一个快捷操作，让工程师无需离开 IDE 就能记录到 Timesheets。从概念构思到打包发布至 Visual Studio Marketplace，我从头到尾都负责。
 
 ## 我做了什么
 
@@ -27,7 +27,7 @@ company: Testlify
 
 ## 记录的工时实际去了哪里
 
-这个扩展并不直接调用 Jira 的 REST API，而是把数据提交到 Timesheets by AppForest 自己的后端，也就是 [Forge 应用](/projects/timesheets-appforest) 在其 manifest 中声明的同一个远程服务，再由该服务自行处理面向 Jira 的部分。这两个项目是为了彼此对接而构建的，而不是各自独立对接 Jira，这也是为什么 Forge 应用的 resolver 里专门包含了一些函数，用于在记录完成后清除来自 VS Code 的建议。
+这个扩展并不直接调用 Jira 的 REST API，而是把数据提交到 Timesheets by Appforest 自己的后端，也就是 [Forge 应用](/projects/timesheets-appforest) 在其 manifest 中声明的同一个远程服务，再由该服务自行处理面向 Jira 的部分。这两个项目是为了彼此对接而构建的，而不是各自独立对接 Jira，这也是为什么 Forge 应用的 resolver 里专门包含了一些函数，用于在记录完成后清除来自 VS Code 的建议。
 
 ## 活动与工单检测的实际工作原理
 

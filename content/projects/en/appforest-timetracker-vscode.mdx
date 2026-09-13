@@ -1,13 +1,13 @@
 ---
-title: "AppForest Timetracker - VS Code Extension"
-description: "VS Code extension companion to AppForest Timesheets: tracks editor activity and logs time to Timesheets by AppForest from Git branch context."
+title: "Appforest Timetracker - VS Code Extension"
+description: "VS Code extension companion to Appforest Timesheets: tracks editor activity and logs time to Timesheets by Appforest from Git branch context."
 url: https://marketplace.visualstudio.com/items?itemName=AppforestTimetracker.appforest-timetracker
 date: 2025-07-01
 published: true
 company: Testlify
 ---
 
-Our Jira plugin, [Timesheets by AppForest](/projects/timesheets-appforest), centralized time tracking at Testlify, but developers still had to stop and switch tools to log their hours by hand. The AppForest Timetracker closes that gap. It is a VS Code extension that tracks coding activity right in the editor and turns time logging into a quick action, so engineers can log to Timesheets without leaving the IDE. I owned it end to end, from concept through packaging for the Visual Studio Marketplace.
+Our Jira plugin, [Timesheets by Appforest](/projects/timesheets-appforest), centralized time tracking at Testlify, but developers still had to stop and switch tools to log their hours by hand. The Appforest Timetracker closes that gap. It is a VS Code extension that tracks coding activity right in the editor and turns time logging into a quick action, so engineers can log to Timesheets without leaving the IDE. I owned it end to end, from concept through packaging for the Visual Studio Marketplace.
 
 ## What I built
 
@@ -27,7 +27,7 @@ I'm the only contributor, 32 commits since April 2025. It's a small, personal-sc
 
 ## Where the Logged Time Actually Goes
 
-The extension doesn't call Jira's REST API directly. It posts to Timesheets by AppForest's own backend, the same remote service the [Forge app](/projects/timesheets-appforest) declares in its manifest, which then handles the Jira-facing side itself. The two projects were built to talk to each other, not to Jira independently, which is also why the Forge app's resolvers include functions specifically for clearing VS Code-sourced suggestions once they're logged.
+The extension doesn't call Jira's REST API directly. It posts to Timesheets by Appforest's own backend, the same remote service the [Forge app](/projects/timesheets-appforest) declares in its manifest, which then handles the Jira-facing side itself. The two projects were built to talk to each other, not to Jira independently, which is also why the Forge app's resolvers include functions specifically for clearing VS Code-sourced suggestions once they're logged.
 
 ## How Activity and Ticket Detection Actually Work
 

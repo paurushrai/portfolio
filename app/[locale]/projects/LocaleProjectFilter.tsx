@@ -6,7 +6,7 @@ import { Card } from "../../components/card";
 import Link from "next/link";
 import { Briefcase } from "lucide-react";
 import type { ProjectMeta } from "./page";
-import { ProjectCard } from "./ProjectCard";
+import { ProjectCard, toTeaser } from "./ProjectCard";
 import {
   type CompanyTabId,
   type ProjectTab,
@@ -131,7 +131,7 @@ export function LocaleProjectFilter({ projects }: Props) {
                         {featured.title}
                       </h2>
                       <p className="mt-6 sm:mt-8 text-base sm:text-lg leading-8 duration-150 text-zinc-400 group-hover:text-zinc-300 pb-8 lg:pb-12">
-                        {featured.description}
+                        {toTeaser(featured.description)}
                       </p>
                       <div className="absolute bottom-4 md:bottom-8">
                         <p className="hidden text-zinc-200 hover:text-zinc-50 lg:block">

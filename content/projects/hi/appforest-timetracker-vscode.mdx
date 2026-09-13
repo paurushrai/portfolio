@@ -1,13 +1,13 @@
 ---
-title: "AppForest Timetracker - VS Code एक्सटेंशन"
-description: "AppForest Timesheets का एक VS Code साथी एक्सटेंशन: यह एडिटर गतिविधि को ट्रैक करता है और Git ब्रांच के संदर्भ से Timesheets by AppForest में समय लॉग करता है।"
+title: "Appforest Timetracker - VS Code एक्सटेंशन"
+description: "Appforest Timesheets का एक VS Code साथी एक्सटेंशन: यह एडिटर गतिविधि को ट्रैक करता है और Git ब्रांच के संदर्भ से Timesheets by Appforest में समय लॉग करता है।"
 url: https://marketplace.visualstudio.com/items?itemName=AppforestTimetracker.appforest-timetracker
 date: 2025-07-01
 published: true
 company: Testlify
 ---
 
-हमारे Jira प्लगइन, [Timesheets by AppForest](/projects/timesheets-appforest), ने Testlify में समय ट्रैकिंग को केंद्रीकृत कर दिया, लेकिन डेवलपर्स को फिर भी रुककर टूल बदलना पड़ता था ताकि वे अपने घंटे हाथ से लॉग कर सकें। AppForest Timetracker उसी खाई को पाटता है। यह एक VS Code एक्सटेंशन है जो एडिटर में ही कोडिंग गतिविधि को ट्रैक करता है और समय लॉग करने को एक झटपट क्रिया में बदल देता है, ताकि इंजीनियर IDE छोड़े बिना Timesheets में लॉग कर सकें। मैंने इसे शुरू से आखिर तक संभाला, कॉन्सेप्ट से लेकर Visual Studio Marketplace के लिए पैकेजिंग तक।
+हमारे Jira प्लगइन, [Timesheets by Appforest](/projects/timesheets-appforest), ने Testlify में समय ट्रैकिंग को केंद्रीकृत कर दिया, लेकिन डेवलपर्स को फिर भी रुककर टूल बदलना पड़ता था ताकि वे अपने घंटे हाथ से लॉग कर सकें। Appforest Timetracker उसी खाई को पाटता है। यह एक VS Code एक्सटेंशन है जो एडिटर में ही कोडिंग गतिविधि को ट्रैक करता है और समय लॉग करने को एक झटपट क्रिया में बदल देता है, ताकि इंजीनियर IDE छोड़े बिना Timesheets में लॉग कर सकें। मैंने इसे शुरू से आखिर तक संभाला, कॉन्सेप्ट से लेकर Visual Studio Marketplace के लिए पैकेजिंग तक।
 
 ## मैंने क्या बनाया
 
@@ -27,7 +27,7 @@ Git ब्रांच के संदर्भ से टिकट मिल�
 
 ## लॉग किया गया समय असल में जाता कहां है
 
-एक्सटेंशन सीधे Jira के REST API को कॉल नहीं करता। यह Timesheets by AppForest के अपने बैकएंड को पोस्ट करता है, वही रिमोट सर्विस जिसे [Forge ऐप](/projects/timesheets-appforest) अपने मैनिफेस्ट में घोषित करता है, जो फिर Jira-फेसिंग हिस्सा खुद संभालता है। दोनों प्रोजेक्ट एक-दूसरे से बात करने के लिए बनाए गए थे, Jira से अलग-अलग नहीं, यही वजह है कि Forge ऐप के रिज़ॉल्वर फ़ंक्शन खासतौर पर VS Code से आए सुझावों को लॉग होने के बाद हटाने के लिए भी शामिल हैं।
+एक्सटेंशन सीधे Jira के REST API को कॉल नहीं करता। यह Timesheets by Appforest के अपने बैकएंड को पोस्ट करता है, वही रिमोट सर्विस जिसे [Forge ऐप](/projects/timesheets-appforest) अपने मैनिफेस्ट में घोषित करता है, जो फिर Jira-फेसिंग हिस्सा खुद संभालता है। दोनों प्रोजेक्ट एक-दूसरे से बात करने के लिए बनाए गए थे, Jira से अलग-अलग नहीं, यही वजह है कि Forge ऐप के रिज़ॉल्वर फ़ंक्शन खासतौर पर VS Code से आए सुझावों को लॉग होने के बाद हटाने के लिए भी शामिल हैं।
 
 ## एक्टिविटी और टिकट डिटेक्शन असल में कैसे काम करते हैं
 
