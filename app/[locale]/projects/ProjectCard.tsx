@@ -9,7 +9,7 @@ import type { ProjectMeta } from "./page";
 const CARD_TEASER_MAX_CHARS = 90;
 
 /** Short, distinct teaser so listing cards don't duplicate the detail page's full meta description. */
-function toTeaser(description: string): string {
+export function toTeaser(description: string): string {
   if (description.length <= CARD_TEASER_MAX_CHARS) return description;
   return `${description.slice(0, CARD_TEASER_MAX_CHARS).trimEnd()}…`;
 }
