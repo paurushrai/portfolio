@@ -13,7 +13,7 @@ Si alguna vez has intentado construir una integración para un Sistema de Gesti�
 
 Implica una compleja danza de logins OIDC, keysets JWKS, firmas RSA y claves privadas. Está pensado para ser seguro, pero para un desarrollador que solo quiere "incrustar una app web en Canvas", puede sentirse como una pesadilla.
 
-En esta guía te voy a mostrar una **arquitectura lista para producción** para construir herramientas LTI 1.3 usando prácticas de seguridad modernas. Usaremos **Node.js** para la capa de seguridad y **Next.js** para el frontend, garantizando una experiencia de desarrollo fluida sin comprometer la seguridad.
+Esta es la arquitectura a la que llegué: **Node.js** para la capa de seguridad, **Next.js** para el frontend, separados a propósito en lugar de construidos como un monolito.
 
 **🔗 Repositorio en GitHub**: [github.com/paurushrai/lti-1.3-node-nextjs-template](https://www.github.com/paurushrai/lti-1.3-node-nextjs-template)
 
@@ -35,7 +35,7 @@ Para resolver esto, no vamos a construir un monolito. Vamos a separar nuestro **
 
 ### El Stack Tecnológico
 
-- **Backend (el guardia de seguridad)**: Node.js + Express + `ltijs` (una librería robusta de Cvmcosta).
+- **Backend (el guardia de seguridad)**: Node.js + Express + `ltijs` (la librería estándar de Node.js para LTI 1.3, de Cvmcosta).
 - **Frontend (la experiencia)**: Next.js 14+ (App Router) + React + Tailwind CSS.
 - **Base de datos**: PostgreSQL (guarda las claves criptográficas y los registros de plataformas).
 - **Infraestructura**: Docker Compose.
@@ -134,10 +134,8 @@ La app consiguió con éxito:
 2. Decodificar tu perfil de usuario a partir de los datos de lanzamiento LTI.
 3. Pasarlo de forma segura al frontend.
 
-## 📝 Conclusión
+## ¿Separarías la capa de seguridad de la interfaz de la misma manera?
 
-Construir herramientas LTI no tiene por qué ser un misterio. Separando la **lógica del protocolo** (Node/ltijs) de la **lógica de la aplicación** (Next.js), obtienes lo mejor de ambos mundos: seguridad robusta y una interfaz moderna basada en React.
+Separar la **lógica del protocolo** (Node/ltijs) de la **lógica de la aplicación** (Next.js) es lo que hizo esto manejable: la capa de seguridad se mantiene aburrida y auditable, y la interfaz sigue siendo una app de Next.js normal que no necesita saber nada sobre OIDC ni JWKS.
 
-Revisa el código, haz un fork del repo, ¡y empieza a construir tus propias integraciones!
-
-[**Ver el código en GitHub**](https://github.com/paurushrai/lti-1.3-node-nextjs-template)
+El código está en GitHub por si quieres hacer un fork y partir de algo que ya gestiona el handshake: [**lti-1.3-node-nextjs-template**](https://github.com/paurushrai/lti-1.3-node-nextjs-template). Tengo curiosidad por saber si alguien se ha encontrado con un caso en el que separar las dos capas así estorbó en lugar de ayudar.

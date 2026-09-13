@@ -13,7 +13,7 @@ Canvas、Moodle、Blackboard のような LMS(学習管理システム)向けの
 
 OIDC ログイン、JWKS キーセット、RSA 署名、秘密鍵の複雑なダンスが絡んでくる。安全であることを意図した仕組みだが、「Canvas に Web アプリを埋め込みたい」だけの開発者にとっては、悪夢のように感じられることがある。
 
-このガイドでは、モダンで安全なプラクティスを使って LTI 1.3 ツールを構築するための**本番運用対応のアーキテクチャ**を案内する。セキュリティ層には **Node.js**、フロントエンドには **Next.js** を使い、セキュリティを妥協することなく、滑らかな開発体験を実現する。
+これが私が行き着いたアーキテクチャだ。セキュリティ層には **Node.js**、フロントエンドには **Next.js** を使い、1つのモノリスとしてではなく、意図的に分割している。
 
 **🔗 GitHub リポジトリ**: [github.com/paurushrai/lti-1.3-node-nextjs-template](https://www.github.com/paurushrai/lti-1.3-node-nextjs-template)
 
@@ -35,7 +35,7 @@ LTI(Learning Tools Interoperability)は、外部ツール(あなたのアプリ�
 
 ### 技術スタック
 
-- **バックエンド(セキュリティガード)**: Node.js + Express + `ltijs`(Cvmcosta による堅牢なライブラリ)。
+- **バックエンド(セキュリティガード)**: Node.js + Express + `ltijs`(Cvmcosta による、LTI 1.3 の標準的な Node.js ライブラリ)。
 - **フロントエンド(体験)**: Next.js 14+(App Router)+ React + Tailwind CSS。
 - **データベース**: PostgreSQL(暗号鍵とプラットフォーム登録情報を保存)。
 - **インフラ**: Docker Compose。
@@ -134,10 +134,8 @@ docker-compose up --build
 2. LTI の起動データから、あなたのユーザープロファイルをデコードした。
 3. それを安全にフロントエンドへ渡した。
 
-## 📝 結論
+## セキュリティ層と UI、あなたなら同じように分けるか?
 
-LTI ツールの構築は、謎めいたものである必要はない。**プロトコルロジック**(Node/ltijs)を**アプリケーションロジック**(Next.js)から分離することで、両方のいいとこ取りができる。堅牢なセキュリティと、モダンな React ベースの UI だ。
+**プロトコルロジック**(Node/ltijs)を**アプリケーションロジック**(Next.js)から分離したことが、この構成を現実的なものにした。セキュリティ層は地味で監査しやすいままであり、UI は OIDC や JWKS について何も知る必要のない、普通の Next.js アプリのままでいられる。
 
-コードをチェックし、リポジトリをフォークして、自分自身の連携の構築を始めよう!
-
-[**GitHub でコードを見る**](https://github.com/paurushrai/lti-1.3-node-nextjs-template)
+コードは GitHub に置いてある。フォークして、ハンドシェイクをすでに処理してくれるものから始めたいなら: [**lti-1.3-node-nextjs-template**](https://github.com/paurushrai/lti-1.3-node-nextjs-template)。この2つの層をこうやって分けたことで、助けになるどころか邪魔になったというケースに出くわした人がいるのか、気になっている。
