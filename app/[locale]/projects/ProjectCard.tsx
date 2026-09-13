@@ -6,6 +6,14 @@ import { Card } from "../../components/card";
 import { useLanguage } from "../../i18n/LanguageContext";
 import type { ProjectMeta } from "./page";
 
+const CARD_TEASER_MAX_CHARS = 90;
+
+/** Short, distinct teaser so listing cards don't duplicate the detail page's full meta description. */
+function toTeaser(description: string): string {
+  if (description.length <= CARD_TEASER_MAX_CHARS) return description;
+  return `${description.slice(0, CARD_TEASER_MAX_CHARS).trimEnd()}…`;
+}
+
 /** Standard project card used across the featured secondaries and the main grid. */
 export function ProjectCard({ project }: { project: ProjectMeta }) {
   const { t, localePath } = useLanguage();
@@ -32,7 +40,7 @@ export function ProjectCard({ project }: { project: ProjectMeta }) {
             {project.title}
           </h2>
           <p className="z-20 mt-4 text-sm duration-1000 text-zinc-400 group-hover:text-zinc-200">
-            {project.description}
+            {toTeaser(project.description)}
           </p>
         </article>
       </Link>
