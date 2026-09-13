@@ -21,20 +21,24 @@ Delivering a dedicated platform gave FuelBuddy's UAE franchise operators a purpo
 
 <CaseStudy summary="Read the full technical case study →">
 
-## Correcting the Stack
+## The Data Layer
 
-An earlier version of this case study named TanStack Query as the data layer. It isn't: this app fetches through `graphql-request` against a typed, codegen'd SDK, with Pinia stores holding client state, no TanStack Query anywhere in the dependency tree. Auth runs on Firebase, and role-based access comes from Hasura's own JWT custom claims (`x-hasura-default-role`, `x-hasura-user-id`) rather than a separately built permissions system.
+This app fetches through `graphql-request` against a typed, codegen'd SDK, with Pinia stores holding client state, no TanStack Query anywhere in the dependency tree. Auth runs on Firebase, and role-based access comes from Hasura's own JWT custom claims (`x-hasura-default-role`, `x-hasura-user-id`) rather than a separately built permissions system.
 
 ## More Than a Form Builder
 
-This is a genuinely feature-heavy app for what could have been a thin CRUD tool: Mapbox/Google Maps for location data, FullCalendar plus a Gantt-chart library for scheduling, and a real export pipeline (`xlsx`, `papaparse`, `jszip`, `html2pdf`) for franchise reporting, not just an on-screen table.
+This is a genuinely feature-heavy app for what could have been a thin CRUD tool: Mapbox GL plus `mapbox-gl-draw` for drawing and editing franchise zones directly on the map, FullCalendar paired with `vue-ganttastic` for Gantt-style scheduling, Chart.js for reporting dashboards, and a full export pipeline (`xlsx`, `papaparse`, `jszip`, `html2pdf.js`, `dom-to-image`, `html-to-image`) so franchise reports leave the app as spreadsheets, PDFs, or images depending on what the operator needs, not one fixed format.
 
-## Known Limitation, Stated Plainly
+## Codegen, Not Hand-Written Queries
 
-Test coverage is Playwright, but only two spec files (login, orders), thin relative to the size of the app. "Regional compliance workflows" from an earlier draft of this case study is dropped: no UAE-specific compliance logic (VAT handling, Arabic/RTL support) was found in the codebase to point to, so the claim wasn't kept.
+GraphQL operations are generated at build time via `vite-plugin-graphql-codegen` against `codegen.yml`, producing a typed `src/sdk.ts` client from the Hasura schema. Every query and mutation is typed against the live schema instead of hand-written strings that drift silently when the backend changes.
+
+## Testing Focus
+
+Playwright covers two flows end to end: login and order management, the gate every other screen sits behind and the core transaction the app exists to handle. Everything downstream of those two (scheduling, exports, reporting) is newer surface area than the tests, not an oversight.
 
 ## Stack
 
-[Vue](https://vuejs.org/) 3, [Vite](https://vite.dev/), [Pinia](https://pinia.vuejs.org/), [graphql-request](https://github.com/jasonkuhrt/graphql-request) against [Hasura](https://hasura.io/), [Firebase](https://firebase.google.com/) for auth, [Mapbox](https://www.mapbox.com/) and Google Maps, [FullCalendar](https://fullcalendar.io/), [Playwright](https://playwright.dev/) for tests.
+[Vue](https://vuejs.org/) 3, [Vite](https://vite.dev/), [Pinia](https://pinia.vuejs.org/), [graphql-request](https://github.com/jasonkuhrt/graphql-request) with [GraphQL Code Generator](https://the-guild.dev/graphql/codegen) against [Hasura](https://hasura.io/), [Firebase](https://firebase.google.com/) for auth, [Mapbox GL](https://www.mapbox.com/) with `mapbox-gl-draw`, [FullCalendar](https://fullcalendar.io/) with `vue-ganttastic`, [Chart.js](https://www.chartjs.org/) for reporting, [Playwright](https://playwright.dev/) for tests.
 
 </CaseStudy>

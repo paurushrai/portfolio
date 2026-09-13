@@ -1,20 +1,44 @@
 ---
 title: "FuelBuddy Dubai - Bölgesel Franchise Platformu"
-description: "FuelBuddy'nin BAE operasyonları için sıfırdan bir franchise uygulaması geliştirdim: frontend ve Hasura GraphQL üzerinde kendi CRUD API'lerim, istemcide TanStack Query ve bölgesel gereksinimler için yeniden düzenlenmiş bir kimlik doğrulama/güvenlik akışı."
+description: "FuelBuddy BAE'nin franchise platformunu sıfırdan geliştirdim: frontend mimarisi, Hasura GraphQL API'leri ve Firebase destekli kimlik doğrulama."
 date: 2024-10-01
 published: true
 company: FuelBuddy
 ---
 
-FuelBuddy'nin BAE genişlemesi kendi franchise uygulamasına ihtiyaç duyuyordu, Dubai pazarının mevcut platformlardan farklı düzenleyici, güvenlik ve iş akışı gereksinimleri vardı; öyle ki eskisini yeniden kullanmak iyi bir seçenek değildi. Dubai Franchise Uygulamasını sıfırdan geliştirdim, hem frontend hem de arkasındaki CRUD API'leri boyunca.
+FuelBuddy'nin BAE genişlemesi, bölgesel operasyonel gereksinimlere uyarlanmış özel bir franchise uygulaması gerektiriyordu. Dubai Franchise Uygulamasını hem frontend hem de veri API'leri boyunca sıfırdan geliştirdim.
 
-## Ne geliştirdim
+## Neler geliştirdim
 
-- **Sıfırdan yeni frontend:** Bileşen sistemini baştan geliştirdim; bu, uygulamanın yerini aldığı eski sürümlerden daha duyarlı ve daha derli toplu olmasını sağladı.
-- **Hasura üzerinde kendi CRUD API'lerim:** Uygulamanın üzerinde çalıştığı arka uç veri API'lerini geliştirdim; ihtiyaç duyduğum CRUD işlemlerini açığa çıkarmak için veritabanının üzerinde Hasura'nın GraphQL motorunu kullandım, böylece ayrı arka uç uç noktalarını beklemek yerine veri katmanını uçtan uca tasarlayabildim.
-- **TanStack Query üzerinde veri katmanı:** Bu API'leri tüketmek için frontend'de TanStack React Query kullandım, önbelleğe alma, arka planda yeniden getirme ve iyimser güncellemeler, böylece arayüz çok fazla manuel durum bağlantısı olmadan hızlı ve tutarlı kaldı.
-- **Kimlik doğrulama ve güvenlik:** Bölgenin uyumluluk gereksinimlerini karşılamak için kimlik doğrulamayı, token işlemeyi ve API yük doğrulamasını yeniden düzenledim.
+- **Sıfırdan frontend:** Bileşen sistemini ve uygulama yapısını sıfırdan geliştirdim; franchise operasyonları için temiz ve duyarlı bir arayüz sundum.
+- **Hasura GraphQL API'leri:** Arka uç veri katmanını Hasura GraphQL motoru üzerinde geliştirdim; uygulamanın ihtiyaç duyduğu CRUD işlemlerini ve veri modellerini tanımladım.
+- **Haritalar, planlama ve dışa aktarma:** Canlı haritaları, bir takvim/Gantt planlama görünümünü ve franchise raporlaması için elektronik tablo/PDF dışa aktarmayı entegre ettim.
+- **Kimlik doğrulama ve güvenlik:** Hasura'nın kendi JWT iddiaları üzerinden uygulanan rol tabanlı erişimle Firebase destekli kimlik doğrulamayı yapılandırdım.
 
 ## Neden önemliydi
 
-Sonuç, Dubai pazarının daha katı gereksinimlerini karşıladı ve bu uygulamaların nasıl inşa edildiğine dair daha temiz bir dahili standart belirledi. Yenilenen veri katmanı ayrıca gereksiz ağ çağrılarını azalttı; bu da deneyimi franchise ortakları için hızlı tuttu.
+Özel bir platform teslim etmek, FuelBuddy'nin BAE franchise operatörlerine, gerçek zamanlı harita verisi ve yoğun raporlama için inşa edilmiş bir yığın üzerinde, bölgesel operasyonlara özel olarak tasarlanmış bir araç kazandırdı.
+
+<CaseStudy summary="Tam teknik vaka analizini okuyun →">
+
+## Veri Katmanı
+
+Bu uygulama, istemci durumunu tutan Pinia store'larıyla birlikte, tipli, codegen ile üretilmiş bir SDK'ya karşı `graphql-request` üzerinden veri çekiyor; bağımlılık ağacında hiçbir yerde TanStack Query yok. Kimlik doğrulama Firebase üzerinde çalışıyor, rol tabanlı erişim ise ayrı bir izin sisteminden değil, Hasura'nın kendi özel JWT iddialarından (`x-hasura-default-role`, `x-hasura-user-id`) geliyor.
+
+## Bir Form Oluşturucudan Fazlası
+
+İnce bir CRUD aracı olabilecek bir şey için gerçek anlamda özellik yoğun bir uygulama bu: franchise bölgelerini doğrudan harita üzerinde çizmek ve düzenlemek için Mapbox GL artı `mapbox-gl-draw`, Gantt tarzı planlama için `vue-ganttastic` ile eşleştirilmiş FullCalendar, raporlama panoları için Chart.js, ve franchise raporlarının operatörün ihtiyacına göre tek bir sabit format yerine elektronik tablo, PDF veya görsel olarak uygulamadan çıkmasını sağlayan tam bir dışa aktarma hattı (`xlsx`, `papaparse`, `jszip`, `html2pdf.js`, `dom-to-image`, `html-to-image`).
+
+## El Yazımı Sorgular Değil, Codegen
+
+GraphQL işlemleri, derleme zamanında `codegen.yml`'ye karşı `vite-plugin-graphql-codegen` aracılığıyla üretiliyor; Hasura şemasından tipli bir `src/sdk.ts` istemcisi ortaya çıkarıyor. Her sorgu ve mutasyon, arka uç değiştiğinde sessizce kayan el yazımı string'ler yerine canlı şemaya karşı tipleniyor.
+
+## Test Odağı
+
+Playwright iki akışı uçtan uca kapsıyor: giriş ve sipariş yönetimi, diğer her ekranın arkasında durduğu kapı ve uygulamanın var olma nedeni olan asıl işlem. Bu ikisinin sonrasındaki her şey (planlama, dışa aktarmalar, raporlama), testlerden daha yeni bir yüzey alanı, bir gözden kaçma değil.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [Vite](https://vite.dev/), [Pinia](https://pinia.vuejs.org/), [Hasura](https://hasura.io/)'ya karşı [GraphQL Code Generator](https://the-guild.dev/graphql/codegen) ile [graphql-request](https://github.com/jasonkuhrt/graphql-request), kimlik doğrulama için [Firebase](https://firebase.google.com/), `mapbox-gl-draw` ile [Mapbox GL](https://www.mapbox.com/), `vue-ganttastic` ile [FullCalendar](https://fullcalendar.io/), raporlama için [Chart.js](https://www.chartjs.org/), testler için [Playwright](https://playwright.dev/).
+
+</CaseStudy>

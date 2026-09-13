@@ -1,24 +1,62 @@
 ---
-title: "Timesheets by AppForest - Jira プラグイン"
-description: "Atlassian Marketplace で公開している Jira の工数管理プラグインのフロントエンドをリード。社内でも利用し、有料のサードパーティツールを置き換えて年間 9,000 ドル以上を節約した。"
+title: "Timesheets by AppForest - Jiraプラグイン"
+description: "全社およびAtlassian Marketplaceで利用されるJiraタイムシートプラットフォームを構築し、サードパーティツールを置き換えて年間9,000ドル以上のライセンス費用を削減。"
 url: https://marketplace.atlassian.com/apps/1236036/timesheets-by-appforest
 date: 2025-03-01
 published: true
 company: Testlify
+coverImage: /projects/timesheets-appforest/timesheet.gif
 ---
 
-Testlify では、サードパーティの工数管理ツールに費用を払っていましたが、それは私たちのエンジニアリング作業が実際に Jira の中でどう進むかとつながっていませんでした。私は Timesheets by AppForest のフロントエンドをリードしました。工数管理、生産性の把握、コスト配分を扱う Jira プラグインです。Atlassian Marketplace で公開されており、どのチームでもインストールできます。そして社内でも運用し、その有料ツールを置き換えました。
+Testlifyでは、エンジニアリングの工数管理を日々のJiraワークフローから切り離された高価なサードパーティアプリケーションに依存していた。私はTimesheets by AppForestのフロントエンド開発をリードした。これは工数管理、チームのキャパシティ計画、プロジェクトコスト配分のための統合Jiraアプリケーションだ。製品はAtlassian Marketplaceで公開され、社内でも全社的に導入されている。
 
-![Timesheets by AppForest: 概要](/projects/timesheets-appforest/timesheet.gif)
+![Timesheets by AppForest - 概要](/projects/timesheets-appforest/timesheet.gif)
 
-## 作ったもの
+## 構築した内容
 
-- **Jira 統合:** Jira の開発者 API に対して Atlassian Marketplace 向けにネイティブに構築し、バックエンドエンジニアと連携して OAuth スコープとエンタープライズのセキュリティ要件を損なわないようにしました。
-- **Jira 内の UI:** Jira の課題パネルの中にそのまま存在するレスポンシブな UI を設計しました。ワンクリックの工数入力と日次・週次・月次のビューを備え、エンジニアはツールを切り替えずに工数を入力できます。
-- **レポート:** リアルタイムの生産性データを表示するダッシュボードに加え、CSV と PDF のエクスポートを構築し、関係者がコスト配分のためのレポートを必要なときに取り出せるようにしました。
+- **Atlassian Marketplace統合:** AtlassianのサンドボックスサーバーレスアプリランタイムであるAtlassian Forge上に構築し、セルフホスト型バックエンドではなく厳密にスコープされた最小権限のJira読み書き権限を採用。
+- **埋め込みJiraインターフェース:** 素早い入力のためJiraのissueに直接埋め込む工数記録パネルに加え、カレンダービューと日次・週次のタイムシート提出用のフルダッシュボードアプリを、コンテキストの切り替えなしで提供。
+- **レポートと分析:** スプリントの経理処理とプロジェクトコスト追跡のため、Jiraと社内の工数ログデータを組み合わせたレポートビュー。
 
-![Timesheets by AppForest: 工数入力](/projects/timesheets-appforest/time-logging.gif)
+![Timesheets by AppForest - 工数記録](/projects/timesheets-appforest/time-logging.gif)
 
-## なぜ意味があったか
+## なぜ重要だったか
 
-これは Atlassian Marketplace のどのチームでもインストールできる製品です。社内では、これに移行することで有料のサードパーティツールをやめられ、**年間 9,000 ドル以上** を節約し、経営陣にチームの速度とプロジェクトコストのリアルタイムな可視性をもたらして、予測に役立ちました。
+Atlassian Marketplaceで社外顧客向けに公開されたこのプラグインは、社内でも旧来の工数管理ソフトウェアを置き換え、**年間9,000ドル以上のライセンス費用を削減**し、経営陣にエンジニアリング稼働状況へのリアルタイムな可視性をもたらした。
+
+<CaseStudy summary="技術的なケーススタディ全文を読む →">
+
+## チームと役割
+
+小規模チームでフロントエンド開発をリードした: 2024年半ばから4人のコントリビューターによる397コミット、現在も継続的にメンテナンスされている。これは一人で作ったものではなく、複数年・複数人のプロダクトであり、私の役割はフルスタックの所有ではなくフロントエンドに限定されていた。
+
+## Connectではなく Forge
+
+このアプリは、Jiraとiframeやwebhookで通信する自前のバックエンドを持つ旧来のConnectフレームワークではなく、サンドボックス化されたサーバーレスランタイムであるAtlassian Forge上で動作する。Forgeを使うということは、Jira側の表面に対してサーバーを自前で運用・パッチする必要がないということだ。Atlassianが実行環境をホストし、マニフェストで宣言された権限スコープを強制し、サーバーレス特有の制約(Node 22 on ARM64、メモリ1024MB、1回の呼び出しごとの実行時間制限)を課す。これらのインフラを自分たちで用意する必要はない。
+
+## 二つの異なる目的のための二つの画面
+
+このプロダクトは一つではなく意図的に二つのUIに分かれている。issueコンテキストパネルはよくあるケースを扱う: 今見ているチケットに対して、それを離れることなくワンクリックで工数を記録する。別のフルダッシュボードアプリ(カレンダービュー、レポート、管理設定、コスト追跡)は計画と監督、つまりサイドバーパネルではなく本物のワークスペースを必要とするタスクを扱う。それぞれの画面は自分の仕事のために作られており、両方を一つのインターフェースに無理に押し込めてはいない。
+
+## 本物のプロジェクト横断統合
+
+これは孤立したアプリではない。リゾルバー関数はGoogleカレンダー、Outlookカレンダー、そして姉妹製品である[AppForest Timetracker VS Code拡張機能](/projects/appforest-timetracker-vscode)から来た工数入力候補を明示的に取り込み、消去する。これにより、VS Code上での開発者のコーディング活動が、手動での再入力を必要とせず、ここにタイムシート入力候補として表示される。
+
+## データモデルとスケール
+
+- Forgeの権限スコープは狭く明示的で(`read:jira-work`、`write:jira-work`、`manage:jira-configuration`に加えユーザー/トークンの読み取り)、広範なcatch-all権限ではない。
+- UIコンポーネントはAtlassian自身のデザイントークン(`@atlaskit`)を使用しており、プラグインは後付けのサードパーティ製品ではなく、ネイティブのJiraと見た目が一致する。
+- ダッシュボードアプリはVue 3でPiniaを状態管理に使い、46コンポーネントから成り、Reactベースのissueコンテキストパネルとは分離されている。一つのプロダクトの中に二つのフロントエンドスタックがあり、両方の画面に無理に引き伸ばした一つの共有コードベースではない。
+- Forge関数のメモリ割り当ては、実際のパフォーマンス問題を受けて256MBから1024MBに引き上げられたものであり、初期デフォルト値として1024MBが設定されたわけではない。
+
+これらのコスト/スプリントビューを支えるレポーティングエンジンは、自らのクエリ戦略をスケールさせる: 一件ずつリクエストを送ったり、大きなスプリントでタイムアウトのリスクがある単一の無制限クエリを送るのではなく、レポート量に応じてJira JQL検索リクエストを25件、50件、100件単位のissueにチャンク分割し、issueごとに16フィールドを取得する。
+
+## Build vs. Buy
+
+セルフホスト型のConnectアプリではなくForge: Atlassianのランタイムと権限モデルが、本来このチームが自前で構築・保守しなければならないインフラを代替する。独自UIキットではなくネイティブのAtlassianデザイントークン: このプラグインだけのために並行するデザインシステムを維持するのではなく、Jira自体の見た目と操作パターンを継承する。
+
+## Stack
+
+Atlassian [Forge](https://developer.atlassian.com/platform/forge/) (Node 22、ARM64)、issueコンテキストパネル用の[React](https://react.dev/) 18、ダッシュボードアプリ用の[Pinia](https://pinia.vuejs.org/)を伴う[Vue](https://vuejs.org/) 3、[Atlassian Design System](https://atlassian.design/)のトークンとプリミティブ、[Atlassian Marketplace](https://marketplace.atlassian.com/)経由でデプロイ。
+
+</CaseStudy>

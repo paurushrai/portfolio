@@ -1,20 +1,41 @@
 ---
-title: "Testlify App - KI-gestützte Bewertungsplattform"
-description: "Das Frontend für Testlifys KI-Interview-Workflows gebaut – Chat, Sprache und Video – inklusive Live-Medienerfassung und der State-Logik hinter Echtzeit-KI-Interviews."
+title: "Testlify - Erstellung von Voice- & Video-KI-Fragen"
+description: "Die recruiter-seitige UI zur Erstellung von Voice-, Video- und Chat-KI-Interviewfragen im Assessment-Builder von Testlify gebaut, inklusive KI-Prompt-Konfiguration, Kompetenzbewertung und TTS-Stimmenauswahl."
 url: https://app.testlify.com/
 date: 2025-02-01
 published: true
 company: Testlify
 ---
 
-[Testlify](https://testlify.com/) ist eine KI-gestützte Plattform zur Bewertung von Fähigkeiten und für Vorstellungsgespräche, die Unternehmen nutzen, um Bewerber einzuschätzen. Ich habe das Frontend von Testlifys KI-Interview-Modulen verantwortet – die interaktiven Echtzeit-Oberflächen, die Bewerber nutzen – und eng mit den KI- und Backend-Teams zusammengearbeitet, um festzulegen, wie sich jeder Modus verhalten sollte, bevor ich ihn gebaut habe.
+[Testlify](https://testlify.com/) ist eine Plattform für Skills-Assessments und Vorstellungsgespräche. Innerhalb des recruiter-seitigen Test-Builders habe ich die UI zur Erstellung von drei KI-gestützten Fragetypen gebaut, Voice, Video und Chat-Simulation, mit denen Recruiter automatisierte Bewerber-Assessments konfigurieren: Aufnahmezeitlimits, KI-Prompt-Konfiguration, Kompetenzbewertung und die Auswahl der Text-to-Speech-Stimme.
 
 ## Was ich gebaut habe
 
-- **KI-Interview-Oberflächen (Chat, Sprache, Video):** Das Frontend für die multimodalen KI-Interviews gebaut – die Bildschirme, auf denen Bewerber per Text-Chat, Live-Mikrofon und Video mit einer KI interagieren.
-- **Medienerfassung:** Die Browser-APIs für Echtzeit-Audio und -Video übernommen – Kamera- und Mikrofonberechtigungen, Live-Audiovisualisierungen, damit Bewerber sehen, dass sie gehört werden, und clientseitige Feinabstimmung, damit sich das Hin und Her mit der KI gesprächig anfühlt.
-- **State-Handling im Interview:** Die Frontend-State-Logik gebaut, um mit den unvorhersehbaren Teilen eines Live-KI-Interviews umzugehen – Netzwerkabbrüche, das Warten darauf, dass die KI die nächste Frage generiert, und das Durchlaufen der Bewertungsschritte, ohne den Bewerber ins Stocken zu bringen.
+- **Erstellung von Voice-KI-Fragen:** Die UI zur Konfiguration sprachbasierter KI-Interviewfragen im Test-Builder gebaut, Aufnahmelimits, KI-Prompt-Konfiguration und Kompetenzbewertung.
+- **Integration in den Fragen-Builder:** Die Fragetypen Voice, Video und Chat-Simulation in den Assessment-Builder-Ablauf des Recruiters integriert.
+- **Styling und Tooling:** Component-Styling für die Voice-/Chat-Fragen-UI beigetragen, zusammen mit dem Aufsetzen des Repo-Toolings (ESLint, Husky, Renovate, Tailwind-Konfiguration).
 
 ## Warum es wichtig war
 
-Ein ausgereiftes Frontend machte diese KI-Interviews im großen Maßstab nutzbar und reduzierte den manuellen Aufwand, den Interviewer aufbringen mussten – in der Größenordnung von 40 % weniger administrativer Arbeit pro Bewertung. Die KI-Interview-Module waren Teil des Wachstums der Plattform in diesem Zeitraum und trugen zu einem spürbaren Umsatzanstieg bei.
+Voice-, Video- und Chat-KI-Fragen sind die Art, wie Recruiter Testlifys automatisierte Interview-Assessments konfigurieren. Diese Arbeit machte diese Fragetypen konfigurierbar und konsistent innerhalb desselben gemeinsamen Design-Systems, das über Testlifys gesamte Produktpalette hinweg genutzt wird.
+
+<CaseStudy summary="Die vollständige technische Fallstudie lesen →">
+
+## Ein kleiner Beitrag in einer riesigen Codebasis
+
+Dieses Repo ist Testlifys Recruiter-/Admin-Dashboard: 16.216 Commits, Dutzende Beitragende, in Betrieb seit September 2021. Meine eigenen Commits machen davon 86 aus, etwa ein halbes Prozent, über rund anderthalb Jahre. Der Großteil dieser Zahl liegt in einem `component-library`-Git-Submodul, demselben gemeinsamen Vue-Design-System, das bereits als [eigene Fallstudie](/projects/testlify-component-library) behandelt wird; außerhalb dieses Submoduls ist die eigentliche Arbeit ein fokussierter Satz an Dateien: das Voice-Fragen-Modal, die Interview-Fragen-Ansicht, die Fragetypen in den Builder einbindet, sowie das Styling und Tooling drumherum.
+
+## Was „multimodales KI-Interview“ hier tatsächlich bedeutet
+
+Diese App ist die Recruiter-Seite des Produkts: dort konfiguriert ein Recruiter, was eine KI-gestützte Frage tatsächlich stellt, nicht dort, wo ein Bewerber sie live beantwortet. Voice, Video und Chat-Simulation sind Frage*typen*, die ein Recruiter im Test-Builder einrichtet, jeweils mit eigenem Aufnahmezeitlimit, eigenem KI-Prompt, eigener Kompetenzbewertungs-Rubrik und (bei Voice) einer Auswahl der Text-to-Speech-Stimme. Das bewerberseitige Interview-Erlebnis, das diese konfigurierten Fragen live umsetzt, läuft in einer separaten Anwendung an anderer Stelle in Testlifys Stack.
+
+## Datenmodell & Skalierung
+
+- 16.216 Commits über mehr als 4 Jahre, wobei allein ein Top-Beitragender für über 1.800 davon verantwortlich ist, eine wirklich große, langjährige Team-Codebasis und kein kleines Projekt.
+- Die gemeinsame Komponentenbibliothek wird als Git-Submodul eingebunden, statt kopiert oder geforkt, wodurch diese App auf demselben versionierten Design-System bleibt wie Testlifys andere drei Produkte.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [TypeScript](https://www.typescriptlang.org/), [Vuex](https://vuex.vuejs.org/) für den State, [Vite](https://vite.dev/), die gemeinsame [Testlify-Komponentenbibliothek](/projects/testlify-component-library) als Git-Submodul, [ESLint](https://eslint.org/), [Husky](https://typicode.github.io/husky/), [Renovate](https://docs.renovatebot.com/) für Dependency-Updates, [Tailwind CSS](https://tailwindcss.com/).
+
+</CaseStudy>

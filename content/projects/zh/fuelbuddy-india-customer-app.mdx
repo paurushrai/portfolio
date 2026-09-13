@@ -1,0 +1,49 @@
+---
+title: "FuelBuddy India - 客户端应用（React Native 迁移）"
+description: "把 FuelBuddy 的客户端应用从 PWA 迁移到 React Native，在 8 周内实现了 14 个用户流程 100% 的功能对等。"
+url: https://play.google.com/store/apps/details?id=in.fuelbuddy.app
+date: 2023-12-01
+published: true
+company: FuelBuddy
+---
+
+FuelBuddy 的客户端应用最初是一个渐进式 Web 应用（PWA）。这在 Android 上没问题，但在 iOS 上遇到了平台限制：WebKit 引擎的约束、不可靠的“添加到主屏幕”体验、有限的存储空间，以及缺失的推送通知能力。对 FuelBuddy 而言，这意味着 PWA 无法稳定地服务 iOS 用户，需要一个原生应用才能提供稳定的移动端体验。我是把这个应用重写为 React Native 的工程团队中的一员。
+
+## 我参与的工作
+
+- **从 PWA 到 React Native：** 把应用重写为一个编译型的 React Native 应用，在 8 周内实现了 14 个用户流程 100% 的功能对等，并确保 iOS 和 Android 上一致的原生体验。
+- **跨越整个技术栈：** 主要专注于移动端前端，同时直接在 Hasura GraphQL 引擎上构建所需的 CRUD API，确保功能开发不会被后端依赖卡住。
+- **与团队一起交付：** 与前端工程师和产品经理紧密协作，把需求转化为经过测试的功能，并保持生产发布周期按计划进行。
+
+## 为什么它有意义
+
+迁移到 React Native 建立起了一套跨 iOS 和 Android 的可靠单一代码库。在 8 周内以完全对等的方式交付 14 个用户流程，使 FuelBuddy 能够服务其全部移动端用户，而无需维护各平台的独立实现。
+
+<CaseStudy summary="阅读完整技术案例研究 →">
+
+## 团队与职责
+
+我是这次重写工作中的工程师之一，与前端工程师和产品经理一起协作，在团队为这次迁移设定的 8 周窗口内，实现了全部 14 个流程的完全对等。
+
+## GraphQL 层
+
+CRUD API 跑在 Hasura 上，通过 `urql` 而非 Apollo 来消费，由 GraphQL Codegen 生成带类型的操作，一共 73 个独立的 `.graphql` 文件覆盖了应用的真实功能面。本地状态通过 Zustand 管理，背后由 MMKV 这个快速的键值存储支撑，并由 Zod 在边界处校验数据。
+
+## 定位与支付，而不只是 CRUD
+
+配送跟踪引入了 `react-native-maps`、一个专门的地理定位服务，以及 Turf.js 来完成真正的地理空间计算（距离、边界、路径规划），而不只是在地图上放一个标记。支付通过两个独立的网关完成：Easebuzz 是以本地 vendored 包的形式集成，而不是作为一个注册表依赖引入；Axis Bank 的 API 要求每个请求都用 AES-256-CBC（基于 PBKDF2 派生密钥）和 HMAC-SHA512 签名，这部分是在一个手写的 Android 原生模块（`NdpsAESLibrary`，通过 `NativeModules` 桥接到 JS）里完成的，而不是用 JS 加密库，因为支付网关的签名要求并不是 RN 层能够通用满足的。Firebase 同时负责身份验证和数据分析。
+
+## 报表，而不只是一张表
+
+报表流程通过 Victory Native 把配送和业务数据渲染成图表，然后把同一份数据导出为 CSV：用 `json2csv` 编码，通过 Android 的 Scoped Storage API（`react-native-scoped-storage`，在 Android 10 及以上、应用失去直接文件系统访问权限后是必需的）写入磁盘，再通过原生分享面板交出去。
+
+## 数据模型与规模
+
+- 13 到 14 个独立的流程容器（地址、资产、业务、配送、首页、位置、订单、提货、报表、设置、支持、用户、钱包）组织起了应用的导航结构，与“14 个用户流程”这个数字是一致的。
+- 一个专门的 Android 原生模块负责银行级别的请求签名；应用里其余的一切都留在 JS/TypeScript 中，运行在 React Native 的 bridge 之上。
+
+## 技术栈
+
+[React Native](https://reactnative.dev/)、[urql](https://commerce.nearform.com/open-source/urql/) 配合 [GraphQL Code Generator](https://the-guild.dev/graphql/codegen)、[Zustand](https://zustand.docs.pmnd.rs/) 用于状态管理、[MMKV](https://github.com/mrousavy/react-native-mmkv) 用于存储、[Zod](https://zod.dev/) 用于校验、[react-native-maps](https://github.com/react-native-maps/react-native-maps)、[Turf.js](https://turfjs.org/) 用于地理空间计算、Easebuzz 和 Axis Bank 用于支付（后者背后有一个自定义的原生 AES/HMAC 签名模块）、[Victory Native](https://formidable.com/open-source/victory/docs/native/) 用于报表图表、[Firebase](https://firebase.google.com/) 用于身份验证和数据分析，基于 [Hasura](https://hasura.io/) GraphQL。
+
+</CaseStudy>

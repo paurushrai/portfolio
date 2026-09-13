@@ -1,24 +1,62 @@
 ---
 title: "Timesheets by AppForest - Jira Eklentisi"
-description: "Atlassian Marketplace'te yayınlanan bir Jira zaman takibi eklentisinin frontend'ine liderlik ettim: dahili olarak da kullanıldı, orada ücretli bir üçüncü taraf aracının yerini alarak yılda 9.000 doları aşkın tasarruf sağladı."
+description: "Şirket genelinde ve Atlassian Marketplace'te kullanılan bir Jira zaman çizelgesi platformu geliştirildi, bir üçüncü taraf aracın yerini alarak yıllık 9.000 doların üzerinde lisans maliyeti tasarrufu sağlandı."
 url: https://marketplace.atlassian.com/apps/1236036/timesheets-by-appforest
 date: 2025-03-01
 published: true
 company: Testlify
+coverImage: /projects/timesheets-appforest/timesheet.gif
 ---
 
-Testlify'da, mühendislik işimizin Jira'da gerçekte nasıl yürüdüğüne bağlanmayan üçüncü taraf bir zaman takibi aracı için ödeme yapıyorduk. Zaman takibi, üretkenlik içgörüsü ve maliyet tahsisi işlerini yürüten bir Jira eklentisi olan Timesheets by AppForest'ın frontend'ine liderlik ettim. Atlassian Marketplace'te yayınlanıyor ve herhangi bir ekibin kurmasına açık, dahili olarak da kullanıyoruz, orada o ücretli aracın yerini aldı.
+Testlify'da mühendislik zaman takibi, günlük Jira iş akışlarından kopuk pahalı bir üçüncü taraf uygulamaya bağlıydı. Zaman takibi, ekip kapasite planlaması ve proje maliyet tahsisi için entegre bir Jira uygulaması olan Timesheets by AppForest'in frontend geliştirmesine liderlik ettim. Ürün Atlassian Marketplace'te yayınlandı ve şirket genelinde dahili olarak kullanılıyor.
 
-![Timesheets by AppForest: Genel Bakış](/projects/timesheets-appforest/timesheet.gif)
+![Timesheets by AppForest - Genel Bakış](/projects/timesheets-appforest/timesheet.gif)
 
-## Ne geliştirdim
+## Ne inşa ettim
 
-- **Jira entegrasyonu:** Atlassian Marketplace için Jira'nın geliştirici API'lerine karşı yerel olarak inşa edildi; OAuth kapsamlarını ve kurumsal güvenlik gereksinimlerini korumak için arka uç mühendisleriyle çalışarak.
-- **Jira içi arayüz:** Doğrudan Jira sorun panellerinin içinde yaşayan duyarlı bir arayüz tasarladım; tek tıklamayla zaman kaydı ve günlük/haftalık/aylık görünümlerle, böylece mühendisler araç değiştirmeden zaman kaydeder.
-- **Raporlama:** Canlı üretkenlik verilerini gösteren panoları geliştirdim; ayrıca paydaşların maliyet tahsisi için talep üzerine rapor çekebilmesi için CSV ve PDF dışa aktarma.
+- **Atlassian Marketplace entegrasyonu:** Kendi barındırılan bir backend yerine, Atlassian'ın sandbox'lı sunucusuz uygulama çalışma zamanı olan Atlassian Forge üzerine, sıkı şekilde sınırlandırılmış, en az yetki ilkesine dayalı Jira okuma/yazma izinleriyle inşa edildi.
+- **Gömülü Jira arayüzü:** Hızlı girişler için doğrudan Jira görevlerine gömülü bir zaman kaydı paneli, artı bağlam değiştirmeden takvim görünümleri ve günlük/haftalık zaman çizelgesi gönderimleri için tam bir dashboard uygulaması.
+- **Raporlama ve analiz:** Sprint muhasebesi ve proje maliyet takibi için Jira ve dahili zaman kaydı verilerini birleştiren rapor görünümleri.
 
-![Timesheets by AppForest: Zaman Kaydı](/projects/timesheets-appforest/time-logging.gif)
+![Timesheets by AppForest - Zaman Kaydı](/projects/timesheets-appforest/time-logging.gif)
 
 ## Neden önemliydi
 
-Atlassian Marketplace'teki herhangi bir ekibin kurabileceği bir ürün. Dahili olarak, ona geçmek ücretli üçüncü taraf aracını bırakmamızı sağladı, **yılda 9.000 doları aşkın** tasarruf, ve liderliğe ekip hızı ve proje maliyeti konusunda tahmine yardımcı olan gerçek zamanlı görünürlük kazandırdı.
+Dış müşteriler için Atlassian Marketplace'te yayınlanan eklenti, dahili olarak da eski zaman takip yazılımımızın yerini aldı, **yıllık 9.000 doların üzerinde lisans maliyeti** tasarrufu sağladı ve yönetime mühendislik kapasitesine gerçek zamanlı görünürlük kazandırdı.
+
+<CaseStudy summary="Tam teknik vaka çalışmasını okuyun →">
+
+## Ekip ve Sahiplik
+
+Küçük bir ekipte frontend geliştirmesine liderlik ettim: 2024 ortasından bu yana 4 katkıda bulunandan 397 commit, bugün hâlâ aktif olarak bakımı yapılıyor. Bu tek kişilik bir yapım değil, çok yıllı, çok kişili bir ürün ve rolüm full-stack sahiplik değil, frontend ile sınırlıydı.
+
+## Connect Değil, Forge
+
+Uygulama, Jira ile iframe'ler ve webhook'lar üzerinden iletişim kuran kendi backend'ine sahip kendi barındırılan bir uygulama olan eski Connect framework'ü yerine, sandbox'lı sunucusuz bir çalışma zamanı olan Atlassian Forge üzerinde çalışır. Forge, Jira'ya bakan yüzey için çalıştırılacak veya yamalanacak bir sunucu olmadığı anlamına gelir: Atlassian, bu altyapıyı bize bırakmak yerine, çalıştırma ortamını barındırır, manifestoda beyan edilen izin kapsamlarını uygular ve sunucusuz tarzı kısıtlamalar (ARM64 üzerinde Node 22, 1024MB bellek, çağrı başına sınırlı çalışma süresi) getirir.
+
+## İki Farklı Amaç İçin İki Yüzey
+
+Ürün bilinçli olarak tek bir yerine iki UI'ye ayrılır. Bir görev bağlamı paneli yaygın durumu ele alır: zaten baktığınız bilete karşı, onu terk etmeden tek tıkla zaman kaydedin. Ayrı bir tam dashboard uygulaması (takvim görünümleri, raporlar, yönetici ayarları, maliyet takibi) planlama ve denetimi, yani bir kenar çubuğu paneli değil gerçek bir çalışma alanı gerektiren görevleri ele alır. Her yüzey, ikisini de tek bir arayüze zorlamak yerine yaptığı iş için inşa edilmiştir.
+
+## Gerçek Bir Projeler Arası Entegrasyon
+
+Bu izole bir uygulama değil. Resolver fonksiyonları, Google Calendar, Outlook Calendar ve birlikte çalışan [AppForest Timetracker VS Code uzantısından](/projects/appforest-timetracker-vscode) gelen zaman girişi önerilerini açıkça alır ve temizler, böylece bir geliştiricinin VS Code'daki kodlama etkinliği, manuel yeniden giriş gerektirmeden burada önerilen bir zaman çizelgesi girişi olarak ortaya çıkabilir.
+
+## Veri Modeli ve Ölçek
+
+- Forge izin kapsamları dar ve açıktır (`read:jira-work`, `write:jira-work`, `manage:jira-configuration`, artı kullanıcı/token okumaları), geniş kapsamlı bir catch-all izin değil.
+- UI bileşenleri, Atlassian'ın kendi tasarım tokenlarını (`@atlaskit`) kullanır, böylece eklenti, sonradan eklenmiş bir üçüncü taraf gibi değil, görsel olarak yerel Jira ile eşleşir.
+- Dashboard uygulaması, durum için Pinia kullanan Vue 3'tür, 46 bileşenden oluşur, React tabanlı görev bağlamı panelinden ayrıdır; bir üründe iki frontend yığını, her iki yüzeye de yapay olarak gerilmiş tek bir paylaşılan kod tabanı değil.
+- Forge fonksiyonunun bellek tahsisi, başlangıç varsayılanı olarak 1024MB ayarlanmak yerine, gerçek bir performans sorunundan sonra 256MB'tan 1024MB'a yükseltildi.
+
+Bu maliyet/sprint görünümlerinin arkasındaki raporlama motoru, kendi sorgu stratejisini ölçeklendirir: görev başına bir istek göndermek veya büyük bir sprintte zaman aşımı riski taşıyan tek bir sınırsız sorgu göndermek yerine, rapor hacmine bağlı olarak Jira JQL arama isteklerini çağrı başına 25, 50 veya 100 görev halinde parçalara ayırır ve görev başına 16 alan çeker.
+
+## Build vs. Buy
+
+Kendi barındırılan bir Connect uygulaması yerine Forge: Atlassian'ın çalışma zamanı ve izin modeli, bu ekibin aksi takdirde kendi inşa edip güvenceye alması gereken altyapının yerini alır. Özel bir UI kiti yerine yerel Atlassian tasarım tokenları: eklenti, yalnızca bu uygulama için paralel bir tasarım sistemi sürdürmek yerine, Jira'nın kendi görünümünü ve etkileşim kalıplarını devralır.
+
+## Stack
+
+Atlassian [Forge](https://developer.atlassian.com/platform/forge/) (Node 22, ARM64), görev bağlamı paneli için [React](https://react.dev/) 18, dashboard uygulaması için [Pinia](https://pinia.vuejs.org/) ile [Vue](https://vuejs.org/) 3, [Atlassian Design System](https://atlassian.design/) tokenları ve primitifleri, [Atlassian Marketplace](https://marketplace.atlassian.com/) üzerinden dağıtıldı.
+
+</CaseStudy>

@@ -1,0 +1,40 @@
+---
+title: "FuelBuddy India - App de Logística y Seguimiento de Franquicias"
+description: "Ingeniero clave en la app de franquicias de FuelBuddy: seguimiento de camiones en vivo, APIs de Hasura GraphQL y flujos de logística simplificados."
+date: 2023-09-01
+published: true
+company: FuelBuddy
+---
+
+En [FuelBuddy](https://fuelbuddy.in/), fui un ingeniero clave en la Aplicación de Franquicias, que los operadores de franquicia usan para gestionar centros regionales, inventario y flotas de reparto.
+
+## Lo que construí
+
+- **Seguimiento de camiones en vivo:** Construí un módulo interactivo de Google Maps que muestra las ubicaciones de la flota mediante un intervalo de sondeo, dándoles a los operadores visibilidad continua sobre los movimientos de los camiones y el estado del despacho.
+- **APIs de GraphQL y caché:** Construí las APIs de datos usando el motor GraphQL de Hasura a través de urql, con una caché normalizada del lado del cliente y renovación automática del token al expirar.
+- **Simplificación de flujos de trabajo:** Rediseñé tareas operativas de varios pasos, entre ellas la conciliación de inventario y la asignación de conductores, convirtiéndolas en interfaces simplificadas que redujeron los errores operativos.
+
+## Por qué importó
+
+El seguimiento de la flota hizo que la logística de despacho fuera más predecible y redujo el tiempo de inactividad de los camiones. Los flujos de trabajo simplificados de asignación e inventario redujeron los errores operativos en los centros de franquicia.
+
+<CaseStudy summary="Lee el estudio de caso técnico completo →">
+
+## Lo que "en vivo" significa realmente aquí
+
+El mapa de camiones se actualiza mediante un intervalo de sondeo, no mediante una suscripción de GraphQL, aunque el mismo cliente está preparado para suscripciones en otras partes de la app (`graphql-ws` está configurado y se usa para las actualizaciones de estado de pedidos, solo que no para este mapa en concreto). Fue una decisión deliberada por el costo del servidor, no un descuido: una suscripción mantiene una conexión persistente abierta en el servidor durante todo el tiempo que el cliente la tenga abierta, y una pantalla de mapa que queda abierta durante todo el turno de cada despachador, horas seguidas, supone una carga de conexión mucho más pesada y prolongada que una actualización puntual de estado de pedido. El sondeo evita mantener esa conexión abierta en absoluto, a cambio de ciclos periódicos de solicitud/respuesta.
+
+## Asignación e inventario, con más detalle
+
+La asignación de conductores cubre flujos de asignación individual, masiva, reasignación y desasignación, no solo una única acción de "asignar". El seguimiento de inventario sigue los saldos de existencias específicamente para los bowsers de combustible (camiones cisterna), con consultas de saldo de existencias y tablas de registro dedicadas, un modelo de datos operativo real, no un inventario de piezas genérico.
+
+## Modelo de datos y escala
+
+- La caché normalizada de urql más una capa de autenticación por token de Firebase que se renueva automáticamente ante respuestas 401 o de token expirado, para que una sesión expirada no interrumpa a un despachador a mitad de una tarea.
+- Playwright cubre el login y la gestión de pedidos de principio a fin, los dos flujos de los que depende cualquier otra pantalla de la app.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [Vite](https://vite.dev/), [Pinia](https://pinia.vuejs.org/), [urql](https://commerce.nearform.com/open-source/urql/) contra [Hasura](https://hasura.io/), autenticación con [Firebase](https://firebase.google.com/), Google Maps, [Playwright](https://playwright.dev/) para las pruebas.
+
+</CaseStudy>

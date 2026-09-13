@@ -1,20 +1,41 @@
 ---
-title: "Testlify App - Plataforma de Avaliação Movida a IA"
-description: "Construí o frontend dos fluxos de entrevista com IA da Testlify: chat, voz e vídeo: lidando com a captura de mídia ao vivo e a lógica de estado por trás das entrevistas com IA em tempo real."
+title: "Testlify - Autoria de Perguntas de IA em Voz e Vídeo"
+description: "Construí a UI voltada ao recrutador para criar perguntas de entrevista com IA em voz, vídeo e chat dentro do construtor de avaliações da Testlify, incluindo configuração de prompt de IA, pontuação de competências e seleção de voz TTS."
 url: https://app.testlify.com/
 date: 2025-02-01
 published: true
 company: Testlify
 ---
 
-A [Testlify](https://testlify.com/) é uma plataforma de avaliação de habilidades e entrevistas movida a IA usada por empresas para avaliar candidatos. Cuidei do frontend dos módulos de entrevista com IA da Testlify, as interfaces interativas, em tempo real, que os candidatos usam, trabalhando de perto com os times de IA e de backend para definir como cada modo deveria se comportar antes de construí-lo.
+A [Testlify](https://testlify.com/) é uma plataforma de avaliação de habilidades e entrevistas. Dentro do construtor de testes voltado ao recrutador, construí a UI para criar três tipos de pergunta orientados por IA, voz, vídeo e simulação de chat, que os recrutadores usam para configurar avaliações automatizadas de candidatos: limites de tempo de gravação, configuração de prompt de IA, pontuação de competências e seleção de voz de texto para fala.
 
 ## O que construí
 
-- **Interfaces de entrevista com IA (chat, voz, vídeo):** Construí o frontend das entrevistas multimodais com IA, as telas onde os candidatos interagem com uma IA por chat de texto, microfone ao vivo e vídeo.
-- **Captura de mídia:** Lidei com as APIs do navegador para áudio e vídeo em tempo real, permissões de câmera e microfone, visualizações de áudio ao vivo para que os candidatos vejam que estão sendo ouvidos, e ajustes no lado do cliente para manter a troca de turnos com a IA com uma sensação de conversa.
-- **Tratamento de estado da entrevista:** Construí a lógica de estado do frontend para lidar com as partes imprevisíveis de uma entrevista com IA ao vivo, quedas de rede, a espera pela IA gerar a próxima pergunta e o avanço pelas etapas da avaliação sem travar o candidato.
+- **Autoria de perguntas de IA em voz:** Construí a UI para configurar perguntas de entrevista com IA baseadas em voz no construtor de testes, limites de gravação, configuração de prompt de IA e pontuação de competências.
+- **Integração com o construtor de perguntas:** Integrei os tipos de pergunta de voz, vídeo e simulação de chat ao fluxo do construtor de avaliações do recrutador.
+- **Estilização e ferramentas:** Contribuí com a estilização de componentes da UI de perguntas de voz/chat, além da configuração de ferramentas do repositório (ESLint, Husky, Renovate, configuração do Tailwind).
 
 ## Por que importou
 
-Um frontend bem-acabado tornou essas entrevistas com IA utilizáveis em escala e reduziu o esforço manual que os entrevistadores precisavam ter, na ordem de 40% menos trabalho administrativo por avaliação. Os módulos de entrevista com IA fizeram parte do crescimento da plataforma nesse período, contribuindo para um aumento significativo de receita.
+As perguntas de IA em voz, vídeo e chat são como os recrutadores configuram as avaliações automatizadas de entrevista da Testlify. Este trabalho tornou esses tipos de pergunta configuráveis e consistentes dentro do mesmo design system compartilhado usado em todo o conjunto de produtos da Testlify.
+
+<CaseStudy summary="Leia o estudo de caso técnico completo →">
+
+## Uma Pequena Contribuição, Dentro de uma Base de Código Enorme
+
+Este repositório é o dashboard de recrutador/administrador da Testlify: 16.216 commits, dezenas de contribuidores, rodando desde setembro de 2021. Meus próprios commits somam 86 desses, cerca de meio por cento, ao longo de aproximadamente um ano e meio. A maior parte dessa contagem está em um submódulo git `component-library`, o mesmo design system Vue compartilhado já coberto como [seu próprio estudo de caso](/projects/testlify-component-library); fora desse submódulo, o trabalho de fato é um conjunto focado de arquivos: o modal de perguntas de voz, a view de perguntas de entrevista que conecta os tipos de pergunta ao construtor, e a estilização e ferramentas ao redor deles.
+
+## O Que "Entrevista com IA Multimodal" Realmente Significa Aqui
+
+Este app é o lado do recrutador do produto: onde um recrutador configura o que uma pergunta orientada por IA de fato pergunta, não onde um candidato responde ao vivo. Voz, vídeo e simulação de chat são *tipos* de pergunta que um recrutador configura no construtor de testes, cada um com seu próprio limite de tempo de gravação, prompt de IA, rubrica de pontuação de competências e (para voz) uma escolha de voz de texto para fala. A experiência de entrevista voltada ao candidato, que coloca essas perguntas configuradas ao vivo, roda em uma aplicação separada em outro ponto da stack da Testlify.
+
+## Modelo de Dados e Escala
+
+- 16.216 commits ao longo de mais de 4 anos, com um contribuidor principal sozinho responsável por mais de 1.800 deles, uma base de código de equipe genuinamente grande e de longa duração, não um projeto pequeno.
+- A biblioteca de componentes compartilhada é consumida como um submódulo git em vez de copiada e colada ou bifurcada, mantendo este app na mesma versão do design system que os outros três produtos da Testlify.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [TypeScript](https://www.typescriptlang.org/), [Vuex](https://vuex.vuejs.org/) para estado, [Vite](https://vite.dev/), a [biblioteca de componentes compartilhada da Testlify](/projects/testlify-component-library) como um submódulo git, [ESLint](https://eslint.org/), [Husky](https://typicode.github.io/husky/), [Renovate](https://docs.renovatebot.com/) para atualização de dependências, [Tailwind CSS](https://tailwindcss.com/).
+
+</CaseStudy>

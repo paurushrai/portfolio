@@ -1,6 +1,6 @@
 ---
-title: "Testlify - Migração do Site de Marketing para Jamstack"
-description: "Escolhi Jamstack em vez de WordPress para o site de marketing da Testlify, com mais de 11.000 páginas, para acelerar os carregamentos e a entrega de conteúdo: uma migração em andamento, com previsão de reduzir os tempos de carregamento das páginas em 60%."
+title: "Testlify - Migração do Site de Marketing para Next.js"
+description: "Liderei a decisão arquitetural de substituir o WordPress por uma arquitetura Next.js 16 cache-first para um site de marketing com mais de 11.000 páginas, verificada página a página contra a produção para proteger a autoridade de SEO existente."
 url: https://testlify.com/
 date: 2026-07-01
 published: true
@@ -8,14 +8,52 @@ wip: true
 company: Testlify
 ---
 
-O [site de marketing](https://testlify.com/) da Testlify é grande, mais de 11.000 páginas, e rodava em WordPress, onde os carregamentos de página eram lentos o suficiente para prejudicar as taxas de rejeição, e publicar mudanças era mais pesado do que deveria. Tomei a decisão de movê-lo para uma arquitetura Jamstack, e a migração está atualmente em andamento.
+O [site de marketing](https://testlify.com/) da Testlify tem mais de 11.000 páginas. A configuração legada em WordPress gerava sobrecarga de renderização no lado do servidor e gargalos de plugins a cada requisição, afetando a velocidade de carregamento das páginas e o posicionamento nos buscadores. Liderei a decisão arquitetural de migrar o site para o Next.js 16, com o rollout atualmente em andamento.
 
-## A decisão
+## A decisão arquitetural
 
-- **Jamstack em vez de WordPress:** Com mais de 11.000 páginas, a configuração WordPress pagava um custo de renderização e de plugins a cada requisição. Mover para uma build estática Jamstack passa a servir páginas pré-renderizadas, que é de onde vem a maior parte da velocidade, e carregamentos mais rápidos ajudam diretamente a taxa de rejeição num site de marketing.
-- **Conteúdo gerido por CMS:** O conteúdo migra para um CMS headless, para que a equipe de marketing publique e atualize as páginas através dele e o site se reconstrua a partir dessa fonte, mais rápido para publicar conteúdo do que o fluxo antigo, e mais limpo de manter com essa quantidade de páginas.
-- **Migração em escala:** O trabalho consiste em mover mais de 11.000 páginas existentes para a nova arquitetura sem perder o valor de SEO nem quebrar URLs, a parte difícil de qualquer migração desse tamanho, e a razão pela qual é uma implantação em etapas em vez de uma virada de chave.
+- **Cache-first em vez de WordPress:** As páginas são renderizadas uma vez na primeira requisição e ficam em cache indefinidamente, em vez de bater no banco de dados a cada requisição ou exigir uma reconstrução em lote de várias horas para mais de 11.000 páginas. Um webhook do Payload CMS invalida apenas as páginas específicas que uma mudança de conteúdo de fato afeta.
+- **Integração com CMS headless:** O conteúdo é gerenciado pelo Payload CMS, um CMS headless auto-hospedado sustentado por Postgres, permitindo que as equipes de marketing editem e publiquem páginas enquanto os hooks de invalidação de cache captam cada mudança automaticamente.
+- **Migração em escala:** Planejei e executei a migração em etapas de mais de 11.000 páginas, verificada página a página contra o sitemap ao vivo da produção, preservando as estruturas de URL, as tags canônicas e a autoridade de SEO existente em todas as categorias.
 
 ## Por que importou
 
-A migração tem previsão de reduzir os tempos de carregamento das páginas em cerca de **60%**. Num site de marketing isso não é uma métrica de vaidade: páginas mais rápidas significam menor rejeição e melhor posicionamento de busca, e o pipeline gerido por CMS permite que a equipe de marketing coloque conteúdo no ar sem esperar pela engenharia.
+Mover um site com mais de 11.000 páginas do WordPress para uma arquitetura cache-first reduz os tempos de carregamento de página, melhora o desempenho técnico de SEO e permite que as equipes de marketing publiquem atualizações sem depender de deploys de engenharia.
+
+<CaseStudy summary="Leia o estudo de caso técnico completo →">
+
+## Responsabilidade, Ainda em Andamento
+
+Liderei a decisão arquitetural de sair do WordPress. Não é uma construção solo: mais de 2.500 commits de aproximadamente 15 a 20 contribuidores desde julho de 2026, ativa até este mês, com a virada de DNS para produção sendo a única etapa restante na última verificação de status.
+
+## Por Que Isso Não é o Jamstack Clássico
+
+A abordagem óbvia para mais de 11.000 páginas é geração estática em tempo de build. Ela não se encaixa aqui: uma reconstrução completa em todos os locales e tipos de conteúdo levaria horas, e uma única edição de conteúdo não deveria exigir reconstruir o site inteiro para entrar no ar. Em vez disso, toda rota dinâmica (category, author, hr-tools, hr-guide, blog, test-library, e outras) segue a mesma convenção: o build pré-renderiza exatamente uma página de amostra por tipo de rota, já que o Cache Components exige pelo menos um parâmetro para construir contra e o próprio build precisa rodar zero queries de banco de dados. Toda outra página sob essa rota é renderizada na sua primeira requisição real sob os Cache Components do Next.js 16, e então permanece em cache indefinidamente (`cacheLife` definido para a própria constante `INFINITE_CACHE` do Next) até que um hook `afterChange` do Payload CMS chame um endpoint de revalidação assinado para aquela página específica. As mudanças de conteúdo se propagam em segundos, não em um ciclo completo de reconstrução, e o cache ainda se comporta como um cache de borda de CDN do lado do visitante. O próprio endpoint de revalidação é assinado com HMAC e verificado com uma comparação de tempo constante, e é deliberadamente restrito a invalidar uma tag por vez: apenas um caminho administrativo separado, disparado manualmente, pode limpar uma tag de coleção inteira, então um segredo de webhook vazado pode, no pior caso, invalidar uma única página, não sobrecarregar o cache do site inteiro de uma vez.
+
+## Dois Bugs de Framework, Encontrados em Produção e Corrigidos na Fonte
+
+Dois problemas separados do Next.js 16 surgiram durante o build, ambos agora documentados diretamente no `next.config.ts` para que a próxima pessoa não precise redescobri-los da forma difícil. Primeiro, o `cacheComponents` ativa silenciosamente o `enablePrerenderSourceMaps` por padrão, o que estava derrubando o build de produção por falta de memória (OOM) durante a geração estática de páginas; rastreado até o próprio código-fonte do Next e corrigido com uma substituição explícita. Segundo, usar `Infinity` para um tempo de vida de cache é serializado em JSON como `null` no caminho até os workers de build do Next, o que rebaixa silenciosamente aquela rota para não cacheada em vez de gerar um erro, quebrando a pré-renderização em todos os locales até ser detectado; corrigido usando a própria constante `INFINITE_CACHE` do Next em vez de um `Infinity` bruto.
+
+## Um Catálogo Que se Recusa a Servir um Resultado Parcial
+
+O catálogo do test-library busca dados de uma API upstream em páginas de 60 linhas. Se mais de 2% do total anunciado vier faltando, essa busca é rejeitada por completo em vez de ser entregue como um catálogo parcial, e o último snapshot bom conhecido em cache continua servindo em seu lugar (um `seed.json` local cobre cold starts ou o upstream estar totalmente fora do ar). Desatualizado é um modo de falha aceitável aqui; um catálogo de produtos silenciosamente incompleto não é.
+
+## Uma Correção de SEO Para um Caso Extremo de Streaming
+
+Sob o streaming dos Cache Components, o `notFound()` automático do Next não consegue confirmar um status HTTP 404 antes que o shell da página já tenha começado a fazer streaming para o cliente, então um crawler que lê apenas esse shell nunca o veria. A correção injeta manualmente uma diretiva `noindex` no primeiro flush, para que um crawler que pare no shell ainda receba o sinal correto, mesmo antes do resto da página ser resolvido.
+
+## Modelo de Dados e Escala
+
+- Mais de 11.000 páginas vêm de múltiplos tipos de conteúdo (category, author, hr-tools, hr-guide, leadership, test-library) cruzados com cada locale suportado via `next-intl`, não de uma única fonte de conteúdo plana.
+- Toda URL de produção do WordPress é verificada contra a saída deste projeto em uma auditoria dedicada (`docs/audits/url-parity-with-production.md`): uma URL que o WordPress serve hoje e que este projeto retorna 404 é tráfego perdido, não uma lacuna aceitável.
+- Testes unitários (Vitest) cobrem a geração de sitemap, o fallback do seed do catálogo e a rotação de conteúdo relacionado; o Playwright cobre os fluxos de ponta a ponta.
+
+## Construir vs. Comprar
+
+Payload CMS auto-hospedado sobre Postgres, não um CMS headless SaaS: mantém a propriedade do conteúdo e o banco de dados internos, em vez de pagar uma conta SaaS por assento para um site de marketing. Os próprios Cache Components e a invalidação baseada em tags do Next.js, não uma camada de CDN/ISR feita à mão: o comportamento de cache vem do framework, em vez de uma infraestrutura que esse time teria que construir e operar por conta própria.
+
+## Stack
+
+[Next.js](https://nextjs.org/) 16, [React](https://react.dev/), [TypeScript](https://www.typescriptlang.org/), [Payload CMS](https://payloadcms.com/) sobre [Postgres](https://www.postgresql.org/), [next-intl](https://next-intl.dev/) para localização, [Vitest](https://vitest.dev/) para testes unitários, [Playwright](https://playwright.dev/) para testes de ponta a ponta, implantado na [Vercel](https://vercel.com/).
+
+</CaseStudy>

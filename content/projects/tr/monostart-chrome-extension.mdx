@@ -1,25 +1,67 @@
 ---
-title: "MonoStart: Özelleştirilebilir Yeni Sekme Chrome Eklentisi"
-description: "Her yeni sekmeyi kişisel bir panoya dönüştüren, gizlilik öncelikli bir Chrome eklentisi: bağlantılar, notlar, yapılacaklar, zamanlayıcılar ve hatırlatıcılar, kendi temalarınız ve duvar kağıtlarınızla, tümü cihazınızda depolanır."
+title: "MonoStart - Özelleştirilebilir Yeni Sekme Chrome Eklentisi"
+description: "Her yeni sekmeyi, tamamen cihazınızda saklanan bağlantılar, zamanlayıcılar ve hatırlatıcılarla kişisel bir panoya dönüştüren, gizlilik öncelikli bir Chrome eklentisi."
 url: https://chromewebstore.google.com/detail/hhfeihcppmfepeeainafmaifpmdemmlg
-repository: paurushrai/monostart-chrome-extension
+repository: paurushrai/monostart-extension
 date: 2026-06-01
 published: true
-company: Kişisel Proje
+company: Personal Project
+coverImage: /projects/monostart-chrome-extension/cover.png
 ---
 
-Günde onlarca kez yeni bir sekme açıyorsunuz ve boş bir ekranla karşılaşıyorsunuz. MonoStart onu, kendinizin kurduğu bir panoyla değiştiriyor, bağlantılarınız, görevleriniz, notlarınız ve hatırlatıcılarınız, istediğiniz gibi düzenlenmiş. Bunu tamamen cihazınızda çalışan bir Manifest V3 Chrome eklentisi olarak geliştirdim.
+MonoStart, tarayıcının varsayılan yeni sekme sayfasını hızlı, özelleştirilebilir kişisel bir panoya dönüştürüyor. Yer imlerini, görev listelerini, hızlı notları ve odaklanma zamanlayıcılarını yapılandırılabilir bir çalışma alanında düzenliyor. Bir Manifest V3 Chrome eklentisi olarak geliştirildi, her şeyi cihazda yerel olarak saklıyor: hesap yok, sunucu veritabanı yok, analitik yok.
 
-![MonoStart: Özelleştirilebilir Yeni Sekme Chrome Eklentisi](/projects/monostart-chrome-extension/cover.png)
+![MonoStart - Özelleştirilebilir Yeni Sekme Chrome Eklentisi](/projects/monostart-chrome-extension/cover.png)
 
-## Ne geliştirdim
+## Neler geliştirdim
 
-- **Kendinizin düzenlediği bir pano:** Her widget'ın, bağlantılar, gruplu klasörler, notlar, yapılacaklar, zamanlayıcılar, hatırlatıcılar, görseller, gömülü içerikler ve arama, çalışma şeklinize uyacak biçimde yerleştirilip boyutlandırılabildiği bir sürükle-bırak ızgarası.
-- **Her şey bir bakış uzaklıkta:** Yer imleri arasında kazınmak yerine hızlı bağlantılar ve klasörler; zaten tüm gün açık tuttuğunuz sayfada notlar, görevler ve hatırlatıcılar.
-- **Size özel yapın:** 12 renk teması, özel renk seçici, açık/koyu ve renk, gradyan veya görsel duvar kağıtları.
-- **Zamanlayıcılar ve hatırlatıcılar:** Yerleşik, böylece yolunuzda kalmak için ayrı bir uygulamaya uzanmıyorsunuz.
-- **Varsayılan olarak özel:** Her şey cihazınızda yaşıyor, hesap yok, sunucu yok, takip yok, ve sayfa anında açılıyor.
+- **Özelleştirilebilir pano:** İç içe widget gruplarını da içeren bir sürükle-bırak ızgarası; widget'ların (hızlı bağlantılar, kategorize edilmiş klasörler, notlar, yapılacaklar listeleri, geri sayım zamanlayıcıları, hatırlatıcılar, sesli arama ve Google Lens görsel arama) herhangi bir iş akışına uyacak şekilde düzenlenebildiği.
+- **Hızlı erişim düzeni:** Başlıktaki sabitlenmiş bağlantılar ve gruplandırılmış klasörler, derin yer imi menülerinin yerini alıyor; sık erişilen siteleri bir tık uzaklıkta tutuyor.
+- **Tema özelleştirme:** Chrome'un kendi "Chrome'u özelleştir" paletinden tersine mühendislikle çıkarılmış 15 yerleşik renk teması, özel bir hex seçici, açık/koyu mod desteği ve gradyan veya duvar kağıdı arka planları.
+- **Üretkenlik araçları:** Yerel sesli uyarılar ve masaüstü bildirimleriyle birlikte yerleşik geri sayım zamanlayıcıları ve zamanlanmış hatırlatıcılar.
+- **Yerel öncelikli depolama:** Notlar, yapılacaklar, düzen ve görseller cihazda chrome.storage.local ve IndexedDB'de yaşıyor. Kullanıcı hesabı yok ve sunucu veritabanı yok; tek ağ çağrısı, arama otomatik tamamlama için Google'ın herkese açık öneri API'sine, Chrome'un kendi adres çubuğunun kullandığı aynı API'ye.
 
 ## Neden önemliydi
 
-Yeni sekme sayfası, tarayıcıdaki en çok açılan ekran ve genellikle hiçbir şey yapmaz. MonoStart onu gerçekten faydalı bir yere dönüştürüyor; bağlantıları, görevleri, notları ve hatırlatıcıları yer imleri, yapışkan notlar ve diğer uygulamalar arasına dağıtmak yerine tek bir noktada topluyor. Kişisel bir proje ve açık kaynak, yani kod okunmak için orada.
+Yeni sekme sayfası günde onlarca kez açılıyor. MonoStart, o boş alanı, gizliliğinize saygı duyan, anlık, yerel öncelikli bir üretkenlik panosuna dönüştürüyor: verileriniz cihazdan asla ayrılmıyor.
+
+<CaseStudy summary="Tam teknik vaka analizini okuyun →">
+
+## Bu Neden Var
+
+Günde yaklaşık 200 kez yeni bir sekme açıyorum, ve yıllarca bu bana hiçbir şey vermedi: bir arama çubuğu ve Google'ın tahmin ettiği bir site ızgarası. Asıl sorun boş sayfa değildi, onunla başa çıkmak için yaptığım her şeydi. URL'leri yeniden yazmaktan kaçınmak için üç Chrome profili boyunca kırktan fazla sekme açık tutuyordum, her biri Chrome'un sıcak tuttuğu canlı bir süreçti. İşimi düzenlemiyordum, sayfaları değil işaretçileri elimde tutmak için bir RAM ve fan vergisi ödüyordum. Denediğim mevcut her yeni sekme eklentisi, o boş sayfayı daha kötü bir şeyle değiştiriyordu: kas hafızasını bozan yabancı bir arayüz, bir hesap ve bulut senkronizasyonu, sponsorlu bağlantılar, telemetri. Tek katkıda bulunan benim, Haziran 2026'dan bu yana 222 commit, hâlâ aktif olarak bakımı yapılıyor, önce kendi tarayıcımı düzeltmek için, ikinci olarak da canlı, herkese açık bir eklenti olarak yayınlanmak üzere geliştirildi.
+
+## Tek Kural: Bir Uygulama Değil, Chrome Gibi Görün
+
+Bu kod tabanındaki her karar tek bir kısıtlamaya cevap veriyor: Chrome'un nerede bittiğini ve panonun nerede başladığını söyleyemesiniz. Gerçek Google arama çubuğunun, kendi geçmiş indeksine ihtiyaç duyacak özel bir arama arayüzü yerine, gerçek Chrome geçmiş önerileriyle birlikte kalmasının nedeni bu. Bir katılım akışı, bir giriş ekranı, bir hesap sistemi olmamasının nedeni de bu: yeni bir sekme açmak, hiçbir şey kurulmamış gibi hissettirmeli. Sayfayı ayrı bir uygulama gibi hissettiren bir özellik, ne kadar yararlı olursa olsun, yayına girmedi.
+
+## Ses Çalamayan Bir Service Worker'da Ses
+
+Manifest V3 arka plan betikleri service worker'lardır, ve service worker'lar sesi doğrudan güvenilir biçimde çalamaz. Chrome, belleği geri almak istediğinde onları askıya alıp yıkıyor, çalma sırasında bile. Hatırlatıcıların yine de gerçekten çalan bir sese ihtiyacı var. Çözüm, hatırlatıcıyı zamanlamak için `chrome.alarms`'ı kullanıyor, çünkü alarmlar öldürülmüş bir service worker'dan sağ çıkıp onu yeniden uyandırıyor, ve çalmayı service worker'ın kendisi yerine bir `chrome.offscreen` belgesi üzerinden yönlendiriyor; Chrome'un özellikle bu tür görevler için canlı tuttuğu gizli bir sayfa. Bu, çoğu MV3 eklentisinin sonunda karşılaştığı aynı sınıf geçici çözüm, çünkü MV3'te artık kalıcı bir arka plan sayfası yok.
+
+## Chrome'un Kendisinden Tersine Mühendislikle Çıkarılan Temalar
+
+Rastgele bir renk paleti icat etmek yerine, MonoStart'ın 15 yerleşik teması, çıkarma sürecinin depoda adım adım belgelendiği Chrome'un kendi "Chrome'u özelleştir" tohum renklerinden çıkarılıyor. Bu çıkarmanın erken bir sürümünde bir renk tonu kayması hatası vardı. Düzeltme, v1.1.1'de, eski matematiğe göre zaten bir tema seçmiş olan herkes için bir geçiş yoluyla birlikte yayınlandı; böylece mevcut kullanıcılar seçtiklerinden farklı bir renkle uyanmadı.
+
+## Güvenlik: Yalnızca Temizleyiciye Güvenmeden Gömülü İçerikleri Temizlemek
+
+Görsel ve gömme widget'ları rastgele HTML kabul ediyor, render'dan önce DOMPurify ile temizleniyor. DOMPurify tek başına yeterli değildi: bir `srcdoc` özelliğini kaldırmıyor, ve `srcdoc` ayarlanmış bir iframe, eklentinin kendi origin'ini devralıyor; eklentinin CSP'si bir gün gevşerse bu gerçek bir XSS yolu. `srcdoc`, DOMPurify'nin kendi başına neye izin verdiğinden bağımsız olarak temizleyicide açıkça kaldırılıyor; tek bir kütüphaneye tamamen güvenmek yerine ikinci, bağımsız bir katman.
+
+## Veri Modeli ve Ölçek
+
+- Metin verisi (notlar, yapılacaklar, düzen, hatırlatıcılar, ayarlar) chrome.storage.local'da yaşıyor.
+- Duvar kağıdı ve arka plan görselleri bunun yerine ayrı bir IndexedDB veritabanında yaşıyor; silinen veya değiştirilen görsellerin sessizce birikmemesi için sahipsiz referans çöp toplama ile birlikte.
+- chrome.storage.local'ın yaklaşık 10MB'lık sınırı, görseller o kotadan tamamen taşındıktan sonra gerekli olan `unlimitedStorage` izniyle kaldırılıyor.
+- 25 dosyaya yayılan 216 test (Vitest, jsdom, fake-indexeddb), sadece üzerindeki arayüzü değil, doğrudan bu depolama katmanını kapsıyor.
+
+Yalnızca yerel depolama, bir gözden kaçırma değil, bilinçli bir ödünleşim: makineler veya profiller arasında senkronizasyon olmadığı anlamına geliyor, ama bu, üç Chrome profiline, inşa edilip güvenliği sağlanması gereken paylaşılan bir hesap sistemi olmadan, kendi bağımsız, izole panolarını bedavaya kazandıran aynı mekanizma. Arama çubuğu otomatik tamamlama, tüm uygulamadaki tek ağ çağrısı; Chrome'un kendi adres çubuğunun yaptığı gibi Google'ın herkese açık öneri API'sine ulaşıyor; kullanıcının gerçekten oluşturduğu her şey yerel kalıyor.
+
+## Yapmak mı, Satın Almak mı
+
+Özel bir sürükle-bırak motoru yok: react-grid-layout, çarpışma tespiti ve yeniden boyutlandırma tutamaçlarını sıfırdan yeniden uygulamak yerine, iç içe gruplar dahil ızgarayı yönetiyor. Özel bir bileşen kütüphanesi yok: [shadcn/ui](https://ui.shadcn.com/)'nin Radix tabanlı bileşenleri doğrudan kopyalama deseni (opak bir UI paketi kurmak yerine), her bileşenin kodunu ve ondan herhangi bir sapmayı görünür ve düzenlenebilir tutuyor. Özel bir yerelleştirme hattı yok: el yapımı string arama yerine react-i18next artı büyüyen bir yerel dosya seti (50'den fazla dil).
+
+## Stack
+
+[React](https://react.dev/) 19, [Vite](https://vite.dev/), [TypeScript](https://www.typescriptlang.org/), [Tailwind CSS](https://tailwindcss.com/), [Radix UI](https://www.radix-ui.com/) ilkellerinin üzerinde [shadcn/ui](https://ui.shadcn.com/), pano ızgarası için [react-grid-layout](https://github.com/react-grid-layout/react-grid-layout), yerelleştirme için [react-i18next](https://react.i18next.com/), gömme temizliği için [DOMPurify](https://github.com/cure53/DOMPurify), testler için [Vitest](https://vitest.dev/), Chrome'un [Manifest V3](https://developer.chrome.com/docs/extensions/develop/migrate/what-is-mv3) eklenti platformu (`chrome.alarms`, `chrome.offscreen`, `chrome.storage`, IndexedDB), [PolyForm Noncommercial 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0/) lisansı altında.
+
+</CaseStudy>

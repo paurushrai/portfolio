@@ -1,20 +1,44 @@
 ---
 title: "FuelBuddy Dubai - Regionale Franchise-Plattform"
-description: "Eine Franchise-App für FuelBuddys VAE-Betrieb von Grund auf gebaut – Frontend plus meine eigenen CRUD-APIs auf Hasura GraphQL, mit TanStack Query auf dem Client und einem für regionale Anforderungen überarbeiteten Auth-/Security-Flow."
+description: "FuelBuddy VAEs Franchise-Plattform von Grund auf gebaut: Frontend-Architektur, Hasura-GraphQL-APIs und Firebase-gestützte Authentifizierung."
 date: 2024-10-01
 published: true
 company: FuelBuddy
 ---
 
-FuelBuddys Expansion in die VAE brauchte eine eigene Franchise-App – der Markt in Dubai hatte andere regulatorische, sicherheitstechnische und arbeitsablaufbezogene Anforderungen als die bestehenden Plattformen, genug, dass die Wiederverwendung der alten App nicht gut passte. Ich habe die Dubai Franchise Application von Grund auf gebaut, sowohl das Frontend als auch die dahinterliegenden CRUD-APIs.
+FuelBuddys Expansion in die VAE erforderte eine eigene Franchise-Anwendung, zugeschnitten auf regionale betriebliche Anforderungen. Ich habe die Dubai Franchise Application von Grund auf gebaut, sowohl das Frontend als auch die Daten-APIs.
 
 ## Was ich gebaut habe
 
-- **Neues Frontend von Grund auf:** Das Komponentensystem frisch gebaut, was die App reaktionsschneller und besser zusammengesetzt machte als die älteren Versionen, die sie ersetzte.
-- **Meine eigenen CRUD-APIs auf Hasura:** Die Backend-Daten-APIs gebaut, auf denen die App läuft, mit Hasuras GraphQL-Engine über der Datenbank, um die CRUD-Operationen bereitzustellen, die ich brauchte – sodass ich die Datenebene end to end gestalten konnte, statt auf separate Backend-Endpunkte zu warten.
-- **Datenebene auf TanStack Query:** TanStack React Query im Frontend genutzt, um diese APIs zu konsumieren – Caching, Hintergrund-Refetching und optimistische Updates – sodass die Oberfläche schnell und konsistent blieb, ohne viel manuelles State-Verdrahten.
-- **Auth und Security:** Die Authentifizierung, die Token-Verarbeitung und die Validierung der API-Payloads überarbeitet, um die Compliance-Anforderungen der Region zu erfüllen.
+- **Greenfield-Frontend:** Das Komponentensystem und die Anwendungsstruktur von Grund auf gebaut und eine saubere, responsive Oberfläche für den Franchise-Betrieb geliefert.
+- **Hasura-GraphQL-APIs:** Die Backend-Datenschicht auf der Hasura-GraphQL-Engine gebaut und dabei die CRUD-Operationen und Datenmodelle definiert, die die Anwendung braucht.
+- **Karten, Planung und Exporte:** Live-Karten, eine Kalender-/Gantt-Planungsansicht sowie Tabellen-/PDF-Export für das Franchise-Reporting integriert.
+- **Authentifizierung und Sicherheit:** Firebase-gestützte Authentifizierung konfiguriert, mit rollenbasiertem Zugriff, der über Hasuras eigene JWT-Claims durchgesetzt wird.
 
 ## Warum es wichtig war
 
-Das Ergebnis erfüllte die strengeren Anforderungen des Dubai-Markts und setzte einen saubereren internen Standard dafür, wie diese Apps gebaut werden. Die überarbeitete Datenebene reduzierte außerdem redundante Netzwerkaufrufe, was das Erlebnis für Franchise-Partner schnell hielt.
+Das Liefern einer eigenen Plattform gab FuelBuddys Franchise-Betreibern in den VAE ein zweckgebautes Werkzeug für den regionalen Betrieb, auf einem Stack, der für Echtzeit-Kartendaten und umfangreiches Reporting gebaut ist.
+
+<CaseStudy summary="Die vollständige technische Fallstudie lesen →">
+
+## Die Datenschicht
+
+Diese App fragt über `graphql-request` gegen ein typisiertes, per Codegen erzeugtes SDK ab, wobei Pinia-Stores den Client-State halten, ohne TanStack Query irgendwo im Dependency-Baum. Die Authentifizierung läuft über Firebase, und der rollenbasierte Zugriff kommt aus Hasuras eigenen benutzerdefinierten JWT-Claims (`x-hasura-default-role`, `x-hasura-user-id`) statt aus einem separat gebauten Berechtigungssystem.
+
+## Mehr als ein Formular-Baukasten
+
+Das ist eine wirklich feature-reiche App für etwas, das auch ein dünnes CRUD-Tool hätte sein können: Mapbox GL plus `mapbox-gl-draw` zum Zeichnen und Bearbeiten von Franchise-Zonen direkt auf der Karte, FullCalendar zusammen mit `vue-ganttastic` für Gantt-artige Planung, Chart.js für Reporting-Dashboards, und eine vollständige Export-Pipeline (`xlsx`, `papaparse`, `jszip`, `html2pdf.js`, `dom-to-image`, `html-to-image`), sodass Franchise-Reports die App als Tabellen, PDFs oder Bilder verlassen, je nachdem, was der Betreiber braucht, nicht in einem fest vorgegebenen Format.
+
+## Codegen statt handgeschriebener Queries
+
+GraphQL-Operationen werden zur Build-Zeit über `vite-plugin-graphql-codegen` gegen `codegen.yml` generiert und erzeugen einen typisierten `src/sdk.ts`-Client aus dem Hasura-Schema. Jede Query und Mutation ist gegen das aktuelle Schema typisiert, statt handgeschriebener Strings, die still auseinanderdriften, wenn sich das Backend ändert.
+
+## Fokus beim Testen
+
+Playwright deckt zwei Abläufe end to end ab: Login und Bestellverwaltung, das Tor, hinter dem jeder andere Bildschirm liegt, und die Kerntransaktion, für die die App eigentlich existiert. Alles, was diesen beiden nachgelagert ist (Planung, Exporte, Reporting), ist neuere Oberfläche als die Tests, kein Versehen.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [Vite](https://vite.dev/), [Pinia](https://pinia.vuejs.org/), [graphql-request](https://github.com/jasonkuhrt/graphql-request) mit [GraphQL Code Generator](https://the-guild.dev/graphql/codegen) gegen [Hasura](https://hasura.io/), [Firebase](https://firebase.google.com/) für die Authentifizierung, [Mapbox GL](https://www.mapbox.com/) mit `mapbox-gl-draw`, [FullCalendar](https://fullcalendar.io/) mit `vue-ganttastic`, [Chart.js](https://www.chartjs.org/) für Reporting, [Playwright](https://playwright.dev/) für Tests.
+
+</CaseStudy>

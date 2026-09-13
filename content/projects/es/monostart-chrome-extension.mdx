@@ -1,25 +1,67 @@
 ---
 title: "MonoStart: Extensión de Chrome de Nueva Pestaña Personalizable"
-description: "Una extensión de Chrome con la privacidad por delante que convierte cada nueva pestaña en un panel personal: enlaces, notas, tareas, temporizadores y recordatorios, con tus propios temas y fondos de pantalla, todo almacenado en tu dispositivo."
+description: "Una extensión de Chrome con la privacidad como prioridad que convierte cada nueva pestaña en un panel personal con enlaces, temporizadores y recordatorios, todo almacenado en tu dispositivo."
 url: https://chromewebstore.google.com/detail/hhfeihcppmfepeeainafmaifpmdemmlg
-repository: paurushrai/monostart-chrome-extension
+repository: paurushrai/monostart-extension
 date: 2026-06-01
 published: true
-company: Proyecto Personal
+company: Personal Project
+coverImage: /projects/monostart-chrome-extension/cover.png
 ---
 
-Abres una nueva pestaña decenas de veces al día y te encuentras con una pantalla en blanco. MonoStart la reemplaza por un panel que tú mismo configuras: tus enlaces, tareas, notas y recordatorios, ordenados como tú quieras. La construí como una extensión de Chrome Manifest V3 que se ejecuta íntegramente en tu dispositivo.
+MonoStart transforma la página de nueva pestaña por defecto del navegador en un panel personal rápido y personalizable. Organiza marcadores, listas de tareas, notas rápidas y temporizadores de concentración en un espacio de trabajo configurable. Construida como una extensión de Chrome Manifest V3, lo almacena todo localmente en el dispositivo: sin cuentas, sin base de datos en servidor, sin analítica.
 
 ![MonoStart: Extensión de Chrome de Nueva Pestaña Personalizable](/projects/monostart-chrome-extension/cover.png)
 
 ## Lo que construí
 
-- **Un panel que tú organizas:** Una cuadrícula de arrastrar y soltar donde cada widget  - enlaces, carpetas agrupadas, notas, tareas, temporizadores, recordatorios, imágenes, incrustaciones y búsqueda -  puede colocarse y redimensionarse para adaptarse a tu forma de trabajar.
-- **Todo a un vistazo:** Enlaces rápidos y carpetas en lugar de rebuscar entre los marcadores; notas, tareas y recordatorios en la página que ya abres todo el día.
-- **Hazlo tuyo:** 12 temas de color, un selector de color personalizado, modo claro/oscuro, y fondos de color, degradado o imagen.
-- **Temporizadores y recordatorios:** Integrados, para que no tengas que recurrir a otra aplicación para mantener el rumbo.
-- **Privada por defecto:** Todo vive en tu dispositivo  - sin cuenta, sin servidores, sin rastreo -  y la página se abre al instante.
+- **Un panel personalizable:** Una cuadrícula de arrastrar y soltar, con grupos de widgets anidados incluidos, donde los widgets (enlaces rápidos, carpetas categorizadas, notas, listas de tareas, temporizadores de cuenta regresiva, recordatorios, búsqueda por voz y búsqueda visual con Google Lens) pueden organizarse para adaptarse a cualquier flujo de trabajo.
+- **Disposición de acceso rápido:** Los enlaces anclados en la cabecera y las carpetas agrupadas reemplazan los menús de marcadores anidados, manteniendo los sitios de acceso frecuente a un clic de distancia.
+- **Personalización de temas:** 15 temas de color integrados, obtenidos por ingeniería inversa a partir de la propia paleta de "Personalizar Chrome", un selector de color hexadecimal personalizado, soporte para modo claro/oscuro, y fondos en degradado o con imagen.
+- **Herramientas de productividad:** Temporizadores de cuenta regresiva y recordatorios programados integrados, con alertas de audio locales y notificaciones de escritorio.
+- **Almacenamiento local ante todo:** Las notas, tareas, el diseño y las imágenes viven en chrome.storage.local y en IndexedDB, en el dispositivo. Sin cuentas de usuario y sin base de datos en servidor; la única llamada de red es a la API pública de sugerencias de Google para el autocompletado de búsqueda, la misma que usa la propia barra de direcciones de Chrome.
 
 ## Por qué importó
 
-La página de nueva pestaña es la pantalla más abierta del navegador y normalmente no hace nada. MonoStart la convierte en un lugar que resulta útil de verdad, reuniendo enlaces, tareas, notas y recordatorios en un solo sitio en lugar de dispersarlos entre marcadores, notas adhesivas y otras aplicaciones. Es un proyecto personal y de código abierto, así que el código está ahí para leerlo.
+La página de nueva pestaña se abre decenas de veces al día. MonoStart convierte ese espacio vacío en un panel de productividad instantáneo y local ante todo, que respeta tu privacidad: tus datos nunca salen del dispositivo.
+
+<CaseStudy summary="Lee el estudio de caso técnico completo →">
+
+## Por qué existe esto
+
+Abro una nueva pestaña unas 200 veces al día, y durante años no me devolvía nada: una barra de búsqueda y una cuadrícula de sitios que Google adivinaba. El problema real no era la página en blanco, era todo lo que hacía para lidiar con ella. Más de cuarenta pestañas abiertas en tres perfiles de Chrome solo para evitar volver a escribir URLs, cada una un proceso vivo que Chrome mantenía activo. No estaba organizando mi trabajo, estaba pagando un impuesto de RAM y ventilador por aferrarme a punteros, no a páginas. Cada extensión de nueva pestaña que probé cambiaba esa página en blanco por algo peor: una interfaz ajena que rompía la memoria muscular, una cuenta con sincronización en la nube, enlaces patrocinados, telemetría. Soy el único colaborador, 222 commits desde junio de 2026, todavía en mantenimiento activo, construida primero para arreglar mi propio navegador y publicada después como una extensión pública en producción.
+
+## La única regla: parecer Chrome, no una app
+
+Cada decisión en este código base responde a una única restricción: no deberías poder distinguir dónde termina Chrome y dónde empieza el panel. Por eso se mantiene la barra de búsqueda real de Google, con sugerencias reales del historial de Chrome, en lugar de una interfaz de búsqueda a medida que necesitaría su propio índice de historial. Por eso no hay flujo de incorporación, ni pantalla de inicio de sesión, ni sistema de cuentas: abrir una nueva pestaña debería sentirse como si no se hubiera instalado nada. Una función que hiciera que la página se sintiera como una app aparte, por útil que fuera, no se lanzaba.
+
+## Audio en un service worker que no puede reproducir audio
+
+Los scripts en segundo plano de Manifest V3 son service workers, y los service workers no pueden reproducir audio de forma fiable de manera directa. Chrome los suspende y los destruye cuando quiere recuperar memoria, incluso a mitad de la reproducción. Los recordatorios igual necesitan un sonido que realmente se dispare. La solución usa `chrome.alarms` para programar el recordatorio, ya que las alarmas sobreviven a un service worker eliminado y lo despiertan de nuevo, y enruta la reproducción a través de un documento `chrome.offscreen` en lugar del propio service worker, una página oculta que Chrome mantiene viva específicamente para tareas como esta. Es el mismo tipo de solución alternativa con la que termina topándose la mayoría de las extensiones MV3, ya que una página de fondo persistente ya no existe en MV3.
+
+## Temas obtenidos por ingeniería inversa a partir del propio Chrome
+
+En lugar de inventar una paleta de colores arbitraria, los 15 temas integrados de MonoStart se extraen de los colores semilla de la propia función "Personalizar Chrome", con el proceso de extracción documentado paso a paso en el repositorio. Una versión temprana de esa extracción tenía un error de desplazamiento de tono (hue-shift). La corrección se lanzó en la v1.1.1 con una ruta de migración para quienes ya habían elegido un tema con el cálculo antiguo, de modo que los usuarios existentes no se encontraran con un color distinto del que habían elegido.
+
+## Seguridad: sanitizar las incrustaciones sin confiar únicamente en el sanitizador
+
+Los widgets de imagen e incrustación aceptan HTML arbitrario, sanitizado con DOMPurify antes de renderizarse. DOMPurify por sí solo no bastaba: no elimina un atributo `srcdoc`, y un iframe con `srcdoc` establecido hereda el propio origen de la extensión, una vía real de XSS si la CSP de la extensión llegara a relajarse alguna vez. `srcdoc` se elimina explícitamente en el sanitizador, sin importar lo que DOMPurify permita por su cuenta, una segunda capa independiente en lugar de confiar por completo en una sola librería.
+
+## Modelo de datos y escala
+
+- Los datos de texto (notas, tareas, diseño, recordatorios, ajustes) viven en chrome.storage.local.
+- Las imágenes de fondo de pantalla y de fondo, en cambio, viven en una base de datos IndexedDB separada, con recolección de basura de referencias huérfanas para que las imágenes eliminadas o reemplazadas no se acumulen en silencio.
+- El límite de aproximadamente 10 MB de chrome.storage.local se elimina mediante el permiso `unlimitedStorage`, necesario una vez que las imágenes se movieron por completo fuera de esa cuota.
+- 216 pruebas repartidas en 25 archivos (Vitest, jsdom, fake-indexeddb) cubren esta capa de almacenamiento directamente, no solo la interfaz que se apoya en ella.
+
+El almacenamiento exclusivamente local es una decisión deliberada, no un descuido: significa que no hay sincronización entre máquinas o perfiles, pero es el mismo mecanismo que le da gratis a cada uno de tres perfiles de Chrome su propio panel independiente y aislado, sin necesidad de construir y proteger un sistema de cuentas compartido. El autocompletado de la barra de búsqueda es la única llamada de red en toda la app, contra la API pública de sugerencias de Google, de la misma forma que lo hace la propia barra de direcciones de Chrome; todo lo que el usuario realmente crea permanece local.
+
+## Construir vs. comprar
+
+Sin motor de arrastrar y soltar a medida: react-grid-layout se encarga de la cuadrícula, grupos anidados incluidos, en lugar de reimplementar desde cero la detección de colisiones y los controladores de redimensionado. Sin biblioteca de componentes a medida: el patrón de [shadcn/ui](https://ui.shadcn.com/) de copiar directamente componentes basados en Radix (en lugar de instalar un paquete de interfaz opaco) mantiene visible y editable el código de cada componente, y cualquier desviación respecto a él. Sin canalización de localización a medida: react-i18next más un conjunto creciente de archivos de idioma (más de 50 idiomas) en lugar de una búsqueda de strings hecha a mano.
+
+## Stack
+
+[React](https://react.dev/) 19, [Vite](https://vite.dev/), [TypeScript](https://www.typescriptlang.org/), [Tailwind CSS](https://tailwindcss.com/), [shadcn/ui](https://ui.shadcn.com/) sobre primitivas de [Radix UI](https://www.radix-ui.com/), [react-grid-layout](https://github.com/react-grid-layout/react-grid-layout) para la cuadrícula del panel, [react-i18next](https://react.i18next.com/) para la localización, [DOMPurify](https://github.com/cure53/DOMPurify) para sanitizar las incrustaciones, [Vitest](https://vitest.dev/) para las pruebas, la plataforma de extensiones [Manifest V3](https://developer.chrome.com/docs/extensions/develop/migrate/what-is-mv3) de Chrome (`chrome.alarms`, `chrome.offscreen`, `chrome.storage`, IndexedDB), licenciada bajo [PolyForm Noncommercial 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0/).
+
+</CaseStudy>

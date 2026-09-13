@@ -1,0 +1,40 @@
+---
+title: "FuelBuddy India - App di Logistica e Tracciamento per Franchisee"
+description: "Core engineer sull'app franchisee di FuelBuddy: tracciamento live dei camion, API Hasura GraphQL e flussi logistici semplificati."
+date: 2023-09-01
+published: true
+company: FuelBuddy
+---
+
+Da [FuelBuddy](https://fuelbuddy.in/), sono stato core engineer sulla Franchise Application, che gli operatori franchisee usano per gestire hub regionali, inventario e flotte di consegna.
+
+## Cosa ho costruito
+
+- **Tracciamento live dei camion:** costruzione di un modulo Google Maps interattivo che mostra le posizioni della flotta su un intervallo di polling, dando agli operatori visibilità continua sui movimenti dei camion e sullo stato delle spedizioni.
+- **API GraphQL e caching:** costruzione delle API dati con il motore Hasura GraphQL tramite urql, con una cache client-side normalizzata e refresh automatico del token alla scadenza.
+- **Semplificazione dei flussi di lavoro:** riprogettazione di attività operative multi-step, tra cui la riconciliazione dell'inventario e l'assegnazione degli autisti, in interfacce semplificate che hanno ridotto gli errori operativi.
+
+## Perché è stato importante
+
+Il tracciamento della flotta ha reso la logistica delle spedizioni più prevedibile e ha ridotto il tempo di inattività dei camion. I flussi semplificati di assegnazione e inventario hanno ridotto gli errori operativi negli hub dei franchisee.
+
+<CaseStudy summary="Leggi il caso di studio tecnico completo →">
+
+## Cosa significa davvero "live" qui
+
+La mappa dei camion si aggiorna su un intervallo di polling, non tramite una subscription GraphQL, anche se lo stesso client è configurato per le subscription altrove nell'app (`graphql-ws` è configurato e usato per gli aggiornamenti sullo stato degli ordini, solo non per questa mappa in particolare). È stato un compromesso deliberato sul costo server, non una svista: una subscription mantiene aperta una connessione persistente sul server per tutto il tempo in cui il client la tiene aperta, e una schermata mappa lasciata aperta per l'intero turno di ogni dispatcher, per ore di fila, è un carico di connessione molto più pesante e duraturo di un aggiornamento occasionale sullo stato di un ordine. Il polling evita di tenere aperta quella connessione, scambiandola con cicli periodici di richiesta/risposta.
+
+## Assegnazione e inventario, più nel dettaglio
+
+L'assegnazione degli autisti copre i flussi singolo, in blocco, di riassegnazione e di annullamento assegnazione, non solo una singola azione di "assegna". Il tracciamento dell'inventario segue i saldi di stock per le autobotti (camion cisterna) nello specifico, con query e tabelle di log dedicate ai saldi di stock, un vero modello dati operativo, non un inventario generico di parti.
+
+## Modello dati e scala
+
+- La cache normalizzata di urql più un livello di autenticazione basato su token Firebase che si aggiorna automaticamente sulle risposte 401/token scaduto, così una sessione scaduta non interrompe un dispatcher a metà di un'attività.
+- Playwright copre login e gestione ordini end to end, i due flussi da cui dipende ogni altra schermata dell'app.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [Vite](https://vite.dev/), [Pinia](https://pinia.vuejs.org/), [urql](https://commerce.nearform.com/open-source/urql/) contro [Hasura](https://hasura.io/), autenticazione [Firebase](https://firebase.google.com/), Google Maps, [Playwright](https://playwright.dev/) per i test.
+
+</CaseStudy>

@@ -1,0 +1,49 @@
+---
+title: "FuelBuddy Hindistan - Müşteri Uygulaması (React Native Geçişi)"
+description: "FuelBuddy'nin müşteri uygulamasını bir PWA'dan React Native'e taşıdım; 8 haftada 14 kullanıcı akışında %100 özellik eşitliğine ulaştım."
+url: https://play.google.com/store/apps/details?id=in.fuelbuddy.app
+date: 2023-12-01
+published: true
+company: FuelBuddy
+---
+
+FuelBuddy'nin müşteri uygulaması bir Progressive Web App olarak başladı. Bu Android'de işe yarıyordu, ama iOS'ta platform sınırlamalarıyla karşılaştı: WebKit motoru kısıtlamaları, güvenilmez ana ekrana yükleme, sınırlı depolama alanı ve eksik push bildirim yetenekleri. FuelBuddy için bu, PWA'nın iOS kullanıcılarına güvenilir biçimde hizmet veremeyeceği ve istikrarlı bir mobil deneyim sunmak için yerel bir uygulamanın gerekli olduğu anlamına geliyordu. Uygulamayı React Native'de yeniden yazan mühendislik ekibinin bir parçasıydım.
+
+## Üzerinde çalıştıklarım
+
+- **PWA'dan React Native'e:** Uygulamayı derlenmiş bir React Native uygulaması olarak yeniden yazdım; 8 haftada 14 kullanıcı akışında %100 özellik eşitliğine ulaştım ve hem iOS hem de Android'de tutarlı bir yerel his sağladım.
+- **Yığın boyunca çalışmak:** Mobil frontend'e odaklanırken, gerekli CRUD API'lerini doğrudan Hasura GraphQL motoru üzerinde geliştirdim; böylece özellik geliştirme hiçbir zaman arka uç bağımlılıklarına takılıp kalmadı.
+- **Ekiple birlikte teslim etmek:** Gereksinimleri test edilmiş özelliklere dönüştürmek ve üretim sürüm döngülerini takvimde tutmak için frontend mühendisleri ve ürün yöneticileriyle yakından işbirliği yaptım.
+
+## Neden önemliydi
+
+React Native'e geçmek, hem iOS hem de Android boyunca güvenilir, tek bir kod tabanı kurdu. 8 haftada 14 kullanıcı akışını tam eşitlikle teslim etmek, FuelBuddy'nin ayrı platform uygulamalarını sürdürmeden tüm mobil kullanıcı tabanına hizmet vermesini sağladı.
+
+<CaseStudy summary="Tam teknik vaka analizini okuyun →">
+
+## Ekip ve Sahiplik
+
+Bu yeniden yazım üzerinde çalışan mühendislerden biriydim; ekibin geçiş için belirlediği 8 haftalık pencerede 14 akışın tamamında tam eşitliğe ulaşmak için frontend mühendisleri ve ürün yöneticileriyle birlikte çalıştım.
+
+## GraphQL Katmanı
+
+CRUD API'leri Hasura üzerinde çalışıyor, Apollo yerine `urql` üzerinden tüketiliyor; GraphQL Codegen tipli işlemler üretiyor, uygulamanın gerçek yüzey alanını kapsayan 73 ayrı `.graphql` dosyası var. Yerel durum Zustand üzerinden yürüyor, hızlı bir anahtar-değer deposu olarak arkasında MMKV var, ve Zod sınırlarda veriyi doğruluyor.
+
+## Sadece CRUD Değil, Konum ve Ödemeler
+
+Teslimat takibi, sadece haritada bir işaretçi değil, gerçek coğrafi-uzamsal hesaplamalar (mesafe, sınırlar, rota hesaplamaları) için `react-native-maps`, özel bir konum belirleme servisi ve Turf.js kullanıyor. Ödeme iki bağımsız ağ geçidi üzerinden yürüyor: bir registry bağımlılığı yerine yerel, vendored bir paket olarak entegre edilen Easebuzz, ve her isteğin AES-256-CBC (PBKDF2 türetilmiş anahtar) ve HMAC-SHA512 ile imzalanmasını gerektiren Axis Bank; bu imzalama, bir JS kripto kütüphanesi yerine el yazımı, yerel bir Android modülünde (`NdpsAESLibrary`, `NativeModules` aracılığıyla JS'e köprülenmiş) yapılıyor, çünkü bir ödeme ağ geçidinin imzalama gereksinimi RN katmanının genel olarak karşılayabileceği bir şey değil. Firebase hem kimlik doğrulamayı hem de analitiği kapsıyor.
+
+## Sadece Bir Tablo Değil, Raporlar
+
+Raporlar akışı, teslimat ve iş verisini Victory Native aracılığıyla grafiklere dönüştürüyor, ardından aynı veriyi CSV'ye dışa aktarıyor: `json2csv` ile kodlanıyor, Android'in Scoped Storage API'si aracılığıyla diske yazılıyor (uygulamalar doğrudan dosya sistemi erişimini kaybettikten sonra Android 10+'ta gerekli olan `react-native-scoped-storage`), ve yerel paylaşım sayfası aracılığıyla teslim ediliyor.
+
+## Veri Modeli ve Ölçek
+
+- 13-14 ayrı akış konteyneri (adres, varlıklar, iş, teslimat, ana sayfa, konum, sipariş, teslim alma, raporlar, ayarlar, destek, kullanıcı, cüzdan) uygulamanın gezinmesini düzenliyor; "14 kullanıcı akışı" rakamıyla tutarlı.
+- Özel bir yerel Android modülü, banka düzeyinde istek imzalamayı üstleniyor; uygulamadaki geri kalan her şey React Native'in köprüsü üzerinde JS/TypeScript'te kalıyor.
+
+## Stack
+
+[React Native](https://reactnative.dev/), [GraphQL Code Generator](https://the-guild.dev/graphql/codegen) ile [urql](https://commerce.nearform.com/open-source/urql/), durum için [Zustand](https://zustand.docs.pmnd.rs/), depolama için [MMKV](https://github.com/mrousavy/react-native-mmkv), doğrulama için [Zod](https://zod.dev/), [react-native-maps](https://github.com/react-native-maps/react-native-maps), coğrafi-uzamsal hesaplamalar için [Turf.js](https://turfjs.org/), ödemeler için Easebuzz ve Axis Bank (ikincisi özel bir yerel AES/HMAC imzalama modülünün arkasında), raporlama grafikleri için [Victory Native](https://formidable.com/open-source/victory/docs/native/), kimlik doğrulama ve analitik için [Firebase](https://firebase.google.com/), [Hasura](https://hasura.io/) GraphQL üzerinde.
+
+</CaseStudy>

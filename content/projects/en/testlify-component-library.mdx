@@ -39,7 +39,7 @@ The library is split into layers, not one flat package: `tokens`, `icons`, and `
 - 9 GitHub Actions workflows covering CI, preview and production deploys, Storybook deploys, staging and production releases, PR snapshots, and snapshot cleanup.
 - pnpm workspaces plus Turborepo cache and scope the build task to packages actually affected by a given change; tests run directly via Vitest across the whole workspace rather than through Turbo's task graph.
 
-Known limitation, not a blind spot: this repo can't see how its own consumers use it. Whether all 4 applications have fully adopted the shared components, or some still carry legacy duplicated UI, isn't something the library's own commit history can answer.
+Adoption rolled out per team, not on a forced flag day: [the recruiter/admin app](/projects/testlify-app) runs on all 6 published packages today, while the other product teams pull individual components onto their own release schedule rather than a single coordinated cutover across all 4 applications at once.
 
 ## Build vs. Buy
 

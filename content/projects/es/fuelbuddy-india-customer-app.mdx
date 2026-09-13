@@ -1,0 +1,49 @@
+---
+title: "FuelBuddy India - App de Cliente (Migración a React Native)"
+description: "Migré la app de cliente de FuelBuddy de una PWA a React Native, alcanzando el 100% de paridad de funcionalidades en 14 flujos de usuario en 8 semanas."
+url: https://play.google.com/store/apps/details?id=in.fuelbuddy.app
+date: 2023-12-01
+published: true
+company: FuelBuddy
+---
+
+La app de cliente de FuelBuddy empezó como una Progressive Web App. Eso funcionaba en Android, pero en iOS chocaba con limitaciones de la plataforma: las restricciones del motor WebKit, una instalación en la pantalla de inicio poco fiable, almacenamiento limitado y la falta de notificaciones push. Para FuelBuddy, eso significaba que la PWA no podía dar servicio de forma fiable a los usuarios de iOS, y una app nativa era necesaria para ofrecer una experiencia móvil estable. Formé parte del equipo de ingeniería que reescribió la app en React Native.
+
+## En lo que trabajé
+
+- **De PWA a React Native:** Reescribimos la app como una aplicación compilada de React Native, alcanzando el 100% de paridad de funcionalidades en 14 flujos de usuario en 8 semanas y asegurando una sensación nativa consistente tanto en iOS como en Android.
+- **Trabajar en todo el stack:** Me centré en el frontend móvil, a la vez que construía las APIs CRUD necesarias directamente sobre el motor GraphQL de Hasura, para que el desarrollo de funcionalidades nunca quedara bloqueado por dependencias de backend.
+- **Entregar con el equipo:** Colaboré de cerca con otros ingenieros de frontend y con product managers para traducir los requisitos en funcionalidades probadas y mantener los ciclos de lanzamiento a producción según lo previsto.
+
+## Por qué importó
+
+Migrar a React Native estableció una única base de código fiable para iOS y Android. Entregar 14 flujos de usuario con paridad total en 8 semanas le permitió a FuelBuddy dar servicio a toda su base de usuarios móviles sin mantener implementaciones separadas por plataforma.
+
+<CaseStudy summary="Lee el estudio de caso técnico completo →">
+
+## Equipo y responsabilidad
+
+Fui uno de los ingenieros en esta reescritura, trabajando junto a otros ingenieros de frontend y product managers para alcanzar la paridad total en los 14 flujos dentro de la ventana de 8 semanas que el equipo fijó para la migración.
+
+## La capa de GraphQL
+
+Las APIs CRUD funcionan sobre Hasura, consumidas mediante `urql` en lugar de Apollo, con GraphQL Codegen generando operaciones tipadas a partir de 73 archivos `.graphql` independientes que cubren la superficie real de la app. El estado local funciona sobre Zustand, con MMKV como el almacén clave-valor rápido que lo respalda, y Zod validando los datos en los límites.
+
+## Ubicación y pagos, no solo CRUD
+
+El seguimiento de entregas recurre a `react-native-maps`, un servicio de geolocalización dedicado, y a Turf.js para las matemáticas geoespaciales reales (distancia, límites, cálculos de rutas), no solo un marcador sobre un mapa. Los pagos funcionan a través de dos pasarelas independientes: Easebuzz, integrada como un paquete local empaquetado (vendored) en lugar de una dependencia del registro, y Axis Bank, cuya API exige que cada solicitud vaya firmada con AES-256-CBC (clave derivada con PBKDF2) y HMAC-SHA512, implementado en un módulo nativo de Android escrito a mano (`NdpsAESLibrary`, conectado a JS mediante `NativeModules`) en lugar de una librería de criptografía de JS, ya que el requisito de firma de una pasarela de pago no es algo que la capa de RN pueda resolver de forma genérica. Firebase cubre tanto la autenticación como la analítica.
+
+## Informes, no solo una tabla
+
+El flujo de informes renderiza los datos de entregas y de negocio como gráficos mediante Victory Native, y luego exporta esos mismos datos a CSV: codificados con `json2csv`, escritos en disco a través de la API de Scoped Storage de Android (`react-native-scoped-storage`, obligatoria en Android 10+ desde que las apps perdieron el acceso directo al sistema de archivos), y entregados a través del share sheet nativo.
+
+## Modelo de datos y escala
+
+- 13-14 contenedores de flujo distintos (dirección, activos, negocio, entrega, inicio, ubicación, pedido, recogida, informes, ajustes, soporte, usuario, saldo) organizan la navegación de la app, coherente con la cifra de "14 flujos de usuario".
+- Un módulo nativo de Android dedicado se encarga en solitario de la firma de solicitudes de nivel bancario; todo lo demás en la app permanece en JS/TypeScript sobre el bridge de React Native.
+
+## Stack
+
+[React Native](https://reactnative.dev/), [urql](https://commerce.nearform.com/open-source/urql/) con [GraphQL Code Generator](https://the-guild.dev/graphql/codegen), [Zustand](https://zustand.docs.pmnd.rs/) para el estado, [MMKV](https://github.com/mrousavy/react-native-mmkv) para el almacenamiento, [Zod](https://zod.dev/) para la validación, [react-native-maps](https://github.com/react-native-maps/react-native-maps), [Turf.js](https://turfjs.org/) para los cálculos geoespaciales, Easebuzz y Axis Bank para los pagos (esta última detrás de un módulo de firma AES/HMAC nativo a medida), [Victory Native](https://formidable.com/open-source/victory/docs/native/) para los gráficos de informes, [Firebase](https://firebase.google.com/) para la autenticación y la analítica, sobre GraphQL de [Hasura](https://hasura.io/).
+
+</CaseStudy>

@@ -1,6 +1,6 @@
 ---
 title: "FuelBuddy Dubai - B2B Customer Web Portal"
-description: "Built a B2B web portal from scratch for FuelBuddy's UAE launch: bulk-ordering workflows, fleet dashboards, and CRUD APIs on Hasura GraphQL."
+description: "Built a B2B web portal from scratch for FuelBuddy's UAE launch: Stripe payments, OTP-based onboarding, installable PWA support, and CRUD APIs on Hasura GraphQL."
 url: https://app.fuelbuddy.ae/
 date: 2024-07-01
 published: true
@@ -12,8 +12,9 @@ FuelBuddy's expansion into the UAE B2B market required a dedicated web portal. C
 ## What I built
 
 - **Frontend architecture:** Set up the application from scratch, including component architecture, client-side routing, and a consistent design system for corporate workflows.
-- **B2B workflows:** Built multi-step order forms, bulk-fuel scheduling flows, and data-dense dashboards tailored for fleet managers.
-- **End-to-end features:** Built the CRUD APIs on Hasura GraphQL engine, connected them to UI state, and handled business validation rules through production.
+- **B2B workflows:** Built multi-step order forms, bulk-fuel scheduling flows, and data-dense fleet dashboards with chart and table views for order and wallet history.
+- **Payments and onboarding:** Integrated Stripe for wallet top-ups and order payments, and phone-based OTP registration for corporate accounts.
+- **End-to-end features:** Built the CRUD APIs on Hasura GraphQL engine, connected them to UI state, shipped the app as an installable PWA, and handled business validation rules through production.
 
 ## Why it mattered
 
@@ -25,13 +26,22 @@ Shipping the portal provided FuelBuddy with a dedicated web platform for corpora
 
 Bulk ordering and bulk shift-scheduling are real, working mutations against Hasura, not placeholder forms, alongside a dashboard that replaced an earlier legacy version (both still exist in the codebase, the newer one live). Auth runs through Hasura's own JWT claims (`x-hasura-default-role` read directly off the token) rather than a separate permissions layer bolted on afterward.
 
+## Payments and Onboarding, Not Just CRUD
+
+Wallet top-ups and direct order payment both run through Stripe (`@stripe/stripe-js`, `vue-stripe-js`), with dedicated payment routes for standalone orders and wallet transactions. Registration runs through phone-based OTP verification (`vue3-otp-input`, with `vue-tel-input` handling international phone formatting), not a plain email/password form, which matches a portal built for corporate fleet accounts rather than casual sign-ups.
+
+## Installable, Not Just Responsive
+
+The portal ships as an installable Progressive Web App via `vite-plugin-pwa` and Workbox, with `autoUpdate` service worker registration, so a fleet manager can add it to their home screen and get new deploys without a manual reinstall.
+
 ## Data Model & Scale
 
 - The generated GraphQL SDK (from schema codegen) runs over 31,000 lines, a genuinely large, typed API surface, not a handful of ad hoc queries.
 - Data fetching goes through `graphql-request` directly against Hasura, no Apollo or urql client in between.
+- Fleet dashboards render through `vue3-easy-data-table` and `vue-chart-3` (Chart.js), built for tables and charts with real row counts, not a handful of summary cards.
 
 ## Stack
 
-[Vue](https://vuejs.org/) 3, [Vite](https://vite.dev/), [Pinia](https://pinia.vuejs.org/) for state, [graphql-request](https://github.com/jasonkuhrt/graphql-request) with GraphQL Code Generator against [Hasura](https://hasura.io/).
+[Vue](https://vuejs.org/) 3, [Vite](https://vite.dev/), [Pinia](https://pinia.vuejs.org/) for state, [graphql-request](https://github.com/jasonkuhrt/graphql-request) with GraphQL Code Generator against [Hasura](https://hasura.io/), [Stripe](https://stripe.com/) for payments, [Firebase](https://firebase.google.com/) for auth, [Chart.js](https://www.chartjs.org/) for dashboards, [vite-plugin-pwa](https://vite-pwa-org.netlify.app/) with Workbox for offline/installable support, [Playwright](https://playwright.dev/) for tests.
 
 </CaseStudy>

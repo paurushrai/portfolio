@@ -1,20 +1,50 @@
 ---
 title: "AppForest Timetracker - Extensão para VS Code"
-description: "Um complemento para o VS Code do plugin AppForest Timesheets para Jira: acompanha a atividade de programação no editor e torna simples registrar o tempo no Timesheets, sem sair da IDE."
+description: "Extensão para VS Code complementar ao Timesheets by AppForest: acompanha a atividade no editor e registra tempo no Timesheets by AppForest a partir do contexto da branch do Git."
 url: https://marketplace.visualstudio.com/items?itemName=AppforestTimetracker.appforest-timetracker
 date: 2025-07-01
 published: true
 company: Testlify
 ---
 
-Nosso plugin para Jira, o [Timesheets by AppForest](/projects/timesheets-appforest), tinha centralizado o controle de tempo na Testlify, mas os desenvolvedores ainda precisavam parar e mudar de tela para registrar suas horas manualmente. O AppForest Timetracker fecha essa lacuna. É uma extensão para VS Code que acompanha a atividade de programação direto no editor e transforma o registro de tempo em uma ação rápida, para que os engenheiros possam registrar no Timesheets sem sair da IDE. Cuidei dela de ponta a ponta, da ideia até a publicação no Marketplace.
+Nosso plugin para Jira, o [Timesheets by AppForest](/projects/timesheets-appforest), centralizou o controle de tempo na Testlify, mas os desenvolvedores ainda precisavam parar e trocar de ferramenta para registrar suas horas manualmente. O AppForest Timetracker fecha essa lacuna. É uma extensão para VS Code que acompanha a atividade de programação direto no editor e transforma o registro de tempo em uma ação rápida, para que os engenheiros possam registrar no Timesheets sem sair da IDE. Cuidei dela de ponta a ponta, da ideia até o empacotamento para o Visual Studio Marketplace.
 
 ## O que construí
 
-- **A extensão em si:** Construída sobre a API oficial de extensões do VS Code, com processos em segundo plano que acompanham discretamente o tempo ativo no editor, as trocas de arquivo e as mudanças no workspace, nada interrompe o desenvolvedor.
-- **Registro de tempo integrado ao Git:** A extensão lê a branch atual do Git e extrai o ID do ticket dela, então o tempo capturado já fica associado à issue certa quando é registrado no plugin Timesheets, sem procurar o ticket, sem redigitar.
-- **Ciclo de vida completo:** Cuidei da experiência de configuração local, do armazenamento seguro de tokens e do empacotamento e publicação da build no Visual Studio Marketplace.
+- **O núcleo da extensão:** Construída sobre a API oficial de extensões do VS Code. Listeners de mudança de documento, salvamento e seleção reiniciam um timestamp de atividade, verificado contra uma sondagem de 1 segundo do estado de foco da janela, para acompanhar tempo ativo versus ocioso discretamente, sem interromper o desenvolvedor.
+- **Registro de tempo com reconhecimento do Git:** A extensão lê a branch atual do Git e extrai o ID do ticket do Jira automaticamente, garantindo que o tempo registrado fique vinculado ao ticket certo, sem busca manual de ticket nem redigitação.
+- **Ciclo de vida completo:** Cuidei do armazenamento seguro de tokens via a API SecretStorage do VS Code, do empacotamento e da publicação manual no Visual Studio Marketplace.
 
 ## Por que importou
 
-Tirar a etapa manual do registro fez com que os dados de tempo que chegavam ao Timesheets fossem mais completos e mais precisos, uma queda de cerca de 60–70% no esforço gasto registrando horas e muito menos erros de relatório. Isso deu à liderança dados mais limpos para planejar sprints e faturar.
+Automatizar a correspondência de tickets a partir do contexto da branch do Git eliminou etapas manuais de registro de horas, reduziu erros de relatório e deu à liderança dados mais limpos para o planejamento de sprints e o faturamento de clientes.
+
+<CaseStudy summary="Leia o estudo de caso técnico completo →">
+
+## Sozinho, Pequeno, Real
+
+Sou o único contribuidor, 32 commits desde abril de 2025. É uma ferramenta interna pequena, de escala pessoal, construída para resolver um incômodo diário específico, não um grande produto.
+
+## Para Onde o Tempo Registrado Realmente Vai
+
+A extensão não chama a API REST do Jira diretamente. Ela envia dados para o próprio backend do Timesheets by AppForest, o mesmo serviço remoto que o [app Forge](/projects/timesheets-appforest) declara em seu manifesto, que então cuida do lado voltado ao Jira por conta própria. Os dois projetos foram construídos para conversar entre si, não com o Jira de forma independente, o que também explica por que os resolvers do app Forge incluem funções específicas para limpar sugestões originadas do VS Code assim que são registradas.
+
+## Como a Detecção de Atividade e de Ticket Realmente Funciona
+
+A detecção da branch do Git chama diretamente `git rev-parse --abbrev-ref HEAD` via shell em vez de trazer uma biblioteca Git, uma escolha razoável para ler um único valor em vez de assumir toda a superfície de API de uma dependência. O nome da branch é validado contra `/^[A-Z]+-\d+$/` antes de qualquer sincronização, então uma branch de feature que não corresponde a um ticket (como `ABC-123`) é silenciosamente ignorada em vez de registrada contra o ticket errado ou de gerar um erro. O rastreamento de atividade não tem granularidade por troca de arquivo; é uma sondagem de 1 segundo do estado de foco da janela junto com listeners de mudança de documento e salvamento, com um limiar de 10 segundos de inatividade e um período de tolerância de 60 segundos antes de uma sessão ser considerada pausada. O progresso persiste no `globalState` do VS Code a cada segundo e é restaurado ao reiniciar, com uma verificação de autocorreção: se a contagem da última sincronização estiver, por algum motivo, à frente da contagem rastreada ao restaurar, sinal de uma sincronização interrompida no meio da escrita, ela é ajustada de volta em vez de continuar se distanciando.
+
+A autenticação é orientada a comandos em vez de baseada em configurações: comandos dedicados (`authenticateToken`, `deleteToken`, `updateToken`, `syncNow`, `resetTime`) cuidam do ciclo de vida do token por meio de prompts de entrada, o que explica por que não existe uma UI de configurações, uma escolha deliberada, não uma funcionalidade ausente.
+
+## Modelo de Dados e Escala
+
+Nada aqui precisa escalar além da própria sessão de editor de um único desenvolvedor: um único display na barra de status (tempo do ticket e total diário), uma única máquina de estados ocioso/ativo, um único job de reset diário à meia-noite. Não há justificativa para um modelo de dados mais pesado nessa escala, e construir um seria resolver um problema que essa ferramenta não tem.
+
+## Construir vs. Comprar
+
+Chamar o binário `git` via shell em vez de uma biblioteca como simple-git ou isomorphic-git: ler um único valor (a branch atual) não justifica uma dependência construída para operações completas de Git. A própria API SecretStorage do VS Code em vez de um armazenamento de tokens em arquivo criptografado sob medida: a plataforma já resolve o armazenamento seguro de credenciais exatamente para esse caso.
+
+## Stack
+
+[VS Code Extension API](https://code.visualstudio.com/api), [TypeScript](https://www.typescriptlang.org/), o módulo `child_process` nativo do Node para acesso ao Git, a API [SecretStorage](https://code.visualstudio.com/api/references/vscode-api#SecretStorage) do VS Code para armazenamento de tokens, publicado no [Visual Studio Marketplace](https://marketplace.visualstudio.com/vscode).
+
+</CaseStudy>

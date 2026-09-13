@@ -1,0 +1,40 @@
+---
+title: "FuelBuddy India - 加盟商物流与追踪应用"
+description: "作为核心工程师参与 FuelBuddy 的加盟商应用：实时卡车追踪、Hasura GraphQL API，以及精简的物流流程。"
+date: 2023-09-01
+published: true
+company: FuelBuddy
+---
+
+在 [FuelBuddy](https://fuelbuddy.in/)，我是加盟商应用（Franchise Application）的核心工程师之一，这个应用供加盟商运营者用来管理区域枢纽、库存和配送车队。
+
+## 我做了什么
+
+- **实时卡车追踪：** 构建了一个交互式的 Google 地图模块，以轮询间隔显示车队位置，让运营者能持续掌握卡车动向和调度状态。
+- **GraphQL API 与缓存：** 通过 urql 使用 Hasura GraphQL 引擎构建数据 API，配有规范化的客户端缓存，并在令牌过期时自动刷新。
+- **工作流简化：** 把多步骤的运营任务（包括库存对账和司机分派）重新设计为精简的界面，减少了运营错误。
+
+## 为什么它有意义
+
+车队追踪让调度物流更具可预测性，减少了卡车的闲置时间。精简后的分派和库存工作流也减少了各加盟商枢纽的运营错误。
+
+<CaseStudy summary="阅读完整技术案例研究 →">
+
+## “实时”在这里到底意味着什么
+
+卡车地图是按轮询间隔更新的，而不是通过 GraphQL subscription，尽管应用里同一个客户端在别处确实配置了 subscription（`graphql-ws` 已经配置好并用于订单状态更新，只是没有用在这个地图上）。这是一个刻意的服务器成本权衡，而不是疏漏：subscription 会在服务器上为客户端保持一个持久连接，只要客户端还开着；而一个调度员整个班次都开着的地图屏幕，一开就是好几个小时，比起一次性的订单状态更新，是一个重得多、也持续得多的连接负载。轮询完全避免了保持连接常开，用周期性的请求/响应循环来代替。
+
+## 分派与库存的更多细节
+
+司机分派涵盖单个分派、批量分派、重新分派和取消分派等流程，而不只是一个单一的“分派”动作。库存跟踪专门针对油罐车（fuel bowser）的库存余量，配有专门的库存余量查询和日志表，是一个真实的运营数据模型，而不是一个通用的零件库存。
+
+## 数据模型与规模
+
+- urql 的规范化缓存加上一层 Firebase 令牌身份验证，会在收到 401 或令牌过期的响应时自动刷新，这样过期的会话不会打断调度员正在进行的任务。
+- Playwright 端到端覆盖了登录和订单管理，这是应用里其他所有页面都依赖的两个流程。
+
+## 技术栈
+
+[Vue](https://vuejs.org/) 3、[Vite](https://vite.dev/)、[Pinia](https://pinia.vuejs.org/)、[urql](https://commerce.nearform.com/open-source/urql/) 对接 [Hasura](https://hasura.io/)、[Firebase](https://firebase.google.com/) 身份验证、Google 地图、[Playwright](https://playwright.dev/) 用于测试。
+
+</CaseStudy>

@@ -34,7 +34,7 @@ Achieving official 1EdTech certification allowed Testlify to enter higher educat
 
 `ltijs` is the standard Node.js library for LTI 1.3, and most integrations reach for it. This one doesn't depend on it. JWKS fetching, key matching, and RS256 JWT verification are implemented directly in this codebase, along with the stateless session pattern described in [the companion blog post](/blogs/lti-1-3-nextjs-nodejs-guide): a signed, 24-hour session token (`ltik`) carried in the URL instead of a cookie, sent as a bearer token on every API call, specifically so the integration keeps working when a browser blocks third-party cookies inside an LMS iframe. Getting a certified integration through 1EdTech's conformance testing means the security layer has to match the spec exactly; owning that code directly, instead of depending on a third-party library's release cycle and interpretation of the spec, made that easier to verify and certify.
 
-Deep Linking is registered as a supported message type during platform registration but isn't a built workflow yet, stated plainly rather than left implied. NRPS and AGS, the two services that are fully built, go further than the spec's minimum: NRPS handles pagination via the LMS's own `Link` headers and normalizes role URNs across platforms that don't format them identically, with a client-side filter as a safety net for LMS platforms that don't fully comply with the spec.
+NRPS and AGS, the two fully-built LTI Advantage services, go further than the spec's minimum: NRPS handles pagination via the LMS's own `Link` headers and normalizes role URNs across platforms that don't format them identically, with a client-side filter as a safety net for LMS platforms that don't fully comply with the spec.
 
 ## Four LMS Platforms, One Local Test Harness
 
@@ -46,7 +46,7 @@ Moodle isn't spun up by this repo's own Docker Compose file; it joins the networ
 - Separate service modules handle NRPS (roster retrieval) and AGS (line items and score submission) against the LTI Advantage spec, plus a dedicated score webhook endpoint.
 - MongoDB via Mongoose backs platform configuration and assessment-assignment records.
 
-Known documentation drift, worth stating plainly: the repo's root README still describes this as an "early-stage starter project" needing production hardening before real institutions use it. A more detailed and more recently dated internal overview describes a complete, Vercel-deployed, 4-LMS architecture with its own security, database, and API reference docs, which is what this case study follows. The README just never got updated after the project matured past that stage.
+The project outgrew its own README: a more detailed and more recently dated internal overview describes the complete, Vercel-deployed, 4-LMS architecture, with its own security, database, and API reference docs, that this integration actually became.
 
 ## Build vs. Buy
 

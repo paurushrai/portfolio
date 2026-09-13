@@ -1,20 +1,41 @@
 ---
-title: "Testlify App - Yapay Zeka Odaklı Değerlendirme Platformu"
-description: "Testlify'ın yapay zeka görüşme iş akışları için frontend'i geliştirdim: sohbet, ses ve video: canlı medya yakalamayı ve gerçek zamanlı yapay zeka görüşmelerinin arkasındaki durum mantığını yöneterek."
+title: "Testlify - Sesli ve Görüntülü Yapay Zeka Soru Yazımı"
+description: "Testlify'ın değerlendirme oluşturucusu içinde sesli, görüntülü ve sohbet yapay zeka görüşme sorularını yazmak için işe alım uzmanına yönelik arayüzü geliştirdim; yapay zeka prompt kurulumu, yetkinlik puanlaması ve TTS ses seçimi dahil."
 url: https://app.testlify.com/
 date: 2025-02-01
 published: true
 company: Testlify
 ---
 
-[Testlify](https://testlify.com/), şirketlerin adayları değerlendirmek için kullandığı, yapay zeka destekli bir beceri değerlendirme ve görüşme platformu. Testlify'ın yapay zeka görüşme modüllerinin frontend'ini, adayların kullandığı etkileşimli, gerçek zamanlı arayüzleri, sahiplendim; her modun nasıl davranması gerektiğini geliştirmeden önce belirlemek için yapay zeka ve arka uç ekipleriyle yakından çalıştım.
+[Testlify](https://testlify.com/), bir beceri değerlendirme ve görüşme platformu. İşe alım uzmanına yönelik test oluşturucusunun içinde, işe alım uzmanlarının otomatik aday değerlendirmelerini yapılandırmak için kullandığı üç yapay zeka güdümlü soru türünü (sesli, görüntülü ve sohbet simülasyonu) yazma arayüzünü geliştirdim: kayıt süresi sınırları, yapay zeka prompt kurulumu, yetkinlik puanlaması ve metinden sese ses seçimi.
 
-## Ne geliştirdim
+## Neler geliştirdim
 
-- **Yapay zeka görüşme arayüzleri (sohbet, ses, video):** Çok modlu yapay zeka görüşmelerinin frontend'ini geliştirdim, adayların bir yapay zeka ile metin sohbeti, canlı mikrofon ve video üzerinden etkileşim kurduğu ekranlar.
-- **Medya yakalama:** Gerçek zamanlı ses ve video için tarayıcı API'lerini üstlendim, kamera ve mikrofon izinleri, adayların duyulduklarını görebilmesi için canlı ses görselleştirmeleri ve yapay zekanın gidiş-gelişini konuşma gibi hissettirmek için istemci tarafı ayarlama.
-- **Görüşme durum yönetimi:** Canlı bir yapay zeka görüşmesinin öngörülemez kısımlarıyla başa çıkmak için frontend durum mantığını geliştirdim, ağ kesintileri, yapay zekanın bir sonraki soruyu üretmesini beklemek ve adayı takmadan değerlendirme adımları arasında ilerlemek.
+- **Sesli yapay zeka soru yazımı:** Test oluşturucusunda sesli yapay zeka görüşme sorularını yapılandırmak için arayüzü geliştirdim; kayıt sınırları, yapay zeka prompt kurulumu ve yetkinlik puanlaması.
+- **Soru oluşturucu entegrasyonu:** Sesli, görüntülü ve sohbet simülasyonu soru türlerini işe alım uzmanının değerlendirme oluşturucusu akışına entegre ettim.
+- **Stil ve araçlar:** Sesli/sohbet soru arayüzü için bileşen stiline katkıda bulundum, bunun yanında depo araç kurulumuna (ESLint, Husky, Renovate, Tailwind yapılandırması) katkıda bulundum.
 
 ## Neden önemliydi
 
-Cilalı bir frontend, bu yapay zeka görüşmelerini ölçekte kullanılabilir hale getirdi ve görüşmecilerin harcaması gereken manuel çabayı azalttı, değerlendirme başına kabaca %40 daha az idari iş. Yapay zeka görüşme modülleri, platformun bu dönemdeki büyümesinin bir parçasıydı ve gelirde anlamlı bir artışa katkıda bulundu.
+Sesli, görüntülü ve sohbet yapay zeka soruları, işe alım uzmanlarının Testlify'ın otomatik görüşme değerlendirmelerini yapılandırma biçimi. Bu çalışma, o soru türlerini Testlify'ın ürün paketinde kullanılan aynı ortak tasarım sistemi içinde yapılandırılabilir ve tutarlı hale getirdi.
+
+<CaseStudy summary="Tam teknik vaka analizini okuyun →">
+
+## Devasa Bir Kod Tabanı İçinde Küçük Bir Katkı
+
+Bu depo, Testlify'ın işe alım uzmanı/yönetici panosu: Eylül 2021'den bu yana çalışan, düzinelerce katkıda bulunanın olduğu 16.216 commit. Kendi commit'lerim bunların 86'sı, yaklaşık bir buçuk yıl boyunca yaklaşık binde beş. Bu sayının çoğu, zaten [kendi vaka analizinde](/projects/testlify-component-library) ele alınan aynı ortak Vue tasarım sistemi olan bir `component-library` git alt modülünde duruyor; bu alt modülün dışında, asıl iş odaklanmış bir dosya kümesi: sesli soru modalı, soru türlerini oluşturucuya bağlayan görüşme soruları görünümü ve bunların etrafındaki stil ve araçlar.
+
+## Burada "Çok Modlu Yapay Zeka Görüşmesi" Aslında Ne Anlama Geliyor
+
+Bu uygulama, ürünün işe alım uzmanı tarafı: bir adayın soruyu canlı olarak yanıtladığı yer değil, işe alım uzmanının yapay zeka güdümlü bir sorunun aslında ne sorduğunu yapılandırdığı yer. Sesli, görüntülü ve sohbet simülasyonu, işe alım uzmanının test oluşturucusunda kurduğu soru *türleri*dir; her birinin kendi kayıt süresi sınırı, yapay zeka prompt'u, yetkinlik puanlama rubriği ve (sesli için) bir metinden sese ses seçimi vardır. Bu yapılandırılmış soruları canlıya alan, adaya yönelik görüşme deneyimi, Testlify'ın yığınında başka bir yerde ayrı bir uygulamada çalışıyor.
+
+## Veri Modeli ve Ölçek
+
+- 4+ yıl boyunca 16.216 commit; tek bir en üst katkıda bulunan bunların 1.800'den fazlasından sorumlu, küçük bir proje değil, gerçek anlamda büyük, uzun soluklu bir ekip kod tabanı.
+- Ortak bileşen kütüphanesi, kopyala-yapıştır yapılmak veya çatallanmak yerine bir git alt modülü olarak tüketiliyor; bu uygulamayı Testlify'ın diğer üç ürünüyle aynı sürümlenmiş tasarım sisteminde tutuyor.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [TypeScript](https://www.typescriptlang.org/), durum için [Vuex](https://vuex.vuejs.org/), [Vite](https://vite.dev/), git alt modülü olarak ortak [Testlify bileşen kütüphanesi](/projects/testlify-component-library), [ESLint](https://eslint.org/), [Husky](https://typicode.github.io/husky/), bağımlılık güncellemeleri için [Renovate](https://docs.renovatebot.com/), [Tailwind CSS](https://tailwindcss.com/).
+
+</CaseStudy>

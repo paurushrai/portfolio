@@ -1,24 +1,59 @@
 ---
 title: "Testlify LTI 1.3 Advantage 플러그인"
-description: "강사가 Testlify 평가를 코스에 배정하고 자신의 LMS 안에서 점수를 추적할 수 있게 해주는 1EdTech 인증 LTI Advantage(1.3) 통합: 커스텀 OIDC/JWT 핸드셰이크, 로스터 동기화, 성적 패스백을 Next.js 14로 만들었다."
+description: "Next.js 14에서 자동 성적 전송 기능과 함께 Testlify를 Canvas, Moodle, Blackboard, D2L Brightspace에 연결하는 1EdTech 인증 LTI 1.3 통합을 설계하고 구축했다."
 url: https://lti.testlify.com/
 date: 2026-03-01
 published: true
 company: Testlify
+coverImage: /projects/testlify-lti-plugin/plugin.gif
 ---
 
-Canvas, Moodle, Blackboard 같은 학습 관리 시스템(LMS)은 학교와 기업 교육 팀이 매일의 일을 처리하는 곳이다. Testlify의 평가를 그 시스템 안에서 쓸 수 있게 하려면, 안전하고 표준을 지키는 다리가 필요했다. 나는 Testlify LTI 플러그인을 유일한 풀스택 엔지니어로서 만들었다, 강사가 Testlify에서 만든 평가를 코스에 등록된 지원자에게 배정하고 점수를 추적할 수 있게 해준다. 모두 LMS 안에서.
+Canvas, Moodle, Blackboard, D2L Brightspace와 같은 학습 관리 시스템(LMS)은 대학과 기업 교육 팀이 사용하는 주요 플랫폼이다. Testlify 평가를 이러한 시스템 안에서 접근 가능하게 만들기 위해, 나는 리드 엔지니어로서 Testlify LTI 통합을 처음부터 설계하고 구축했다. 이 통합은 교육자들이 Testlify 평가를 LMS 강의에 직접 임베드하고 점수를 성적부에 자동으로 동기화할 수 있게 해준다.
 
 ![Testlify LTI 1.3 플러그인 데모](/projects/testlify-lti-plugin/plugin.gif)
 
-이 통합은 LTI Advantage(v1.3)에 대해 **[1EdTech의 공식 인증](https://site.imsglobal.org/certifications/testlify-inc/testlify#cert_pane_nid_626241)**을 받았다, Names and Role Provisioning Services 2.0과 Assignment & Grade Services 2.0. 1EdTech가 적합성 테스트를 진행하므로, 이것은 자체 신고한 주장이 아니다. 독립 기관이 구현이 스펙을 따른다는 것을 검증했다.
+이 통합은 Names and Role Provisioning Services(NRPS 2.0)와 Assignment & Grade Services(AGS 2.0)를 포함한 LTI Advantage(v1.3)에 대해 **[1EdTech의 공식 인증](https://site.imsglobal.org/certifications/testlify-inc/testlify#cert_pane_nid_626241)**을 받았다.
 
 ## 내가 만든 것
 
-- **커스텀 LTI 1.3 구현:** 무거운 서드파티 LTI 라이브러리에 기대는 대신, 스펙을 Next.js 14에서 직접 구현했다, LMS와 Testlify 사이의 신뢰를 성립시키는 OpenID Connect 핸드셰이크, JWT 서명 검증, JWKS 공개 키 엔드포인트.
-- **배정 및 추적 흐름:** 전체 워크플로 뒤의 API 계층을 만들었다, 강사가 Testlify 평가를 골라 코스에 과제로 넣는 Deep Linking, 그 코스에 등록된 지원자를 가져오는 Names and Role Provisioning Services(NRPS), 그리고 각 지원자의 점수를 LMS 성적부로 다시 보내서 강사가 원래 일하던 곳에서 결과를 보게 하는 Assignment & Grade Services(AGS).
-- **풀스택 시스템:** 멀티테넌트 API 라우팅과 React 18 대시보드를 한 앱에 결합했고, 플랫폼별 설정을 위한 MongoDB 스키마를 설계했으며, 로컬 테스트용으로 격리된 LMS 환경을 시뮬레이션하기 위해 Docker를 사용했다.
+- **커스텀 LTI 1.3 보안 계층:** Next.js 14에서 OpenID Connect(OIDC) 서드파티 런치 플로우, RSA SHA-256 JWT 서명 검증, 동적 JWKS 엔드포인트를 포함한 전체 LTI 1.3 보안 스펙을 구현했다.
+- **LTI Advantage 서비스:** 플랫폼 등록 중 Deep Linking을 지원되는 메시지 타입으로 등록했고, 강의 명단을 가져오는 완전한 NRPS 2.0 통합(LMS 플랫폼 간 페이지네이션과 역할-URN 정규화 포함)과 자동화된 성적 동기화를 위한 AGS 2.0 엔드포인트를 구축했다.
+- **멀티테넌트 풀스택 아키텍처:** React 18로 멀티테넌트 관리 대시보드를 구축하고, 플랫폼 등록 키를 위한 MongoDB 스키마를 구성했으며, 로컬 테스트를 위해 별도로 실행되는 Moodle Docker 환경의 네트워크에 참여했다. Instructure가 호스팅하는 Canvas는 대신 실제 라이브 인스턴스에 대해 직접 테스트했다.
 
-## 왜 중요했나
+## 왜 중요했는가
 
-표준을 지키는 LTI 통합은 Testlify를 고등 교육과 기업 교육 시장으로 열어줬다, 그리고 내가 만든 플러그인은 1EdTech의 적합성 테스트를 통과하고 인증을 받았다. 강사들은 코스 전체에 평가를 배정하고 점수를 성적부로 자동으로 돌려받을 수 있었다, 로스터를 내보내거나 결과를 손으로 옮겨 적을 필요가 없다, 이것이야말로 보통 LMS 도입을 가로막는 종류의 마찰이다.
+공식 1EdTech 인증을 획득함으로써 Testlify는 고등교육 및 기업 교육 시장에 진입할 수 있었다. 자동화된 명단 동기화와 성적 전송은 강사들의 수동 데이터 입력을 없앴다.
+
+<CaseStudy summary="전체 기술 케이스 스터디 읽기 →">
+
+## 팀과 타임라인
+
+약 7주(2026년 2월-3월) 동안 나와 함께한 두 명의 협업자를 포함해 25건의 커밋. 나는 커밋의 약 80%를 작성했고 아키텍처와 인증 작업을 주도했다. "리드 엔지니어"는 과장된 표현이 아니라 이 역할에 대한 정확한 설명이다.
+
+## ltijs가 아니라 직접 손으로 작성
+
+`ltijs`는 LTI 1.3을 위한 표준 Node.js 라이브러리이며, 대부분의 통합은 이를 사용한다. 이 통합은 그것에 의존하지 않는다. JWKS 페칭, 키 매칭, RS256 JWT 검증은 이 코드베이스 안에 직접 구현되어 있으며, [관련 블로그 포스트](/blogs/lti-1-3-nextjs-nodejs-guide)에서 설명한 무상태 세션 패턴도 함께 구현되어 있다: 쿠키 대신 URL에 담겨 전달되는 서명된 24시간 세션 토큰(`ltik`)이 모든 API 호출에서 베어러 토큰으로 전송되며, 이는 특히 브라우저가 LMS iframe 안에서 서드파티 쿠키를 차단할 때도 통합이 계속 작동하도록 하기 위함이다. 인증된 통합을 1EdTech의 적합성 테스트를 통과시킨다는 것은 보안 계층이 스펙과 정확히 일치해야 한다는 뜻이다. 이 코드를 직접 소유하는 것은, 서드파티 라이브러리의 릴리스 주기와 스펙 해석에 의존하는 대신, 이를 검증하고 인증받기 더 쉽게 만들어주었다.
+
+완전히 구축된 두 개의 LTI Advantage 서비스인 NRPS와 AGS는 스펙의 최소 요구사항을 넘어선다: NRPS는 LMS 자체의 `Link` 헤더를 통해 페이지네이션을 처리하고, 같은 방식으로 형식화하지 않는 플랫폼 간에 역할 URN을 정규화하며, 스펙을 완전히 준수하지 않는 LMS 플랫폼을 위한 안전망으로 클라이언트 측 필터도 함께 둔다.
+
+## 네 개의 LMS 플랫폼, 하나의 로컬 테스트 환경
+
+Moodle은 이 저장소 자체의 Docker Compose 파일로 실행되지 않는다. 로컬 테스트를 위해 별도로 실행되는 `moodle-docker` 프로젝트의 네트워크에 참여한다. Canvas는 Instructure 자체 호스팅 SaaS이며 로컬로 실행할 동등한 자체 호스팅 이미지가 없어서, 대신 실제 라이브 Canvas 인스턴스에 대해 직접 테스트한다. 프로덕션은 Vercel에서 실행된다. 프로덕션 Dockerfile이 초기에 존재했지만 Vercel이 유일한 실제 배포 대상이 되면서 나중에 삭제되었고, 셀프 호스팅 대안이 아니라 로컬 반복 작업만을 위한 개발 전용 Dockerfile만 남아 있다. D2L Brightspace 지원은 나중에, 네 번째 LMS에 대한 등록 지원을 추가하는 날짜가 찍힌 커밋으로 추가되었으며, 원래 세 개의 일부가 아니었다.
+
+## 데이터 모델과 규모
+
+- 등록된 각 LMS 플랫폼(대학이나 기관의 Canvas/Moodle/Blackboard/Brightspace 인스턴스)은 공유된 전역 자격 증명이 아니라 자체 등록 키를 가진 자신만의 테넌트 레코드다.
+- 별도의 서비스 모듈이 LTI Advantage 스펙에 맞춰 NRPS(명단 조회)와 AGS(라인 아이템과 점수 제출)를 처리하며, 전용 점수 웹훅 엔드포인트도 있다.
+- Mongoose를 통한 MongoDB가 플랫폼 구성과 평가-과제 배정 레코드를 뒷받침한다.
+
+이 프로젝트는 자체 README보다 더 커졌다: 더 상세하고 더 최근 날짜의 내부 개요 문서가, 이 통합이 실제로 성장한 결과물인 완전하고 Vercel에 배포된 4-LMS 아키텍처를 자체 보안, 데이터베이스, API 참조 문서와 함께 설명한다.
+
+## Build vs. Buy
+
+`ltijs` 라이브러리 대신 직접 작성한 JWKS/JWT/세션 로직: 인증이 걸린 통합에서 의존성의 자체 스펙 해석을 물려받는 대신 스펙 준수에 대한 완전한 통제권을 가진다. 셀프 호스팅 대신 Vercel: Vercel이 유일한 실제 배포 대상이 되자 프로덕션 Dockerfile은 쓰이지 않은 채 남겨두는 대신 삭제되었고, 로컬 반복 작업을 위한 개발 전용 Dockerfile만 남았다.
+
+## Stack
+
+[Next.js](https://nextjs.org/) 14, [React](https://react.dev/) 18, [Mongoose](https://mongoosejs.com/)와 함께하는 [MongoDB](https://www.mongodb.com/), 로컬 Moodle 테스트를 위한 [Docker Compose](https://docs.docker.com/compose/), [Vercel](https://vercel.com/)에 배포, [1EdTech](https://www.1edtech.org/) LTI Advantage(1.3) 적합성 스위트에 대해 인증됨.
+
+</CaseStudy>

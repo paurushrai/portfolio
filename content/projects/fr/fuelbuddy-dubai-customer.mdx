@@ -1,20 +1,47 @@
 ---
 title: "FuelBuddy Dubai - Portail Web Client B2B"
-description: "J'ai participé à construire un nouveau portail web B2B de zéro pour le lancement de FuelBuddy aux Émirats: workflows de commande en gros, tableaux de bord pour gestionnaires de flotte, et les API CRUD sous-jacentes sur Hasura GraphQL."
+description: "Portail web B2B construit de zéro pour le lancement de FuelBuddy aux Émirats arabes unis : paiements Stripe, inscription par OTP, PWA installable, et API CRUD sur Hasura GraphQL."
 url: https://app.fuelbuddy.ae/
 date: 2024-07-01
 published: true
 company: FuelBuddy
 ---
 
-L'entrée de FuelBuddy sur le marché B2B des Émirats nécessitait une app web dédiée, les clients d'entreprise là-bas travaillent différemment des utilisateurs mobiles grand public, avec des commandes en gros et de la gestion de flotte plutôt que des achats ponctuels. J'ai participé à construire ce portail à partir d'un dépôt vierge, le frontend et les API CRUD sous-jacentes.
+L'expansion de FuelBuddy sur le marché B2B des Émirats arabes unis nécessitait un portail web dédié. Les clients corporate avaient besoin de gestion de flotte, de commandes en gros et de planification de livraison multi-sites plutôt que des parcours consommateurs classiques. J'ai construit ce portail depuis le dépôt initial jusqu'en production, couvrant l'architecture frontend et les API de données backend.
 
 ## Ce que j'ai construit
 
-- **Les fondations :** Mise en place du frontend de zéro, structure des composants, routage et système de style partagé, pour que l'app dispose d'une base solide sur laquelle grandir.
-- **Workflows B2B :** Construction des écrans que les clients d'entreprise utilisent réellement : formulaires de commande en plusieurs étapes, flux de commande en gros et les tableaux de bord denses sur lesquels s'appuient les gestionnaires de flotte.
-- **Prise en charge des fonctionnalités :** J'ai mené des fonctionnalités de bout en bout, construction des API CRUD sur le moteur GraphQL de Hasura, puis branchement des maquettes et des règles métier à celles-ci, jusqu'à la mise en production de l'ensemble.
+- **Architecture frontend :** Mise en place de l'application depuis zéro, incluant l'architecture des composants, le routage côté client, et un design system cohérent pour les workflows corporate.
+- **Workflows B2B :** Construction de formulaires de commande en plusieurs étapes, de flux de planification de carburant en gros, et de tableaux de bord de flotte denses en données avec vues en graphiques et tableaux pour l'historique des commandes et du portefeuille.
+- **Paiements et inscription :** Intégration de Stripe pour les recharges de portefeuille et les paiements de commande, et inscription par OTP par téléphone pour les comptes corporate.
+- **Fonctionnalités de bout en bout :** Construction des API CRUD sur le moteur Hasura GraphQL, connexion à l'état de l'interface, publication de l'application comme PWA installable, et gestion des règles de validation métier jusqu'en production.
 
 ## Pourquoi c'était important
 
-Livrer le portail a donné à FuelBuddy une véritable présence web pour ses clients d'entreprise à Dubaï et a facilité le passage de grosses commandes de carburant B2B, ce qui a soutenu la percée de l'entreprise dans la région.
+La mise en production du portail a fourni à FuelBuddy une plateforme web dédiée pour les clients corporate à Dubaï, simplifiant les commandes de carburant en gros et soutenant l'expansion régionale de l'entreprise.
+
+<CaseStudy summary="Lire l'étude de cas technique complète →">
+
+## Ce qui a réellement été livré
+
+Les commandes en gros et la planification d'équipes en gros sont de vraies mutations fonctionnelles contre Hasura, pas des formulaires de démonstration, aux côtés d'un tableau de bord qui a remplacé une ancienne version héritée (les deux existent toujours dans le code, la plus récente étant en production). L'authentification passe par les propres claims JWT de Hasura (`x-hasura-default-role` lu directement depuis le token) plutôt que par une couche de permissions séparée ajoutée après coup.
+
+## Paiements et inscription, pas seulement du CRUD
+
+Les recharges de portefeuille et le paiement direct des commandes passent tous deux par Stripe (`@stripe/stripe-js`, `vue-stripe-js`), avec des routes de paiement dédiées pour les commandes autonomes et les transactions de portefeuille. L'inscription passe par une vérification OTP par téléphone (`vue3-otp-input`, avec `vue-tel-input` gérant le format international des numéros), pas un simple formulaire email/mot de passe, ce qui correspond à un portail construit pour des comptes de flotte corporate plutôt que pour des inscriptions occasionnelles.
+
+## Installable, pas seulement responsive
+
+Le portail est livré comme Progressive Web App installable via `vite-plugin-pwa` et Workbox, avec un enregistrement de service worker en `autoUpdate`, si bien qu'un gestionnaire de flotte peut l'ajouter à son écran d'accueil et recevoir les nouvelles mises en production sans réinstallation manuelle.
+
+## Modèle de données et échelle
+
+- Le SDK GraphQL généré (par codegen de schéma) dépasse 31 000 lignes, une surface d'API réellement vaste et typée, pas une poignée de requêtes ad hoc.
+- La récupération de données passe directement par `graphql-request` contre Hasura, sans client Apollo ni urql intermédiaire.
+- Les tableaux de bord de flotte s'appuient sur `vue3-easy-data-table` et `vue-chart-3` (Chart.js), conçus pour des tableaux et graphiques avec de vrais volumes de lignes, pas une poignée de cartes de synthèse.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [Vite](https://vite.dev/), [Pinia](https://pinia.vuejs.org/) pour l'état, [graphql-request](https://github.com/jasonkuhrt/graphql-request) avec GraphQL Code Generator contre [Hasura](https://hasura.io/), [Stripe](https://stripe.com/) pour les paiements, [Firebase](https://firebase.google.com/) pour l'authentification, [Chart.js](https://www.chartjs.org/) pour les tableaux de bord, [vite-plugin-pwa](https://vite-pwa-org.netlify.app/) avec Workbox pour le support hors ligne et installable, [Playwright](https://playwright.dev/) pour les tests.
+
+</CaseStudy>

@@ -1,20 +1,47 @@
 ---
 title: "FuelBuddy Dubai - Portal Web para Clientes B2B"
-description: "Ajudei a construir do zero um novo portal web B2B para o lançamento da FuelBuddy nos Emirados Árabes Unidos: fluxos de pedidos em massa, dashboards para gerentes de frota e as APIs CRUD por trás deles sobre GraphQL da Hasura."
+description: "Construí do zero um portal web B2B para o lançamento da FuelBuddy nos Emirados Árabes Unidos: pagamentos via Stripe, onboarding por OTP, suporte a PWA instalável e APIs CRUD sobre GraphQL da Hasura."
 url: https://app.fuelbuddy.ae/
 date: 2024-07-01
 published: true
 company: FuelBuddy
 ---
 
-A entrada da FuelBuddy no mercado B2B dos Emirados Árabes Unidos exigia um app web dedicado, os clientes corporativos de lá trabalham de forma diferente dos usuários mobile de varejo, com pedidos em massa e gestão de frota em vez de compras pontuais. Ajudei a construir esse portal a partir de um repositório em branco, o frontend e as APIs CRUD por trás dele.
+A expansão da FuelBuddy no mercado B2B dos Emirados Árabes Unidos exigia um portal web dedicado. Os clientes corporativos precisavam de gestão de frota, pedidos em massa e agendamento de entregas em várias localidades, não dos fluxos voltados ao consumidor final. Construí esse portal desde o repositório inicial até a produção, cobrindo a arquitetura de frontend e as APIs de dados no backend.
 
 ## O que construí
 
-- **A base:** Montei o frontend do zero, estrutura de componentes, roteamento e o sistema de estilos compartilhado, para que o app tivesse uma base sólida para crescer.
-- **Fluxos B2B:** Construí as telas que os clientes corporativos realmente usam: formulários de pedido em várias etapas, fluxos de pedidos em massa e os dashboards densos dos quais os gerentes de frota dependem.
-- **Responsabilidade por features:** Trabalhei nas features de ponta a ponta, construindo as APIs CRUD sobre o motor GraphQL da Hasura, depois ligando os designs e as regras de negócio a elas e colocando tudo em produção.
+- **Arquitetura de frontend:** Montei a aplicação do zero, incluindo a arquitetura de componentes, o roteamento no cliente e um design system consistente para os fluxos de trabalho corporativos.
+- **Fluxos B2B:** Construí formulários de pedido em várias etapas, fluxos de agendamento de combustível em massa e dashboards de frota densos em dados, com gráficos e tabelas para o histórico de pedidos e de carteira.
+- **Pagamentos e onboarding:** Integrei o Stripe para recargas de carteira e pagamentos de pedidos, além de um registro por OTP via telefone para contas corporativas.
+- **Features de ponta a ponta:** Construí as APIs CRUD sobre o motor GraphQL da Hasura, conectei-as ao estado da UI, publiquei o app como PWA instalável e cuidei das regras de validação de negócio até a produção.
 
 ## Por que importou
 
-Entregar o portal deu à FuelBuddy uma presença web adequada para os clientes corporativos em Dubai e facilitou a colocação de grandes pedidos de combustível B2B, o que apoiou o avanço da empresa na região.
+Entregar o portal deu à FuelBuddy uma plataforma web dedicada para clientes corporativos em Dubai, simplificando pedidos de combustível em massa e apoiando a expansão regional da empresa.
+
+<CaseStudy summary="Leia o estudo de caso técnico completo →">
+
+## O Que Realmente Foi Entregue
+
+Pedidos em massa e agendamento de turnos em massa são mutações reais e funcionais contra a Hasura, não formulários de fachada, ao lado de um dashboard que substituiu uma versão legada anterior (ambos ainda existem no código, sendo o mais novo o que está em produção). A autenticação roda sobre as próprias claims JWT da Hasura (`x-hasura-default-role` lido diretamente do token), em vez de uma camada de permissões separada, encaixada depois.
+
+## Pagamentos e Onboarding, Não Só CRUD
+
+Recargas de carteira e pagamento direto de pedidos passam pelo Stripe (`@stripe/stripe-js`, `vue-stripe-js`), com rotas de pagamento dedicadas para pedidos avulsos e transações de carteira. O registro passa por verificação via OTP por telefone (`vue3-otp-input`, com `vue-tel-input` cuidando da formatação de telefones internacionais), não um formulário simples de e-mail/senha, o que combina com um portal construído para contas corporativas de frota, não para cadastros casuais.
+
+## Instalável, Não Só Responsivo
+
+O portal é publicado como um Progressive Web App instalável via `vite-plugin-pwa` e Workbox, com registro de service worker em modo `autoUpdate`, para que um gestor de frota possa adicioná-lo à tela inicial e receber novos deploys sem precisar reinstalar manualmente.
+
+## Modelo de Dados e Escala
+
+- O SDK GraphQL gerado (a partir de codegen do schema) tem mais de 31.000 linhas, uma superfície de API tipada genuinamente grande, não um punhado de queries ad hoc.
+- A busca de dados passa diretamente por `graphql-request` contra a Hasura, sem nenhum cliente Apollo ou urql pelo meio.
+- Os dashboards de frota são renderizados com `vue3-easy-data-table` e `vue-chart-3` (Chart.js), construídos para tabelas e gráficos com contagens de linhas reais, não um punhado de cartões-resumo.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [Vite](https://vite.dev/), [Pinia](https://pinia.vuejs.org/) para estado, [graphql-request](https://github.com/jasonkuhrt/graphql-request) com GraphQL Code Generator contra a [Hasura](https://hasura.io/), [Stripe](https://stripe.com/) para pagamentos, [Firebase](https://firebase.google.com/) para autenticação, [Chart.js](https://www.chartjs.org/) para os dashboards, [vite-plugin-pwa](https://vite-pwa-org.netlify.app/) com Workbox para suporte offline/instalável, [Playwright](https://playwright.dev/) para testes.
+
+</CaseStudy>

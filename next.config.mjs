@@ -54,6 +54,15 @@ const RENAMED_FUELBUDDY_SLUGS = {
 };
 const NON_DEFAULT_LOCALES = ["de", "fr", "es", "ja", "zh", "pt", "hi", "ko", "it", "ru", "tr"];
 
+// Renamed to the fuelbuddy-dubai- prefix to match the other UAE slugs. These
+// only ever existed in the default locale (en), so no locale-prefixed
+// redirect is needed.
+const RENAMED_FUELBUDDY_DUBAI_SLUGS = {
+	"fuelbuddy-web": "fuelbuddy-dubai-web",
+	"fuelbuddy-wheels": "fuelbuddy-dubai-wheels",
+	"fuelbuddy-admin-panel": "fuelbuddy-dubai-admin-panel",
+};
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
@@ -64,18 +73,28 @@ const nextConfig = {
 		return [{ source: "/:path*", headers: SECURITY_HEADERS }];
 	},
 	async redirects() {
-		return Object.entries(RENAMED_FUELBUDDY_SLUGS).flatMap(([oldSlug, newSlug]) => [
-			{
+		const localizedRedirects = Object.entries(RENAMED_FUELBUDDY_SLUGS).flatMap(
+			([oldSlug, newSlug]) => [
+				{
+					source: `/projects/${oldSlug}`,
+					destination: `/projects/${newSlug}`,
+					permanent: true,
+				},
+				{
+					source: `/:locale(${NON_DEFAULT_LOCALES.join("|")})/projects/${oldSlug}`,
+					destination: `/:locale/projects/${newSlug}`,
+					permanent: true,
+				},
+			],
+		);
+		const dubaiRedirects = Object.entries(RENAMED_FUELBUDDY_DUBAI_SLUGS).map(
+			([oldSlug, newSlug]) => ({
 				source: `/projects/${oldSlug}`,
 				destination: `/projects/${newSlug}`,
 				permanent: true,
-			},
-			{
-				source: `/:locale(${NON_DEFAULT_LOCALES.join("|")})/projects/${oldSlug}`,
-				destination: `/:locale/projects/${newSlug}`,
-				permanent: true,
-			},
-		]);
+			}),
+		);
+		return [...localizedRedirects, ...dubaiRedirects];
 	},
 	async rewrites() {
 		return [
