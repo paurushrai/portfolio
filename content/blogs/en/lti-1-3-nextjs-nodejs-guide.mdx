@@ -13,7 +13,7 @@ If you have ever tried to build an integration for a Learning Management System 
 
 It involves a complex dance of OIDC logins, JWKS keysets, RSA signatures, and private keys. It is meant to be secure, but for a developer just wanting to "embed a web app in Canvas," it can feel like a nightmare.
 
-In this guide, I will walk you through a **production-ready architecture** for building LTI 1.3 tools using modern secure practices. We will use **Node.js** for the security layer and **Next.js** for the frontend, ensuring a smooth developer experience without compromising on security.
+This is the architecture I landed on: **Node.js** for the security layer, **Next.js** for the frontend, split apart on purpose rather than built as one monolith.
 
 **🔗 GitHub Repository**: [github.com/paurushrai/lti-1.3-node-nextjs-template](https://www.github.com/paurushrai/lti-1.3-node-nextjs-template)
 
@@ -35,7 +35,7 @@ To solve this, we are not going to build a monolith. We are going to separate ou
 
 ### The Tech Stack
 
-- **Backend (the security guard)**: Node.js + Express + `ltijs` (a robust library by Cvmcosta).
+- **Backend (the security guard)**: Node.js + Express + `ltijs` (the standard Node.js library for LTI 1.3, by Cvmcosta).
 - **Frontend (the experience)**: Next.js 14+ (App Router) + React + Tailwind CSS.
 - **Database**: PostgreSQL (stores cryptographic keys and platform registrations).
 - **Infrastructure**: Docker Compose.
@@ -134,10 +134,8 @@ The app successfully:
 2. Decoded your user profile from the LTI launch data.
 3. Passed it securely to the frontend.
 
-## 📝 Conclusion
+## Would you split the security layer from the UI the same way?
 
-Building LTI tools doesn't have to be mysterious. By separating the **protocol logic** (Node/ltijs) from the **application logic** (Next.js), you get the best of both worlds: robust security and a modern React-based UI.
+Separating the **protocol logic** (Node/ltijs) from the **application logic** (Next.js) is what made this tractable: the security layer stays boring and auditable, and the UI stays a normal Next.js app that doesn't need to know anything about OIDC or JWKS.
 
-Check out the code, fork the repo, and start building your own integrations!
-
-[**View the code on GitHub**](https://github.com/paurushrai/lti-1.3-node-nextjs-template)
+The code is on GitHub if you want to fork it and start from something that already handles the handshake: [**lti-1.3-node-nextjs-template**](https://github.com/paurushrai/lti-1.3-node-nextjs-template). Curious whether anyone's hit a case where splitting the two layers like this got in the way instead of helping.
