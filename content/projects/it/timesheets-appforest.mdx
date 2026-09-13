@@ -1,24 +1,62 @@
 ---
 title: "Timesheets by AppForest - Plugin Jira"
-description: "Ho guidato il frontend di un plugin Jira per il tracciamento del tempo pubblicato sull'Atlassian Marketplace: usato anche internamente, dove ha sostituito uno strumento di terze parti a pagamento facendo risparmiare oltre 9.000 dollari all'anno."
+description: "Rilasciata una piattaforma di timesheet per Jira usata in tutta l'azienda e sull'Atlassian Marketplace, sostituendo uno strumento di terze parti e tagliando oltre 9.000 $ di costi di licenza annuali."
 url: https://marketplace.atlassian.com/apps/1236036/timesheets-by-appforest
 date: 2025-03-01
 published: true
 company: Testlify
+coverImage: /projects/timesheets-appforest/timesheet.gif
 ---
 
-In Testlify pagavamo uno strumento di tracciamento del tempo di terze parti che non si collegava a come avveniva davvero il nostro lavoro di ingegneria in Jira. Ho guidato il frontend di Timesheets by AppForest, un plugin Jira che gestisce il tracciamento del tempo, gli spunti sulla produttività e l'allocazione dei costi. È pubblicato sull'Atlassian Marketplace ed è installabile da qualsiasi team, e lo usiamo anche internamente, dove ha sostituito quello strumento a pagamento.
+In Testlify, il tracciamento del tempo di ingegneria si basava su un'applicazione di terze parti costosa e scollegata dai flussi di lavoro quotidiani di Jira. Ho guidato lo sviluppo frontend di Timesheets by AppForest, un'applicazione Jira integrata per il tracciamento del tempo, la pianificazione della capacità del team e l'allocazione dei costi di progetto. Il prodotto è pubblicato sull'Atlassian Marketplace e distribuito internamente in tutta l'azienda.
 
-![Timesheets by AppForest: Panoramica](/projects/timesheets-appforest/timesheet.gif)
+![Timesheets by AppForest - Panoramica](/projects/timesheets-appforest/timesheet.gif)
 
-## Cosa ho realizzato
+## Cosa ho costruito
 
-- **Integrazione con Jira:** Costruito nativamente per l'Atlassian Marketplace sulle API per sviluppatori di Jira, lavorando con gli ingegneri backend per mantenere intatti gli scope OAuth e i requisiti di sicurezza enterprise.
-- **UI dentro Jira:** Ho progettato una UI responsive che vive direttamente nei pannelli delle issue di Jira, con registrazione del tempo con un clic e viste giornaliere/settimanali/mensili, così che gli ingegneri registrino il tempo senza cambiare strumento.
-- **Reportistica:** Ho costruito le dashboard che mostrano i dati di produttività in tempo reale, più l'esportazione in CSV e PDF così che gli stakeholder possano estrarre report su richiesta per l'allocazione dei costi.
+- **Integrazione con Atlassian Marketplace:** costruita su Atlassian Forge, il runtime serverless sandboxed di Atlassian, con permessi di lettura/scrittura Jira strettamente delimitati e a privilegio minimo invece di un backend self-hosted.
+- **Interfaccia Jira integrata:** un pannello di registrazione del tempo integrato direttamente nei ticket Jira per inserimenti rapidi, più un'app dashboard completa per viste calendario e invii di timesheet giornalieri/settimanali, senza cambio di contesto.
+- **Reportistica e analytics:** viste di report che combinano dati Jira e dati di log del tempo interni per la contabilità degli sprint e il tracciamento dei costi di progetto.
 
-![Timesheets by AppForest: Registrazione del Tempo](/projects/timesheets-appforest/time-logging.gif)
+![Timesheets by AppForest - Registrazione del tempo](/projects/timesheets-appforest/time-logging.gif)
 
 ## Perché è stato importante
 
-È un prodotto che qualsiasi team sull'Atlassian Marketplace può installare. Internamente, passare ad esso ci ha permesso di abbandonare lo strumento di terze parti a pagamento, con un risparmio di oltre **9.000 dollari all'anno**, e ha dato alla dirigenza visibilità in tempo reale sulla velocità del team e sui costi di progetto, utile per le previsioni.
+Pubblicato sull'Atlassian Marketplace per clienti esterni, il plugin ha anche sostituito il nostro software di tracciamento del tempo legacy internamente, risparmiando **oltre 9.000 $ di costi di licenza annuali** e dando al management visibilità in tempo reale sulle allocazioni di ingegneria.
+
+<CaseStudy summary="Leggi il caso di studio tecnico completo →">
+
+## Team e responsabilità
+
+Ho guidato lo sviluppo frontend in un piccolo team: 397 commit da 4 contributori a partire da metà 2024, ancora attivamente mantenuto oggi. Questo è un prodotto pluriennale e a più persone, non una costruzione a una persona sola, e il mio ruolo era circoscritto al frontend piuttosto che una responsabilità full-stack completa.
+
+## Forge, non Connect
+
+L'app gira su Atlassian Forge, un runtime serverless sandboxed, non il framework Connect più datato (un'app self-hosted con il proprio backend, che comunica con Jira tramite iframe e webhook). Forge significa nessun server da eseguire o patchare per la superficie rivolta a Jira: Atlassian ospita l'ambiente di esecuzione, applica gli scope di permesso dichiarati nel manifest e impone vincoli in stile serverless (Node 22 su ARM64, 1024MB di memoria, tempo di esecuzione limitato per invocazione) invece di lasciare quell'infrastruttura a noi.
+
+## Due superfici per due intenti diversi
+
+Il prodotto si divide deliberatamente in due interfacce invece di una sola. Un pannello nel contesto del ticket gestisce il caso comune: registrare tempo sul ticket che si sta già guardando, in un clic, senza uscirne. Un'app dashboard completa separata (viste calendario, report, impostazioni admin, tracciamento dei costi) gestisce la pianificazione e la supervisione, i compiti che richiedono un vero spazio di lavoro invece di un pannello laterale. Ogni superficie è costruita per il compito che svolge invece di forzare un'unica interfaccia a fare entrambe le cose.
+
+## Una vera integrazione cross-project
+
+Questa non è un'app isolata. Le funzioni resolver ingeriscono e ripuliscono esplicitamente suggerimenti di inserimento tempo provenienti da Google Calendar, Outlook Calendar e dalla [estensione VS Code AppForest Timetracker](/projects/appforest-timetracker-vscode) complementare, così l'attività di sviluppo di un ingegnere in VS Code può emergere qui come una voce di timesheet suggerita invece di richiedere una nuova registrazione manuale.
+
+## Modello dati e scala
+
+- Gli scope di permesso Forge sono ristretti ed espliciti (`read:jira-work`, `write:jira-work`, `manage:jira-configuration`, più letture di utente/token), non una concessione generica ampia.
+- I componenti UI usano i design token propri di Atlassian (`@atlaskit`), così il plugin corrisponde visivamente a Jira nativo invece di apparire come una terza parte incollata sopra.
+- L'app dashboard è Vue 3 con Pinia per lo stato, 46 componenti, separata dal pannello nel contesto del ticket basato su React; due stack frontend in un unico prodotto, non un'unica codebase condivisa forzatamente estesa su entrambe le superfici.
+- L'allocazione di memoria della funzione Forge è stata aumentata da 256MB a 1024MB dopo un vero problema di prestazioni, non impostata a 1024MB come valore predefinito iniziale.
+
+Il motore di reportistica dietro quelle viste di costo/sprint scala la propria strategia di query: suddivide le richieste di ricerca JQL di Jira in blocchi di 25, 50 o 100 ticket per chiamata a seconda del volume del report, recuperando 16 campi per ticket, invece di inviare una richiesta per ticket o un'unica query illimitata che rischia il timeout su uno sprint di grandi dimensioni.
+
+## Costruire vs. comprare
+
+Forge invece di un'app Connect self-hosted: il runtime e il modello di permessi di Atlassian sostituiscono un'infrastruttura che il team dovrebbe altrimenti costruire e proteggere da solo. Design token nativi Atlassian invece di un kit UI personalizzato: il plugin eredita l'aspetto e i pattern di interazione propri di Jira invece di mantenere un design system parallelo solo per questa app.
+
+## Stack
+
+Atlassian [Forge](https://developer.atlassian.com/platform/forge/) (Node 22, ARM64), [React](https://react.dev/) 18 per il pannello nel contesto del ticket, [Vue](https://vuejs.org/) 3 con [Pinia](https://pinia.vuejs.org/) per l'app dashboard, token e primitive dell'[Atlassian Design System](https://atlassian.design/), distribuito tramite l'[Atlassian Marketplace](https://marketplace.atlassian.com/).
+
+</CaseStudy>

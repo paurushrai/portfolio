@@ -1,19 +1,52 @@
 ---
-title: "Testlify - Libreria di componenti condivisa"
-description: "Ho scelto di costruire un'unica libreria di componenti stateless invece di duplicare la UI in quattro applicazioni, l'ho rilasciata come pacchetto npm privato e ho ridotto i tempi di consegna delle funzionalità di circa il 30%."
+title: "Testlify - Libreria di Componenti Condivisa"
+description: "Guidata l'iniziativa per introdurre una libreria di componenti Vue condivisa tra le 4 applicazioni di Testlify, pubblicata come pacchetti privati, eliminando la duplicazione UI tra applicazioni."
 date: 2026-06-01
 published: true
 company: Testlify
 ---
 
-Testlify funziona come una suite di quattro applicazioni separate, e ognuna aveva ricostruito a modo suo gli stessi pulsanti, form, modali e tabelle. Questo significava fare lo stesso lavoro quattro volte e avere una UI che si disallineava tra i prodotti. Ho sostenuto la scelta di un'unica libreria di componenti condivisa invece della duplicazione per ogni app, poi l'ho costruita e rilasciata.
+Testlify opera come una suite di 4 applicazioni web separate. In precedenza, ogni team di prodotto sviluppava e stilizzava i componenti UI comuni in modo indipendente, causando duplicazione di lavoro di ingegneria e incoerenze visive tra i prodotti. Ho proposto l'idea e guidato il team che ha costruito una libreria di componenti Vue 3 condivisa per standardizzare lo sviluppo dell'interfaccia.
 
 ## Cosa ho costruito
 
-- **La decisione:** Ho sostenuto l'idea di consolidare la UI in un'unica libreria invece di lasciare che ogni app tenesse la propria copia, soppesando il costo iniziale rispetto al disallineamento e allo sforzo duplicato che già stavamo pagando. Una volta approvata, mi sono occupato io della realizzazione.
-- **Stateless per scelta:** Ho mantenuto i componenti stateless e presentazionali, in modo che non portino con sé alcuna logica specifica di un'app e si inseriscano in modo pulito in ognuno dei quattro prodotti. Ogni app collega i propri dati e comportamenti; la libreria si occupa solo dell'aspetto e della sensazione.
-- **Rilasciata come pacchetto npm privato:** L'ho pubblicata come pacchetto npm privato con versioni, così ogni app tira gli stessi componenti attraverso una normale dipendenza e riceve correzioni e miglioramenti con un aumento di versione, niente copia-incolla, niente fork.
+- **Consolidamento architetturale:** guidata l'iniziativa per consolidare le primitive UI comuni in una libreria centralizzata, stabilendo design token e contratti dei componenti coerenti tra i team.
+- **Design dei componenti stateless:** mantenuti i componenti della libreria rigorosamente stateless e presentazionali, permettendo loro di integrarsi in modo pulito in una qualsiasi delle 4 applicazioni mantenendo la logica di business disaccoppiata.
+- **Distribuzione come pacchetti privati:** pubblicata e mantenuta la libreria come pacchetti versionati su GitHub Packages, permettendo ai team di adottare correzioni di bug e nuovi componenti tramite normali aggiornamenti delle dipendenze senza duplicazione di codice.
 
-## Perché ha avuto importanza
+## Perché è stato importante
 
-Costruire la UI una volta sola e riutilizzarla in tutte e quattro le app ha ridotto i tempi di consegna delle funzionalità di circa il **30%**, i team hanno smesso di ricostruire le stesse primitive e hanno iniziato a comporre a partire da un set condiviso. Ha inoltre dato all'intera suite un aspetto coerente, dato che una modifica nella libreria arriva ovunque in una volta sola invece di essere riapplicata a mano in quattro posti.
+Centralizzare lo sviluppo UI in un pacchetto condiviso ha eliminato codice ridondante tra le 4 applicazioni, accelerato i cicli di rilascio delle funzionalità e garantito un design system coerente in tutta la suite di prodotti Testlify.
+
+<CaseStudy summary="Leggi il caso di studio tecnico completo →">
+
+## Guidata, non da solo
+
+Ho proposto la libreria e guidato l'architettura, ma non è stata una costruzione a una persona sola: 86 commit da 7 contributori a partire da maggio 2026, con i miei commit che costituiscono circa due terzi del totale. Far adottare un design system condiviso da 4 team di prodotto richiede più che scrivere i componenti; richiede il processo di rilascio che rende l'adozione a basso rischio, che è diventato il vero problema difficile.
+
+## Testare una modifica di componente non ancora rilasciata senza pubblicare a ogni PR
+
+Il più grande ostacolo all'adozione di una libreria condivisa non è scrivere il componente, è il divario tra "ho cambiato qualcosa" e "un team consumatore può davvero provarlo". Pubblicare una versione temporanea a ogni singola PR sarebbe un costo CI reale e ricorrente per un pacchetto che la maggior parte delle PR non installa mai da nessuna parte, quindi è opt-in: una PR riceve un'etichetta `needs-snapshot` solo quando un consumatore ha effettivamente bisogno di testarla, il che attiva una GitHub Action `snapshot.yml` che pubblica un pacchetto temporaneo taggato `@pr<numero>`. Un `cleanup-snapshot.yml` abbinato rimuove il tag alla chiusura della PR. I rilasci regolari passano attraverso Changesets su due canali, `@latest` da `main` e `@beta` da un branch di staging, e il workflow di rilascio unisce automaticamente la propria PR generata "Version Packages" una volta che la CI passa.
+
+## Un monorepo che impone la propria direzione delle dipendenze
+
+La libreria è suddivisa in livelli, non un unico pacchetto piatto: `tokens`, `icons` e `styles` stanno alla base senza dipendenze interne, `core` si costruisce su questi, `ds` si costruisce su `core`, e `ds-patterns` si costruisce su `ds`, `core` e `styles`. Ogni livello può dipendere solo verso il basso, mai verso l'alto, così una primitiva di basso livello non può crescere silenziosamente una dipendenza verso un componente pattern di livello più alto. `ds-patterns` non è nemmeno solo un insieme di primitive generiche: include veri widget di dominio Testlify (una `CandidateCard`, per esempio), costruiti sullo stesso livello di primitive usato da tutto il resto. Storybook, con l'addon di accessibilità abilitato, documenta ogni componente ed è distribuito pubblicamente, così un team consumatore (o un revisore esterno) può controllare gli stati di un componente e i risultati di a11y senza dover clonare il repository. Ogni componente porta con sé anche un file `.a11y.spec.ts` dedicato che esegue veri controlli axe-core in CI, non solo un addon Storybook per l'ispezione manuale.
+
+## Modello dati e scala
+
+- 6 pacchetti pubblicati (`ds`, `-core`, `-icons`, `-patterns`, `-styles`, `-tokens`), ciascuno versionato indipendentemente.
+- 243 file di spec (Vitest + Vue Test Utils) che testano direttamente la libreria, non solo le applicazioni consumatrici.
+- 9 workflow GitHub Actions che coprono CI, deploy di anteprima e produzione, deploy di Storybook, rilasci di staging e produzione, snapshot delle PR e pulizia degli snapshot.
+- workspace pnpm più cache Turborepo che delimitano il task di build ai pacchetti effettivamente interessati da una determinata modifica; i test girano direttamente tramite Vitest sull'intero workspace invece che attraverso il grafo dei task di Turbo.
+
+L'adozione è stata distribuita per team, non con un cutover forzato in un solo giorno: [l'app recruiter/admin](/projects/testlify-app) gira oggi su tutti i 6 pacchetti pubblicati, mentre gli altri team di prodotto adottano singoli componenti secondo il proprio calendario di rilascio invece di un unico passaggio coordinato su tutte e 4 le applicazioni contemporaneamente.
+
+## Costruire vs. comprare
+
+Nessuno script di version bump scritto a mano: Changesets gestisce il versionamento e i changelog su tutti e 6 i pacchetti a partire da un unico file di changeset per PR. Nessun registry privato self-hosted: GitHub Packages riutilizza la stessa autenticazione GitHub che già regola l'accesso al repository, invece di gestire e proteggere un registry separato come Verdaccio.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [TypeScript](https://www.typescriptlang.org/), [Vite](https://vite.dev/), workspace [pnpm](https://pnpm.io/) con [Turborepo](https://turborepo.com/), [Storybook](https://storybook.js.org/) con l'addon di accessibilità, [Changesets](https://github.com/changesets/changesets) per il versionamento, [Vitest](https://vitest.dev/) e [Vue Test Utils](https://test-utils.vuejs.org/), pubblicata tramite [GitHub Packages](https://github.com/features/packages).
+
+</CaseStudy>

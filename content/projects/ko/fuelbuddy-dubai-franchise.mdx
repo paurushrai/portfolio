@@ -1,20 +1,44 @@
 ---
-title: "FuelBuddy Dubai - 지역 프랜차이즈 플랫폼"
-description: "FuelBuddy의 UAE 운영을 위한 프랜차이즈 앱을 맨바닥부터 만들었다: 프론트엔드와 Hasura GraphQL 위의 내 CRUD API, 클라이언트의 TanStack Query, 그리고 지역 요구사항에 맞춰 다시 손본 인증/보안 흐름까지."
+title: "FuelBuddy 두바이 - 지역 프랜차이즈 플랫폼"
+description: "FuelBuddy UAE의 프랜차이즈 플랫폼을 처음부터 구축했다: 프론트엔드 아키텍처, Hasura GraphQL API, Firebase 기반 인증."
 date: 2024-10-01
 published: true
 company: FuelBuddy
 ---
 
-FuelBuddy의 UAE 확장에는 자체 프랜차이즈 앱이 필요했다, 두바이 시장은 규제, 보안, 워크플로 요구사항이 기존 플랫폼과 달랐고, 그 정도라면 옛 앱을 재사용하는 건 맞지 않았다. 나는 두바이 프랜차이즈 애플리케이션을 맨바닥부터 만들었다, 프론트엔드와 그 뒤의 CRUD API 양쪽 모두.
+FuelBuddy의 UAE 확장에는 지역 운영 요구사항에 맞춘 전용 프랜차이즈 애플리케이션이 필요했다. 나는 프론트엔드와 데이터 API 양쪽에 걸쳐 두바이 프랜차이즈 애플리케이션을 처음부터 구축했다.
 
 ## 내가 만든 것
 
-- **맨바닥부터 만든 새 프론트엔드:** 컴포넌트 시스템을 새로 만들어서, 앱이 대체한 이전 버전들보다 더 반응성 좋고 더 잘 짜여지게 했다.
-- **Hasura 위의 내 CRUD API:** 앱이 돌아가는 백엔드 데이터 API를 만들었다. 데이터베이스 위에 Hasura의 GraphQL 엔진을 써서 내게 필요한 CRUD 작업을 노출했다, 그래서 별도의 백엔드 엔드포인트를 기다리는 대신 데이터 계층을 처음부터 끝까지 설계할 수 있었다.
-- **TanStack Query 위의 데이터 계층:** 프론트엔드에서 TanStack React Query로 그 API들을 소비했다, 캐싱, 백그라운드 리페칭, 낙관적 업데이트, 그래서 수많은 수동 상태 배선 없이도 UI가 빠르고 일관되게 유지됐다.
-- **인증과 보안:** 인증, 토큰 처리, API 페이로드 검증을 다시 손봐서 해당 지역의 컴플라이언스 요구사항을 충족했다.
+- **그린필드 프론트엔드:** 프랜차이즈 운영을 위한 깔끔하고 반응성 좋은 인터페이스를 제공하며, 컴포넌트 시스템과 애플리케이션 구조를 처음부터 구축했다.
+- **Hasura GraphQL API:** Hasura GraphQL 엔진 위에 백엔드 데이터 계층을 구축하고, 애플리케이션에 필요한 CRUD 작업과 데이터 모델을 정의했다.
+- **지도, 일정 관리, 내보내기:** 실시간 지도, 캘린더/간트 일정 관리 뷰, 프랜차이즈 리포팅을 위한 스프레드시트/PDF 내보내기를 통합했다.
+- **인증과 보안:** Hasura 자체 JWT 클레임을 통해 역할 기반 접근을 강제하는 Firebase 기반 인증을 구성했다.
 
-## 왜 중요했나
+## 왜 중요했는가
 
-결과물은 두바이 시장의 더 엄격한 요구사항을 충족했고, 이런 앱을 어떻게 만들지에 대한 더 깔끔한 내부 표준을 세웠다. 개선된 데이터 계층은 중복 네트워크 호출도 줄여서, 프랜차이즈 파트너에게 빠른 경험을 유지해줬다.
+전용 플랫폼을 제공함으로써 FuelBuddy의 UAE 프랜차이즈 운영자들은 지역 운영을 위해 만들어진 도구를 갖게 되었고, 실시간 지도 데이터와 대규모 리포팅을 위해 구축된 스택 위에서 작동한다.
+
+<CaseStudy summary="전체 기술 케이스 스터디 읽기 →">
+
+## 데이터 계층
+
+이 앱은 타입이 지정된 코드젠 SDK를 상대로 `graphql-request`를 통해 데이터를 가져오며, Pinia 스토어가 클라이언트 상태를 보관하고, 의존성 트리 어디에도 TanStack Query가 없다. 인증은 Firebase에서 실행되며, 역할 기반 접근은 별도로 구축된 권한 시스템이 아니라 Hasura 자체의 JWT 커스텀 클레임(`x-hasura-default-role`, `x-hasura-user-id`)에서 나온다.
+
+## 단순한 양식 빌더를 넘어선 것
+
+이것은 얇은 CRUD 도구가 될 수도 있었을 것치고는 진정으로 기능이 풍부한 앱이다: 프랜차이즈 구역을 지도 위에서 직접 그리고 편집하기 위한 Mapbox GL과 `mapbox-gl-draw`, 간트 스타일 일정 관리를 위한 `vue-ganttastic`을 짝지은 FullCalendar, 리포팅 대시보드를 위한 Chart.js, 그리고 프랜차이즈 리포트가 운영자가 필요로 하는 형식(스프레드시트, PDF, 또는 이미지)으로 앱을 벗어날 수 있게 하는 전체 내보내기 파이프라인(`xlsx`, `papaparse`, `jszip`, `html2pdf.js`, `dom-to-image`, `html-to-image`)이 있다.
+
+## 손으로 작성한 쿼리가 아니라 코드젠
+
+GraphQL 작업은 `codegen.yml`에 대해 `vite-plugin-graphql-codegen`을 통해 빌드 타임에 생성되며, Hasura 스키마로부터 타입이 지정된 `src/sdk.ts` 클라이언트를 만든다. 모든 쿼리와 뮤테이션은 백엔드가 바뀔 때 조용히 어긋나는 손으로 작성한 문자열이 아니라 실제 스키마에 맞춰 타입 검사된다.
+
+## 테스트 초점
+
+Playwright는 로그인과 주문 관리라는 두 흐름을 엔드투엔드로 커버하는데, 이는 다른 모든 화면이 그 뒤에 자리한 관문이자 앱이 존재하는 이유인 핵심 트랜잭션이다. 이 둘 이후의 모든 것(일정 관리, 내보내기, 리포팅)은 테스트보다 더 새로운 표면 영역이지, 간과된 것이 아니다.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [Vite](https://vite.dev/), [Pinia](https://pinia.vuejs.org/), [GraphQL Code Generator](https://the-guild.dev/graphql/codegen)와 함께 [Hasura](https://hasura.io/)를 상대하는 [graphql-request](https://github.com/jasonkuhrt/graphql-request), 인증을 위한 [Firebase](https://firebase.google.com/), `mapbox-gl-draw`와 함께하는 [Mapbox GL](https://www.mapbox.com/), `vue-ganttastic`과 함께하는 [FullCalendar](https://fullcalendar.io/), 리포팅을 위한 [Chart.js](https://www.chartjs.org/), 테스트를 위한 [Playwright](https://playwright.dev/).
+
+</CaseStudy>

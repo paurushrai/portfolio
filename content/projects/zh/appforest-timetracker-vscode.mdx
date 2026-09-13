@@ -1,20 +1,50 @@
 ---
-title: "AppForest Timetracker: VS Code 扩展"
-description: "AppForest Timesheets Jira 插件的 VS Code 配套工具 -  - 它在编辑器里跟踪编码活动，让向 Timesheets 记录工时变得轻松，无需离开 IDE。"
+title: "AppForest Timetracker - VS Code 扩展"
+description: "AppForest Timesheets 的 VS Code 配套扩展：跟踪编辑器活动，并根据 Git 分支上下文向 Timesheets by AppForest 记录工时。"
 url: https://marketplace.visualstudio.com/items?itemName=AppforestTimetracker.appforest-timetracker
 date: 2025-07-01
 published: true
 company: Testlify
 ---
 
-我们的 Jira 插件 [Timesheets by AppForest](/projects/timesheets-appforest) 已经把 Testlify 的工时跟踪集中了起来 -  - 但开发者仍然得停下手头的活、切换过去手动填报工时。AppForest Timetracker 填补了这个空档。它是一个 VS Code 扩展，直接在编辑器里跟踪编码活动，把工时记录变成一个快捷操作，让工程师不用离开 IDE 就能记录到 Timesheets。从想法到发布上 Marketplace，我从头到尾都负责。
+我们的 Jira 插件 [Timesheets by AppForest](/projects/timesheets-appforest) 把 Testlify 的工时跟踪集中了起来，但开发者仍然得停下手头的工作、切换到别的工具去手动填报工时。AppForest Timetracker 填补了这个空档：它是一个 VS Code 扩展，直接在编辑器里跟踪编码活动，把工时记录变成一个快捷操作，让工程师无需离开 IDE 就能记录到 Timesheets。从概念构思到打包发布至 Visual Studio Marketplace，我从头到尾都负责。
 
 ## 我做了什么
 
-- **扩展本身：** 基于官方的 VS Code Extension API 构建，用后台进程安静地跟踪编辑器活跃时间、文件切换和工作区变动 -  - 不会打断开发者。
-- **感知 Git 的工时记录：** 扩展会读取当前的 Git 分支，从中提取工单 ID，因此它记录到 Timesheets 插件时，捕获的工时已经关联到了正确的 issue -  - 不用去找工单，也不用重新输入。
-- **完整生命周期：** 我负责了本地配置的使用体验、令牌的安全存储，以及把构建打包并发布到 Visual Studio Marketplace。
+- **扩展核心：** 基于官方的 VS Code Extension API 构建。文档变更、保存和选区监听器会重置一个活动时间戳，并与每秒一次的窗口焦点轮询进行比对，从而安静地区分活跃与空闲时间，不打扰开发者。
+- **感知 Git 的工时记录：** 扩展会自动读取当前的 Git 分支并提取 Jira 工单 ID，确保记录的工时关联到正确的 issue，无需手动搜索或重新输入工单号。
+- **完整生命周期：** 通过 VS Code 的 SecretStorage API 处理安全的令牌存储、打包，以及手动发布到 Visual Studio Marketplace。
 
 ## 为什么它有意义
 
-去掉记录工时的手动步骤，意味着流入 Timesheets 的工时数据更完整、也更准确 -  - 记录工时的投入大约减少了 60–70%，报表出错的情况也少了很多。这让管理层拿到了更干净的数据，用来排期和计费。
+通过 Git 分支上下文自动匹配工单，省去了手动记录工时的步骤，减少了报表错误，也让管理层拿到了更干净的数据用于冲刺规划和客户计费。
+
+<CaseStudy summary="阅读完整技术案例研究 →">
+
+## 单人、小型、真实
+
+我是唯一的贡献者，自 2025 年 4 月以来共提交了 32 次。这是一个个人规模的小型内部工具，用来解决一个具体的日常烦恼，而不是一个大型产品。
+
+## 记录的工时实际去了哪里
+
+这个扩展并不直接调用 Jira 的 REST API，而是把数据提交到 Timesheets by AppForest 自己的后端，也就是 [Forge 应用](/projects/timesheets-appforest) 在其 manifest 中声明的同一个远程服务，再由该服务自行处理面向 Jira 的部分。这两个项目是为了彼此对接而构建的，而不是各自独立对接 Jira，这也是为什么 Forge 应用的 resolver 里专门包含了一些函数，用于在记录完成后清除来自 VS Code 的建议。
+
+## 活动与工单检测的实际工作原理
+
+Git 分支检测直接调用 shell 命令 `git rev-parse --abbrev-ref HEAD`，而不是引入一个 git 库，对于只读取一个值而言，这是一个合理的选择，不必为此承担一整套依赖的 API。分支名会先通过 `/^[A-Z]+-\d+$/` 校验后才会同步，因此像 `ABC-123` 这样不匹配工单格式的功能分支会被静默跳过，而不是记录到错误的 issue 上或报错。活动跟踪的粒度并不是每次文件切换，而是每秒一次的窗口焦点轮询，配合文档变更和保存监听器，空闲阈值为 10 秒，暂停判定前有 60 秒的宽限期。进度每秒持久化到 VS Code 的 `globalState` 并在重启后恢复，还带有一个自愈检查：如果恢复时发现已同步的计数意外超过了跟踪的计数（这是同步在写入中途被打断的迹象），会被拉回一致状态，而不是任其继续偏离。
+
+身份验证是命令驱动的，而不是基于设置项：专门的命令（`authenticateToken`、`deleteToken`、`updateToken`、`syncNow`、`resetTime`）通过输入提示来处理令牌的整个生命周期，这也是它一开始就没有设置界面的原因，是一个刻意的设计选择，而不是功能缺失。
+
+## 数据模型与规模
+
+这里的一切都不需要超出单个开发者自己编辑器会话的规模：一个状态栏显示（工单时间和每日总计），一个空闲/活跃状态机，一个午夜执行的每日重置任务。在这个规模下没有理由使用更重的数据模型，做一个反而是在解决这个工具根本不存在的问题。
+
+## 自研 vs 采购
+
+直接调用 `git` 二进制文件，而不是使用 simple-git 或 isomorphic-git 这类库：只读取一个值（当前分支）不足以让引入一个为完整 Git 操作而生的依赖变得合理。使用 VS Code 自带的 SecretStorage API，而不是自建一个加密文件形式的令牌存储：平台已经为这种场景解决了凭据的安全存储问题。
+
+## 技术栈
+
+[VS Code Extension API](https://code.visualstudio.com/api)、[TypeScript](https://www.typescriptlang.org/)，使用 Node 内置的 `child_process` 访问 Git，VS Code 的 [SecretStorage](https://code.visualstudio.com/api/references/vscode-api#SecretStorage) API 用于令牌存储，发布在 [Visual Studio Marketplace](https://marketplace.visualstudio.com/vscode)。
+
+</CaseStudy>

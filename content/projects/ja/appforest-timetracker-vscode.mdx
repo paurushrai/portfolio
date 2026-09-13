@@ -1,20 +1,50 @@
 ---
 title: "AppForest Timetracker - VS Code 拡張機能"
-description: "AppForest Timesheets の Jira プラグインを補完する VS Code 拡張機能。エディター内でのコーディング活動を記録し、IDE を離れることなく Timesheets への工数入力を手間なく行えるようにする。"
+description: "AppForest Timesheets(Timesheets by AppForest)を補完するVS Code拡張機能。エディターでの作業を記録し、Gitブランチのコンテキストからチケットを特定してTimesheets by AppForestに工数を記録する。"
 url: https://marketplace.visualstudio.com/items?itemName=AppforestTimetracker.appforest-timetracker
 date: 2025-07-01
 published: true
 company: Testlify
 ---
 
-私たちの Jira プラグイン [Timesheets by AppForest](/projects/timesheets-appforest) は、Testlify の工数管理を一元化していました。それでも開発者は手を止めて画面を切り替え、工数を手入力する必要がありました。AppForest Timetracker はそのギャップを埋めます。エディター内でコーディング活動を記録し、工数入力をワンアクションに変える VS Code 拡張機能で、エンジニアは IDE を離れずに Timesheets へ入力できます。アイデアから Marketplace での公開まで、私が一貫して担当しました。
+私たちのJiraプラグイン、[Timesheets by AppForest](/projects/timesheets-appforest)はTestlifyでの工数管理を一元化しましたが、それでも開発者は手を止めてツールを切り替え、工数を手入力する必要がありました。AppForest Timetrackerはそのギャップを埋めます。エディター内でコーディング活動を記録し、工数の記録をワンアクションに変えるVS Code拡張機能で、エンジニアはIDEを離れることなくTimesheetsに記録できます。コンセプトからVisual Studio Marketplace向けのパッケージングまで、私が一貫して担当しました。
 
 ## 作ったもの
 
-- **拡張機能そのもの:** 公式の VS Code Extension API 上に構築し、バックグラウンドプロセスがアクティブなエディター時間、ファイルの切り替え、ワークスペースの変更を静かに記録します。開発者を邪魔するものは何もありません。
-- **Git を認識した工数記録:** 拡張機能は現在の Git ブランチを読み取り、そこからチケット ID を取り出します。そのため記録した時間は Timesheets プラグインに入力される時点で正しい課題に紐づいており、チケットを探す手間も再入力も不要です。
-- **ライフサイクル全体:** ローカル設定の UX、トークンの安全な保存、そしてビルドを Visual Studio Marketplace 向けにパッケージ化して公開する作業まで、すべて私が担当しました。
+- **拡張機能のコア:** 公式のVS Code Extension API上に構築しました。ドキュメントの変更・保存・選択のリスナーがアクティビティのタイムスタンプをリセットし、ウィンドウのフォーカス状態を1秒間隔でポーリングして照合することで、開発者を邪魔せずにアクティブ時間とアイドル時間を静かに判別します。
+- **Gitを認識した工数記録:** 拡張機能は現在のGitブランチを読み取り、そこからJiraのチケットIDを自動的に抽出します。これにより、記録した時間はチケットを手で探したり再入力したりすることなく、正しい課題に紐づきます。
+- **ライフサイクル全体:** VS CodeのSecretStorage APIによる安全なトークン保存、パッケージング、そしてVisual Studio Marketplaceへの手動公開まで、すべて担当しました。
 
 ## なぜ意味があったか
 
-手作業の工程を工数記録から取り除いたことで、Timesheets に流れ込む時間データはより網羅的かつ正確になりました。工数入力にかかる手間はおよそ 60〜70% 減り、報告ミスも大きく減りました。これにより経営陣は、スプリント計画と請求のためのよりきれいなデータを手にできました。
+Gitブランチのコンテキストからチケットの照合を自動化したことで、工数記録の手作業の工程がなくなり、報告ミスが減り、経営陣はスプリント計画とクライアント請求のためのよりきれいなデータを手にできました。
+
+<CaseStudy summary="詳しい技術ケーススタディを読む →">
+
+## 一人で、小さく、実物
+
+私が唯一のコントリビューターで、2025年4月以降32コミットです。特定の日々の煩わしさを解消するために作った、個人規模の小さな社内ツールであり、大きなプロダクトではありません。
+
+## 記録した時間は実際どこへ行くのか
+
+この拡張機能はJiraのREST APIを直接呼び出しません。Timesheets by AppForest自身のバックエンド、つまり[Forgeアプリ](/projects/timesheets-appforest)がマニフェストで宣言しているのと同じリモートサービスに投稿し、Jira側の処理はそちらが担います。この2つのプロジェクトは、それぞれ独立してJiraと話すのではなく、互いに通信するように作られています。Forgeアプリのリゾルバーに、VS Code由来の提案を記録後にクリアするための専用関数が含まれているのも、そのためです。
+
+## アクティビティとチケット検出の実際の仕組み
+
+Gitブランチの検出は、gitライブラリを取り込むのではなく`git rev-parse --abbrev-ref HEAD`を直接シェルアウトして実行します。値をひとつ読み取るだけなのに依存関係のAPI全体を抱え込むよりも、これは妥当な判断です。ブランチ名は同期する前に`/^[A-Z]+-\d+$/`で検証されるため、チケットの形式(`ABC-123`のような)に一致しないフィーチャーブランチは、誤った課題に記録されたりエラーになったりせず、黙ってスキップされます。アクティビティ追跡はファイル切り替えの粒度ではなく、ドキュメントの変更・保存リスナーに加えてウィンドウのフォーカス状態を1秒間隔でポーリングするもので、10秒のアイドル閾値と、セッションが一時停止とみなされるまでの60秒の猶予期間を持ちます。進捗はVS Codeの`globalState`に毎秒保存され、再起動時に復元されます。復元時に最後に同期した件数が追跡中の件数を何らかの理由で上回っていた場合(書き込み途中で同期が中断された兆候)は、それ以上ずれが広がらないように値を範囲内に戻す自己修復チェックも備えています。
+
+認証は設定ベースではなくコマンド駆動です。専用のコマンド(`authenticateToken`、`deleteToken`、`updateToken`、`syncNow`、`resetTime`)が入力プロンプトを通じてトークンのライフサイクルを扱います。そもそも設定UIが存在しないのはこのためで、これは機能の欠落ではなく意図的な選択です。
+
+## データモデルと規模
+
+ここには、一人の開発者自身のエディターセッションを超えてスケールする必要のあるものは何もありません。ステータスバー表示(チケット時間と日次合計)、アイドル/アクティブの状態マシン、深夜0時の日次リセットジョブが1つずつあるだけです。この規模でより重いデータモデルを持つ根拠はなく、それを作ることはこのツールが抱えていない問題を解決することになります。
+
+## 自作か既製品か
+
+simple-gitやisomorphic-gitのようなライブラリではなく`git`バイナリをシェルアウトして呼ぶ。値をひとつ(現在のブランチ)読み取るだけの用途に、Git操作全体のために作られた依存関係を持ち込む理由はありません。独自の暗号化ファイルによるトークンストアではなくVS Code自身のSecretStorage APIを使う。プラットフォームがまさにこのケース向けの安全な認証情報の保存をすでに解決しています。
+
+## Stack
+
+[VS Code Extension API](https://code.visualstudio.com/api)、[TypeScript](https://www.typescriptlang.org/)、Git操作にはNode組み込みの`child_process`、トークン保存にはVS Codeの[SecretStorage](https://code.visualstudio.com/api/references/vscode-api#SecretStorage) API、[Visual Studio Marketplace](https://marketplace.visualstudio.com/vscode)で公開。
+
+</CaseStudy>

@@ -1,19 +1,40 @@
 ---
-title: "FuelBuddy India - App Logistique & Suivi Franchise"
-description: "Ingénieur central sur l'app franchise de FuelBuddy: j'ai construit le suivi des camions en temps réel, les API CRUD sur Hasura GraphQL que j'ai optimisées pour les zones à faible réseau, et repensé les workflows pour le personnel non technique."
+title: "FuelBuddy Inde - Application de Logistique et Suivi des Franchises"
+description: "Ingénieur principal sur l'application de franchise de FuelBuddy : suivi de camions en direct, API Hasura GraphQL, et flux logistiques simplifiés."
 date: 2023-09-01
 published: true
 company: FuelBuddy
 ---
 
-Chez [FuelBuddy](https://fuelbuddy.in/), j'étais un ingénieur central sur la Franchise Application, l'app qu'utilisent les opérateurs franchisés pour piloter leurs hubs locaux, gérer les stocks et coordonner leurs flottes de livraison.
+Chez [FuelBuddy](https://fuelbuddy.in/), j'ai été un ingénieur principal sur l'application de franchise, que les opérateurs de franchise utilisent pour gérer les hubs régionaux, les stocks, et les flottes de livraison.
 
 ## Ce que j'ai construit
 
-- **Suivi des camions en temps réel :** Construction d'un module de suivi très demandé qui place les positions de la flotte en direct sur une carte interactive, offrant aux opérateurs une visibilité en temps réel qu'ils n'avaient pas auparavant et changeant leur façon de prendre les décisions de répartition.
-- **API CRUD et performance :** Construction des API de données sur lesquelles tourne l'app avec le moteur GraphQL de Hasura, puis optimisation, restructuration des payloads, ajout de mise en cache et réduction des requêtes coûteuses, ce qui a fait baisser les temps de réponse et gardé l'app utilisable même sur des connexions cellulaires faibles.
-- **Refonte des workflows :** Transformation de tâches complexes en plusieurs étapes, réconciliation des stocks, affectation des chauffeurs, en flux plus simples pensés pour le personnel franchisé non technique, ce qui a réduit les erreurs opérationnelles.
+- **Suivi de camions en direct :** Construction d'un module Google Maps interactif affichant les positions de la flotte sur un intervalle de sondage, donnant aux opérateurs une visibilité continue sur les mouvements des camions et les statuts de dispatch.
+- **API GraphQL et mise en cache :** Construction des API de données avec le moteur Hasura GraphQL via urql, avec un cache client normalisé et un rafraîchissement automatique du token à expiration.
+- **Simplification des workflows :** Refonte de tâches opérationnelles en plusieurs étapes, dont la réconciliation des stocks et l'affectation des chauffeurs, en interfaces simplifiées qui ont réduit les erreurs opérationnelles.
 
 ## Pourquoi c'était important
 
-Le suivi des camions a rendu la logistique plus prévisible et réduit le temps d'immobilisation des camions. Le backend plus rapide et l'UI plus simple ont ensemble accéléré l'intégration des nouveaux partenaires franchisés et réduit les tickets de support sur la difficulté d'usage de l'app.
+Le suivi de flotte a rendu la logistique de dispatch plus prévisible et réduit le temps d'inactivité des camions. Les workflows simplifiés d'affectation et de stock ont réduit les erreurs opérationnelles dans les hubs de franchise.
+
+<CaseStudy summary="Lire l'étude de cas technique complète →">
+
+## Ce que « en direct » signifie réellement ici
+
+La carte des camions se met à jour sur un intervalle de sondage, pas via une subscription GraphQL, même si le même client est câblé pour des subscriptions ailleurs dans l'application (`graphql-ws` est configuré et utilisé pour les mises à jour de statut de commande, mais pas pour cette carte en particulier). C'était un compromis délibéré sur le coût serveur, pas un oubli : une subscription maintient une connexion persistante ouverte sur le serveur aussi longtemps que le client la garde ouverte, et un écran de carte laissé ouvert pendant tout le service d'un dispatcher, des heures durant, représente une charge de connexion bien plus lourde et bien plus longue qu'une mise à jour ponctuelle de statut de commande. Le sondage évite de maintenir cette connexion ouverte, au prix de cycles de requête/réponse périodiques à la place.
+
+## Affectation et stock, plus en détail
+
+L'affectation des chauffeurs couvre les flux d'affectation simple, en masse, de réaffectation et de désaffectation, pas seulement une action « assigner » unique. Le suivi des stocks suit les soldes de stock pour les bowsers (camions-citernes) spécifiquement, avec des requêtes et des tables de journal de soldes de stock dédiées, un véritable modèle de données opérationnel, pas un inventaire de pièces générique.
+
+## Modèle de données et échelle
+
+- Le cache normalisé d'urql plus une couche d'authentification par token Firebase qui se rafraîchit automatiquement sur les réponses 401/token expiré, pour qu'une session expirée n'interrompe pas un dispatcher en pleine tâche.
+- Playwright couvre la connexion et la gestion des commandes de bout en bout, les deux flux dont dépend chaque autre écran de l'application.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [Vite](https://vite.dev/), [Pinia](https://pinia.vuejs.org/), [urql](https://commerce.nearform.com/open-source/urql/) contre [Hasura](https://hasura.io/), authentification [Firebase](https://firebase.google.com/), Google Maps, [Playwright](https://playwright.dev/) pour les tests.
+
+</CaseStudy>

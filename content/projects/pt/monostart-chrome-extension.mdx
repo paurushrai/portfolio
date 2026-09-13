@@ -1,25 +1,67 @@
 ---
 title: "MonoStart: Extensão Chrome de Nova Aba Personalizável"
-description: "Uma extensão Chrome com privacidade em primeiro lugar que transforma cada nova aba em um dashboard pessoal: links, notas, tarefas, temporizadores e lembretes, com seus próprios temas e papéis de parede, tudo armazenado no seu dispositivo."
+description: "Uma extensão Chrome com privacidade em primeiro lugar que transforma cada nova aba em um dashboard pessoal com links, temporizadores e lembretes armazenados inteiramente no seu dispositivo."
 url: https://chromewebstore.google.com/detail/hhfeihcppmfepeeainafmaifpmdemmlg
-repository: paurushrai/monostart-chrome-extension
+repository: paurushrai/monostart-extension
 date: 2026-06-01
 published: true
-company: Projeto Pessoal
+company: Personal Project
+coverImage: /projects/monostart-chrome-extension/cover.png
 ---
 
-Você abre uma nova aba dezenas de vezes por dia e recebe uma tela em branco. O MonoStart a substitui por um dashboard que você mesmo configura, seus links, tarefas, notas e lembretes, organizados do jeito que você quer. Construí como uma extensão Chrome Manifest V3 que roda inteiramente no seu dispositivo.
+O MonoStart transforma a página padrão de nova aba do navegador em um dashboard pessoal rápido e personalizável. Ele organiza favoritos, listas de tarefas, notas rápidas e temporizadores de foco em um espaço de trabalho configurável. Construído como uma extensão Chrome Manifest V3, ele armazena tudo localmente no dispositivo: sem contas, sem banco de dados no servidor, sem analytics.
 
 ![MonoStart: Extensão Chrome de Nova Aba Personalizável](/projects/monostart-chrome-extension/cover.png)
 
 ## O que construí
 
-- **Um dashboard que você organiza:** Uma grade de arrastar e soltar onde cada widget, links, pastas agrupadas, notas, tarefas, temporizadores, lembretes, imagens, embeds e busca, pode ser posicionado e redimensionado para se adaptar à sua forma de trabalhar.
-- **Tudo a um olhar de distância:** Links rápidos e pastas em vez de vasculhar os favoritos; notas, tarefas e lembretes na página que você já abre o dia todo.
-- **Deixe do seu jeito:** 12 temas de cores, um seletor de cor personalizada, modo claro/escuro e papéis de parede de cor, gradiente ou imagem.
-- **Temporizadores e lembretes:** Integrados, para você não recorrer a um app separado para se manter no rumo.
-- **Privado por padrão:** Tudo fica no seu dispositivo, sem conta, sem servidores, sem rastreamento, e a página abre instantaneamente.
+- **Dashboard personalizável:** Uma grade de arrastar e soltar, incluindo grupos aninhados de widgets, onde os widgets (links rápidos, pastas categorizadas, notas, listas de tarefas, temporizadores de contagem regressiva, lembretes, busca por voz e busca visual com o Google Lens) podem ser organizados para se adaptar a qualquer fluxo de trabalho.
+- **Layout de acesso rápido:** Links fixados no cabeçalho e pastas agrupadas substituem menus profundos de favoritos, mantendo os sites acessados com frequência a um clique de distância.
+- **Personalização de temas:** 15 temas de cores embutidos, obtidos por engenharia reversa da própria paleta "Personalizar Chrome" do navegador, um seletor de cor hexadecimal personalizado, suporte a modo claro/escuro e fundos em gradiente ou papel de parede.
+- **Ferramentas de produtividade:** Temporizadores de contagem regressiva embutidos e lembretes agendados com alertas sonoros locais e notificações no desktop.
+- **Armazenamento local-first:** Notas, tarefas, layout e imagens vivem no chrome.storage.local e no IndexedDB, no próprio dispositivo. Sem contas de usuário e sem banco de dados no servidor; a única chamada de rede é para a API pública de sugestões do Google, usada para autocompletar buscas, a mesma que a barra de endereços do próprio Chrome usa.
 
 ## Por que importou
 
-A página de nova aba é a tela mais aberta do navegador e normalmente não faz nada. O MonoStart a transforma em um lugar de fato útil, reunindo links, tarefas, notas e lembretes em um só ponto em vez de espalhá-los por favoritos, post-its e outros apps. É um projeto pessoal e open source, então o código está lá para ser lido.
+A página de nova aba é aberta dezenas de vezes por dia. O MonoStart transforma esse espaço vazio em um dashboard de produtividade instantâneo e local-first que respeita sua privacidade: seus dados nunca saem do dispositivo.
+
+<CaseStudy summary="Leia o estudo de caso técnico completo →">
+
+## Por Que Isso Existe
+
+Eu abro uma nova aba cerca de 200 vezes por dia, e por anos ela não devolvia nada: uma barra de busca e uma grade de sites que o Google adivinhava. O problema de verdade não era a página em branco, era tudo o que eu fazia para lidar com ela. Mais de quarenta abas mantidas abertas em três perfis do Chrome só para evitar redigitar URLs, cada uma um processo vivo que o Chrome mantinha aquecido. Eu não estava organizando meu trabalho, estava pagando um imposto de RAM e ventoinha para segurar ponteiros, não páginas. Toda extensão de nova aba que testei trocava essa página em branco por algo pior: uma UI estranha que quebrava a memória muscular, uma conta com sincronização na nuvem, links patrocinados, telemetria. Sou o único contribuidor, 222 commits desde junho de 2026, ainda mantida ativamente, construída primeiro para resolver o problema no meu próprio navegador e lançada depois como uma extensão pública ao vivo.
+
+## A Única Regra: Parecer Chrome, Não um App
+
+Cada decisão nesse código responde a uma única restrição: você não deveria conseguir dizer onde o Chrome termina e o dashboard começa. É por isso que a barra de busca real do Google permanece, com as sugestões reais de histórico do Chrome, em vez de uma UI de busca personalizada que precisaria do seu próprio índice de histórico. É por isso que não há fluxo de onboarding, nem tela de login, nem sistema de conta: abrir uma nova aba deveria parecer que nada foi instalado. Uma funcionalidade que fizesse a página parecer um app separado, por mais útil que fosse, não foi lançada.
+
+## Áudio em um Service Worker Que Não Pode Tocar Áudio
+
+Scripts de background no Manifest V3 são service workers, e service workers não conseguem tocar áudio de forma confiável diretamente. O Chrome suspende e derruba esses processos sempre que quer recuperar memória, mesmo no meio de uma reprodução. Os lembretes ainda precisam de um som que dispare de fato. A solução usa `chrome.alarms` para agendar o lembrete, já que alarmes sobrevivem a um service worker morto e o acordam de volta, e roteia a reprodução por um documento `chrome.offscreen` em vez do próprio service worker, uma página oculta que o Chrome mantém viva especificamente para tarefas como essa. É o mesmo tipo de contorno que a maioria das extensões MV3 acaba encontrando, já que uma página de background persistente não existe mais no MV3.
+
+## Temas Obtidos por Engenharia Reversa do Próprio Chrome
+
+Em vez de inventar uma paleta de cores arbitrária, os 15 temas embutidos do MonoStart são extraídos das próprias cores-semente do "Personalizar Chrome", com o processo de extração documentado passo a passo no repositório. Uma versão inicial dessa extração tinha um bug de deslocamento de matiz. A correção foi lançada na v1.1.1 com um caminho de migração para quem já tinha escolhido um tema com a matemática antiga, para que os usuários existentes não acordassem com uma cor diferente da que escolheram.
+
+## Segurança: Sanitizando Embeds Sem Confiar Só no Sanitizador
+
+Os widgets de imagem e embed aceitam HTML arbitrário, sanitizado pelo DOMPurify antes da renderização. O DOMPurify sozinho não bastava: ele não remove um atributo `srcdoc`, e um iframe com `srcdoc` definido herda a própria origem da extensão, um caminho real de XSS caso a CSP da extensão algum dia afrouxasse. O `srcdoc` é removido explicitamente no sanitizador, independentemente do que o DOMPurify permita por conta própria, uma segunda camada independente em vez de confiar totalmente em uma única biblioteca.
+
+## Modelo de Dados e Escala
+
+- Dados de texto (notas, tarefas, layout, lembretes, configurações) vivem no chrome.storage.local.
+- Imagens de papel de parede e fundo vivem em um banco IndexedDB separado, com coleta de referências órfãs para que imagens excluídas ou substituídas não se acumulem silenciosamente.
+- O limite de cerca de 10MB do chrome.storage.local é removido através da permissão `unlimitedStorage`, necessária assim que as imagens saíram completamente dessa cota.
+- 216 testes em 25 arquivos (Vitest, jsdom, fake-indexeddb) cobrem essa camada de armazenamento diretamente, não só a UI por cima dela.
+
+Armazenamento apenas local é uma escolha deliberada, não um descuido: significa que não há sincronização entre máquinas ou perfis, mas é o mesmo mecanismo que dá a três perfis do Chrome seus próprios dashboards independentes e isolados de graça, sem um sistema de conta compartilhado para construir e proteger. O autocompletar da barra de busca é a única chamada de rede em todo o app, acessando a API pública de sugestões do Google da mesma forma que a barra de endereços do próprio Chrome faz; tudo que o usuário realmente cria permanece local.
+
+## Construir vs. Comprar
+
+Sem motor de arrastar e soltar personalizado: o react-grid-layout cuida da grade, incluindo grupos aninhados, em vez de reimplementar detecção de colisão e alças de redimensionamento do zero. Sem biblioteca de componentes personalizada: o padrão do [shadcn/ui](https://ui.shadcn.com/) de copiar componentes baseados em Radix diretamente (em vez de instalar um pacote de UI opaco) mantém o código de cada componente, e qualquer desvio dele, visível e editável. Sem pipeline de localização personalizado: react-i18next mais um conjunto crescente de arquivos de locale (mais de 50 idiomas) em vez de uma busca de strings feita à mão.
+
+## Stack
+
+[React](https://react.dev/) 19, [Vite](https://vite.dev/), [TypeScript](https://www.typescriptlang.org/), [Tailwind CSS](https://tailwindcss.com/), [shadcn/ui](https://ui.shadcn.com/) sobre primitivas do [Radix UI](https://www.radix-ui.com/), [react-grid-layout](https://github.com/react-grid-layout/react-grid-layout) para a grade do dashboard, [react-i18next](https://react.i18next.com/) para localização, [DOMPurify](https://github.com/cure53/DOMPurify) para sanitização de embeds, [Vitest](https://vitest.dev/) para testes, a plataforma de extensões [Manifest V3](https://developer.chrome.com/docs/extensions/develop/migrate/what-is-mv3) do Chrome (`chrome.alarms`, `chrome.offscreen`, `chrome.storage`, IndexedDB), licenciada sob [PolyForm Noncommercial 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0/).
+
+</CaseStudy>

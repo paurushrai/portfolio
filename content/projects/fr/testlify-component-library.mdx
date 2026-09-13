@@ -1,19 +1,52 @@
 ---
-title: "Testlify - Bibliothèque de composants partagée"
-description: "J'ai fait le choix de construire une seule bibliothèque de composants sans état plutôt que de dupliquer l'UI sur quatre applications, je l'ai livrée sous forme de package npm privé, et j'ai réduit le temps de livraison des fonctionnalités d'environ 30 %."
+title: "Testlify - Bibliothèque de Composants Partagée"
+description: "Direction de l'initiative visant à introduire une bibliothèque de composants Vue partagée sur les 4 applications de Testlify, publiée sous forme de packages privés, éliminant la duplication d'interface entre applications."
 date: 2026-06-01
 published: true
 company: Testlify
 ---
 
-Testlify fonctionne comme une suite de quatre applications distinctes, et chacune reconstruisait à sa manière les mêmes boutons, formulaires, modales et tableaux. Cela voulait dire le même travail fait quatre fois et une UI qui se désynchronisait d'un produit à l'autre. J'ai défendu l'idée d'une seule bibliothèque de composants partagée plutôt qu'une duplication par application, puis je l'ai construite et livrée.
+Testlify fonctionne comme une suite de 4 applications web distinctes. Auparavant, chaque équipe produit développait et stylait ses composants d'interface communs indépendamment, causant un effort d'ingénierie dupliqué et des incohérences visuelles entre les produits. J'ai proposé l'idée et dirigé l'équipe qui a construit une bibliothèque de composants Vue 3 partagée pour standardiser le développement d'interface.
 
 ## Ce que j'ai construit
 
-- **La décision :** J'ai plaidé pour consolider l'UI dans une seule bibliothèque plutôt que de laisser chaque application garder sa propre copie, en pesant le coût initial face à la désynchronisation et à l'effort dupliqué que nous payions déjà. Une fois l'accord obtenu, j'ai pris en charge la construction.
-- **Sans état par conception :** J'ai gardé les composants sans état et purement présentationnels, de sorte qu'ils ne portent aucune logique propre à une application et s'intègrent proprement dans n'importe lequel des quatre produits. Chaque application branche ses propres données et son propre comportement ; la bibliothèque ne gère que l'apparence et le ressenti.
-- **Livrée sous forme de package npm privé :** Je l'ai publiée comme un package npm privé versionné, si bien que chaque application récupère les mêmes composants via une dépendance normale et bénéficie des corrections et améliorations avec une simple montée de version, pas de copier-coller, pas de forks.
+- **Consolidation architecturale :** Direction de l'initiative visant à consolider les primitives d'interface communes dans une bibliothèque centralisée, établissant des tokens de design et des contrats de composants cohérents entre les équipes.
+- **Conception de composants sans état :** Composants de la bibliothèque maintenus strictement sans état et présentationnels, leur permettant de s'intégrer proprement dans chacune des 4 applications tout en gardant la logique métier découplée.
+- **Distribution en packages privés :** Publication et maintenance de la bibliothèque sous forme de packages versionnés sur GitHub Packages, permettant aux équipes d'adopter les correctifs et nouveaux composants via des mises à jour de dépendances standard, sans duplication de code.
 
 ## Pourquoi c'était important
 
-Construire l'UI une seule fois et la réutiliser sur les quatre applications a réduit le temps de livraison des fonctionnalités d'environ **30 %**, les équipes ont cessé de reconstruire les mêmes primitives et se sont mises à composer à partir d'un ensemble partagé. Cela a aussi donné à toute la suite une apparence cohérente, puisqu'un changement dans la bibliothèque se répercute partout d'un coup au lieu d'être réappliqué à la main à quatre endroits.
+Centraliser le développement d'interface dans un package partagé a éliminé le code redondant sur 4 applications, accéléré les cycles de livraison de fonctionnalités, et garanti un design system cohérent sur l'ensemble de la suite produit de Testlify.
+
+<CaseStudy summary="Lire l'étude de cas technique complète →">
+
+## Dirigée, pas construite seul
+
+J'ai proposé la bibliothèque et piloté l'architecture, mais ce n'était pas une construction en solo : 86 commits de 7 contributeurs depuis mai 2026, mes propres commits représentant environ deux tiers du total. Faire adopter un design system partagé par 4 équipes produit demande plus que d'écrire les composants ; cela demande le processus de publication qui rend leur adoption peu risquée, ce qui est devenu le véritable problème difficile.
+
+## Tester un changement de composant non publié sans publier à chaque PR
+
+Le plus grand obstacle à l'adoption d'une bibliothèque partagée n'est pas d'écrire le composant, c'est l'écart entre « j'ai changé quelque chose » et « une équipe consommatrice peut réellement l'essayer ». Publier une version temporaire à chaque PR représenterait un coût CI réel et récurrent pour un package que la plupart des PR n'installent jamais nulle part, donc c'est opt-in : une PR reçoit un label `needs-snapshot` seulement quand une équipe consommatrice a réellement besoin de le tester, ce qui déclenche une action GitHub `snapshot.yml` qui publie un package temporaire tagué `@pr<numéro>`. Un `cleanup-snapshot.yml` associé retire le tag une fois la PR fermée. Les publications régulières passent par Changesets sur deux canaux, `@latest` depuis `main` et `@beta` depuis une branche de staging, et le workflow de publication fusionne automatiquement sa propre PR générée « Version Packages » une fois la CI passée.
+
+## Un monorepo qui impose sa propre direction de dépendance
+
+La bibliothèque est répartie en couches, pas un seul package plat : `tokens`, `icons`, et `styles` se trouvent à la base sans dépendances internes, `core` s'appuie dessus, `ds` s'appuie sur `core`, et `ds-patterns` s'appuie sur `ds`, `core`, et `styles`. Chaque couche ne peut dépendre que vers le bas, jamais vers le haut, si bien qu'une primitive de bas niveau ne peut pas se retrouver silencieusement dépendante d'un composant de motif de plus haut niveau. `ds-patterns` ne se limite pas non plus à des primitives génériques : il inclut de véritables widgets métier de Testlify (une `CandidateCard`, par exemple), construits sur la même couche de primitives que tout le reste. Storybook, avec l'addon d'accessibilité activé, documente chaque composant et est déployé publiquement, si bien qu'une équipe consommatrice (ou un relecteur externe) peut vérifier les états et les résultats d'a11y d'un composant sans récupérer le dépôt. Chaque composant porte aussi un fichier `.a11y.spec.ts` dédié exécutant de vraies vérifications axe-core en CI, pas seulement un addon Storybook pour inspection manuelle.
+
+## Modèle de données et échelle
+
+- 6 packages publiés (`ds`, `-core`, `-icons`, `-patterns`, `-styles`, `-tokens`), chacun versionné indépendamment.
+- 243 fichiers de spec (Vitest + Vue Test Utils) exerçant directement la bibliothèque, pas seulement les applications qui la consomment.
+- 9 workflows GitHub Actions couvrant la CI, les déploiements de prévisualisation et de production, les déploiements Storybook, les publications staging et production, les snapshots de PR, et le nettoyage des snapshots.
+- pnpm workspaces plus le cache de Turborepo, qui limite la tâche de build aux packages réellement affectés par un changement donné ; les tests s'exécutent directement via Vitest sur l'ensemble du workspace plutôt que via le graphe de tâches de Turbo.
+
+L'adoption s'est déroulée équipe par équipe, pas lors d'un jour de bascule forcé : [l'application recruteur/admin](/projects/testlify-app) tourne aujourd'hui sur les 6 packages publiés, tandis que les autres équipes produit intègrent des composants individuels selon leur propre calendrier de publication plutôt qu'une bascule coordonnée unique sur les 4 applications à la fois.
+
+## Construire vs. acheter
+
+Pas de scripts de bump de version faits à la main : Changesets gère le versionnage et les changelogs sur les 6 packages à partir d'un seul fichier changeset par PR. Pas de registre privé auto-hébergé : GitHub Packages réutilise la même authentification GitHub qui contrôle déjà l'accès au dépôt, au lieu de faire tourner et sécuriser un registre séparé comme Verdaccio.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [TypeScript](https://www.typescriptlang.org/), [Vite](https://vite.dev/), workspaces [pnpm](https://pnpm.io/) avec [Turborepo](https://turborepo.com/), [Storybook](https://storybook.js.org/) avec l'addon d'accessibilité, [Changesets](https://github.com/changesets/changesets) pour le versionnage, [Vitest](https://vitest.dev/) et [Vue Test Utils](https://test-utils.vuejs.org/), publié via [GitHub Packages](https://github.com/features/packages).
+
+</CaseStudy>

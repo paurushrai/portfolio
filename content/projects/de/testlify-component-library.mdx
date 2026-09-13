@@ -1,19 +1,52 @@
 ---
 title: "Testlify - Gemeinsame Komponentenbibliothek"
-description: "Ich habe entschieden, eine zustandslose Komponentenbibliothek zu bauen, statt die UI über vier Apps hinweg zu duplizieren, sie als privates npm-Paket ausgeliefert und die Zeit bis zur Fertigstellung von Features um rund 30 % gesenkt."
+description: "Die Initiative geleitet, eine gemeinsame Vue-Komponentenbibliothek über Testlifys 4 Anwendungen hinweg einzuführen, veröffentlicht als private Pakete, wodurch UI-Duplizierung pro App entfällt."
 date: 2026-06-01
 published: true
 company: Testlify
 ---
 
-Testlify läuft als Verbund aus vier separaten Anwendungen, und jede davon hatte dieselben Buttons, Formulare, Modals und Tabellen auf ihre eigene Weise neu gebaut. Das bedeutete dieselbe Arbeit viermal und eine UI, die zwischen den Produkten auseinanderdriftete. Ich habe für eine einzige gemeinsame Komponentenbibliothek statt der Duplizierung pro App argumentiert und sie dann gebaut und ausgeliefert.
+Testlify läuft als Verbund aus 4 separaten Webanwendungen. Zuvor entwickelte und stylte jedes Produktteam gemeinsame UI-Komponenten unabhängig voneinander, was doppelten Engineering-Aufwand und visuelle Inkonsistenzen über die Produkte hinweg verursachte. Ich habe die Idee vorgeschlagen und das Team geleitet, das eine gemeinsame Vue-3-Komponentenbibliothek gebaut hat, um die UI-Entwicklung zu standardisieren.
 
 ## Was ich gebaut habe
 
-- **Die Entscheidung:** Ich habe dafür plädiert, die UI in einer Bibliothek zusammenzuführen, statt jede App ihre eigene Kopie behalten zu lassen, und dabei den anfänglichen Aufwand gegen die Drift und die doppelte Arbeit abgewogen, die wir ohnehin schon bezahlten. Nachdem das beschlossen war, habe ich den Bau verantwortet.
-- **Zustandslos von Grund auf:** Ich habe die Komponenten zustandslos und rein darstellend gehalten, sodass sie keine app-spezifische Logik tragen und sich sauber in jedes der vier Produkte einfügen. Jede App bindet ihre eigenen Daten und ihr eigenes Verhalten an; die Bibliothek verantwortet nur, wie Dinge aussehen und sich anfühlen.
-- **Als privates npm-Paket ausgeliefert:** Ich habe sie als versioniertes privates npm-Paket veröffentlicht, sodass jede App dieselben Komponenten über eine gewöhnliche Abhängigkeit bezieht und Fixes und Verbesserungen mit einem Versionssprung übernimmt, kein Copy-and-paste, keine Forks.
+- **Architektonische Konsolidierung:** Die Initiative geleitet, gemeinsame UI-Primitive in einer zentralisierten Bibliothek zu konsolidieren, und dabei konsistente Design-Tokens und Komponenten-Contracts über Teams hinweg etabliert.
+- **Zustandsloses Komponentendesign:** Die Bibliothekskomponenten strikt zustandslos und rein darstellend gehalten, sodass sie sich sauber in jede der 4 Anwendungen integrieren lassen, während die Geschäftslogik entkoppelt bleibt.
+- **Verteilung als private Pakete:** Die Bibliothek als versionierte Pakete auf GitHub Packages veröffentlicht und gepflegt, sodass Teams Bugfixes und neue Komponenten über gewöhnliche Dependency-Updates übernehmen können, ohne Code zu duplizieren.
 
 ## Warum es wichtig war
 
-Die UI einmal zu bauen und über alle vier Apps hinweg wiederzuverwenden, senkte die Zeit bis zur Fertigstellung von Features um rund **30 %**, die Teams hörten auf, dieselben Primitive neu zu bauen, und begannen, aus einem gemeinsamen Baukasten zu komponieren. Es gab dem gesamten Verbund außerdem ein einheitliches Erscheinungsbild, da eine Änderung in der Bibliothek überall auf einmal ankommt, statt an vier Stellen von Hand nachgezogen zu werden.
+Die Zentralisierung der UI-Entwicklung in einem gemeinsamen Paket eliminierte redundanten Code über 4 Anwendungen hinweg, beschleunigte die Feature-Auslieferungszyklen und sicherte ein einheitliches Design-System über Testlifys gesamte Produktpalette.
+
+<CaseStudy summary="Die vollständige technische Fallstudie lesen →">
+
+## Geleitet, nicht allein gebaut
+
+Ich habe die Bibliothek vorgeschlagen und die Architektur vorangetrieben, aber das war kein Ein-Personen-Bau: 86 Commits von 7 Beitragenden seit Mai 2026, wobei meine eigenen Commits rund zwei Drittel der Gesamtzahl ausmachen. Ein gemeinsames Design-System über 4 Produktteams hinweg zur Adoption zu bringen, braucht mehr als das Schreiben der Komponenten; es braucht den Release-Prozess, der die Übernahme risikoarm macht, und das wurde zum eigentlich schwierigen Problem.
+
+## Eine unveröffentlichte Komponentenänderung testen, ohne bei jedem PR zu veröffentlichen
+
+Das größte Adoptionshindernis einer gemeinsamen Bibliothek ist nicht das Schreiben der Komponente, sondern die Lücke zwischen „Ich habe etwas geändert“ und „ein konsumierendes Team kann es tatsächlich ausprobieren“. Bei jedem einzelnen PR eine temporäre Version zu veröffentlichen wäre echter, wiederkehrender CI-Aufwand für ein Paket, das die meisten PRs nirgendwo installieren, also ist es opt-in: Ein PR bekommt das Label `needs-snapshot` nur, wenn ein Konsument es tatsächlich testen muss, was eine `snapshot.yml`-GitHub-Action auslöst, die ein temporäres, mit `@pr<Nummer>` getaggtes Paket veröffentlicht. Ein zugehöriges `cleanup-snapshot.yml` entfernt den Tag, sobald der PR geschlossen wird. Reguläre Releases laufen über Changesets auf zwei Kanälen, `@latest` von `main` und `@beta` von einem Staging-Branch, und der Release-Workflow merged automatisch seinen eigenen generierten „Version Packages“-PR, sobald die CI grün ist.
+
+## Ein Monorepo, das seine eigene Abhängigkeitsrichtung durchsetzt
+
+Die Bibliothek ist in Schichten aufgeteilt, nicht ein flaches Paket: `tokens`, `icons` und `styles` liegen ganz unten, ohne interne Abhängigkeiten, `core` baut darauf auf, `ds` baut auf `core` auf, und `ds-patterns` baut auf `ds`, `core` und `styles` auf. Jede Schicht darf nur nach unten abhängen, nie nach oben, sodass ein Low-Level-Primitiv nicht heimlich eine Abhängigkeit zu einer High-Level-Pattern-Komponente entwickeln kann. `ds-patterns` besteht auch nicht nur aus generischen Primitiven: es enthält echte Testlify-Domänen-Widgets (etwa eine `CandidateCard`), gebaut auf derselben Primitiv-Schicht, die alles andere auch nutzt. Storybook, mit aktiviertem Accessibility-Addon, dokumentiert jede Komponente und ist öffentlich deployed, sodass ein konsumierendes Team (oder ein externer Reviewer) die Zustände und a11y-Ergebnisse einer Komponente prüfen kann, ohne das Repo zu klonen. Jede Komponente trägt außerdem eine eigene `.a11y.spec.ts`-Datei, die echte axe-core-Checks in der CI ausführt, nicht nur ein Storybook-Addon zur manuellen Inspektion.
+
+## Datenmodell & Skalierung
+
+- 6 veröffentlichte Pakete (`ds`, `-core`, `-icons`, `-patterns`, `-styles`, `-tokens`), jedes unabhängig versioniert.
+- 243 Spec-Dateien (Vitest + Vue Test Utils), die die Bibliothek direkt prüfen, nicht nur ihre konsumierenden Apps.
+- 9 GitHub-Actions-Workflows, die CI, Preview- und Produktions-Deploys, Storybook-Deploys, Staging- und Produktions-Releases, PR-Snapshots und Snapshot-Cleanup abdecken.
+- pnpm-Workspaces plus Turborepo cachen den Build-Task und beschränken ihn auf die Pakete, die von einer Änderung tatsächlich betroffen sind; Tests laufen direkt über Vitest über den gesamten Workspace hinweg, statt über Turbos Task-Graph.
+
+Die Adoption erfolgte pro Team ausgerollt, nicht an einem erzwungenen Stichtag: [die Recruiter-/Admin-App](/projects/testlify-app) läuft heute auf allen 6 veröffentlichten Paketen, während die anderen Produktteams einzelne Komponenten nach ihrem eigenen Release-Zeitplan übernehmen, statt einer einzigen koordinierten Umstellung über alle 4 Anwendungen hinweg auf einmal.
+
+## Build vs. Buy
+
+Keine handgestrickten Version-Bump-Skripte: Changesets verwaltet Versionierung und Changelogs über alle 6 Pakete hinweg aus einer Changeset-Datei pro PR. Keine selbstgehostete private Registry: GitHub Packages nutzt dieselbe GitHub-Authentifizierung wieder, die den Repo-Zugriff bereits absichert, statt eine separate Registry wie Verdaccio zu betreiben und abzusichern.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [TypeScript](https://www.typescriptlang.org/), [Vite](https://vite.dev/), [pnpm](https://pnpm.io/)-Workspaces mit [Turborepo](https://turborepo.com/), [Storybook](https://storybook.js.org/) mit dem Accessibility-Addon, [Changesets](https://github.com/changesets/changesets) für die Versionierung, [Vitest](https://vitest.dev/) und [Vue Test Utils](https://test-utils.vuejs.org/), veröffentlicht über [GitHub Packages](https://github.com/features/packages).
+
+</CaseStudy>

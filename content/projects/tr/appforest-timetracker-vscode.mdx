@@ -1,20 +1,50 @@
 ---
 title: "AppForest Timetracker - VS Code Eklentisi"
-description: "AppForest Timesheets Jira eklentisinin VS Code eşlikçisi: editör içindeki kodlama etkinliğini takip eder ve IDE'den çıkmadan Timesheets'e zaman kaydetmeyi zahmetsiz hale getirir."
+description: "AppForest Timesheets'e eşlik eden VS Code eklentisi: editör etkinliğini izler ve Git branch bağlamından Timesheets by AppForest'a zaman kaydı işler."
 url: https://marketplace.visualstudio.com/items?itemName=AppforestTimetracker.appforest-timetracker
 date: 2025-07-01
 published: true
 company: Testlify
 ---
 
-Jira eklentimiz [Timesheets by AppForest](/projects/timesheets-appforest), Testlify'da zaman takibini tek bir yerde toplamıştı, ama geliştiricilerin yine de durup saatlerini elle kaydetmek için başka bir yere geçmesi gerekiyordu. AppForest Timetracker bu boşluğu kapatıyor. Editörün tam içinde kodlama etkinliğini takip eden ve zaman kaydını hızlı bir eyleme dönüştüren bir VS Code eklentisi; böylece mühendisler IDE'den çıkmadan Timesheets'e kayıt yapabiliyor. Fikirden Marketplace'te yayınlamaya kadar uçtan uca sahibiydim.
+Jira eklentimiz [Timesheets by AppForest](/projects/timesheets-appforest), Testlify'da zaman takibini tek bir yerde topladı, ama geliştiricilerin saatlerini elle kaydetmek için yine de durup başka bir araca geçmesi gerekiyordu. AppForest Timetracker bu boşluğu kapatıyor. Editörün tam içinde kodlama etkinliğini izleyen ve zaman kaydını hızlı bir eyleme dönüştüren bir VS Code eklentisi; böylece mühendisler IDE'den çıkmadan Timesheets'e kayıt yapabiliyor. Fikirden Visual Studio Marketplace için paketlemeye kadar uçtan uca ben sahiplendim.
 
-## Ne geliştirdim
+## Neler geliştirdim
 
-- **Eklentinin kendisi:** Resmi VS Code Extension API üzerine inşa edildi; aktif editör süresini, dosya geçişlerini ve çalışma alanı değişikliklerini sessizce takip eden arka plan süreçleriyle, hiçbir şey geliştiriciyi bölmüyor.
-- **Git farkında zaman kaydı:** Eklenti mevcut Git dalını okuyor ve bilet kimliğini ondan çıkarıyor; böylece yakaladığı süre Timesheets eklentisine kaydedildiğinde zaten doğru sorunla ilişkilendirilmiş oluyor, bilet aramak, yeniden yazmak yok.
-- **Tam yaşam döngüsü:** Yerel yapılandırma deneyimini, güvenli token depolamayı ve derlemenin Visual Studio Marketplace'e paketlenip yayınlanmasını ben üstlendim.
+- **Eklentinin çekirdeği:** Resmi VS Code Extension API üzerine inşa edildi. Belge değişikliği, kaydetme ve seçim dinleyicileri bir etkinlik zaman damgasını sıfırlıyor; bu damga, pencere odak durumunun 1 saniyelik bir yoklamasına karşı kontrol ediliyor ve geliştiriciyi rahatsız etmeden aktif süreyi boşta geçen süreden sessizce ayırt ediyor.
+- **Git farkında zaman kaydı:** Eklenti mevcut Git branch'ini okuyor ve Jira bilet kimliğini otomatik olarak çıkarıyor; böylece kaydedilen süre, elle bilet aramaya veya yeniden yazmaya gerek kalmadan doğru soruna bağlanıyor.
+- **Tam yaşam döngüsü:** Güvenli token depolamayı VS Code'un SecretStorage API'si üzerinden, paketlemeyi ve Visual Studio Marketplace'e manuel yayınlamayı ben yönettim.
 
 ## Neden önemliydi
 
-Kayıt işlemindeki manuel adımı kaldırmak, Timesheets'e akan zaman verisinin hem daha eksiksiz hem de daha doğru olması anlamına geldi, saat kaydına harcanan çabada kabaca %60-70'lik bir düşüş ve çok daha az raporlama hatası. Bu, liderliğe sprint planlaması ve faturalandırma için daha temiz veri sağladı.
+Bilet eşleştirmeyi Git branch bağlamından otomatikleştirmek, manuel zaman çizelgesi kayıt adımlarını ortadan kaldırdı, raporlama hatalarını azalttı ve liderliğe sprint planlaması ve müşteri faturalandırması için daha temiz veri sağladı.
+
+<CaseStudy summary="Tam teknik vaka analizini okuyun →">
+
+## Tek Başına, Küçük, Gerçek
+
+Tek katkıda bulunan benim, Nisan 2025'ten bu yana 32 commit. Bu, belirli bir günlük can sıkıcı sorunu çözmek için geliştirilmiş küçük, kişisel ölçekli bir dahili araç, büyük bir ürün değil.
+
+## Kaydedilen Zaman Aslında Nereye Gidiyor
+
+Eklenti, Jira'nın REST API'sini doğrudan çağırmıyor. Bunun yerine Timesheets by AppForest'ın kendi arka ucuna gönderiyor; bu, [Forge uygulamasının](/projects/timesheets-appforest) manifestosunda tanımladığı aynı uzak servis, o da Jira'ya bakan tarafı kendisi hallediyor. İki proje, Jira'yla bağımsız olarak değil, birbiriyle konuşacak şekilde inşa edildi; Forge uygulamasının resolver'larının, VS Code kaynaklı öneriler kaydedildikten sonra onları temizlemeye özel fonksiyonlar içermesinin nedeni de bu.
+
+## Etkinlik ve Bilet Tespiti Aslında Nasıl Çalışıyor
+
+Git branch tespiti, bir git kütüphanesi eklemek yerine doğrudan `git rev-parse --abbrev-ref HEAD` komutunu çalıştırıyor; tek bir değeri okumak için bir bağımlılığın tüm API yüzeyini üstlenmek yerine makul bir tercih. Branch adı, herhangi bir şey senkronize olmadan önce `/^[A-Z]+-\d+$/` ifadesine karşı doğrulanıyor; böylece bir bilete uymayan bir özellik branch'i (`ABC-123` gibi olmayan biri) yanlış soruna kaydedilmek veya hata vermek yerine sessizce atlanıyor. Etkinlik takibi dosya değişimi başına ayrıntı düzeyinde değil; belge değişikliği ve kaydetme dinleyicileriyle birlikte pencere odak durumunun 1 saniyelik bir yoklaması, 10 saniyelik bir boşta kalma eşiği ve bir oturumun duraklatılmış sayılmasından önce 60 saniyelik bir tolerans süresi var. İlerleme her saniye VS Code'un `globalState`'ine kalıcı hale getiriliyor ve yeniden başlatmada geri yükleniyor; kendi kendini onaran bir kontrolle: geri yüklemede son senkronize edilen sayı bir şekilde takip edilen sayının önündeyse (bu, bir senkronizasyonun yazma sırasında kesintiye uğradığının işareti), sayı daha fazla kaymak yerine geri hizaya çekiliyor.
+
+Kimlik doğrulama, ayarlar tabanlı değil komut güdümlü: özel komutlar (`authenticateToken`, `deleteToken`, `updateToken`, `syncNow`, `resetTime`) token yaşam döngüsünü giriş istemleri üzerinden yönetiyor; zaten bir ayarlar arayüzü olmamasının nedeni de bu, eksik bir özellik değil, bilinçli bir tercih.
+
+## Veri Modeli ve Ölçek
+
+Burada hiçbir şeyin tek bir geliştiricinin kendi editör oturumunun ötesine ölçeklenmesi gerekmiyor: bir durum çubuğu göstergesi (bilet süresi ve günlük toplam), bir boşta/aktif durum makinesi, gece yarısı çalışan bir günlük sıfırlama işi. Bu ölçekte daha ağır bir veri modeli için bir gerekçe yok, ve bir tane inşa etmek bu aracın sahip olmadığı bir sorunu çözmek olurdu.
+
+## Yapmak mı, Satın Almak mı
+
+simple-git veya isomorphic-git gibi bir kütüphane yerine `git` ikili dosyasını doğrudan çalıştırmak: tek bir değeri (mevcut branch'i) okumak, tam Git işlemleri için inşa edilmiş bir bağımlılığı haklı çıkarmıyor. Özel, şifrelenmiş bir dosya token deposu yerine VS Code'un kendi SecretStorage API'si: platform, tam da bu durum için güvenli kimlik bilgisi depolamayı zaten çözmüş durumda.
+
+## Stack
+
+[VS Code Extension API](https://code.visualstudio.com/api), [TypeScript](https://www.typescriptlang.org/), Git erişimi için Node'un yerleşik `child_process` modülü, token depolama için VS Code'un [SecretStorage](https://code.visualstudio.com/api/references/vscode-api#SecretStorage) API'si, [Visual Studio Marketplace](https://marketplace.visualstudio.com/vscode)'te yayınlandı.
+
+</CaseStudy>

@@ -1,19 +1,52 @@
 ---
 title: "Testlify - Ortak Bileşen Kütüphanesi"
-description: "UI'ı dört uygulamada tekrar tekrar yazmak yerine tek bir durumsuz bileşen kütüphanesi kurma kararını verdim, onu özel bir npm paketi olarak yayınladım ve özellik teslim süresini yaklaşık %30 azalttım."
+description: "Testlify'ın 4 uygulaması genelinde ortak bir Vue bileşen kütüphanesi getirme girişimine liderlik ettim; özel paketler olarak yayınlandı, uygulama başına UI tekrarını ortadan kaldırdı."
 date: 2026-06-01
 published: true
 company: Testlify
 ---
 
-Testlify, dört ayrı uygulamadan oluşan bir paket olarak çalışıyor ve her biri aynı butonları, formları, modalları ve tabloları kendi tarzında yeniden yazıyordu. Bu, aynı işin dört kez yapılması ve ürünler arasında birbiriyle uyumsuz hale gelen bir UI anlamına geliyordu. Her uygulamada tekrara düşmek yerine tek bir ortak bileşen kütüphanesi olması gerektiğini savundum, sonra da onu kurup yayınladım.
+Testlify, 4 ayrı web uygulamasından oluşan bir paket olarak çalışıyor. Daha önce, her ürün ekibi ortak UI bileşenlerini bağımsız olarak geliştirip stilliyordu; bu da tekrarlayan mühendislik emeğine ve ürünler arasında görsel tutarsızlıklara yol açıyordu. UI geliştirmeyi standartlaştırmak için ortak bir Vue 3 bileşen kütüphanesi inşa eden fikri önerdim ve ekibe liderlik ettim.
 
-## Ne yaptım
+## Neler geliştirdim
 
-- **Karar:** Her uygulamanın kendi kopyasını tutmasına izin vermek yerine UI'ı tek bir kütüphanede birleştirmeyi savundum, ön maliyeti, halihazırda ödediğimiz uyumsuzluk ve tekrarlanan emeğe karşı tarttım. Üzerinde anlaşıldıktan sonra kurulumunu ben üstlendim.
-- **Tasarım gereği durumsuz:** Bileşenleri durumsuz ve sunum odaklı tuttum; böylece uygulamaya özel hiçbir mantık taşımıyorlar ve dört ürünün herhangi birine sorunsuzca yerleşiyorlar. Her uygulama kendi verisini ve davranışını bağlıyor; kütüphane yalnızca şeylerin nasıl göründüğünü ve hissettirdiğini üstleniyor.
-- **Özel npm paketi olarak yayınlandı:** Onu sürümlenmiş özel bir npm paketi olarak yayınladım; böylece her uygulama aynı bileşenleri normal bir bağımlılık üzerinden çekiyor ve düzeltmeleri ile iyileştirmeleri bir sürüm yükseltmesiyle alıyor, kopyala-yapıştır yok, çatallanma yok.
+- **Mimari konsolidasyon:** Ortak UI ilkellerini merkezi bir kütüphanede birleştirme girişimine liderlik ettim; ekipler arasında tutarlı tasarım token'ları ve bileşen sözleşmeleri oluşturdum.
+- **Durumsuz bileşen tasarımı:** Kütüphane bileşenlerini kesinlikle durumsuz ve sunum odaklı tuttum; bu, iş mantığını ayrık tutarken 4 uygulamanın herhangi birine temiz biçimde entegre olmalarını sağladı.
+- **Özel paket dağıtımı:** Kütüphaneyi GitHub Packages üzerinde sürümlenmiş paketler olarak yayınladım ve bakımını yaptım; ekiplerin hata düzeltmelerini ve yeni bileşenleri kod tekrarı olmadan standart bağımlılık güncellemeleri yoluyla benimsemesini sağladı.
 
 ## Neden önemliydi
 
-UI'ı bir kez kurup dört uygulamanın tamamında yeniden kullanmak, özellik teslim süresini yaklaşık **%30** azalttı, ekipler aynı temel parçaları tekrar tekrar yazmayı bıraktı ve ortak bir setten birleştirmeye başladı. Ayrıca tüm pakete tutarlı bir görünüm kazandırdı; çünkü kütüphanedeki bir değişiklik dört yerde elle yeniden uygulanmak yerine tek seferde her yere iniyor.
+UI geliştirmeyi ortak bir pakette merkezileştirmek, 4 uygulama genelinde gereksiz kodu ortadan kaldırdı, özellik teslim döngülerini hızlandırdı ve Testlify'ın tüm ürün paketinde tutarlı bir tasarım sistemi sağladı.
+
+<CaseStudy summary="Tam teknik vaka analizini okuyun →">
+
+## Liderlik Ettim, Tek Başına Değil
+
+Kütüphaneyi önerdim ve mimariyi yönlendirdim, ama bu tek kişilik bir inşa değildi: Mayıs 2026'dan bu yana 7 katkıda bulunandan 86 commit, kendi commit'lerim toplamın kabaca üçte ikisini oluşturuyor. Ortak bir tasarım sisteminin 4 ürün ekibi genelinde benimsenmesini sağlamak, bileşenleri yazmaktan daha fazlasını gerektiriyor; asıl zor sorun haline gelen şey, onları benimsemeyi düşük riskli hale getiren yayın sürecine ihtiyaç duyulması.
+
+## Her PR'da Yayınlamadan Yayınlanmamış Bir Bileşen Değişikliğini Test Etmek
+
+Ortak bir kütüphanenin en büyük benimseme engeli bileşeni yazmak değil, "bir şeyi değiştirdim" ile "tüketen bir ekip bunu gerçekten deneyebilir" arasındaki boşluk. Her tek PR'da geçici bir sürüm yayınlamak, çoğu PR'ın hiçbir yere kurulmadığı bir paket için gerçek, tekrar eden bir CI maliyeti olurdu, bu yüzden opt-in: bir PR, yalnızca bir tüketici bunu gerçekten test etmesi gerektiğinde bir `needs-snapshot` etiketi alıyor; bu da geçici bir `@pr<numara>` etiketli paket yayınlayan bir `snapshot.yml` GitHub Action'ını tetikliyor. Eşleştirilmiş bir `cleanup-snapshot.yml`, PR kapandığında etiketi kaldırıyor. Düzenli yayınlar, Changesets üzerinden iki kanaldan geçiyor, `main`'den `@latest` ve bir staging branch'inden `@beta`; ve yayın iş akışı, CI geçtikten sonra kendi ürettiği "Version Packages" PR'ını otomatik olarak birleştiriyor.
+
+## Kendi Bağımlılık Yönünü Zorunlu Kılan Bir Monorepo
+
+Kütüphane, tek bir düz paket değil, katmanlara ayrılmış: `tokens`, `icons` ve `styles` sıfır dahili bağımlılıkla en altta duruyor, `core` bunların üzerine inşa ediliyor, `ds` `core`'un üzerine inşa ediliyor, ve `ds-patterns` `ds`, `core` ve `styles`'ın üzerine inşa ediliyor. Her katman yalnızca aşağıya bağımlı olabilir, hiçbir zaman yukarıya değil; böylece düşük seviyeli bir ilkel, daha yüksek seviyeli bir desen bileşenine sessizce bir bağımlılık kazanamıyor. `ds-patterns` de sadece genel ilkeller değil: gerçek Testlify alan widget'larını içeriyor (örneğin bir `CandidateCard`), diğer her şeyin kullandığı aynı ilkel katman üzerine inşa edilmiş. Erişilebilirlik eklentisi etkinleştirilmiş Storybook, her bileşeni belgeliyor ve herkese açık olarak dağıtılıyor; böylece bir tüketici ekip (veya dışarıdan bir gözden geçiren), depoyu çekmeden bir bileşenin durumlarını ve a11y sonuçlarını kontrol edebiliyor. Her bileşen ayrıca, manuel inceleme için bir Storybook eklentisi değil, CI'da gerçek axe-core kontrolleri çalıştıran özel bir `.a11y.spec.ts` dosyası taşıyor.
+
+## Veri Modeli ve Ölçek
+
+- 6 yayınlanmış paket (`ds`, `-core`, `-icons`, `-patterns`, `-styles`, `-tokens`), her biri bağımsız olarak sürümleniyor.
+- Kütüphaneyi, sadece onu tüketen uygulamaları değil, doğrudan test eden 243 spec dosyası (Vitest + Vue Test Utils).
+- CI'yi, önizleme ve üretim dağıtımlarını, Storybook dağıtımlarını, staging ve üretim yayınlarını, PR snapshot'larını ve snapshot temizliğini kapsayan 9 GitHub Actions iş akışı.
+- pnpm workspaces artı Turborepo, derleme görevini önbelleğe alıyor ve belirli bir değişiklikten gerçekten etkilenen paketlerle sınırlıyor; testler ise Turbo'nun görev grafiği yerine tüm çalışma alanı boyunca doğrudan Vitest üzerinden çalışıyor.
+
+Benimseme, zorunlu bir geçiş günü yerine ekip başına devreye alındı: [işe alım uzmanı/yönetici uygulaması](/projects/testlify-app) bugün 6 yayınlanmış paketin tamamı üzerinde çalışıyor, diğer ürün ekipleri ise 4 uygulamanın tamamında tek, koordine bir geçiş yerine tek tek bileşenleri kendi yayın takvimlerine çekiyor.
+
+## Yapmak mı, Satın Almak mı
+
+El yapımı sürüm yükseltme betikleri yok: Changesets, PR başına bir changeset dosyasından 6 paketin tamamında sürümlemeyi ve değişiklik günlüklerini yönetiyor. Kendi barındırılan özel bir registry yok: GitHub Packages, Verdaccio gibi ayrı bir registry çalıştırıp güvenliğini sağlamak yerine, depo erişimini zaten denetleyen aynı GitHub kimlik doğrulamasını yeniden kullanıyor.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [TypeScript](https://www.typescriptlang.org/), [Vite](https://vite.dev/), [Turborepo](https://turborepo.com/) ile [pnpm](https://pnpm.io/) workspaces, erişilebilirlik eklentisiyle [Storybook](https://storybook.js.org/), sürümleme için [Changesets](https://github.com/changesets/changesets), [Vitest](https://vitest.dev/) ve [Vue Test Utils](https://test-utils.vuejs.org/), [GitHub Packages](https://github.com/features/packages) üzerinden yayınlandı.
+
+</CaseStudy>

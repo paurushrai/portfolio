@@ -1,20 +1,47 @@
 ---
-title: "FuelBuddy Dubai - B2B 고객용 웹 포털"
-description: "FuelBuddy의 UAE 출시를 위한 새 B2B 웹 포털을 맨바닥부터 만드는 일을 도왔다: 대량 주문 워크플로, 플릿 매니저 대시보드, 그리고 Hasura GraphQL 위의 그 뒤 CRUD API까지."
+title: "FuelBuddy 두바이 - B2B 고객 웹 포털"
+description: "FuelBuddy의 UAE 출시를 위해 처음부터 B2B 웹 포털을 구축했다: Stripe 결제, OTP 기반 온보딩, 설치 가능한 PWA 지원, Hasura GraphQL 위의 CRUD API."
 url: https://app.fuelbuddy.ae/
 date: 2024-07-01
 published: true
 company: FuelBuddy
 ---
 
-FuelBuddy의 UAE B2B 시장 진출에는 전용 웹 앱이 필요했다, 그곳의 기업 고객은 소비자 모바일 사용자와 다르게 움직여서, 일회성 구매가 아니라 대량 주문과 플릿 관리를 한다. 나는 이 포털을 빈 저장소부터 만드는 일을 도왔다, 프론트엔드와 그 뒤의 CRUD API까지.
+FuelBuddy의 UAE B2B 시장 진출에는 전용 웹 포털이 필요했다. 기업 고객들은 일반 소비자용 흐름이 아니라 차량 관리, 대량 주문, 다중 지점 배송 일정 관리가 필요했다. 나는 이 포털을 초기 저장소 생성부터 프로덕션까지 구축했으며, 프론트엔드 아키텍처와 백엔드 데이터 API를 모두 담당했다.
 
 ## 내가 만든 것
 
-- **기반:** 프론트엔드를 맨바닥부터 세웠다, 컴포넌트 구조, 라우팅, 공유 스타일링 시스템, 그래서 앱이 성장할 수 있는 탄탄한 토대를 갖췄다.
-- **B2B 워크플로:** 기업 고객이 실제로 쓰는 화면을 만들었다, 여러 단계의 주문 폼, 대량 주문 흐름, 그리고 플릿 매니저가 의존하는 밀도 높은 대시보드.
-- **기능 오너십:** 기능을 처음부터 끝까지 다뤘다, Hasura의 GraphQL 엔진 위에 CRUD API를 만들고, 디자인과 비즈니스 규칙을 거기에 연결한 뒤, 전체를 프로덕션에 올렸다.
+- **프론트엔드 아키텍처:** 컴포넌트 아키텍처, 클라이언트 사이드 라우팅, 기업용 워크플로우를 위한 일관된 디자인 시스템을 포함해 애플리케이션을 처음부터 구축했다.
+- **B2B 워크플로우:** 다단계 주문 양식, 대량 연료 일정 관리 흐름, 주문 및 지갑 내역을 위한 차트와 테이블 뷰가 있는 데이터 집약적 차량 대시보드를 구축했다.
+- **결제 및 온보딩:** 지갑 충전과 주문 결제를 위한 Stripe, 기업 계정 등록을 위한 전화번호 기반 OTP를 통합했다.
+- **엔드투엔드 기능:** Hasura GraphQL 엔진 위에 CRUD API를 구축하고 이를 UI 상태에 연결했으며, 앱을 설치 가능한 PWA로 배포하고 프로덕션까지 비즈니스 검증 규칙을 처리했다.
 
-## 왜 중요했나
+## 왜 중요했는가
 
-이 포털을 출시하면서 FuelBuddy는 두바이의 기업 고객을 위한 제대로 된 웹 존재감을 갖게 됐고, 대규모 B2B 연료 주문을 더 쉽게 넣을 수 있게 됐다. 이는 회사의 지역 진출을 뒷받침했다.
+이 포털을 출시함으로써 FuelBuddy는 두바이 기업 고객을 위한 전용 웹 플랫폼을 갖추게 되었고, 대량 연료 주문을 간소화하며 회사의 지역 사업 확장을 지원했다.
+
+<CaseStudy summary="전체 기술 케이스 스터디 읽기 →">
+
+## 실제로 출시된 것
+
+대량 주문과 대량 교대 일정 관리는 자리만 차지하는 양식이 아니라 Hasura를 상대로 한 실제 작동하는 뮤테이션이며, 이전 레거시 버전을 대체한 대시보드와 함께 제공된다(둘 다 코드베이스에 여전히 존재하고, 새 버전이 라이브 상태다). 인증은 토큰에서 직접 읽어온 Hasura 자체 JWT 클레임(`x-hasura-default-role`)을 통해 이루어지며, 나중에 덧붙인 별도의 권한 계층이 아니다.
+
+## CRUD를 넘어선 결제와 온보딩
+
+지갑 충전과 직접 주문 결제는 모두 Stripe(`@stripe/stripe-js`, `vue-stripe-js`)를 통해 처리되며, 단독 주문과 지갑 거래를 위한 전용 결제 경로가 있다. 등록은 일반 이메일/비밀번호 양식이 아니라 전화번호 기반 OTP 검증(`vue3-otp-input`, 국제 전화번호 형식을 처리하는 `vue-tel-input`)을 거치는데, 이는 가벼운 가입이 아니라 기업 차량 계정을 위해 만들어진 포털에 걸맞다.
+
+## 반응형을 넘어선 설치 가능성
+
+이 포털은 `vite-plugin-pwa`와 Workbox를 통해 설치 가능한 프로그레시브 웹 앱으로 배포되며, `autoUpdate` 서비스 워커 등록이 있어서 차량 관리자가 이를 홈 화면에 추가하고 수동 재설치 없이 새 배포를 받을 수 있다.
+
+## 데이터 모델과 규모
+
+- 생성된 GraphQL SDK(스키마 코드젠으로부터)는 31,000줄이 넘으며, 몇 개의 임시 쿼리가 아니라 진짜로 방대한 타입이 지정된 API 표면이다.
+- 데이터 페칭은 Apollo나 urql 클라이언트를 거치지 않고 `graphql-request`를 통해 직접 Hasura로 간다.
+- 차량 대시보드는 `vue3-easy-data-table`과 `vue-chart-3`(Chart.js)를 통해 렌더링되며, 몇 개의 요약 카드가 아니라 실제 행 수를 가진 테이블과 차트를 위해 만들어졌다.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [Vite](https://vite.dev/), 상태 관리를 위한 [Pinia](https://pinia.vuejs.org/), GraphQL Code Generator와 함께 [Hasura](https://hasura.io/)를 상대하는 [graphql-request](https://github.com/jasonkuhrt/graphql-request), 결제를 위한 [Stripe](https://stripe.com/), 인증을 위한 [Firebase](https://firebase.google.com/), 대시보드를 위한 [Chart.js](https://www.chartjs.org/), 오프라인/설치 지원을 위한 Workbox와 함께하는 [vite-plugin-pwa](https://vite-pwa-org.netlify.app/), 테스트를 위한 [Playwright](https://playwright.dev/).
+
+</CaseStudy>

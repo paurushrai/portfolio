@@ -1,20 +1,49 @@
 ---
-title: "FuelBuddy India - カスタマーアプリ（React Native への移行）"
-description: "iOS 上で Web アプリが実用に耐えなくなったことを受け、FuelBuddy のカスタマーアプリを PWA から React Native へ移行する作業を支援。スタック全体にまたがって作業し、機能のリリースを止めないようにした。"
+title: "FuelBuddy India - カスタマーアプリ(React Native への移行)"
+description: "FuelBuddyのカスタマーアプリをPWAからReact Nativeへ移行し、8週間で14のユーザーフロー全体にわたって100%の機能パリティを達成した。"
 url: https://play.google.com/store/apps/details?id=in.fuelbuddy.app
 date: 2023-12-01
 published: true
 company: FuelBuddy
 ---
 
-FuelBuddy のカスタマーアプリは Progressive Web App として始まりました。Android では動作しましたが、iPhone では壁にぶつかりました。Apple は Web アプリを自社の WebKit エンジン上でしか動かせないようにしており、扱いも二流です。ホーム画面へのインストールが不安定、ストレージが限られ、信頼できるプッシュ通知もなく、しまいにはホーム画面の Web アプリを iOS から完全に削除する方向へ動きました。FuelBuddy にとってこれは、PWA では事実上 iPhone ユーザーに対応できず、彼らに届く信頼できる手段はネイティブアプリしかないことを意味しました。私は、アプリを React Native で書き直したエンジニアリングチームの一員でした。
+FuelBuddyのカスタマーアプリはProgressive Web Appとして始まりました。Androidではうまく動作しましたが、iOSではプラットフォームの制約に直面しました。WebKitエンジンの制約、ホーム画面への追加が不安定なこと、限られたストレージ、そしてプッシュ通知機能の欠如です。FuelBuddyにとってこれは、PWAではiOSユーザーに対して信頼できるサービスを提供できず、安定したモバイル体験を提供するにはネイティブアプリが必要であることを意味しました。私は、アプリをReact Nativeで書き直したエンジニアリングチームの一員でした。
 
 ## 取り組んだこと
 
-- **PWA から React Native へ:** アプリをコンパイル済みの React Native アプリケーションとして書き直しました。モバイル UI に注力し、ラップされた Web ページのようではなく iOS と Android の両方でネイティブに感じられるようにしました。
-- **スタック全体をまたいだ作業:** 主な担当はモバイルフロントエンドでしたが、ある機能に新しいデータエンドポイントが必要になったときは、Hasura の GraphQL エンジン上で CRUD API を自分で作りました。そうすることで、別チーム待ちで作業が止まることがありませんでした。
-- **チームでのリリース:** 他の開発者やプロダクトオーナーと密に連携し、要件を完成した機能に落とし込み、リリースを止めずに進めました。
+- **PWAからReact Nativeへ:** アプリをコンパイル済みのReact Nativeアプリケーションとして書き直し、8週間で14のユーザーフロー全体にわたって100%の機能パリティを達成し、iOSとAndroidの両方で一貫したネイティブの操作感を確保しました。
+- **スタック全体をまたいだ作業:** モバイルフロントエンドに注力しつつ、Hasura GraphQLエンジン上で必要なCRUD APIを直接構築し、機能開発がバックエンドの依存関係でブロックされないようにしました。
+- **チームでのリリース:** フロントエンドエンジニアやプロダクトマネージャーと密に連携し、要件をテスト済みの機能へと落とし込み、本番リリースのサイクルを予定通りに保ちました。
 
 ## なぜ意味があったか
 
-ネイティブ化により、FuelBuddy は頼れないプラットフォームから抜け出し、iPhone と Android の両方の顧客に対して単一で一貫したアプリを提供できるようになりました。スタック全体に手を広げたことは、チームがリリースのペースを維持する助けになりました。
+React Nativeへの移行により、iOSとAndroidの両方にまたがる信頼できる単一のコードベースが確立されました。8週間で14のユーザーフローを完全なパリティで出荷したことで、FuelBuddyはプラットフォームごとに別々の実装を保守することなく、モバイルユーザー基盤全体にサービスを提供できるようになりました。
+
+<CaseStudy summary="詳しい技術ケーススタディを読む →">
+
+## チームとオーナーシップ
+
+私はこの書き直しに携わったエンジニアの一人で、フロントエンドエンジニアやプロダクトマネージャーと共に、チームが移行に設定した8週間という期間内に14のフローすべてで完全なパリティを達成しました。
+
+## GraphQL層
+
+CRUD APIはHasura上で動作し、Apolloではなく`urql`を通じて消費されます。GraphQL Codegenが型付けされた操作を生成し、73個の独立した`.graphql`ファイルがアプリの実際の範囲をカバーしています。ローカルの状態管理はZustandを通じて行われ、その裏側には高速なキーバリューストアであるMMKVがあり、境界部分でのデータ検証はZodが担っています。
+
+## CRUDだけでなく位置情報と決済も
+
+配送追跡は、単なる地図上のマーカーではなく、`react-native-maps`、専用のジオロケーションサービス、そして実際の地理空間計算(距離、範囲、経路計算)のためのTurf.jsを取り込んでいます。決済は2つの独立したゲートウェイを通じて動作します。ひとつはEasebuzzで、レジストリの依存関係ではなくベンダリングされたローカルパッケージとして統合されています。もうひとつはAxis Bankで、そのAPIはすべてのリクエストにAES-256-CBC(PBKDF2由来の鍵)とHMAC-SHA512による署名を要求します。これはJSの暗号ライブラリではなく、手書きのネイティブAndroidモジュール(`NdpsAESLibrary`、`NativeModules`を介してJSにブリッジ)で実装されています。決済ゲートウェイの署名要件は、RN層が汎用的に満たせる類のものではないためです。認証と分析の両方はFirebaseがカバーしています。
+
+## テーブルだけでなくレポートも
+
+レポートフローは、配送データとビジネスデータをVictory Nativeを通じてグラフとして描画し、同じデータをCSVにエクスポートします。`json2csv`でエンコードし、Android 10以降でアプリがファイルシステムへの直接アクセスを失って以来必須となったAndroidのScoped Storage API(`react-native-scoped-storage`)を通じてディスクに書き込み、ネイティブの共有シートを通じて受け渡します。
+
+## データモデルと規模
+
+- 13〜14個の独立したフローコンテナ(住所、資産、ビジネス、配送、ホーム、位置情報、注文、集荷、レポート、設定、サポート、ユーザー、ウォレット)がアプリのナビゲーションを構成しており、「14のユーザーフロー」という数字と一致します。
+- 銀行レベルのリクエスト署名は専用のネイティブAndroidモジュールが担い、それ以外はすべてReact Nativeのブリッジの上でJS/TypeScriptのままです。
+
+## Stack
+
+[React Native](https://reactnative.dev/)、[GraphQL Code Generator](https://the-guild.dev/graphql/codegen)を伴う[urql](https://commerce.nearform.com/open-source/urql/)、状態管理に[Zustand](https://zustand.docs.pmnd.rs/)、ストレージに[MMKV](https://github.com/mrousavy/react-native-mmkv)、検証に[Zod](https://zod.dev/)、[react-native-maps](https://github.com/react-native-maps/react-native-maps)、地理空間計算に[Turf.js](https://turfjs.org/)、決済にEasebuzzとAxis Bank(後者はカスタムのネイティブAES/HMAC署名モジュールの裏側で動作)、レポーティングのグラフに[Victory Native](https://formidable.com/open-source/victory/docs/native/)、認証と分析に[Firebase](https://firebase.google.com/)、そして[Hasura](https://hasura.io/) GraphQL上に構築。
+
+</CaseStudy>

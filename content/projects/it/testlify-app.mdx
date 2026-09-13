@@ -1,20 +1,41 @@
 ---
-title: "Testlify App - Piattaforma di Valutazione Basata sull'AI"
-description: "Ho costruito il frontend dei flussi di colloquio AI di Testlify: chat, voce e video: gestendo la cattura dei media in tempo reale e la logica di stato dietro i colloqui AI in tempo reale."
+title: "Testlify - Redazione di Domande AI Voce e Video"
+description: "Costruita l'interfaccia rivolta ai recruiter per la redazione di domande d'intervista AI vocali, video e in chat all'interno del test builder di Testlify, inclusa la configurazione dei prompt AI, il punteggio delle competenze e la selezione della voce TTS."
 url: https://app.testlify.com/
 date: 2025-02-01
 published: true
 company: Testlify
 ---
 
-[Testlify](https://testlify.com/) è una piattaforma di valutazione delle competenze e di colloqui basata sull'AI, usata dalle aziende per valutare i candidati. Mi sono occupato del frontend dei moduli di colloquio AI di Testlify, le interfacce interattive e in tempo reale che usano i candidati, lavorando a stretto contatto con i team AI e backend per definire come dovesse comportarsi ogni modalità prima di costruirla.
+[Testlify](https://testlify.com/) è una piattaforma di assessment delle competenze e colloqui. All'interno del suo test builder rivolto ai recruiter, ho costruito l'interfaccia per la redazione di tre tipologie di domande basate su AI, voce, video e simulazione in chat, che i recruiter usano per configurare gli assessment automatizzati dei candidati: limiti di tempo di registrazione, configurazione dei prompt AI, punteggio delle competenze e selezione della voce text-to-speech.
 
-## Cosa ho realizzato
+## Cosa ho costruito
 
-- **Interfacce di colloquio AI (chat, voce, video):** Ho costruito il frontend dei colloqui AI multimodali, le schermate dove i candidati interagiscono con un'AI tramite chat testuale, microfono in tempo reale e video.
-- **Cattura dei media:** Ho gestito le API del browser per audio e video in tempo reale, permessi di fotocamera e microfono, visualizzazioni audio dal vivo così che i candidati vedano di essere ascoltati, e ottimizzazioni lato client per mantenere il botta e risposta con l'AI dal sapore conversazionale.
-- **Gestione dello stato del colloquio:** Ho costruito la logica di stato del frontend per far fronte alle parti imprevedibili di un colloquio AI dal vivo, cadute di rete, attesa che l'AI generi la domanda successiva e avanzamento tra le fasi della valutazione senza mai bloccare il candidato.
+- **Redazione di domande AI vocali:** costruzione dell'interfaccia per configurare le domande d'intervista AI basate su voce nel test builder, i limiti di registrazione, la configurazione dei prompt AI e il punteggio delle competenze.
+- **Integrazione nel question builder:** integrazione delle tipologie di domande voce, video e simulazione in chat nel flusso del builder di assessment del recruiter.
+- **Styling e strumenti:** contributo allo styling dei componenti per l'interfaccia delle domande voce/chat, insieme alla configurazione degli strumenti del repository (ESLint, Husky, Renovate, configurazione Tailwind).
 
 ## Perché è stato importante
 
-Un frontend curato ha reso questi colloqui AI usabili su larga scala e ha ridotto lo sforzo manuale che gli intervistatori dovevano mettere, nell'ordine di un 40% in meno di lavoro amministrativo per valutazione. I moduli di colloquio AI hanno fatto parte della crescita della piattaforma in questo periodo, contribuendo a un incremento significativo dei ricavi.
+Le domande AI voce, video e chat sono il modo in cui i recruiter configurano gli assessment d'intervista automatizzati di Testlify. Questo lavoro ha reso queste tipologie di domande configurabili e coerenti all'interno dello stesso design system condiviso usato in tutta la suite di prodotti Testlify.
+
+<CaseStudy summary="Leggi il caso di studio tecnico completo →">
+
+## Un piccolo contributo, dentro un codebase enorme
+
+Questo repository è la dashboard recruiter/admin di Testlify: 16.216 commit, decine di contributori, attiva da settembre 2021. I miei commit sono 86 di questi, circa mezzo punto percentuale, in circa un anno e mezzo. La maggior parte di quel conteggio risiede in un submodule Git `component-library`, lo stesso design system Vue condiviso già trattato come [caso di studio a sé](/projects/testlify-component-library); al di fuori di quel submodule, il lavoro reale è un insieme mirato di file: il modale delle domande vocali, la vista delle domande d'intervista che collega le tipologie di domande al builder, e lo styling e gli strumenti attorno a essi.
+
+## Cosa significa davvero "intervista AI multi-modale" qui
+
+Questa app è il lato recruiter del prodotto: dove un recruiter configura cosa chiede effettivamente una domanda guidata da AI, non dove un candidato risponde dal vivo. Voce, video e simulazione in chat sono *tipologie* di domande che un recruiter configura nel test builder, ognuna con il proprio limite di tempo di registrazione, il proprio prompt AI, la propria rubrica di punteggio delle competenze e (per la voce) la scelta di una voce text-to-speech. L'esperienza d'intervista rivolta al candidato, che porta dal vivo quelle domande configurate, gira in un'applicazione separata altrove nello stack di Testlify.
+
+## Modello dati e scala
+
+- 16.216 commit in oltre 4 anni, con un contributore principale responsabile da solo di oltre 1.800 di essi, un codebase di team genuinamente ampio e di lunga durata, non un piccolo progetto.
+- La libreria di componenti condivisa viene consumata come submodule Git invece che copiata o forkata, mantenendo questa app sullo stesso design system versionato degli altri tre prodotti di Testlify.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [TypeScript](https://www.typescriptlang.org/), [Vuex](https://vuex.vuejs.org/) per lo stato, [Vite](https://vite.dev/), la [libreria di componenti Testlify](/projects/testlify-component-library) condivisa come submodule Git, [ESLint](https://eslint.org/), [Husky](https://typicode.github.io/husky/), [Renovate](https://docs.renovatebot.com/) per gli aggiornamenti delle dipendenze, [Tailwind CSS](https://tailwindcss.com/).
+
+</CaseStudy>

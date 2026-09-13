@@ -1,25 +1,67 @@
 ---
-title: "MonoStart: Extension Chrome de Nouvel Onglet Personnalisable"
-description: "Une extension Chrome axée sur la confidentialité qui transforme chaque nouvel onglet en tableau de bord personnel: liens, notes, tâches, minuteurs et rappels, avec vos propres thèmes et fonds d'écran, le tout stocké sur votre appareil."
+title: "MonoStart - Extension Chrome de Nouvel Onglet Personnalisable"
+description: "Une extension Chrome axée sur la confidentialité qui transforme chaque nouvel onglet en tableau de bord personnel avec liens, minuteurs et rappels, stockés entièrement sur votre appareil."
 url: https://chromewebstore.google.com/detail/hhfeihcppmfepeeainafmaifpmdemmlg
-repository: paurushrai/monostart-chrome-extension
+repository: paurushrai/monostart-extension
 date: 2026-06-01
 published: true
-company: Projet personnel
+company: Personal Project
+coverImage: /projects/monostart-chrome-extension/cover.png
 ---
 
-Vous ouvrez un nouvel onglet des dizaines de fois par jour et tombez sur un écran vide. MonoStart le remplace par un tableau de bord que vous configurez vous-même, vos liens, tâches, notes et rappels, disposés comme vous le voulez. Je l'ai construit comme une extension Chrome Manifest V3 qui tourne entièrement sur votre appareil.
+MonoStart transforme la page de nouvel onglet par défaut du navigateur en un tableau de bord personnel rapide et personnalisable. Elle organise favoris, listes de tâches, notes rapides, et minuteurs de concentration dans un espace de travail configurable. Construite comme une extension Chrome Manifest V3, elle stocke tout localement sur l'appareil : aucun compte, aucune base de données serveur, aucune analytique.
 
-![MonoStart: Extension Chrome de Nouvel Onglet Personnalisable](/projects/monostart-chrome-extension/cover.png)
+![MonoStart - Extension Chrome de Nouvel Onglet Personnalisable](/projects/monostart-chrome-extension/cover.png)
 
 ## Ce que j'ai construit
 
-- **Un tableau de bord que vous agencez :** Une grille en glisser-déposer où chaque widget, liens, dossiers groupés, notes, tâches, minuteurs, rappels, images, intégrations et recherche, peut être placé et redimensionné selon votre façon de travailler.
-- **Tout à portée de regard :** Des liens et dossiers rapides plutôt que de fouiller dans les favoris ; des notes, tâches et rappels sur la page que vous ouvrez déjà toute la journée.
-- **Personnalisez-le :** 12 thèmes de couleurs, un sélecteur de couleur personnalisée, mode clair/sombre, et des fonds d'écran en couleur, dégradé ou image.
-- **Minuteurs et rappels :** Intégrés, pour ne pas avoir à recourir à une app séparée pour rester dans les temps.
-- **Privé par défaut :** Tout vit sur votre appareil, aucun compte, aucun serveur, aucun suivi, et la page s'ouvre instantanément.
+- **Tableau de bord personnalisable :** Une grille en glisser-déposer, incluant des groupes de widgets imbriqués, où les widgets (liens rapides, dossiers catégorisés, notes, listes de tâches, minuteurs de compte à rebours, rappels, recherche vocale, et recherche visuelle Google Lens) peuvent être organisés pour s'adapter à n'importe quel flux de travail.
+- **Disposition d'accès rapide :** Des liens épinglés dans l'en-tête et des dossiers groupés remplacent les menus de favoris profonds, gardant les sites fréquemment consultés à un clic.
+- **Personnalisation des thèmes :** 15 thèmes de couleur intégrés, rétro-ingénierés à partir de la propre palette « Personnaliser Chrome » de Chrome, un sélecteur hexadécimal personnalisé, la prise en charge des modes clair/sombre, et des arrière-plans en dégradé ou en fond d'écran.
+- **Outils de productivité :** Minuteurs de compte à rebours intégrés et rappels programmés avec alertes audio locales et notifications de bureau.
+- **Stockage local d'abord :** Les notes, tâches, la disposition et les images vivent dans chrome.storage.local et IndexedDB, sur l'appareil. Aucun compte utilisateur et aucune base de données serveur ; le seul appel réseau va vers l'API publique de suggestion de Google pour l'autocomplétion de recherche, la même que celle utilisée par la barre d'adresse de Chrome.
 
 ## Pourquoi c'était important
 
-La page de nouvel onglet est l'écran le plus ouvert du navigateur et ne fait généralement rien. MonoStart en fait un endroit réellement utile, rassemblant liens, tâches, notes et rappels au même endroit plutôt que de les éparpiller entre favoris, pense-bêtes et autres apps. C'est un projet personnel et open source, donc le code est là, à lire.
+La page de nouvel onglet est ouverte des dizaines de fois par jour. MonoStart transforme cet espace vide en un tableau de bord de productivité instantané et local d'abord, qui respecte votre confidentialité : vos données ne quittent jamais l'appareil.
+
+<CaseStudy summary="Lire l'étude de cas technique complète →">
+
+## Pourquoi ce projet existe
+
+J'ouvre un nouvel onglet environ 200 fois par jour, et pendant des années cela ne rendait rien en retour : une barre de recherche et une grille de sites devinés par Google. Le vrai problème n'était pas la page vide, c'était tout ce que je faisais pour y remédier. Plus de quarante onglets gardés ouverts sur trois profils Chrome juste pour éviter de retaper des URL, chacun étant un processus vivant que Chrome maintenait actif. Je n'organisais pas mon travail, je payais une taxe RAM-et-ventilateur pour conserver des pointeurs, pas des pages. Chaque extension de nouvel onglet que j'ai essayée échangeait cette page vide contre quelque chose de pire : une interface étrangère qui cassait mes automatismes, un compte et une synchronisation cloud, des liens sponsorisés, de la télémétrie. J'en suis l'unique contributeur, 222 commits depuis juin 2026, toujours activement maintenue, construite d'abord pour réparer mon propre navigateur puis publiée comme extension publique en direct.
+
+## La règle unique : ressembler à Chrome, pas à une application
+
+Chaque décision de ce code répond à une seule contrainte : on ne devrait pas pouvoir dire où Chrome s'arrête et où le tableau de bord commence. C'est pourquoi la vraie barre de recherche Google reste, avec les vraies suggestions d'historique de Chrome, plutôt qu'une interface de recherche personnalisée qui nécessiterait son propre index d'historique. C'est pourquoi il n'y a pas de flux d'onboarding, pas d'écran de connexion, pas de système de compte : ouvrir un nouvel onglet devrait donner l'impression que rien n'a été installé du tout. Une fonctionnalité qui donnait l'impression que la page était une application séparée, aussi utile soit-elle, n'a pas été mise en production.
+
+## De l'audio dans un service worker qui ne peut pas jouer d'audio
+
+Les scripts d'arrière-plan de Manifest V3 sont des service workers, et les service workers ne peuvent pas jouer d'audio de façon fiable directement. Chrome les suspend et les démonte dès qu'il veut récupérer de la mémoire, y compris en pleine lecture. Les rappels ont malgré tout besoin d'un son qui se déclenche réellement. La solution utilise `chrome.alarms` pour planifier le rappel, car les alarmes survivent à un service worker tué et le réveillent, et fait passer la lecture par un document `chrome.offscreen` plutôt que par le service worker lui-même, une page cachée que Chrome maintient en vie spécifiquement pour ce genre de tâches. C'est le même type de contournement que rencontrent la plupart des extensions MV3 tôt ou tard, puisqu'une page d'arrière-plan persistante n'existe plus en MV3.
+
+## Des thèmes rétro-ingénierés à partir de Chrome lui-même
+
+Plutôt que d'inventer une palette de couleurs arbitraire, les 15 thèmes intégrés de MonoStart sont extraits des propres couleurs de base « Personnaliser Chrome » de Chrome, avec le processus d'extraction documenté étape par étape dans le dépôt. Une version antérieure de cette extraction avait un bug de décalage de teinte. Le correctif a été livré dans la v1.1.1 avec un chemin de migration pour quiconque avait déjà choisi un thème selon l'ancien calcul, pour que les utilisateurs existants ne se retrouvent pas du jour au lendemain avec une couleur différente de celle qu'ils avaient choisie.
+
+## Sécurité : assainir les intégrations sans se fier au seul assainisseur
+
+Les widgets d'image et d'intégration acceptent du HTML arbitraire, assaini via DOMPurify avant le rendu. DOMPurify seul ne suffisait pas : il ne retire pas un attribut `srcdoc`, et une iframe avec `srcdoc` défini hérite de l'origine propre de l'extension, un véritable vecteur XSS si la CSP de l'extension venait un jour à se relâcher. `srcdoc` est retiré explicitement dans l'assainisseur, quoi que DOMPurify autorise de son propre chef, une seconde couche indépendante plutôt qu'une confiance totale accordée à une seule bibliothèque.
+
+## Modèle de données et échelle
+
+- Les données textuelles (notes, tâches, disposition, rappels, paramètres) vivent dans chrome.storage.local.
+- Les images de fond d'écran et d'arrière-plan vivent dans une base IndexedDB séparée, avec un ramasse-miettes de références orphelines pour que les images supprimées ou remplacées ne s'accumulent pas silencieusement.
+- La limite d'environ 10 Mo de chrome.storage.local est levée via la permission `unlimitedStorage`, nécessaire une fois que les images sont sorties entièrement de ce quota.
+- 216 tests répartis sur 25 fichiers (Vitest, jsdom, fake-indexeddb) couvrent directement cette couche de stockage, pas seulement l'interface qui la surplombe.
+
+Le stockage local uniquement est un compromis délibéré, pas un oubli : cela signifie pas de synchronisation entre machines ou profils, mais c'est aussi le même mécanisme qui donne à trois profils Chrome leur propre tableau de bord indépendant et isolé gratuitement, sans système de compte partagé à construire et sécuriser. L'autocomplétion de la barre de recherche est le seul appel réseau de toute l'application, sollicitant l'API publique de suggestion de Google de la même façon que le fait la barre d'adresse de Chrome elle-même ; tout ce que l'utilisateur crée réellement reste local.
+
+## Construire vs. acheter
+
+Pas de moteur de glisser-déposer personnalisé : react-grid-layout gère la grille, y compris les groupes imbriqués, plutôt que de réimplémenter la détection de collision et les poignées de redimensionnement depuis zéro. Pas de bibliothèque de composants personnalisée : le principe de [shadcn/ui](https://ui.shadcn.com/), qui consiste à copier directement des composants basés sur Radix (plutôt que d'installer un package d'interface opaque), garde le code de chaque composant, et tout écart par rapport à lui, visible et modifiable. Pas de pipeline de localisation personnalisé : react-i18next plus un ensemble croissant de fichiers de locale (plus de 50 langues) plutôt qu'une recherche de chaînes faite à la main.
+
+## Stack
+
+[React](https://react.dev/) 19, [Vite](https://vite.dev/), [TypeScript](https://www.typescriptlang.org/), [Tailwind CSS](https://tailwindcss.com/), [shadcn/ui](https://ui.shadcn.com/) sur des primitives [Radix UI](https://www.radix-ui.com/), [react-grid-layout](https://github.com/react-grid-layout/react-grid-layout) pour la grille du tableau de bord, [react-i18next](https://react.i18next.com/) pour la localisation, [DOMPurify](https://github.com/cure53/DOMPurify) pour l'assainissement des intégrations, [Vitest](https://vitest.dev/) pour les tests, la plateforme d'extension [Manifest V3](https://developer.chrome.com/docs/extensions/develop/migrate/what-is-mv3) de Chrome (`chrome.alarms`, `chrome.offscreen`, `chrome.storage`, IndexedDB), sous licence [PolyForm Noncommercial 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0/).
+
+</CaseStudy>

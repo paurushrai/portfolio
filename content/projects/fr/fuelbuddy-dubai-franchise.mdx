@@ -1,20 +1,44 @@
 ---
-title: "FuelBuddy Dubai - Plateforme Franchise Régionale"
-description: "J'ai construit une app franchise de zéro pour les opérations de FuelBuddy aux Émirats: le frontend et mes propres API CRUD sur Hasura GraphQL, avec TanStack Query côté client et un flux d'authentification/sécurité repensé pour les exigences régionales."
+title: "FuelBuddy Dubaï - Plateforme Régionale de Franchise"
+description: "Plateforme de franchise de FuelBuddy aux Émirats arabes unis construite de zéro : architecture frontend, API Hasura GraphQL, et authentification adossée à Firebase."
 date: 2024-10-01
 published: true
 company: FuelBuddy
 ---
 
-L'expansion de FuelBuddy aux Émirats nécessitait sa propre app franchise, le marché de Dubaï avait des exigences réglementaires, de sécurité et de workflow différentes des plateformes existantes, au point que réutiliser l'ancienne n'était pas adapté. J'ai construit la Dubai Franchise Application de zéro, à la fois le frontend et les API CRUD sous-jacentes.
+L'expansion de FuelBuddy aux Émirats arabes unis nécessitait une application de franchise dédiée, adaptée aux exigences opérationnelles régionales. J'ai construit l'application de franchise Dubaï de zéro, à la fois sur le frontend et sur les API de données.
 
 ## Ce que j'ai construit
 
-- **Nouveau frontend de zéro :** Construction d'un système de composants neuf, ce qui a rendu l'app plus réactive et mieux structurée que les versions antérieures qu'elle remplaçait.
-- **Mes propres API CRUD sur Hasura :** Construction des API de données backend sur lesquelles tourne l'app, en utilisant le moteur GraphQL de Hasura au-dessus de la base pour exposer les opérations CRUD dont j'avais besoin, pour concevoir la couche de données de bout en bout au lieu d'attendre des points d'accès backend séparés.
-- **Couche de données sur TanStack Query :** Utilisation de TanStack React Query côté frontend pour consommer ces API, mise en cache, refetch en arrière-plan et mises à jour optimistes, pour que l'UI reste rapide et cohérente sans beaucoup de câblage manuel de l'état.
-- **Authentification et sécurité :** Refonte de l'authentification, de la gestion des jetons et de la validation des payloads d'API pour répondre aux exigences de conformité de la région.
+- **Frontend greenfield :** Construction du système de composants et de la structure applicative depuis zéro, livrant une interface propre et responsive pour les opérations de franchise.
+- **API Hasura GraphQL :** Construction de la couche de données backend sur le moteur Hasura GraphQL, en définissant les opérations CRUD et les modèles de données nécessaires à l'application.
+- **Cartes, planification et exports :** Intégration de cartes en direct, d'une vue de planification calendrier/Gantt, et d'export tableur/PDF pour le reporting des franchises.
+- **Authentification et sécurité :** Configuration d'une authentification adossée à Firebase avec un contrôle d'accès par rôle appliqué via les propres claims JWT de Hasura.
 
 ## Pourquoi c'était important
 
-Le résultat répondait aux exigences plus strictes du marché de Dubaï et a établi une norme interne plus propre sur la manière de construire ces apps. La couche de données revue a aussi réduit les appels réseau redondants, ce qui a maintenu une expérience rapide pour les partenaires franchisés.
+Livrer une plateforme dédiée a donné aux opérateurs de franchise de FuelBuddy aux Émirats arabes unis un outil conçu sur mesure pour les opérations régionales, sur une stack pensée pour des données cartographiques en temps réel et un reporting lourd.
+
+<CaseStudy summary="Lire l'étude de cas technique complète →">
+
+## La couche de données
+
+Cette application récupère ses données via `graphql-request` contre un SDK typé généré par codegen, avec des stores Pinia portant l'état client, sans aucune trace de TanStack Query dans l'arbre de dépendances. L'authentification repose sur Firebase, et le contrôle d'accès par rôle provient des propres claims JWT personnalisées de Hasura (`x-hasura-default-role`, `x-hasura-user-id`) plutôt que d'un système de permissions construit séparément.
+
+## Plus qu'un simple générateur de formulaires
+
+C'est une application réellement riche en fonctionnalités pour ce qui aurait pu être un simple outil CRUD : Mapbox GL associé à `mapbox-gl-draw` pour dessiner et modifier les zones de franchise directement sur la carte, FullCalendar associé à `vue-ganttastic` pour la planification façon Gantt, Chart.js pour les tableaux de bord de reporting, et un pipeline d'export complet (`xlsx`, `papaparse`, `jszip`, `html2pdf.js`, `dom-to-image`, `html-to-image`) pour que les rapports de franchise sortent de l'application sous forme de tableurs, de PDF ou d'images selon le besoin de l'opérateur, pas un format unique et figé.
+
+## Généré, pas écrit à la main
+
+Les opérations GraphQL sont générées au moment du build via `vite-plugin-graphql-codegen` contre `codegen.yml`, produisant un client `src/sdk.ts` typé à partir du schéma Hasura. Chaque requête et mutation est typée contre le schéma en direct au lieu de chaînes écrites à la main qui dérivent silencieusement quand le backend change.
+
+## Ce que couvrent les tests
+
+Playwright couvre deux flux de bout en bout : la connexion et la gestion des commandes, la porte d'entrée derrière laquelle se trouve chaque autre écran et la transaction centrale que l'application existe pour gérer. Tout ce qui vient après ces deux flux (planification, exports, reporting) est une surface plus récente que les tests, pas un oubli.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [Vite](https://vite.dev/), [Pinia](https://pinia.vuejs.org/), [graphql-request](https://github.com/jasonkuhrt/graphql-request) avec [GraphQL Code Generator](https://the-guild.dev/graphql/codegen) contre [Hasura](https://hasura.io/), [Firebase](https://firebase.google.com/) pour l'authentification, [Mapbox GL](https://www.mapbox.com/) avec `mapbox-gl-draw`, [FullCalendar](https://fullcalendar.io/) avec `vue-ganttastic`, [Chart.js](https://www.chartjs.org/) pour le reporting, [Playwright](https://playwright.dev/) pour les tests.
+
+</CaseStudy>

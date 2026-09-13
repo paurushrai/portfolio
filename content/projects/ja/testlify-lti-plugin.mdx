@@ -1,24 +1,59 @@
 ---
 title: "Testlify LTI 1.3 Advantage プラグイン"
-description: "1EdTech 認定の LTI Advantage（1.3）統合。講師が Testlify のアセスメントをコースに割り当て、LMS の中からスコアを追跡できる。独自の OIDC/JWT ハンドシェイク、名簿同期、成績パスバックを Next.js 14 で構築した。"
+description: "1EdTech認定のLTI 1.3統合を設計・構築。TestlifyをCanvas、Moodle、Blackboard、D2L BrightspaceとつなぎNext.js 14で自動成績パスバックを実現した。"
 url: https://lti.testlify.com/
 date: 2026-03-01
 published: true
 company: Testlify
+coverImage: /projects/testlify-lti-plugin/plugin.gif
 ---
 
-Canvas、Moodle、Blackboard のような学習管理システム（LMS）は、学校や企業研修チームが日々の運用を回す場所です。Testlify のアセスメントをそうしたシステムの中で使えるようにするには、安全で標準に準拠した橋渡しが必要でした。私は唯一のフルスタックエンジニアとして Testlify LTI プラグインを構築しました。講師が Testlify で作ったアセスメントをコースに登録された候補者に割り当て、そのスコアを追跡できます。すべて LMS の中から行えます。
+Canvas、Moodle、Blackboard、D2L Brightspaceのような学習管理システム(LMS)は、大学や企業研修チームが利用する主要なプラットフォームです。Testlifyのアセスメントをこれらのシステムの中からアクセスできるようにするため、私はリードエンジニアとしてTestlify LTI統合をゼロから設計・構築しました。この統合により、教育者はTestlifyのアセスメントをLMSのコースに直接埋め込み、スコアを成績表へ自動的に同期できます。
 
 ![Testlify LTI 1.3 プラグインのデモ](/projects/testlify-lti-plugin/plugin.gif)
 
-この統合は、LTI Advantage（v1.3）について **[1EdTech の公式認定を取得しています](https://site.imsglobal.org/certifications/testlify-inc/testlify#cert_pane_nid_626241)**, Names and Role Provisioning Services 2.0 と Assignment & Grade Services 2.0 です。適合性テストは 1EdTech が実施するので、これは自己申告ではありません。独立した機関が、実装が仕様に沿っていることを検証しました。
+この統合は、LTI Advantage(v1.3)について**[1EdTechの公式認定を取得しています](https://site.imsglobal.org/certifications/testlify-inc/testlify#cert_pane_nid_626241)**。Names and Role Provisioning Services(NRPS 2.0)とAssignment & Grade Services(AGS 2.0)を含みます。
 
 ## 作ったもの
 
-- **独自の LTI 1.3 実装:** 重いサードパーティの LTI ライブラリに頼るのではなく、仕様を Next.js 14 で直接実装しました。LMS と Testlify のあいだの信頼を確立する OpenID Connect ハンドシェイク、JWT 署名の検証、JWKS 公開鍵エンドポイントです。
-- **割り当てと追跡のフロー:** ワークフロー全体を支える API 層を構築しました。講師が Testlify のアセスメントを選んでコースに課題として組み込む Deep Linking、そのコースに登録された候補者を取得する Names and Role Provisioning Services（NRPS）、そして各候補者のスコアを LMS の成績表に書き戻し、講師がふだん使う場所で結果を見られるようにする Assignment & Grade Services（AGS）です。
-- **フルスタックのシステム:** マルチテナントの API ルーティングと React 18 のダッシュボードを 1 つのアプリにまとめ、プラットフォームごとの設定のための MongoDB スキーマを設計し、ローカルテスト用に隔離された LMS 環境を再現するのに Docker を使いました。
+- **独自のLTI 1.3セキュリティ層:** LTI 1.3のセキュリティ仕様全体をNext.js 14で実装しました。OpenID Connect(OIDC)のサードパーティローンチフロー、RSA SHA-256によるJWT署名の検証、動的なJWKSエンドポイントを含みます。
+- **LTI Advantageサービス:** プラットフォーム登録時にDeep Linkingをサポート対象のメッセージタイプとして登録し、コース名簿を取得する完全なNRPS 2.0統合(ページネーションと、LMSプラットフォーム間でのロールURNの正規化を含む)、そして自動成績同期のためのAGS 2.0エンドポイントを構築しました。
+- **マルチテナントのフルスタックアーキテクチャ:** React 18でマルチテナントの管理ダッシュボードを構築し、プラットフォーム登録キーのためのMongoDBスキーマを設定し、ローカルテスト用に別途稼働しているMoodleのDocker環境にそのネットワーク経由で参加しました。CanvasはInstructureがホストしているため、代わりに実際に稼働しているインスタンスに対して直接テストしました。
 
 ## なぜ意味があったか
 
-標準に準拠した LTI 統合により、Testlify は高等教育と企業研修の市場に開かれました。そして私が作ったプラグインは 1EdTech の適合性テストを通過し、認定を得ました。講師はコース全体にアセスメントを割り当て、スコアを自動で成績表に受け取れます。名簿を書き出したり結果を手でコピーしたりする必要はありません。この種の手間こそ、LMS の導入をたいてい止めてしまうものです。
+1EdTechの公式認定を取得したことで、Testlifyは高等教育および企業研修市場に参入できるようになりました。自動化された名簿同期と成績パスバックにより、講師の手作業によるデータ入力がなくなりました。
+
+<CaseStudy summary="詳しい技術ケーススタディを読む →">
+
+## チームとタイムライン
+
+約7週間(2026年2月から3月)で25コミット、私のほかに2人の協力者がいました。コミットのおよそ80%は私が書き、アーキテクチャと認定作業を主導しました。「リードエンジニア」という肩書きは、誇張ではなく実態を正確に表しています。
+
+## ltijsではなく自前実装
+
+`ltijs`はLTI 1.3向けの標準的なNode.jsライブラリで、ほとんどの統合はこれに頼ります。しかしこの実装はそれに依存していません。JWKSの取得、鍵の照合、RS256によるJWT検証は、このコードベースの中に直接実装されています。[関連するブログ記事](/blogs/lti-1-3-nextjs-nodejs-guide)で説明されているステートレスなセッションパターンも同様です。署名付きの24時間セッショントークン(`ltik`)をクッキーの代わりにURLで運び、すべてのAPI呼び出しでベアラートークンとして送信します。これは、ブラウザがLMSのiframe内でサードパーティクッキーをブロックしていても、統合が動作し続けるようにするためのものです。1EdTechの適合性テストを通じて認定された統合を得るということは、セキュリティ層が仕様と完全に一致していなければならないことを意味します。サードパーティライブラリのリリースサイクルや仕様の解釈に依存するのではなく、そのコードを直接所有することで、検証と認定がしやすくなりました。
+
+完全に構築された2つのLTI Advantageサービスであるnrps(NRPS)とags(AGS)は、仕様の最低限を超えています。NRPSはLMS自身の`Link`ヘッダーを通じてページネーションを処理し、フォーマットが統一されていないプラットフォーム間でロールURNを正規化します。さらに、仕様に完全には準拠していないLMSプラットフォームに対する安全策として、クライアント側のフィルターも備えています。
+
+## 4つのLMSプラットフォーム、1つのローカルテストハーネス
+
+Moodleはこのリポジトリ自身のDocker Composeファイルで起動されるのではなく、ローカルテストのために別途稼働している`moodle-docker`プロジェクトのネットワークに参加します。CanvasはInstructure自身がホストするSaaSであり、ローカルで動かせる同等のセルフホストイメージが存在しないため、代わりに実際に稼働しているCanvasインスタンスに対して直接テストします。本番環境はVercel上で稼働しています。本番用のDockerfileは初期には存在しましたが、Vercelが唯一の実際のデプロイ先になった時点で削除されました。残っているのは開発専用のDockerfileのみで、これはセルフホストの代替手段としてではなく、ローカルでの反復作業のためのものです。D2L Brightspace対応は、当初の3つには含まれておらず、4つ目のLMSへの登録対応を追加する日付入りのコミットによって後から追加されました。
+
+## データモデルと規模
+
+- 登録された各LMSプラットフォーム(大学や機関のCanvas/Moodle/Blackboard/Brightspaceインスタンス)は、共有のグローバル認証情報ではなく、それぞれ独自の登録キーを持つ独立したテナントレコードです。
+- LTI Advantage仕様に対して、NRPS(名簿取得)とAGS(ラインアイテムとスコア送信)をそれぞれ独立したサービスモジュールが処理し、専用のスコアWebhookエンドポイントも備えています。
+- プラットフォームの設定とアセスメント割り当てのレコードは、MongooseによるMongoDBで支えられています。
+
+このプロジェクトは自身のREADMEを超えて成長しました。より詳細で日付の新しい社内向けの概要文書が、この統合が実際になったもの、つまりVercel上にデプロイされた完全な4LMSアーキテクチャを、独自のセキュリティ・データベース・APIリファレンスのドキュメントとともに説明しています。
+
+## 自作か既製品か
+
+`ltijs`ライブラリではなく手作りのJWKS/JWT/セッションロジック。認定が前提の統合において、依存関係が持つ仕様の解釈を引き継ぐのではなく、仕様準拠を完全にコントロールできます。セルフホスティングではなくVercel。それが唯一の実際のデプロイ先になった時点で、使われないまま残すのではなく本番用Dockerfileを削除し、ローカルでの反復作業のための開発専用Dockerfileだけを残しました。
+
+## Stack
+
+[Next.js](https://nextjs.org/) 14、[React](https://react.dev/) 18、[Mongoose](https://mongoosejs.com/)を伴う[MongoDB](https://www.mongodb.com/)、ローカルのMoodleテストに[Docker Compose](https://docs.docker.com/compose/)、[Vercel](https://vercel.com/)上にデプロイ、[1EdTech](https://www.1edtech.org/)のLTI Advantage(1.3)適合性テストスイートに対して認定取得済み。
+
+</CaseStudy>

@@ -1,25 +1,67 @@
 ---
-title: "MonoStart: 可自定义的新标签页 Chrome 扩展"
-description: "一款隐私优先的 Chrome 扩展，把每一个新标签页变成个人仪表盘 -  - 链接、笔记、待办、计时器和提醒，配上你自己的主题和壁纸，全部存在你的设备上。"
+title: "MonoStart - 可自定义的新标签页 Chrome 扩展"
+description: "一款隐私优先的 Chrome 扩展，把每一个新标签页都变成一个个人仪表盘，链接、计时器和提醒全部存储在你自己的设备上。"
 url: https://chromewebstore.google.com/detail/hhfeihcppmfepeeainafmaifpmdemmlg
-repository: paurushrai/monostart-chrome-extension
+repository: paurushrai/monostart-extension
 date: 2026-06-01
 published: true
-company: 个人项目
+company: Personal Project
+coverImage: /projects/monostart-chrome-extension/cover.png
 ---
 
-你一天要打开新标签页几十次，迎接你的却是一片空白。MonoStart 把它换成一个你自己布置的仪表盘 -  - 你的链接、任务、笔记和提醒，按你想要的方式摆放。我把它做成了一个完全在你设备上运行的 Manifest V3 Chrome 扩展。
+MonoStart 把浏览器默认的新标签页变成一个快速、可自定义的个人仪表盘。它把书签、任务列表、速记笔记和专注计时器整理进一个可配置的工作区。作为一个 Manifest V3 Chrome 扩展构建，它把一切都存储在本地设备上：没有账号、没有服务器数据库、没有数据分析追踪。
 
-![MonoStart: 可自定义的新标签页 Chrome 扩展](/projects/monostart-chrome-extension/cover.png)
+![MonoStart - 可自定义的新标签页 Chrome 扩展](/projects/monostart-chrome-extension/cover.png)
 
 ## 我做了什么
 
-- **可自行布置的仪表盘：** 一个拖放式网格，每个组件 -  - 链接、分组文件夹、笔记、待办、计时器、提醒、图片、嵌入内容和搜索 -  - 都能按你的工作方式摆放和调整大小。
-- **一切都在一眼之内：** 用快捷链接和文件夹，不用再翻书签；笔记、任务和提醒就在你整天都会打开的那个页面上。
-- **做成你自己的样子：** 12 套配色主题、自定义取色器、明暗模式，以及纯色、渐变或图片壁纸。
-- **计时器和提醒：** 内置在里面，不用再去开一个单独的应用来盯着进度。
-- **默认私密：** 一切都存在你的设备上 -  - 无账号、无服务器、无追踪 -  - 页面即刻打开。
+- **可自定义仪表盘：** 一个支持拖放的网格布局，包含嵌套的组件分组，组件（快捷链接、分类文件夹、笔记、待办列表、倒计时器、提醒、语音搜索，以及 Google 智能镜头视觉搜索）可以按任意工作方式排布。
+- **快捷访问布局：** 页头的置顶链接和分组文件夹取代了层层嵌套的书签菜单，让常用网站始终一键可达。
+- **主题自定义：** 从 Chrome 自带的“自定义 Chrome”调色板逆向提取的 15 套内置配色主题、自定义的十六进制取色器、明暗模式支持，以及渐变或壁纸背景。
+- **效率工具：** 内置倒计时器和定时提醒，带有本地音频提示和桌面通知。
+- **本地优先存储：** 笔记、待办、布局和图片都保存在设备本地的 chrome.storage.local 和 IndexedDB 中。没有用户账号，也没有服务器数据库；唯一的网络请求是调用 Google 的公开建议 API 来实现搜索自动补全，与 Chrome 自己的地址栏所用的是同一个接口。
 
 ## 为什么它有意义
 
-新标签页是浏览器里被打开最多的一屏，通常却什么都不做。MonoStart 把它变成一个真正有用的地方，把链接、任务、笔记和提醒收拢到一处，而不是散落在书签、便利贴和别的应用里。它是个人项目，也是开源的，所以代码就在那儿，可以随便看。
+新标签页每天要被打开几十次。MonoStart 把这片空白变成一个即开即用、本地优先的效率仪表盘，尊重你的隐私：你的数据永远不会离开你的设备。
+
+<CaseStudy summary="阅读完整技术案例研究 →">
+
+## 为什么会有这个项目
+
+我一天大概要打开 200 次新标签页，而这么多年来它什么都没给我：一个搜索框，加上一堆 Google 猜的网站网格。真正的问题不是这片空白，而是我为了应付它所做的一切。为了不用重新输入网址，我在三个 Chrome 用户配置文件里同时开着四十多个标签页，每一个都是 Chrome 一直保持热启动的活跃进程。我不是在整理自己的工作，而是在为保存一堆指针（而不是页面本身）付出内存和风扇的代价。我试过的每一个现有新标签页扩展，都是用这片空白换来了更糟的东西：打破肌肉记忆的陌生界面、账号和云同步、赞助链接、遥测追踪。我是唯一的贡献者，自 2026 年 6 月以来共提交了 222 次，目前仍在积极维护，最初是为了解决我自己浏览器上的问题，其次才是作为一个上线的公开扩展发布。
+
+## 唯一的原则：看起来像 Chrome，而不是一个 App
+
+这个代码库里的每一个决定都服从同一个约束：你不应该分辨出 Chrome 在哪里结束、仪表盘从哪里开始。这就是为什么真正的 Google 搜索框被保留了下来，配上真正的 Chrome 历史记录建议，而不是一个需要自建历史索引的自定义搜索界面。这也是为什么没有引导流程、没有登录界面、没有账号系统：打开一个新标签页应该感觉像什么都没安装过一样。任何会让页面感觉像一个独立 App 的功能，无论多有用，都没有上线。
+
+## 在无法播放音频的 Service Worker 里播放音频
+
+Manifest V3 的后台脚本是 service worker，而 service worker 无法可靠地直接播放音频。只要 Chrome 想回收内存，就会随时挂起并销毁它们，播放到一半也不例外。但提醒功能仍然需要真正响起的声音。解决办法是用 `chrome.alarms` 来调度提醒，因为闹钟能在 service worker 被杀死后依然存活并把它唤醒回来，播放本身则通过一个 `chrome.offscreen` 文档来完成，而不是靠 service worker 自己，这是 Chrome 专门为这类任务保留的一个隐藏页面。这是大多数 MV3 扩展最终都会遇到的同一类变通方案，因为 MV3 里已经不存在常驻的后台页面了。
+
+## 从 Chrome 本身逆向出来的主题
+
+MonoStart 没有自己随意发明一套配色方案，而是从 Chrome 自带的“自定义 Chrome”种子颜色中提取出了 15 套内置主题，提取过程在仓库里有逐步的记录文档。早期版本的提取算法有一个色相偏移的 bug。修复在 v1.1.1 中发布，并为已经在旧算法下选过主题的用户提供了迁移路径，这样现有用户不会一觉醒来发现颜色变成了自己没选过的样子。
+
+## 安全：清理嵌入内容，但不完全信任清理库本身
+
+图片和嵌入组件接受任意 HTML，渲染前会先通过 DOMPurify 清理。但只靠 DOMPurify 是不够的：它不会剥离 `srcdoc` 属性，而设置了 `srcdoc` 的 iframe 会继承扩展自身的 origin，一旦扩展的 CSP 有所放松，这就是一条真实存在的 XSS 路径。清理逻辑里会显式剥离 `srcdoc`，不管 DOMPurify 自己是否允许，这是独立于该库之外的第二层防护，而不是完全依赖单一一个库。
+
+## 数据模型与规模
+
+- 文本数据（笔记、待办、布局、提醒、设置）保存在 chrome.storage.local 中。
+- 壁纸和背景图片则保存在一个独立的 IndexedDB 数据库中，并带有孤立引用垃圾回收机制，防止已删除或已替换的图片悄悄堆积。
+- chrome.storage.local 大约 10MB 的上限通过 `unlimitedStorage` 权限解除，这在图片完全移出该配额之后是必需的。
+- 25 个文件里的 216 个测试（Vitest、jsdom、fake-indexeddb）直接覆盖了这个存储层，而不仅仅是它上层的 UI。
+
+只存本地是一个刻意的权衡，而不是疏漏：这意味着没有跨设备、跨配置文件的同步，但也正是这同一个机制，让三个 Chrome 配置文件各自免费获得了独立、隔离的仪表盘，而无需构建和维护一套共享账号系统。搜索框的自动补全是整个应用里唯一的网络请求，走的是 Google 的公开建议 API，和 Chrome 自己地址栏用的是同一个接口；用户实际创建的所有内容都留在本地。
+
+## 自研 vs 采购
+
+没有自建拖放引擎：react-grid-layout 负责处理网格布局，包括嵌套分组，而不是从零重新实现碰撞检测和缩放控制柄。没有自建组件库：[shadcn/ui](https://ui.shadcn.com/) 直接复制基于 Radix 的组件进代码库这种模式（而不是安装一个不透明的 UI 包），让每个组件的代码、以及对它的任何改动都保持可见、可编辑。没有自建本地化流水线：react-i18next 加上一套不断增长的语言文件（50 多种语言），而不是手写字符串查表。
+
+## 技术栈
+
+[React](https://react.dev/) 19、[Vite](https://vite.dev/)、[TypeScript](https://www.typescriptlang.org/)、[Tailwind CSS](https://tailwindcss.com/)、基于 [Radix UI](https://www.radix-ui.com/) 原语的 [shadcn/ui](https://ui.shadcn.com/)、[react-grid-layout](https://github.com/react-grid-layout/react-grid-layout) 用于仪表盘网格、[react-i18next](https://react.i18next.com/) 用于本地化、[DOMPurify](https://github.com/cure53/DOMPurify) 用于嵌入内容清理、[Vitest](https://vitest.dev/) 用于测试，Chrome 的 [Manifest V3](https://developer.chrome.com/docs/extensions/develop/migrate/what-is-mv3) 扩展平台（`chrome.alarms`、`chrome.offscreen`、`chrome.storage`、IndexedDB），采用 [PolyForm Noncommercial 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0/) 许可证。
+
+</CaseStudy>

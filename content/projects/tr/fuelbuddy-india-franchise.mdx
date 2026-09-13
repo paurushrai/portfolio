@@ -1,19 +1,40 @@
 ---
 title: "FuelBuddy Hindistan - Franchise Lojistik ve Takip Uygulaması"
-description: "FuelBuddy'nin franchise uygulamasında çekirdek mühendis: canlı kamyon takibi geliştirdim, CRUD API'lerini Hasura GraphQL üzerinde kurup zayıf ağ bölgeleri için ayarladım ve teknik olmayan personel için iş akışlarını yeniden düzenledim."
+description: "FuelBuddy'nin franchise uygulamasında çekirdek mühendis: canlı kamyon takibi, Hasura GraphQL API'leri ve sadeleştirilmiş lojistik akışları."
 date: 2023-09-01
 published: true
 company: FuelBuddy
 ---
 
-[FuelBuddy](https://fuelbuddy.in/)'de, Franchise Uygulamasında çekirdek bir mühendistim, franchise operatörlerinin yerel merkezlerini yönetmek, envanterlerini idare etmek ve teslimat filolarını koordine etmek için kullandığı uygulama.
+[FuelBuddy](https://fuelbuddy.in/)'de, franchise operatörlerinin bölgesel merkezlerini, envanterlerini ve teslimat filolarını yönetmek için kullandığı Franchise Uygulamasında çekirdek bir mühendistim.
 
-## Ne geliştirdim
+## Neler geliştirdim
 
-- **Canlı kamyon takibi:** Çokça talep edilen bir takip modülü geliştirdim; canlı filo konumlarını etkileşimli bir haritaya yerleştirerek operatörlere daha önce sahip olmadıkları gerçek zamanlı görünürlük kazandırdı ve sevkiyat kararlarını verme biçimlerini değiştirdi.
-- **CRUD API'leri ve performans:** Uygulamanın üzerinde çalıştığı veri API'lerini Hasura'nın GraphQL motoruyla geliştirdim, ardından onları ayarladım, yükleri yeniden yapılandırdım, önbelleğe alma ekledim ve pahalı sorguları azalttım, bu da yanıt sürelerini düşürdü ve zayıf hücresel bağlantılarda bile uygulamayı kullanılabilir tuttu.
-- **İş akışı yeniden tasarımı:** Karmaşık çok adımlı görevleri, envanter mutabakatı, sürücü ataması, teknik olmayan franchise personeline yönelik daha basit akışlara dönüştürdüm; bu da operasyonel hataları azalttı.
+- **Canlı kamyon takibi:** Filo konumlarını bir yoklama aralığında gösteren etkileşimli bir Google Maps modülü geliştirdim; operatörlere kamyon hareketleri ve sevkiyat durumları hakkında sürekli görünürlük kazandırdı.
+- **GraphQL API'leri ve önbellekleme:** urql üzerinden Hasura GraphQL motorunu kullanarak veri API'lerini geliştirdim; normalleştirilmiş bir istemci tarafı önbellek ve süre dolumunda otomatik token yenileme ile birlikte.
+- **İş akışı sadeleştirmesi:** Envanter mutabakatı ve sürücü ataması dahil çok adımlı operasyonel görevleri, operasyonel hataları azaltan sadeleştirilmiş arayüzlere dönüştürdüm.
 
 ## Neden önemliydi
 
-Kamyon takibi lojistiği daha öngörülebilir hale getirdi ve kamyon rölanti süresini azalttı. Daha hızlı arka uç ve daha basit arayüz birlikte yeni franchise ortakları için işe alıştırmayı hızlandırdı ve uygulamanın kullanımının zor olduğuna dair destek taleplerini azalttı.
+Filo takibi, sevkiyat lojistiğini daha öngörülebilir hale getirdi ve kamyon rölanti süresini azalttı. Sadeleştirilmiş atama ve envanter iş akışları, franchise merkezleri genelinde operasyonel hataları azalttı.
+
+<CaseStudy summary="Tam teknik vaka analizini okuyun →">
+
+## Burada "Canlı" Aslında Ne Anlama Geliyor
+
+Kamyon haritası, aynı istemci uygulamanın başka yerlerinde abonelikler için hazır olsa bile (`graphql-ws` yapılandırılmış ve sipariş durumu güncellemeleri için kullanılıyor, sadece bu belirli harita için değil), bir GraphQL abonelik değil, bir yoklama aralığında güncelleniyor. Bu, bir gözden kaçırma değil, bilinçli bir sunucu maliyeti ödünleşimiydi: bir abonelik, istemci onu açık tuttuğu sürece sunucuda kalıcı bir bağlantıyı açık tutar, ve her sevkiyatçının vardiyası boyunca saatlerce açık bırakılan bir harita ekranı, tek seferlik bir sipariş durumu güncellemesinden çok daha ağır, çok daha uzun ömürlü bir bağlantı yüküdür. Yoklama, bu bağlantıyı tamamen açık tutmaktan kaçınıyor, bunun yerine periyodik istek/yanıt döngüleriyle değiş tokuş ediyor.
+
+## Atama ve Envanter, Daha Ayrıntılı
+
+Sürücü ataması, sadece tek bir "ata" eylemi değil, tekli, toplu, yeniden atama ve atamayı kaldırma akışlarını kapsıyor. Envanter takibi, özel olarak yakıt tankerleri için stok bakiyelerini izliyor; özel stok bakiyesi sorguları ve günlük tabloları ile birlikte, genel bir parça envanteri değil gerçek bir operasyonel veri modeli.
+
+## Veri Modeli ve Ölçek
+
+- urql'nin normalleştirilmiş önbelleği artı 401/süresi dolmuş token yanıtlarında otomatik olarak yenilenen bir Firebase token kimlik doğrulama katmanı; böylece süresi dolmuş bir oturum, bir sevkiyatçıyı görev ortasında kesintiye uğratmıyor.
+- Playwright, giriş ve sipariş yönetimini uçtan uca kapsıyor; uygulamadaki diğer her ekranın dayandığı iki akış.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [Vite](https://vite.dev/), [Pinia](https://pinia.vuejs.org/), [Hasura](https://hasura.io/)'ya karşı [urql](https://commerce.nearform.com/open-source/urql/), [Firebase](https://firebase.google.com/) kimlik doğrulaması, Google Maps, testler için [Playwright](https://playwright.dev/).
+
+</CaseStudy>

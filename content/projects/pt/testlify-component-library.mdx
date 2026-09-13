@@ -1,19 +1,52 @@
 ---
 title: "Testlify - Biblioteca de Componentes Compartilhada"
-description: "Tomei a decisão de construir uma única biblioteca de componentes sem estado em vez de duplicar a UI em quatro aplicações, publiquei-a como um pacote npm privado e reduzi o tempo de entrega de funcionalidades em cerca de 30%."
+description: "Liderei a iniciativa de introduzir uma biblioteca de componentes Vue compartilhada entre as 4 aplicações da Testlify, publicada como pacotes privados, eliminando a duplicação de UI entre apps."
 date: 2026-06-01
 published: true
 company: Testlify
 ---
 
-A Testlify funciona como um conjunto de quatro aplicações separadas, e cada uma vinha reconstruindo os mesmos botões, formulários, modais e tabelas à sua própria maneira. Isso significava o mesmo trabalho feito quatro vezes e uma UI que ia perdendo a sincronia entre os produtos. Defendi a ideia de uma única biblioteca de componentes compartilhada em vez da duplicação por aplicação, e então a construí e publiquei.
+A Testlify opera como um conjunto de 4 aplicações web separadas. Antes, cada equipe de produto desenvolvia e estilizava os componentes de UI comuns de forma independente, causando esforço de engenharia duplicado e inconsistências visuais entre os produtos. Propus a ideia e liderei o time que construiu uma biblioteca de componentes Vue 3 compartilhada para padronizar o desenvolvimento de UI.
 
 ## O que construí
 
-- **A decisão:** Argumentei a favor de consolidar a UI numa única biblioteca em vez de deixar cada aplicação manter a sua própria cópia, pesando o custo inicial contra a perda de sincronia e o esforço duplicado que já estávamos pagando. Uma vez acordado, assumi a construção.
-- **Sem estado por design:** Mantive os componentes sem estado e apenas de apresentação, para que não carreguem nenhuma lógica específica de aplicação e se encaixem de forma limpa em qualquer um dos quatro produtos. Cada aplicação conecta seus próprios dados e comportamento; a biblioteca cuida apenas da aparência e da sensação das coisas.
-- **Publicada como um pacote npm privado:** Publiquei-a como um pacote npm privado versionado, para que cada aplicação puxe os mesmos componentes através de uma dependência normal e receba correções e melhorias com um incremento de versão, sem copiar e colar, sem forks.
+- **Consolidação arquitetural:** Liderei a iniciativa de consolidar as primitivas de UI comuns em uma biblioteca centralizada, estabelecendo design tokens e contratos de componentes consistentes entre as equipes.
+- **Design de componentes sem estado:** Mantive os componentes da biblioteca estritamente sem estado e apenas de apresentação, permitindo que se integrassem de forma limpa em qualquer uma das 4 aplicações, mantendo a lógica de negócio desacoplada.
+- **Distribuição como pacote privado:** Publiquei e mantive a biblioteca como pacotes versionados no GitHub Packages, permitindo que as equipes adotassem correções de bugs e novos componentes via atualizações de dependência padrão, sem duplicação de código.
 
 ## Por que importou
 
-Construir a UI uma vez e reutilizá-la em todas as quatro aplicações reduziu o tempo de entrega de funcionalidades em cerca de **30%**, as equipes deixaram de reconstruir os mesmos elementos básicos e passaram a compor a partir de um conjunto compartilhado. Também deu a todo o conjunto uma aparência consistente, já que uma mudança na biblioteca chega a todos os lugares de uma só vez, em vez de ser reaplicada à mão em quatro lugares.
+Centralizar o desenvolvimento de UI em um pacote compartilhado eliminou código redundante entre 4 aplicações, acelerou os ciclos de entrega de funcionalidades e garantiu um design system coeso em todo o conjunto de produtos da Testlify.
+
+<CaseStudy summary="Leia o estudo de caso técnico completo →">
+
+## Liderado, Não Solo
+
+Propus a biblioteca e conduzi a arquitetura, mas isso não foi uma construção de uma pessoa só: 86 commits de 7 contribuidores desde maio de 2026, com meus próprios commits somando cerca de dois terços do total. Fazer um design system compartilhado ser adotado por 4 equipes de produto exige mais do que escrever os componentes; exige o processo de release que torna a adoção deles de baixo risco, o que se tornou o verdadeiro problema difícil.
+
+## Testando uma Mudança de Componente Não Lançada Sem Publicar a Cada PR
+
+O maior obstáculo de adoção de uma biblioteca compartilhada não é escrever o componente, é o vão entre "eu mudei algo" e "uma equipe consumidora consegue de fato experimentar isso". Publicar uma versão temporária a cada PR seria um custo de CI real e recorrente para um pacote que a maioria dos PRs nunca chega a instalar em lugar nenhum, então é opt-in: um PR recebe um rótulo `needs-snapshot` só quando um consumidor de fato precisa testá-lo, o que dispara uma GitHub Action `snapshot.yml` que publica um pacote temporário com a tag `@pr<numero>`. Um `cleanup-snapshot.yml` pareado remove a tag assim que o PR é fechado. Os releases normais passam pelo Changesets em dois canais, `@latest` a partir da `main` e `@beta` a partir de uma branch de staging, e o workflow de release faz o merge automático do seu próprio PR gerado de "Version Packages" assim que o CI passa.
+
+## Um Monorepo Que Impõe Sua Própria Direção de Dependência
+
+A biblioteca é dividida em camadas, não em um único pacote plano: `tokens`, `icons` e `styles` ficam na base, sem dependências internas, `core` se constrói sobre elas, `ds` se constrói sobre `core`, e `ds-patterns` se constrói sobre `ds`, `core` e `styles`. Cada camada só pode depender da que está abaixo, nunca da de cima, para que uma primitiva de baixo nível não desenvolva silenciosamente uma dependência de um componente de padrão de nível mais alto. O `ds-patterns` também não é feito só de primitivas genéricas: inclui widgets de domínio reais da Testlify (um `CandidateCard`, por exemplo), construídos sobre a mesma camada primitiva que tudo o mais usa. O Storybook, com o addon de acessibilidade ativado, documenta cada componente e é publicado publicamente, para que uma equipe consumidora (ou um revisor externo) possa checar os estados de um componente e os resultados de a11y sem precisar puxar o repositório. Cada componente também carrega um arquivo `.a11y.spec.ts` dedicado, rodando checagens reais do axe-core no CI, não só um addon do Storybook para inspeção manual.
+
+## Modelo de Dados e Escala
+
+- 6 pacotes publicados (`ds`, `-core`, `-icons`, `-patterns`, `-styles`, `-tokens`), cada um versionado de forma independente.
+- 243 arquivos de spec (Vitest + Vue Test Utils) exercitando a biblioteca diretamente, não só os apps que a consomem.
+- 9 workflows de GitHub Actions cobrindo CI, deploys de preview e produção, deploys do Storybook, releases de staging e produção, snapshots de PR e limpeza de snapshots.
+- Workspaces do pnpm mais o cache do Turborepo escopam a tarefa de build apenas aos pacotes de fato afetados por uma mudança; os testes rodam diretamente via Vitest em todo o workspace, não pelo grafo de tarefas do Turbo.
+
+A adoção foi lançada por equipe, não em um dia único de virada de chave: [o app de recrutador/administrador](/projects/testlify-app) roda hoje sobre os 6 pacotes publicados, enquanto as outras equipes de produto puxam componentes individuais no seu próprio cronograma de release, em vez de uma virada coordenada única em todas as 4 aplicações de uma vez.
+
+## Construir vs. Comprar
+
+Sem scripts de bump de versão feitos à mão: o Changesets gerencia o versionamento e os changelogs dos 6 pacotes a partir de um único arquivo de changeset por PR. Sem registry privado autogerenciado: o GitHub Packages reaproveita a mesma autenticação do GitHub que já controla o acesso ao repositório, em vez de rodar e proteger um registry separado como o Verdaccio.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [TypeScript](https://www.typescriptlang.org/), [Vite](https://vite.dev/), workspaces do [pnpm](https://pnpm.io/) com [Turborepo](https://turborepo.com/), [Storybook](https://storybook.js.org/) com o addon de acessibilidade, [Changesets](https://github.com/changesets/changesets) para versionamento, [Vitest](https://vitest.dev/) e [Vue Test Utils](https://test-utils.vuejs.org/), publicado via [GitHub Packages](https://github.com/features/packages).
+
+</CaseStudy>

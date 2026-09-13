@@ -1,20 +1,47 @@
 ---
 title: "FuelBuddy Dubái - Portal Web B2B para Clientes"
-description: "Ayudé a construir desde cero un nuevo portal web B2B para el lanzamiento de FuelBuddy en los Emiratos Árabes Unidos: flujos de pedidos al por mayor, paneles para gestores de flotas y las APIs CRUD detrás de ellos sobre Hasura GraphQL."
+description: "Construí desde cero un portal web B2B para el lanzamiento de FuelBuddy en los Emiratos Árabes Unidos: pagos con Stripe, incorporación mediante OTP, soporte de PWA instalable y APIs CRUD sobre Hasura GraphQL."
 url: https://app.fuelbuddy.ae/
 date: 2024-07-01
 published: true
 company: FuelBuddy
 ---
 
-La entrada de FuelBuddy en el mercado B2B de los Emiratos Árabes Unidos necesitaba una app web dedicada: los clientes corporativos de allí trabajan de forma distinta a los usuarios móviles de consumo, con pedidos al por mayor y gestión de flotas en lugar de compras puntuales. Ayudé a construir este portal desde un repositorio en blanco: el frontend y las APIs CRUD que hay detrás.
+La expansión de FuelBuddy al mercado B2B de los Emiratos Árabes Unidos necesitaba un portal web dedicado. Los clientes corporativos necesitaban gestión de flotas, pedidos al por mayor y programación de entregas en múltiples ubicaciones, en lugar de los flujos de consumo minorista. Construí este portal desde el repositorio inicial hasta producción, cubriendo tanto la arquitectura del frontend como las APIs de datos del backend.
 
 ## Lo que construí
 
-- **Los cimientos:** Monté el frontend desde cero  - estructura de componentes, enrutado y el sistema de estilos compartido -  para que la app tuviera una base sólida sobre la que crecer.
-- **Flujos B2B:** Construí las pantallas que los clientes corporativos usan de verdad: formularios de pedido en varios pasos, flujos de pedidos al por mayor y los densos paneles de los que dependen los gestores de flotas.
-- **Propiedad de las funcionalidades:** Trabajé las funcionalidades de principio a fin: construyendo las APIs CRUD sobre el motor GraphQL de Hasura y luego conectando los diseños y las reglas de negocio a ellas, y llevando todo el conjunto a producción.
+- **Arquitectura del frontend:** Monté la aplicación desde cero, incluyendo la arquitectura de componentes, el enrutado del lado del cliente y un sistema de diseño consistente para los flujos de trabajo corporativos.
+- **Flujos B2B:** Construí formularios de pedido en varios pasos, flujos de programación de combustible al por mayor y paneles de flota densos en datos, con vistas de gráficos y tablas para el historial de pedidos y de saldo.
+- **Pagos e incorporación:** Integré Stripe para las recargas de saldo y los pagos de pedidos, y un registro mediante OTP por teléfono para las cuentas corporativas.
+- **Funcionalidades de principio a fin:** Construí las APIs CRUD sobre el motor GraphQL de Hasura, las conecté al estado de la interfaz, lancé la app como una PWA instalable y me encargué de las reglas de validación de negocio hasta producción.
 
 ## Por qué importó
 
-Lanzar el portal le dio a FuelBuddy una presencia web en condiciones para los clientes corporativos de Dubái y facilitó realizar grandes pedidos B2B de combustible, lo que respaldó el empuje de la empresa en la región.
+Lanzar el portal le dio a FuelBuddy una plataforma web dedicada para sus clientes corporativos en Dubái, agilizando los pedidos de combustible al por mayor y respaldando la expansión regional de la empresa.
+
+<CaseStudy summary="Lee el estudio de caso técnico completo →">
+
+## Lo que realmente se lanzó
+
+Los pedidos al por mayor y la programación de turnos al por mayor son mutaciones reales y funcionales contra Hasura, no formularios de relleno, junto con un panel que reemplazó a una versión anterior heredada (ambas siguen existiendo en el código base, la más nueva en producción). La autenticación funciona a través de los propios claims JWT de Hasura (`x-hasura-default-role` leído directamente del token) en lugar de una capa de permisos separada añadida después.
+
+## Pagos e incorporación, no solo CRUD
+
+Tanto las recargas de saldo como el pago directo de pedidos funcionan a través de Stripe (`@stripe/stripe-js`, `vue-stripe-js`), con rutas de pago dedicadas para pedidos independientes y transacciones de saldo. El registro funciona mediante verificación OTP por teléfono (`vue3-otp-input`, con `vue-tel-input` encargándose del formato de teléfonos internacionales), no un simple formulario de email/contraseña, lo que encaja con un portal construido para cuentas corporativas de flotas y no para altas informales.
+
+## Instalable, no solo responsive
+
+El portal se distribuye como una Progressive Web App instalable mediante `vite-plugin-pwa` y Workbox, con un registro de service worker en modo `autoUpdate`, para que un gestor de flotas pueda añadirla a su pantalla de inicio y recibir los nuevos despliegues sin tener que reinstalarla a mano.
+
+## Modelo de datos y escala
+
+- El SDK de GraphQL generado (a partir del codegen del esquema) supera las 31.000 líneas, una superficie de API tipada genuinamente grande, no un puñado de consultas improvisadas.
+- La obtención de datos pasa por `graphql-request` directamente contra Hasura, sin ningún cliente Apollo o urql de por medio.
+- Los paneles de flota se renderizan con `vue3-easy-data-table` y `vue-chart-3` (Chart.js), pensados para tablas y gráficos con volúmenes de filas reales, no un puñado de tarjetas resumen.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [Vite](https://vite.dev/), [Pinia](https://pinia.vuejs.org/) para el estado, [graphql-request](https://github.com/jasonkuhrt/graphql-request) con GraphQL Code Generator contra [Hasura](https://hasura.io/), [Stripe](https://stripe.com/) para los pagos, [Firebase](https://firebase.google.com/) para la autenticación, [Chart.js](https://www.chartjs.org/) para los paneles, [vite-plugin-pwa](https://vite-pwa-org.netlify.app/) con Workbox para el soporte offline/instalable, [Playwright](https://playwright.dev/) para las pruebas.
+
+</CaseStudy>

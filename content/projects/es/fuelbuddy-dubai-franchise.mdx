@@ -1,20 +1,44 @@
 ---
 title: "FuelBuddy Dubái - Plataforma Regional de Franquicias"
-description: "Construí desde cero una app de franquicias para las operaciones de FuelBuddy en los Emiratos Árabes Unidos: el frontend más mis propias APIs CRUD sobre Hasura GraphQL, con TanStack Query en el cliente y un flujo de autenticación y seguridad rehecho para los requisitos regionales."
+description: "Construí desde cero la plataforma de franquicias de FuelBuddy en los Emiratos Árabes Unidos: la arquitectura del frontend, las APIs de Hasura GraphQL y la autenticación respaldada por Firebase."
 date: 2024-10-01
 published: true
 company: FuelBuddy
 ---
 
-La expansión de FuelBuddy en los Emiratos Árabes Unidos necesitaba su propia app de franquicias: el mercado de Dubái tenía requisitos regulatorios, de seguridad y de flujo de trabajo distintos a los de las plataformas existentes, lo suficiente como para que reutilizar la antigua no encajara bien. Construí la Aplicación de Franquicias de Dubái desde cero, tanto en el frontend como en las APIs CRUD que hay detrás.
+La expansión de FuelBuddy en los Emiratos Árabes Unidos necesitaba una aplicación de franquicias dedicada, adaptada a los requisitos operativos regionales. Construí la Aplicación de Franquicias de Dubái desde cero, tanto en el frontend como en las APIs de datos.
 
 ## Lo que construí
 
-- **Nuevo frontend desde cero:** Construí el sistema de componentes desde el principio, lo que permitió que la app fuera más responsive y estuviera mejor armada que las versiones anteriores a las que reemplazaba.
-- **Mis propias APIs CRUD sobre Hasura:** Construí las APIs de datos del backend sobre las que funciona la app, usando el motor GraphQL de Hasura sobre la base de datos para exponer las operaciones CRUD que necesitaba, de modo que pude diseñar la capa de datos de principio a fin en lugar de esperar a endpoints de backend separados.
-- **Capa de datos con TanStack Query:** Usé TanStack React Query en el frontend para consumir esas APIs  - caché, refetch en segundo plano y actualizaciones optimistas -  para que la interfaz se mantuviera rápida y consistente sin mucho cableado manual de estado.
-- **Autenticación y seguridad:** Rehíce la autenticación, el manejo de tokens y la validación de los payloads de la API para cumplir los requisitos de conformidad de la región.
+- **Frontend desde cero:** Construí el sistema de componentes y la estructura de la aplicación desde el principio, entregando una interfaz limpia y responsive para las operaciones de franquicia.
+- **APIs de Hasura GraphQL:** Construí la capa de datos del backend sobre el motor GraphQL de Hasura, definiendo las operaciones CRUD y los modelos de datos que necesitaba la aplicación.
+- **Mapas, programación y exportaciones:** Integré mapas en vivo, una vista de programación tipo calendario/Gantt, y exportación a hoja de cálculo/PDF para los informes de franquicia.
+- **Autenticación y seguridad:** Configuré la autenticación respaldada por Firebase, con control de acceso basado en roles aplicado mediante los propios claims JWT de Hasura.
 
 ## Por qué importó
 
-El resultado cumplió los requisitos más estrictos del mercado de Dubái y estableció un estándar interno más limpio sobre cómo se construyen estas apps. La capa de datos revisada también redujo las llamadas de red redundantes, lo que mantuvo la experiencia ágil para los socios de franquicia.
+Entregar una plataforma dedicada les dio a los operadores de franquicia de FuelBuddy en los Emiratos Árabes Unidos una herramienta construida específicamente para las operaciones regionales, sobre un stack pensado para datos de mapa en tiempo real e informes pesados.
+
+<CaseStudy summary="Lee el estudio de caso técnico completo →">
+
+## La capa de datos
+
+Esta app obtiene datos mediante `graphql-request` contra un SDK tipado generado por codegen, con stores de Pinia guardando el estado del cliente, sin TanStack Query en ningún punto del árbol de dependencias. La autenticación funciona sobre Firebase, y el acceso basado en roles proviene de los propios claims JWT personalizados de Hasura (`x-hasura-default-role`, `x-hasura-user-id`) en lugar de un sistema de permisos construido por separado.
+
+## Más que un generador de formularios
+
+Esta es una app genuinamente cargada de funcionalidades para lo que podría haber sido una simple herramienta CRUD: Mapbox GL junto con `mapbox-gl-draw` para dibujar y editar zonas de franquicia directamente sobre el mapa, FullCalendar combinado con `vue-ganttastic` para la programación al estilo Gantt, Chart.js para los paneles de informes, y una canalización de exportación completa (`xlsx`, `papaparse`, `jszip`, `html2pdf.js`, `dom-to-image`, `html-to-image`) para que los informes de franquicia salgan de la app como hojas de cálculo, PDFs o imágenes según lo que necesite el operador, no en un único formato fijo.
+
+## Codegen, no consultas escritas a mano
+
+Las operaciones de GraphQL se generan en tiempo de compilación mediante `vite-plugin-graphql-codegen` contra `codegen.yml`, produciendo un cliente `src/sdk.ts` tipado a partir del esquema de Hasura. Cada consulta y mutación está tipada contra el esquema en vivo, en lugar de strings escritos a mano que se desalinean en silencio cuando cambia el backend.
+
+## Enfoque de las pruebas
+
+Playwright cubre dos flujos de principio a fin: el login y la gestión de pedidos, la puerta detrás de la cual se sitúa cualquier otra pantalla y la transacción central para la que existe la app. Todo lo que viene después de esos dos flujos (programación, exportaciones, informes) es superficie más nueva que las pruebas, no un descuido.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [Vite](https://vite.dev/), [Pinia](https://pinia.vuejs.org/), [graphql-request](https://github.com/jasonkuhrt/graphql-request) con [GraphQL Code Generator](https://the-guild.dev/graphql/codegen) contra [Hasura](https://hasura.io/), [Firebase](https://firebase.google.com/) para la autenticación, [Mapbox GL](https://www.mapbox.com/) con `mapbox-gl-draw`, [FullCalendar](https://fullcalendar.io/) con `vue-ganttastic`, [Chart.js](https://www.chartjs.org/) para los informes, [Playwright](https://playwright.dev/) para las pruebas.
+
+</CaseStudy>

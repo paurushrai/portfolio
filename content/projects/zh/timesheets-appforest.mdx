@@ -1,24 +1,62 @@
 ---
-title: "Timesheets by AppForest: Jira 插件"
-description: "主导一个发布在 Atlassian Marketplace 上的 Jira 工时跟踪插件的前端 -  - 在内部也用它，替换掉了一个付费的第三方工具，每年省下 9000 多美元。"
+title: "Timesheets by AppForest - Jira 插件"
+description: "打造了一个在全公司和 Atlassian Marketplace 上使用的 Jira 工时管理平台,取代了第三方工具,每年节省 9,000 美元以上的授权费用。"
 url: https://marketplace.atlassian.com/apps/1236036/timesheets-by-appforest
 date: 2025-03-01
 published: true
 company: Testlify
+coverImage: /projects/timesheets-appforest/timesheet.gif
 ---
 
-在 Testlify，我们一直在为一个第三方工时跟踪工具付费，但它和我们工程工作在 Jira 里实际发生的方式对不上。我主导了 Timesheets by AppForest 的前端 -  - 这是一个处理工时跟踪、生产力洞察和成本分摊的 Jira 插件。它发布在 Atlassian Marketplace 上，任何团队都能装 -  - 我们内部也在跑它，替换掉了那个付费工具。
+在 Testlify,工程团队的工时记录一直依赖一款昂贵的第三方应用,与日常 Jira 工作流脱节。我主导了 Timesheets by AppForest 的前端开发,这是一款集成到 Jira 中的应用,用于工时记录、团队产能规划和项目成本分摊。该产品已在 Atlassian Marketplace 上发布,并在公司内部全面部署。
 
-![Timesheets by AppForest: 概览](/projects/timesheets-appforest/timesheet.gif)
+![Timesheets by AppForest - 概览](/projects/timesheets-appforest/timesheet.gif)
 
-## 我做了什么
+## 我构建的内容
 
-- **Jira 集成：** 针对 Jira 的开发者 API、原生地为 Atlassian Marketplace 构建，并和后端工程师一起把 OAuth 权限范围和企业安全要求都保持到位。
-- **Jira 内的 UI：** 设计了一个直接嵌在 Jira issue 面板里的响应式 UI，带一键工时记录和日/周/月视图 -  - 让工程师不用切换工具就能记录工时。
-- **报表：** 构建了展示实时生产力数据的仪表盘，加上 CSV 和 PDF 导出，让相关方能按需拉取报表用于成本分摊。
+- **Atlassian Marketplace 集成:** 构建在 Atlassian Forge 之上,这是 Atlassian 的沙盒化无服务器应用运行时,使用严格限定、最小权限的 Jira 读写权限,而非自建后端。
+- **嵌入式 Jira 界面:** 一个直接嵌入 Jira 工单中的工时记录面板,用于快速录入,再加上一个完整的仪表盘应用,提供日历视图和每日/每周工时提交,无需切换上下文。
+- **报表与分析:** 结合 Jira 数据与内部工时记录数据的报表视图,用于冲刺核算和项目成本追踪。
 
-![Timesheets by AppForest: 工时记录](/projects/timesheets-appforest/time-logging.gif)
+![Timesheets by AppForest - 工时记录](/projects/timesheets-appforest/time-logging.gif)
 
-## 为什么它有意义
+## 为何重要
 
-它是 Atlassian Marketplace 上任何团队都能安装的产品。在内部，改用它让我们砍掉了那个付费的第三方工具，每年省下 **9000 多美元**，也让管理层对团队速度和项目成本有了实时的可见性，帮上了预测的忙。
+这款插件在 Atlassian Marketplace 上向外部客户发布,同时也在内部取代了我们旧的工时追踪软件,**每年节省 9,000 美元以上的授权费用**,并让管理层实时了解工程资源的分配情况。
+
+<CaseStudy summary="阅读完整技术案例研究 →">
+
+## 团队与职责
+
+我在一个小团队中主导前端开发:自 2024 年年中以来,4 名贡献者共提交了 397 次 commit,至今仍在积极维护。这不是一个人的作品,而是一个持续多年、多人协作的产品,我的角色仅限于前端,而非全栈负责。
+
+## 用的是 Forge,不是 Connect
+
+这款应用运行在 Atlassian Forge 上,这是一个沙盒化的无服务器运行时,而非较早的 Connect 框架(一种自建后端、通过 iframe 和 webhook 与 Jira 通信的自托管应用)。使用 Forge 意味着面向 Jira 的那部分不需要我们自己运维或打补丁的服务器:Atlassian 托管执行环境,强制执行清单中声明的权限范围,并施加无服务器式的限制(ARM64 上的 Node 22、1024MB 内存、每次调用的执行时间上限),而不是把这套基础设施留给我们自己搭建。
+
+## 两个界面服务于两种不同意图
+
+这款产品刻意分成两个界面,而非合而为一。工单上下文面板处理最常见的场景:针对正在查看的工单,一键记录工时,无需离开它。另一个完整的仪表盘应用(日历视图、报表、管理设置、成本追踪)负责规划和监督,这些任务需要的是一个真正的工作空间,而不是一个侧边栏面板。每个界面都是为其自身职责而设计,而不是强行用一个界面兼顾两者。
+
+## 一次真正的跨项目集成
+
+这不是一个孤立的应用。解析器函数会明确接收并清除来自 Google 日历、Outlook 日历以及配套的 [AppForest Timetracker VS Code 扩展](/projects/appforest-timetracker-vscode)的工时录入建议,这样开发者在 VS Code 中的编码活动就能作为建议的工时记录出现在这里,而无需手动重新录入。
+
+## 数据模型与规模
+
+- Forge 权限范围狭窄且明确(`read:jira-work`、`write:jira-work`、`manage:jira-configuration`,以及用户/令牌读取),而非宽泛的一揽子授权。
+- UI 组件使用 Atlassian 自己的设计令牌(`@atlaskit`),使插件在视觉上与原生 Jira 保持一致,而不像一个后加的第三方产品。
+- 仪表盘应用是使用 Pinia 做状态管理的 Vue 3,共 46 个组件,与基于 React 的工单上下文面板分离;一个产品中有两套前端技术栈,而不是把一套共享代码库人为拉伸去覆盖两个界面。
+- Forge 函数的内存分配是在遇到真实性能问题后从 256MB 提升到 1024MB 的,而不是一开始就默认设为 1024MB。
+
+支撑这些成本/冲刺视图的报表引擎会根据报表规模自行调整查询策略:它会按报表体量将 Jira JQL 搜索请求拆分为每次 25、50 或 100 个工单一批,每个工单拉取 16 个字段,而不是逐个工单发起请求,也不是发起一个在大型冲刺中可能超时的无限制单一查询。
+
+## Build vs. Buy
+
+选择 Forge 而非自托管的 Connect 应用:Atlassian 的运行时和权限模型取代了这个团队原本需要自行构建和维护的基础设施。选择原生 Atlassian 设计令牌而非自建 UI 套件:插件继承了 Jira 本身的外观和交互模式,而不是为这一个应用单独维护一套并行的设计系统。
+
+## 技术栈
+
+Atlassian [Forge](https://developer.atlassian.com/platform/forge/)(Node 22,ARM64),工单上下文面板使用 [React](https://react.dev/) 18,仪表盘应用使用 [Vue](https://vuejs.org/) 3 搭配 [Pinia](https://pinia.vuejs.org/),[Atlassian Design System](https://atlassian.design/) 的令牌与基础组件,通过 [Atlassian Marketplace](https://marketplace.atlassian.com/) 部署。
+
+</CaseStudy>

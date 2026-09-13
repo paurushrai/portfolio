@@ -1,20 +1,41 @@
 ---
-title: "Testlify App - Plateforme d'Évaluation Pilotée par l'IA"
-description: "J'ai construit le frontend des workflows d'entretien IA de Testlify: chat, voix et vidéo: en gérant la capture média en direct et la logique d'état derrière les entretiens IA en temps réel."
+title: "Testlify - Rédaction de Questions IA Voix et Vidéo"
+description: "Interface recruteur pour la rédaction de questions d'entretien IA en voix, vidéo et chat au sein du générateur d'évaluations de Testlify, incluant la configuration des prompts IA, la notation par compétences, et le choix de voix de synthèse vocale."
 url: https://app.testlify.com/
 date: 2025-02-01
 published: true
 company: Testlify
 ---
 
-[Testlify](https://testlify.com/) est une plateforme d'évaluation des compétences et d'entretien propulsée par l'IA, utilisée par les entreprises pour évaluer les candidats. J'ai pris en charge le frontend des modules d'entretien IA de Testlify, les interfaces interactives en temps réel qu'utilisent les candidats, en travaillant étroitement avec les équipes IA et backend pour définir le comportement de chaque mode avant de le construire.
+[Testlify](https://testlify.com/) est une plateforme d'évaluation de compétences et d'entretiens. Dans son générateur de tests destiné aux recruteurs, j'ai construit l'interface de rédaction de trois types de questions pilotées par IA, voix, vidéo, et simulation de chat, que les recruteurs utilisent pour configurer des évaluations automatisées de candidats : limites de durée d'enregistrement, configuration des prompts IA, notation par compétences, et choix de voix de synthèse vocale.
 
 ## Ce que j'ai construit
 
-- **Interfaces d'entretien IA (chat, voix, vidéo) :** Construction du frontend des entretiens IA multimodaux, les écrans où les candidats interagissent avec une IA par chat textuel, micro en direct et vidéo.
-- **Capture média :** Prise en charge des API navigateur pour l'audio et la vidéo en temps réel, permissions caméra et microphone, visualisations audio en direct pour que les candidats voient qu'ils sont entendus, et réglages côté client pour garder les échanges avec l'IA fluides et conversationnels.
-- **Gestion de l'état de l'entretien :** Construction de la logique d'état frontend pour composer avec les parties imprévisibles d'un entretien IA en direct, coupures réseau, attente que l'IA génère la question suivante, et progression dans les étapes d'évaluation sans bloquer le candidat.
+- **Rédaction de questions IA vocales :** Construction de l'interface de configuration des questions d'entretien IA basées sur la voix dans le générateur de tests, limites d'enregistrement, configuration des prompts IA, et notation par compétences.
+- **Intégration au générateur de questions :** Intégration des types de questions voix, vidéo, et simulation de chat dans le flux du générateur d'évaluations du recruteur.
+- **Style et outillage :** Contribution au style des composants pour l'interface des questions voix/chat, ainsi qu'à la configuration de l'outillage du dépôt (ESLint, Husky, Renovate, configuration Tailwind).
 
 ## Pourquoi c'était important
 
-Un frontend soigné a rendu ces entretiens IA utilisables à grande échelle et a réduit l'effort manuel que les recruteurs devaient fournir, de l'ordre de 40 % de travail administratif en moins par évaluation. Les modules d'entretien IA ont fait partie de la croissance de la plateforme sur cette période, contribuant à une hausse notable du chiffre d'affaires.
+Les questions IA voix, vidéo, et chat sont le moyen par lequel les recruteurs configurent les évaluations d'entretien automatisées de Testlify. Ce travail a rendu ces types de questions configurables et cohérents au sein du même design system partagé utilisé sur l'ensemble de la suite produit de Testlify.
+
+<CaseStudy summary="Lire l'étude de cas technique complète →">
+
+## Une petite contribution, dans une base de code massive
+
+Ce dépôt est le tableau de bord recruteur/admin de Testlify : 16 216 commits, des dizaines de contributeurs, actif depuis septembre 2021. Mes propres commits en représentent 86, environ un demi pour cent, sur environ un an et demi. La majeure partie de ce compte se trouve dans un sous-module git `component-library`, le même design system Vue partagé déjà couvert comme [étude de cas à part entière](/projects/testlify-component-library) ; en dehors de ce sous-module, le vrai travail porte sur un ensemble ciblé de fichiers : la modale de question vocale, la vue des questions d'entretien qui relie les types de questions au générateur, et le style et l'outillage qui les entourent.
+
+## Ce que « entretien IA multimodal » signifie réellement ici
+
+Cette application est le côté recruteur du produit : là où un recruteur configure ce qu'une question pilotée par IA demande réellement, pas là où un candidat y répond en direct. Voix, vidéo, et simulation de chat sont des *types* de questions qu'un recruteur configure dans le générateur de tests, chacun avec sa propre limite de durée d'enregistrement, son propre prompt IA, sa propre grille de notation par compétences, et (pour la voix) un choix de voix de synthèse vocale. L'expérience d'entretien côté candidat, qui fait vivre ces questions configurées, tourne dans une application séparée, ailleurs dans la stack de Testlify.
+
+## Modèle de données et échelle
+
+- 16 216 commits sur plus de 4 ans, avec un contributeur principal responsable à lui seul de plus de 1 800 d'entre eux, une base de code d'équipe véritablement vaste et de longue durée, pas un petit projet.
+- Le design system partagé est consommé comme un sous-module git plutôt que copié-collé ou forké, gardant cette application sur le même design system versionné que les trois autres produits de Testlify.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [TypeScript](https://www.typescriptlang.org/), [Vuex](https://vuex.vuejs.org/) pour l'état, [Vite](https://vite.dev/), le [design system Testlify](/projects/testlify-component-library) partagé comme sous-module git, [ESLint](https://eslint.org/), [Husky](https://typicode.github.io/husky/), [Renovate](https://docs.renovatebot.com/) pour les mises à jour de dépendances, [Tailwind CSS](https://tailwindcss.com/).
+
+</CaseStudy>

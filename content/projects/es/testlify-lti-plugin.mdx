@@ -1,24 +1,59 @@
 ---
 title: "Plugin Testlify LTI 1.3 Advantage"
-description: "Una integración LTI Advantage (1.3) certificada por 1EdTech que permite a los instructores asignar evaluaciones de Testlify a un curso y seguir las notas desde dentro de su LMS: handshake OIDC/JWT a medida, sincronización de listas y devolución de calificaciones, construida en Next.js 14."
+description: "Diseñé y construí una integración LTI 1.3 certificada por 1EdTech que conecta Testlify con Canvas, Moodle, Blackboard y D2L Brightspace, con devolución automática de calificaciones, en Next.js 14."
 url: https://lti.testlify.com/
 date: 2026-03-01
 published: true
 company: Testlify
+coverImage: /projects/testlify-lti-plugin/plugin.gif
 ---
 
-Los sistemas de gestión del aprendizaje como Canvas, Moodle y Blackboard son donde los colegios y los equipos de formación corporativa hacen su día a día. Para que las evaluaciones de Testlify fueran usables dentro de esos sistemas, necesitábamos un puente seguro y conforme a los estándares. Construí el Plugin Testlify LTI como único ingeniero full-stack: permite a los instructores asignar evaluaciones creadas en Testlify a los candidatos matriculados en un curso y seguir sus notas, todo desde dentro del LMS.
+Los sistemas de gestión del aprendizaje (LMS) como Canvas, Moodle, Blackboard y D2L Brightspace son las plataformas principales que usan las universidades y los equipos de formación corporativa. Para que las evaluaciones de Testlify fueran accesibles dentro de esos sistemas, diseñé y construí la integración LTI de Testlify desde cero como ingeniero principal. La integración permite a los educadores incrustar evaluaciones de Testlify directamente en los cursos del LMS y sincronizar automáticamente las notas con el libro de calificaciones.
 
-![Demo del Plugin Testlify LTI 1.3](/projects/testlify-lti-plugin/plugin.gif)
+![Demo del plugin Testlify LTI 1.3](/projects/testlify-lti-plugin/plugin.gif)
 
-La integración está **[certificada oficialmente por 1EdTech](https://site.imsglobal.org/certifications/testlify-inc/testlify#cert_pane_nid_626241)** para LTI Advantage (v1.3)  - Names and Role Provisioning Services 2.0 y Assignment & Grade Services 2.0 - . 1EdTech ejecuta las pruebas de conformidad, así que no son afirmaciones autodeclaradas: un organismo independiente verificó que la implementación sigue la especificación.
+La integración está **[certificada oficialmente por 1EdTech](https://site.imsglobal.org/certifications/testlify-inc/testlify#cert_pane_nid_626241)** para LTI Advantage (v1.3), cubriendo Names and Role Provisioning Services (NRPS 2.0) y Assignment & Grade Services (AGS 2.0).
 
 ## Lo que construí
 
-- **Implementación LTI 1.3 a medida:** En lugar de apoyarme en una pesada librería LTI de terceros, implementé la especificación directamente en Next.js 14: el handshake de OpenID Connect, la verificación de la firma JWT y los endpoints de clave pública JWKS que establecen la confianza entre el LMS y Testlify.
-- **Flujo de asignar y seguir:** Construí la capa de API detrás de todo el flujo: Deep Linking para que un instructor elija una evaluación de Testlify y la incorpore a un curso como una tarea, Names and Role Provisioning Services (NRPS) para traer a los candidatos matriculados en ese curso, y Assignment & Grade Services (AGS) para enviar la nota de cada candidato de vuelta al libro de calificaciones del LMS, de modo que los instructores vean los resultados donde ya trabajan.
-- **Sistema full-stack:** Combiné el enrutado de API multi-tenant con un panel en React 18 en una sola app, diseñé los esquemas de MongoDB para la configuración por plataforma, y usé Docker para simular entornos LMS aislados en las pruebas locales.
+- **Capa de seguridad LTI 1.3 a medida:** Implementé la especificación de seguridad completa de LTI 1.3 en Next.js 14, incluyendo los flujos de lanzamiento de terceros de OpenID Connect (OIDC), la verificación de firma JWT con RSA SHA-256, y endpoints JWKS dinámicos.
+- **Servicios de LTI Advantage:** Registré Deep Linking como tipo de mensaje admitido durante el registro de la plataforma, construí la integración completa de NRPS 2.0 para recuperar las listas de un curso (con paginación y normalización de los URN de rol entre plataformas LMS), y endpoints de AGS 2.0 para la sincronización automática de calificaciones.
+- **Arquitectura full-stack multi-tenant:** Construí un panel de administración multi-tenant en React 18, configuré los esquemas de MongoDB para las claves de registro de plataforma, y me uní por red a un entorno Docker de Moodle gestionado por separado para las pruebas locales. Canvas, al estar alojado por Instructure, se probó en cambio directamente contra una instancia en producción.
 
 ## Por qué importó
 
-Una integración LTI conforme a los estándares abrió Testlify a los mercados de la educación superior y la formación corporativa, y el plugin que construí acabó pasando las pruebas de conformidad de 1EdTech y obteniendo la certificación. Los instructores podían asignar evaluaciones a un curso entero y recibir las notas de vuelta en el libro de calificaciones de forma automática  - sin exportar listas ni copiar resultados a mano - , que es el tipo de fricción que suele frenar la adopción de un LMS.
+Conseguir la certificación oficial de 1EdTech le permitió a Testlify entrar en los mercados de la educación superior y la formación corporativa. La sincronización automática de listas y la devolución de calificaciones eliminaron la entrada manual de datos para los instructores.
+
+<CaseStudy summary="Lee el estudio de caso técnico completo →">
+
+## Equipo y cronología
+
+25 commits a lo largo de unas 7 semanas (de febrero a marzo de 2026), con dos colaboradores junto a mí. Escribí aproximadamente el 80% de los commits y dirigí la arquitectura y el trabajo de certificación; "ingeniero principal" es una descripción precisa del rol, no una exagerada.
+
+## Hecho a mano, no con ltijs
+
+`ltijs` es la librería estándar de Node.js para LTI 1.3, y la mayoría de las integraciones recurren a ella. Esta no depende de ella. La obtención de JWKS, el emparejamiento de claves y la verificación de JWT con RS256 están implementados directamente en este código base, junto con el patrón de sesión sin estado descrito en [la entrada de blog complementaria](/blogs/lti-1-3-nextjs-nodejs-guide): un token de sesión firmado de 24 horas (`ltik`) transportado en la URL en lugar de en una cookie, enviado como bearer token en cada llamada a la API, precisamente para que la integración siga funcionando cuando un navegador bloquea las cookies de terceros dentro de un iframe del LMS. Conseguir una integración certificada a través de las pruebas de conformidad de 1EdTech significa que la capa de seguridad tiene que ajustarse exactamente a la especificación; tener ese código bajo control directo, en lugar de depender del ciclo de lanzamientos y de la interpretación de la especificación de una librería de terceros, hizo que fuera más fácil de verificar y certificar.
+
+NRPS y AGS, los dos servicios de LTI Advantage completamente construidos, van más allá del mínimo de la especificación: NRPS gestiona la paginación mediante las propias cabeceras `Link` del LMS y normaliza los URN de rol entre plataformas que no los formatean de forma idéntica, con un filtro del lado del cliente como red de seguridad para las plataformas LMS que no cumplen totalmente la especificación.
+
+## Cuatro plataformas LMS, un único arnés de pruebas locales
+
+Moodle no se levanta con el propio archivo de Docker Compose de este repositorio; se une a la red de un proyecto `moodle-docker` gestionado por separado para las pruebas locales. Canvas es el SaaS alojado por la propia Instructure, sin una imagen autoalojada equivalente para ejecutar localmente, así que en cambio se prueba directamente contra una instancia de Canvas en producción. La producción se ejecuta en Vercel. Al principio existió un Dockerfile de producción, que se eliminó más tarde en cuanto Vercel se convirtió en el único destino de despliegue real; solo queda un Dockerfile de solo desarrollo, para la iteración local, no como alternativa de autoalojamiento. El soporte para D2L Brightspace se añadió más tarde, mediante un commit fechado que agrega el soporte de registro para un cuarto LMS, que no formaba parte de los tres originales.
+
+## Modelo de datos y escala
+
+- Cada plataforma LMS registrada (la instancia de Canvas/Moodle/Blackboard/Brightspace de una universidad o institución) es su propio registro de tenant con sus propias claves de registro, no una credencial global compartida.
+- Módulos de servicio separados gestionan NRPS (recuperación de listas) y AGS (partidas y envío de calificaciones) según la especificación de LTI Advantage, además de un endpoint de webhook de calificaciones dedicado.
+- MongoDB a través de Mongoose respalda la configuración de plataforma y los registros de asignación de evaluaciones.
+
+El proyecto superó a su propio README: una visión interna más detallada y de fecha más reciente describe la arquitectura completa, desplegada en Vercel, con 4 LMS, con su propia documentación de seguridad, base de datos y referencia de API, en lo que esta integración realmente se convirtió.
+
+## Construir vs. comprar
+
+Lógica de JWKS/JWT/sesión hecha a mano en lugar de la librería `ltijs`: control total sobre la conformidad con la especificación para una integración sujeta a certificación, en lugar de heredar la propia interpretación de la especificación de una dependencia. Vercel en lugar de autoalojamiento: en cuanto ese se convirtió en el único destino de despliegue real, el Dockerfile de producción se eliminó en lugar de mantenerlo sin usar, dejando solo un Dockerfile de solo desarrollo para la iteración local.
+
+## Stack
+
+[Next.js](https://nextjs.org/) 14, [React](https://react.dev/) 18, [MongoDB](https://www.mongodb.com/) con [Mongoose](https://mongoosejs.com/), [Docker Compose](https://docs.docker.com/compose/) para las pruebas locales de Moodle, desplegado en [Vercel](https://vercel.com/), certificado contra la suite de conformidad de LTI Advantage (1.3) de [1EdTech](https://www.1edtech.org/).
+
+</CaseStudy>

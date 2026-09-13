@@ -1,6 +1,6 @@
 ---
-title: "Testlify - Pazarlama Sitesinin Jamstack'e Taşınması"
-description: "Testlify'ın 11.000+ sayfalık pazarlama sitesinde yükleme ve içerik teslimini hızlandırmak için WordPress yerine Jamstack'i seçtim: hâlihazırda süren, sayfa yükleme sürelerini %60 azaltması öngörülen bir taşıma."
+title: "Testlify - Pazarlama Sitesinin Next.js'e Taşınması"
+description: "11.000'den fazla sayfalık bir pazarlama sitesi için WordPress'i önbellek öncelikli bir Next.js 16 mimarisiyle değiştirme mimari kararına liderlik ettim, mevcut SEO otoritesini korumak için sayfa sayfa üretimle karşılaştırarak doğruladım."
 url: https://testlify.com/
 date: 2026-07-01
 published: true
@@ -8,14 +8,48 @@ wip: true
 company: Testlify
 ---
 
-Testlify'ın [pazarlama sitesi](https://testlify.com/) büyük, 11.000+ sayfa, ve WordPress üzerinde çalışıyordu; burada sayfa yüklemeleri hemen çıkma oranlarına zarar verecek kadar yavaştı ve değişiklikleri yayınlamak olması gerekenden daha ağırdı. Onu bir Jamstack mimarisine taşıma kararını verdim ve taşıma şu anda sürüyor.
+Testlify'ın [pazarlama sitesi](https://testlify.com/) 11.000'den fazla sayfa içeriyor. Eski WordPress kurulumu, her istekte sunucu tarafı render yükü ve eklenti darboğazlarına neden oluyor, bu da sayfa yükleme hızlarını ve arama motoru sıralamalarını etkiliyordu. Siteyi Next.js 16'ya taşıma mimari kararına liderlik ettim ve bu geçiş hâlâ devam ediyor.
 
-## Karar
+## Mimari karar
 
-- **WordPress yerine Jamstack:** 11.000+ sayfada WordPress kurulumu her istekte bir işleme ve eklenti maliyeti ödüyordu. Statik bir Jamstack derlemesine geçmek bunun yerine önceden işlenmiş sayfalar sunuyor; hızın büyük kısmı da buradan geliyor, ve daha hızlı yüklemeler bir pazarlama sitesinde hemen çıkma oranına doğrudan yardımcı oluyor.
-- **CMS güdümlü içerik:** İçerik başsız (headless) bir CMS'e taşınıyor; böylece pazarlama ekibi sayfaları onun üzerinden yayınlayıp güncelliyor ve site bu kaynaktan yeniden derleniyor, içeriği yayına almak eski akıştan daha hızlı ve bu sayfa sayısında bakımı daha temiz.
-- **Ölçekte taşıma:** İş, mevcut 11.000+ sayfayı SEO değerini kaybetmeden veya URL'leri bozmadan yeni mimariye taşımakla ilgili, bu büyüklükteki her taşımanın zor kısmı ve tek seferde geçiş değil de aşamalı bir devreye alma olmasının nedeni.
+- **WordPress yerine önbellek öncelikli:** Sayfalar ilk istekte bir kez render edilir ve süresiz olarak önbelleğe alınır, her istekte veritabanına gitmek veya 11.000'den fazla sayfa için saatler süren toplu yeniden derleme gerektirmek yerine. Bir Payload CMS webhook'u, yalnızca bir içerik değişikliğinin gerçekten etkilediği sayfaları geçersiz kılar.
+- **Headless CMS entegrasyonu:** İçerik, Postgres tarafından desteklenen kendi kendine barındırılan bir headless CMS olan Payload CMS üzerinden yönetilir, önbellek geçersiz kılma kancaları her değişikliği otomatik olarak yakalarken pazarlama ekiplerinin sayfaları düzenlemesine ve yayınlamasına olanak tanır.
+- **Ölçekte geçiş:** 11.000'den fazla sayfanın aşamalı geçişini planladım ve yürüttüm, üretimin canlı site haritasına karşı sayfa sayfa doğruladım, tüm kategorilerde URL yapılarını, kanonik etiketleri ve mevcut SEO otoritesini koruyarak.
 
 ## Neden önemliydi
 
-Taşımanın sayfa yükleme sürelerini yaklaşık **%60** azaltması öngörülüyor. Bir pazarlama sitesinde bu, gösterişlik bir metrik değil: daha hızlı sayfalar daha düşük hemen çıkma oranı ve daha iyi arama sıralaması demek; CMS güdümlü akış da pazarlama ekibinin mühendisliği beklemeden içeriği yayına çıkarmasını sağlıyor.
+11.000'den fazla sayfalık bir siteyi WordPress'ten önbellek öncelikli bir mimariye taşımak, sayfa yükleme sürelerini kısaltır, teknik SEO performansını iyileştirir ve pazarlama ekiplerinin mühendislik dağıtımlarına bağlı kalmadan güncellemeleri yayınlamasına olanak tanır.
+
+<CaseStudy summary="Tam teknik vaka çalışmasını okuyun →">
+
+## Hâlâ Devam Eden Sahiplik
+
+WordPress'ten uzaklaşma mimari kararına liderlik ettim. Bu tek kişilik bir yapım değil: 2026 Temmuz'undan bu yana yaklaşık 15-20 katkıda bulunandan 2.500'den fazla commit, bu ay kadar yakın zamanda aktif, son durum kontrolü itibarıyla üretime DNS geçişi kalan tek adımdı.
+
+## Bunun Neden Klasik Bir Jamstack Olmadığı
+
+11.000'den fazla sayfa için bariz yaklaşım, derleme zamanında statik üretimdir. Bu burada uymuyor: her yerel ayar ve içerik türünde tam bir yeniden derleme saatler sürer ve tek bir içerik düzenlemesinin yayına girmek için tüm sitenin yeniden derlenmesini gerektirmemesi gerekir. Bunun yerine, her dinamik rota (category, author, hr-tools, hr-guide, blog, test-library ve daha fazlası) aynı kuralı izler: derleme, her rota türü için tam olarak bir örnek sayfayı önceden render eder, çünkü Cache Components derlemek için en az bir parametre gerektirir ve derlemenin kendisi sıfır veritabanı sorgusuyla çalışmalıdır. O rota altındaki diğer her sayfa, ilk gerçek isteğinde Next.js 16'nın Cache Components'i altında render edilir, ardından bir Payload CMS `afterChange` kancası o belirli sayfa için imzalı bir yeniden doğrulama uç noktasını çağırana kadar süresiz olarak önbellekte kalır (`cacheLife`, Next'in kendi `INFINITE_CACHE` sabitine ayarlanmıştır). İçerik değişiklikleri tam bir yeniden derleme döngüsü yerine saniyeler içinde yayılır ve önbellek ziyaretçi tarafından hâlâ bir CDN kenar önbelleği gibi davranır. Yeniden doğrulama uç noktasının kendisi HMAC ile imzalanmıştır ve sabit zamanlı bir karşılaştırmayla kontrol edilir, ve kasıtlı olarak bir seferde yalnızca bir etiketi geçersiz kılmakla sınırlıdır: yalnızca ayrı, manuel olarak tetiklenen bir yönetici yolu koleksiyon genelinde bir etiketi temizleyebilir, böylece sızdırılmış bir webhook sırrı en kötü ihtimalle tek bir sayfayı geçersiz kılabilir, tüm sitenin önbelleğini bir anda çökertemez.
+
+## Üretimde Bulunan ve Kaynağında Düzeltilen İki Framework Hatası
+
+Derleme sırasında iki ayrı Next.js 16 sorunu ortaya çıktı, ikisi de bir sonraki kişinin zor yoldan yeniden keşfetmemesi için artık doğrudan `next.config.ts` içinde belgelenmiştir. Birincisi, `cacheComponents` varsayılan olarak sessizce `enablePrerenderSourceMaps`'i etkinleştiriyordu, bu da statik sayfa üretimi sırasında üretim derlemesini bellek yetersizliğinden öldürüyordu; Next'in kendi kaynağına kadar izlendi ve açık bir geçersiz kılma ile düzeltildi. İkincisi, önbellek ömrü için `Infinity` kullanmak, Next'in derleme işçilerine giden yolda JSON'a serileştirilerek `null` haline geliyor, bu da hata vermek yerine o rotayı sessizce önbelleksiz hale düşürüyor ve yakalanana kadar her yerel ayarda önceden render etmeyi bozuyordu; ham bir `Infinity` yerine Next'in kendi `INFINITE_CACHE` sabiti kullanılarak düzeltildi.
+
+## Bir Akış Kenar Durumu İçin SEO Düzeltmesi
+
+Cache Components'in akışı altında, Next'in otomatik `notFound()` işlevi, sayfa kabuğu istemciye akmaya çoktan başladıktan sonra bir 404 HTTP durumunu işleyemez, bu yüzden yalnızca o kabuğu okuyan bir tarayıcı bunu asla görmez. Düzeltme, ilk flush'a manuel olarak bir `noindex` direktifi ekler, böylece kabukta duran bir tarayıcı, sayfanın geri kalanı çözümlenmeden önce bile doğru sinyali alır.
+
+## Veri Modeli ve Ölçek
+
+- 11.000'den fazla sayfa, tek bir düz içerik kaynağından değil, `next-intl` aracılığıyla desteklenen her yerel ayarla kesişen birden fazla içerik türünden (category, author, hr-tools, hr-guide, leadership, test-library) gelir.
+- Her üretim WordPress URL'si, özel bir denetimde (`docs/audits/url-parity-with-production.md`) bu projenin çıktısına karşı kontrol edilir: WordPress'in bugün sunduğu ancak bu projenin 404 verdiği bir URL, kabul edilebilir bir boşluk değil, kaybedilen trafiktir.
+- Birim testleri (Vitest) site haritası üretimini, katalog seed geri dönüşünü ve ilgili içerik döndürmeyi kapsar; Playwright uçtan uca akışları kapsar.
+
+## Build vs. Buy
+
+Bir SaaS headless CMS yerine Postgres üzerinde kendi kendine barındırılan Payload CMS: bir pazarlama sitesi için kişi başı SaaS ücreti ödemek yerine içerik sahipliğini ve veritabanını şirket içinde tutar. Elle yazılmış bir CDN/ISR katmanı yerine Next.js'in kendi Cache Components'i ve etiket tabanlı geçersiz kılma: önbellekleme davranışı, bu ekibin aksi takdirde kendi inşa edip işletmesi gereken altyapı yerine framework'ten gelir.
+
+## Stack
+
+[Next.js](https://nextjs.org/) 16, [React](https://react.dev/), [TypeScript](https://www.typescriptlang.org/), [Postgres](https://www.postgresql.org/) üzerinde [Payload CMS](https://payloadcms.com/), yerelleştirme için [next-intl](https://next-intl.dev/), birim testleri için [Vitest](https://vitest.dev/), uçtan uca testler için [Playwright](https://playwright.dev/), [Vercel](https://vercel.com/) üzerinde dağıtıldı.
+
+</CaseStudy>

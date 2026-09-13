@@ -1,19 +1,40 @@
 ---
 title: "FuelBuddy Índia - App de Logística e Rastreamento de Franquia"
-description: "Engenheiro central no app de franquia da FuelBuddy: construí o rastreamento de caminhões ao vivo, as APIs CRUD sobre GraphQL da Hasura e as ajustei para áreas com sinal fraco, e refiz fluxos de trabalho para funcionários não técnicos."
+description: "Engenheiro central no app de franquia da FuelBuddy: rastreamento de caminhões ao vivo, APIs GraphQL sobre a Hasura e fluxos de logística simplificados."
 date: 2023-09-01
 published: true
 company: FuelBuddy
 ---
 
-Na [FuelBuddy](https://fuelbuddy.in/), eu era um engenheiro central do Aplicativo de Franquia, o app que os operadores de franquia usam para tocar seus hubs locais, gerenciar estoque e coordenar suas frotas de entrega.
+Na [FuelBuddy](https://fuelbuddy.in/), fui um engenheiro central do Aplicativo de Franquia, usado pelos operadores de franquia para gerenciar hubs regionais, estoque e frotas de entrega.
 
 ## O que construí
 
-- **Rastreamento de caminhões ao vivo:** Construí um módulo de rastreamento muito pedido que coloca as localizações da frota ao vivo em um mapa interativo, dando aos operadores uma visibilidade em tempo real que eles não tinham antes e mudando a forma como tomavam decisões de despacho.
-- **APIs CRUD e desempenho:** Construí as APIs de dados sobre as quais o app roda com o motor GraphQL da Hasura, depois as ajustei, reestruturei payloads, adicionei cache e reduzi consultas caras, o que baixou os tempos de resposta e manteve o app utilizável mesmo em conexões celulares fracas.
-- **Redesenho de fluxos de trabalho:** Refiz tarefas complexas de várias etapas, reconciliação de estoque, atribuição de motoristas, em fluxos mais simples voltados para os funcionários não técnicos da franquia, o que reduziu os erros operacionais.
+- **Rastreamento de caminhões ao vivo:** Construí um módulo interativo do Google Maps exibindo as localizações da frota em um intervalo de polling, dando aos operadores visibilidade contínua sobre a movimentação dos caminhões e o status de despacho.
+- **APIs GraphQL e cache:** Construí as APIs de dados usando o motor GraphQL da Hasura através do urql, com um cache normalizado no lado do cliente e renovação automática de token na expiração.
+- **Simplificação de fluxos de trabalho:** Reprojetei tarefas operacionais de várias etapas, incluindo reconciliação de estoque e atribuição de motoristas, em interfaces simplificadas que reduziram erros operacionais.
 
 ## Por que importou
 
-O rastreamento de caminhões tornou a logística mais previsível e reduziu o tempo ocioso dos caminhões. O backend mais rápido e a UI mais simples, juntos, aceleraram o onboarding de novos parceiros de franquia e reduziram os tickets de suporte sobre o app ser difícil de usar.
+O rastreamento de frota tornou a logística de despacho mais previsível e reduziu o tempo ocioso dos caminhões. A atribuição e os fluxos de estoque simplificados reduziram erros operacionais nos hubs de franquia.
+
+<CaseStudy summary="Leia o estudo de caso técnico completo →">
+
+## O Que "Ao Vivo" Realmente Significa Aqui
+
+O mapa de caminhões atualiza em um intervalo de polling, não por uma subscription do GraphQL, mesmo que o mesmo cliente esteja configurado para subscriptions em outras partes do app (o `graphql-ws` está configurado e é usado para atualizações de status de pedido, só não para esse mapa em particular). Essa foi uma escolha deliberada de custo de servidor, não um descuido: uma subscription mantém uma conexão persistente aberta no servidor pelo tempo que o cliente a mantiver aberta, e uma tela de mapa deixada aberta durante todo o turno de cada despachante, por horas seguidas, é uma carga de conexão muito mais pesada e duradoura do que uma atualização pontual de status de pedido. O polling evita manter essa conexão aberta o tempo todo, trocando-a por ciclos periódicos de requisição/resposta.
+
+## Atribuição e Estoque, em Mais Detalhe
+
+A atribuição de motoristas cobre fluxos de atribuição única, em massa, reatribuição e desatribuição, não apenas uma única ação de "atribuir". O rastreamento de estoque acompanha os saldos de estoque para bowsers de combustível (caminhões-tanque) especificamente, com queries dedicadas de saldo de estoque e tabelas de log, um modelo de dados operacional real, não um inventário genérico de peças.
+
+## Modelo de Dados e Escala
+
+- O cache normalizado do urql mais uma camada de autenticação via token do Firebase que se renova automaticamente em respostas 401/token expirado, para que uma sessão expirada não interrompa um despachante no meio de uma tarefa.
+- O Playwright cobre login e gestão de pedidos de ponta a ponta, os dois fluxos dos quais toda outra tela do app depende.
+
+## Stack
+
+[Vue](https://vuejs.org/) 3, [Vite](https://vite.dev/), [Pinia](https://pinia.vuejs.org/), [urql](https://commerce.nearform.com/open-source/urql/) contra a [Hasura](https://hasura.io/), autenticação [Firebase](https://firebase.google.com/), Google Maps, [Playwright](https://playwright.dev/) para testes.
+
+</CaseStudy>

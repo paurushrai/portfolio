@@ -1,20 +1,47 @@
 ---
-title: "FuelBuddy 迪拜: B2B 客户 Web 门户"
-description: "为 FuelBuddy 进军阿联酋，从零协助搭建一个全新的 B2B Web 门户 -  - 批量下单流程、车队经理仪表盘，以及它们背后基于 Hasura GraphQL 的 CRUD API。"
+title: "FuelBuddy Dubai - B2B 客户网页门户"
+description: "为 FuelBuddy 的阿联酋业务从零搭建了一个 B2B 网页门户：Stripe 支付、基于 OTP 的注册流程、可安装的 PWA 支持，以及基于 Hasura GraphQL 的 CRUD API。"
 url: https://app.fuelbuddy.ae/
 date: 2024-07-01
 published: true
 company: FuelBuddy
 ---
 
-FuelBuddy 进入阿联酋 B2B 市场需要一个专门的 Web 应用 -  - 那里的企业客户和消费端的移动用户用法不一样，是批量订单和车队管理，而不是一次性购买。我从一个空仓库开始参与搭建这个门户 -  - 前端加上它背后的 CRUD API。
+FuelBuddy 拓展阿联酋 B2B 市场需要一个专属的网页门户。企业客户需要的是车队管理、批量下单和多地点配送排期，而不是零售消费者的流程。我从最初的代码仓库一直做到上线，涵盖前端架构和后端数据 API。
 
 ## 我做了什么
 
-- **打地基：** 从零搭起前端 -  - 组件结构、路由，以及共享的样式体系 -  - 让这个应用有一个能往上长的稳固基础。
-- **B2B 工作流：** 构建了企业客户真正会用的界面：多步下单表单、批量下单流程，以及车队经理依赖的信息密集的仪表盘。
-- **功能全程负责：** 端到端把功能做完 -  - 在 Hasura 的 GraphQL 引擎上构建 CRUD API，再把设计和业务规则对接上去，最后整个推上生产。
+- **前端架构：** 从零搭建整个应用，包括组件架构、客户端路由，以及面向企业工作流的统一设计系统。
+- **B2B 工作流：** 构建了多步骤订单表单、批量加油排期流程，以及信息密集的车队仪表盘，包含订单和钱包历史的图表与表格视图。
+- **支付与注册：** 集成了 Stripe 用于钱包充值和订单支付，并为企业账户提供基于手机号 OTP 的注册流程。
+- **端到端功能：** 在 Hasura GraphQL 引擎上构建了 CRUD API，将其与 UI 状态对接，把应用做成可安装的 PWA 发布，并处理了一路到上线的业务校验规则。
 
 ## 为什么它有意义
 
-门户上线让 FuelBuddy 在迪拜面向企业客户有了像样的 Web 门面，也让大额 B2B 燃油订单更好下单，支撑了公司在该地区的推进。
+上线这个门户为 FuelBuddy 在迪拜的企业客户提供了专属的网页平台，简化了批量加油订单流程，也支撑了公司在区域内的业务扩张。
+
+<CaseStudy summary="阅读完整技术案例研究 →">
+
+## 实际上线了什么
+
+批量下单和批量排班是针对 Hasura 真实可用的 mutation，不是占位表单，还有一个替换了旧版仪表盘的新版本（两个版本目前都还在代码库里，上线的是新的那个）。身份验证走的是 Hasura 自己的 JWT claims（直接从 token 里读取 `x-hasura-default-role`），而不是事后另外挂上去的一层权限系统。
+
+## 支付与注册，而不只是 CRUD
+
+钱包充值和直接订单支付都通过 Stripe（`@stripe/stripe-js`、`vue-stripe-js`）完成，独立订单和钱包交易各有专门的支付路由。注册流程走的是基于手机号的 OTP 验证（`vue3-otp-input`，配合 `vue-tel-input` 处理国际电话格式），而不是普通的邮箱/密码表单，这符合一个面向企业车队账户、而非随意注册用户的门户定位。
+
+## 可安装，而不只是响应式
+
+这个门户通过 `vite-plugin-pwa` 和 Workbox 发布为可安装的渐进式 Web 应用（PWA），并使用 `autoUpdate` 方式注册 service worker，因此车队管理者可以把它添加到主屏幕，并在新版本部署后自动更新，无需手动重新安装。
+
+## 数据模型与规模
+
+- 通过 schema codegen 生成的 GraphQL SDK 超过 31,000 行，是一套真正大规模、带类型的 API 接口面，而不是几个随手写的查询。
+- 数据获取直接通过 `graphql-request` 访问 Hasura，中间没有 Apollo 或 urql 客户端。
+- 车队仪表盘通过 `vue3-easy-data-table` 和 `vue-chart-3`（Chart.js）渲染，是为真实数据量的表格和图表设计的，而不是几张摘要卡片。
+
+## 技术栈
+
+[Vue](https://vuejs.org/) 3、[Vite](https://vite.dev/)、[Pinia](https://pinia.vuejs.org/) 用于状态管理、[graphql-request](https://github.com/jasonkuhrt/graphql-request) 配合 GraphQL Code Generator 对接 [Hasura](https://hasura.io/)、[Stripe](https://stripe.com/) 用于支付、[Firebase](https://firebase.google.com/) 用于身份验证、[Chart.js](https://www.chartjs.org/) 用于仪表盘、[vite-plugin-pwa](https://vite-pwa-org.netlify.app/) 配合 Workbox 实现离线/可安装支持、[Playwright](https://playwright.dev/) 用于测试。
+
+</CaseStudy>

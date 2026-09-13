@@ -1,25 +1,67 @@
 ---
-title: "MonoStart: Anpassbare New-Tab-Chrome-Erweiterung"
-description: "Eine datenschutzorientierte Chrome-Erweiterung, die jeden neuen Tab in ein persönliches Dashboard verwandelt – Links, Notizen, To-dos, Timer und Erinnerungen, mit eigenen Themes und Hintergrundbildern, alles auf dem eigenen Gerät gespeichert."
+title: "MonoStart - Anpassbare New-Tab-Chrome-Erweiterung"
+description: "Eine datenschutzorientierte Chrome-Erweiterung, die jeden neuen Tab in ein persönliches Dashboard mit Links, Timern und Erinnerungen verwandelt, die vollständig auf deinem Gerät gespeichert werden."
 url: https://chromewebstore.google.com/detail/hhfeihcppmfepeeainafmaifpmdemmlg
-repository: paurushrai/monostart-chrome-extension
+repository: paurushrai/monostart-extension
 date: 2026-06-01
 published: true
-company: Persönliches Projekt
+company: Personal Project
+coverImage: /projects/monostart-chrome-extension/cover.png
 ---
 
-Du öffnest jeden Tag dutzende Male einen neuen Tab und bekommst einen leeren Bildschirm. MonoStart ersetzt ihn durch ein Dashboard, das du selbst einrichtest – deine Links, Aufgaben, Notizen und Erinnerungen, angeordnet, wie du sie haben willst. Ich habe es als Manifest V3 Chrome-Erweiterung gebaut, die vollständig auf deinem Gerät läuft.
+MonoStart verwandelt die Standard-New-Tab-Seite des Browsers in ein schnelles, anpassbares persönliches Dashboard. Es organisiert Lesezeichen, Aufgabenlisten, Schnellnotizen und Fokus-Timer in einem konfigurierbaren Arbeitsbereich. Als Manifest-V3-Chrome-Erweiterung gebaut, speichert es alles lokal auf dem Gerät: keine Konten, keine Server-Datenbank, keine Analytics.
 
-![MonoStart: Anpassbare New-Tab-Chrome-Erweiterung](/projects/monostart-chrome-extension/cover.png)
+![MonoStart - Anpassbare New-Tab-Chrome-Erweiterung](/projects/monostart-chrome-extension/cover.png)
 
 ## Was ich gebaut habe
 
-- **Ein Dashboard, das du anordnest:** Ein Drag-and-Drop-Grid, in dem jedes Widget – Links, gruppierte Ordner, Notizen, To-dos, Timer, Erinnerungen, Bilder, Einbettungen und Suche – platziert und in der Größe angepasst werden kann, damit es zu deiner Arbeitsweise passt.
-- **Alles auf einen Blick:** Schnelllinks und Ordner statt Wühlen durch Lesezeichen; Notizen, Aufgaben und Erinnerungen auf der Seite, die du ohnehin den ganzen Tag geöffnet hast.
-- **Mach es zu deinem:** 12 Farbthemes, ein Wähler für eigene Farben, Hell/Dunkel sowie Farb-, Verlaufs- oder Bild-Hintergründe.
-- **Timer und Erinnerungen:** Integriert, sodass du nicht zu einer separaten App greifen musst, um auf Kurs zu bleiben.
-- **Privat by Default:** Alles lebt auf deinem Gerät – kein Konto, keine Server, kein Tracking – und die Seite öffnet sofort.
+- **Anpassbares Dashboard:** Ein Drag-and-Drop-Grid, inklusive verschachtelter Widget-Gruppen, in dem Widgets (Schnelllinks, kategorisierte Ordner, Notizen, To-do-Listen, Countdown-Timer, Erinnerungen, Sprachsuche und Googles visuelle Lens-Suche) angeordnet werden können, um zu jedem Workflow zu passen.
+- **Layout für schnellen Zugriff:** Angepinnte Links im Header und gruppierte Ordner ersetzen tief verschachtelte Lesezeichen-Menüs, sodass häufig besuchte Seiten nur einen Klick entfernt bleiben.
+- **Theme-Anpassung:** 15 eingebaute Farbthemes, die aus Chromes eigener „Customize Chrome“-Palette zurückentwickelt wurden, ein eigener Hex-Farbwähler, Unterstützung für Hell-/Dunkelmodus sowie Verlaufs- oder Hintergrundbilder.
+- **Produktivitäts-Tools:** Eingebaute Countdown-Timer und geplante Erinnerungen mit lokalen Audio-Alarmen und Desktop-Benachrichtigungen.
+- **Local-First-Speicherung:** Notizen, To-dos, Layout und Bilder liegen in chrome.storage.local und IndexedDB auf dem Gerät. Keine Nutzerkonten und keine Server-Datenbank; der einzige Netzwerkaufruf geht an Googles öffentliche Suggest-API für die Autovervollständigung der Suche, dieselbe, die Chromes eigene Adressleiste nutzt.
 
 ## Warum es wichtig war
 
-Die New-Tab-Seite ist der am häufigsten geöffnete Bildschirm im Browser und tut normalerweise nichts. MonoStart macht daraus einen Ort, der tatsächlich nützlich ist, und zieht Links, Aufgaben, Notizen und Erinnerungen an eine Stelle, statt sie über Lesezeichen, Haftnotizen und andere Apps zu verstreuen. Es ist ein persönliches Projekt und Open Source, der Code ist also da, um ihn zu lesen.
+Die New-Tab-Seite wird täglich Dutzende Male geöffnet. MonoStart macht aus diesem leeren Raum ein sofort verfügbares, local-first Produktivitäts-Dashboard, das deine Privatsphäre respektiert: deine Daten verlassen nie das Gerät.
+
+<CaseStudy summary="Die vollständige technische Fallstudie lesen →">
+
+## Warum es das gibt
+
+Ich öffne rund 200 Mal am Tag einen neuen Tab, und jahrelang gab er nichts zurück: eine Suchleiste und ein Raster von Seiten, die Google erriet. Das eigentliche Problem war nicht die leere Seite, sondern alles, was ich tat, um damit klarzukommen. Über vierzig offene Tabs verteilt auf drei Chrome-Profile, nur um das erneute Eintippen von URLs zu vermeiden, jeder davon ein laufender Prozess, den Chrome warmhielt. Ich habe nicht meine Arbeit organisiert, ich habe eine RAM-und-Lüfter-Steuer bezahlt, um Zeiger festzuhalten, nicht Seiten. Jede bestehende New-Tab-Erweiterung, die ich ausprobiert habe, tauschte diese leere Seite gegen etwas Schlimmeres: eine fremde Oberfläche, die das Muskelgedächtnis brach, ein Konto mit Cloud-Sync, gesponserte Links, Telemetrie. Ich bin der einzige Beitragende, 222 Commits seit Juni 2026, weiterhin aktiv gepflegt, gebaut, um zuerst meinen eigenen Browser zu reparieren und erst danach als öffentliche Erweiterung veröffentlicht.
+
+## Die eine Regel: Aussehen wie Chrome, nicht wie eine App
+
+Jede Entscheidung in dieser Codebasis ordnet sich einer einzigen Vorgabe unter: Man sollte nicht erkennen können, wo Chrome endet und das Dashboard beginnt. Deshalb bleibt die echte Google-Suchleiste erhalten, mit echten Chrome-Verlaufsvorschlägen, statt einer eigenen Such-UI, die einen eigenen Verlaufsindex bräuchte. Deshalb gibt es keinen Onboarding-Ablauf, keinen Login-Bildschirm, kein Kontosystem: das Öffnen eines neuen Tabs soll sich anfühlen, als wäre gar nichts installiert. Ein Feature, das die Seite wie eine separate App wirken ließ, egal wie nützlich, wurde nicht ausgeliefert.
+
+## Audio in einem Service Worker, der keine Audios abspielen kann
+
+Manifest-V3-Hintergrundskripte sind Service Worker, und Service Worker können nicht zuverlässig direkt Audio abspielen. Chrome pausiert und beendet sie, wann immer es Speicher zurückgewinnen will, auch mitten in der Wiedergabe. Erinnerungen brauchen trotzdem einen Ton, der tatsächlich auslöst. Die Lösung nutzt `chrome.alarms`, um die Erinnerung zu planen, da Alarme einen beendeten Service Worker überleben und ihn wieder aufwecken, und leitet die Wiedergabe über ein `chrome.offscreen`-Dokument statt über den Service Worker selbst, eine versteckte Seite, die Chrome speziell für solche Aufgaben am Leben hält. Es ist dieselbe Art von Workaround, auf die die meisten MV3-Erweiterungen irgendwann stoßen, da es in MV3 keine dauerhafte Hintergrundseite mehr gibt.
+
+## Themes, aus Chrome selbst zurückentwickelt
+
+Statt eine willkürliche Farbpalette zu erfinden, sind MonoStarts 15 eingebaute Themes aus Chromes eigenen „Customize Chrome“-Ausgangsfarben extrahiert, wobei der Extraktionsprozess Schritt für Schritt im Repo dokumentiert ist. Eine frühe Version dieser Extraktion hatte einen Farbton-Verschiebungsfehler. Der Fix erschien in v1.1.1 mit einem Migrationspfad für alle, die bereits ein Theme unter der alten Berechnung gewählt hatten, sodass bestehende Nutzer nicht plötzlich mit einer anderen Farbe aufwachten als der, die sie gewählt hatten.
+
+## Sicherheit: Embeds bereinigen, ohne sich allein auf den Sanitizer zu verlassen
+
+Bild- und Embed-Widgets akzeptieren beliebiges HTML, das vor dem Rendern durch DOMPurify bereinigt wird. DOMPurify allein reichte nicht aus: es entfernt kein `srcdoc`-Attribut, und ein iframe mit gesetztem `srcdoc` erbt den eigenen Origin der Erweiterung, ein echter XSS-Pfad, sollte sich die CSP der Erweiterung je lockern. `srcdoc` wird im Sanitizer explizit entfernt, unabhängig davon, was DOMPurify von sich aus zulässt, eine zweite, unabhängige Schicht statt sich vollständig auf eine Bibliothek zu verlassen.
+
+## Datenmodell & Skalierung
+
+- Textdaten (Notizen, To-dos, Layout, Erinnerungen, Einstellungen) liegen in chrome.storage.local.
+- Hintergrundbilder liegen stattdessen in einer separaten IndexedDB-Datenbank, mit Garbage Collection für verwaiste Referenzen, sodass gelöschte oder ersetzte Bilder sich nicht still ansammeln.
+- chrome.storage.locals Obergrenze von rund 10 MB wird über die Berechtigung `unlimitedStorage` aufgehoben, nötig, sobald Bilder komplett aus diesem Kontingent herausgenommen wurden.
+- 216 Tests über 25 Dateien (Vitest, jsdom, fake-indexeddb) decken diese Speicherschicht direkt ab, nicht nur die UI darüber.
+
+Rein lokale Speicherung ist ein bewusster Kompromiss, kein Versehen: Es bedeutet keine Synchronisierung über Geräte oder Profile hinweg, aber es ist derselbe Mechanismus, der drei Chrome-Profilen kostenlos ihr eigenes unabhängiges, isoliertes Dashboard gibt, ohne ein gemeinsames Kontosystem bauen und absichern zu müssen. Die Autovervollständigung der Suchleiste ist der einzige Netzwerkaufruf in der gesamten App und trifft auf Googles öffentliche Suggest-API, genau wie Chromes eigene Adressleiste; alles, was der Nutzer tatsächlich erstellt, bleibt lokal.
+
+## Build vs. Buy
+
+Keine eigene Drag-and-Drop-Engine: react-grid-layout übernimmt das Grid, einschließlich verschachtelter Gruppen, statt Kollisionserkennung und Resize-Handles von Grund auf neu zu implementieren. Keine eigene Komponentenbibliothek: [shadcn/ui](https://ui.shadcn.com/)s Muster, Radix-basierte Komponenten direkt hineinzukopieren (statt ein undurchsichtiges UI-Paket zu installieren), hält den Code jeder Komponente, und jede Abweichung davon, sichtbar und editierbar. Keine eigene Lokalisierungs-Pipeline: react-i18next plus eine wachsende Sammlung von Locale-Dateien (50+ Sprachen) statt handgestrickter String-Nachschlagelogik.
+
+## Stack
+
+[React](https://react.dev/) 19, [Vite](https://vite.dev/), [TypeScript](https://www.typescriptlang.org/), [Tailwind CSS](https://tailwindcss.com/), [shadcn/ui](https://ui.shadcn.com/) auf [Radix UI](https://www.radix-ui.com/)-Primitiven, [react-grid-layout](https://github.com/react-grid-layout/react-grid-layout) für das Dashboard-Grid, [react-i18next](https://react.i18next.com/) für Lokalisierung, [DOMPurify](https://github.com/cure53/DOMPurify) für die Embed-Bereinigung, [Vitest](https://vitest.dev/) für Tests, Chromes [Manifest-V3](https://developer.chrome.com/docs/extensions/develop/migrate/what-is-mv3)-Erweiterungsplattform (`chrome.alarms`, `chrome.offscreen`, `chrome.storage`, IndexedDB), lizenziert unter [PolyForm Noncommercial 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0/).
+
+</CaseStudy>
