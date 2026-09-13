@@ -1,0 +1,60 @@
+---
+title: "turnbell - CLI Kodlama Ajanları için Sesli, Masaüstü ve Webhook Uyarıları"
+description: "Kodlama ajanınızın yanıtını sesli okuyan, bitirdiği ya da girdi beklediği anda masaüstü bildirimi gönderen veya telefonunuzu uyaran, cihazda çalışan bir CLI — sıfır telemetri."
+url: https://www.npmjs.com/package/turnbell
+repository: paurushrai/turnbell
+date: 2026-09-13
+published: true
+company: Personal Project
+coverImage: /projects/turnbell/cover.png
+---
+
+turnbell, bir CLI kodlama ajanının bir turu bitirdiği ya da girdi beklerken durakladığı anı haber verir. Uzun bir Claude Code, Codex ya da Gemini CLI çalıştırması başlatın, başka bir işe geçin ve terminali beklemeyi bırakın: turnbell yanıtı sesli okur, masaüstü bildirimi gönderir, bir ses çalar ya da bir webhook'u tetikler — tam ajanın size ihtiyaç duyduğu anda, ne bir dakika erken ne on dakika geç.
+
+![turnbell - CLI Kodlama Ajanları için Sesli, Masaüstü ve Webhook Uyarıları](/projects/turnbell/cover.png)
+
+## Ne geliştirdim
+
+- **8 birinci sınıf ajan entegrasyonu:** Claude Code, Codex, Gemini CLI, Copilot CLI, Cursor, opencode, Antigravity ve Amp; her adaptör o ajanın kendi hook sisteminin gerçekten sunduğu done/blocked/read-aloud sinyaline bağlanıyor, üstüne herhangi bir komut için evrensel bir `turnbell run` sarmalayıcısı.
+- **Defter takipli config yazımları:** turnbell'in bir ajanın ayar dosyasına eklediği her hook, satır düzeyinde diff çıkaran, ekleme yapılan (append-only) atomik bir deftere kaydediliyor; böylece `turnbell uninstall` yalnızca turnbell'in yazdığını cerrahi hassasiyetle geri alabiliyor, sonradan yapılan düzenlemeler korunuyor.
+- **Sesli okuma "konuşulabilir mod":** ajanın kendi hafıza dosyasına (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`) yazılan, isteğe bağlı bir dürtme: yanıtları konuşulabilir tutmasını ve kodu ya da yoğun ayrıntıyı sesli okumak yerine geçici bir dosyaya yönlendirmesini isteyen bir not — geri alınabilir, 24 saat sonra otomatik temizleniyor.
+- **Arka plana duyarlı bitiş algılama:** Claude Code'un `done` uyarısı, alt ajanlar, workflow'lar ya da takım arkadaşları hâlâ devam eden işi raporlarken bekletiliyor; böylece devam eden bir devir sırasında değil, bir turun gerçek sonunda, tek seferde uyarılıyorsunuz.
+- **Cihazda çalışan webhook alıcısı:** tek bir serileştirici tam olarak altı meta veri alanı (zaman damgası, ajan, olay, proje, özet) yayınlıyor — ntfy, Pushover, Slack ya da ham bir uç noktaya; asla çalışma dizinini, kodu ya da ajanın yanıtını değil.
+
+## Neden önemliydi
+
+Uzun bir ajan çalıştırması eskiden ya terminali beklemek ya da bir izin isteminde durakladığı anı kaçırmak demekti. turnbell bu boşluğu bir arka plan daemonu, bir SDK ya da herhangi bir telemetri eklemeden kapatıyor: her ajanın kendi hook'larını bağlıyor, ve eklediği her bağlantı izlenebilir ve geri alınabilir.
+
+<CaseStudy summary="Tam teknik vaka analizini oku →">
+
+## Neden Var
+
+Uzun Claude Code ve Codex çalıştırmaları gürültülü şekilde başarısız olmuyor, bir izin isteminde sessizce duraklıyor ya da ben üç sekme ötede alakasız bir şeyle uğraşırken bitiyorlar. Çözüm daha büyük bir terminal penceresi değil, bir turun gerçekten bana ihtiyaç duyduğu anda haberdar olmak. Tek katkıda bulunan benim, aktif olarak bakımı yapılıyor, önce kendi iş akışımı çözmek için inşa edildi, sonra herkese açık bir npm paketi olarak yayınlandı. Daha önce `hollr` adını taşıyordu; `turnbell`'e yeniden adlandırma o kadar kasıtlı ki paket hâlâ eski isimde kalanlar için bir uyumluluk bin takma adı ve otomatik bir config göçü gönderiyor.
+
+## Kısıtlama: SDK Yok, Daemon Yok, Müdahaleci Hiçbir Şey Yok
+
+turnbell'deki her ajan entegrasyonu tek bir kurala uyuyor: ajanın kendi hook config'ini `turnbell emit` çağırmak için düzenliyor, başka hiçbir şey yapmıyor. Arka plan süreci yok, ajanın içe aktarmak zorunda kalacağı bir SDK yok, polling yok. Bu kısıtlama, kaldırma (uninstall) hikayesinin bilinen bir sınırlama olarak belgelenmek yerine düzgünce çözülmesi gerekmesinin de sebebi.
+
+## "En İyi Çaba" Kaldırma Yerine Defter Takipli Yazımlar
+
+`turnbell init`'i inşa etmenin bariz yolu, hook girdilerini ajanın kullandığı config dosyasına eklemek ve işi bitmiş saymaktır. Bunun üzerine `turnbell uninstall`'ı inşa etmenin bariz yolu ise turnbell'in kendi işaretlerini grep'lemek ve dosyadaki başka hiçbir şeyin çakışmamasını ummaktır. "En iyi çaba" bir kaldırma işlemi işte böyle görünür, ve düzenlenen dosya kullanıcının kendi araçlarının bağımlı olduğu paylaşılan bir config olduğunda bu yeterli değildir.
+
+`src/adapters/diffwire.ts`, farklı bir yaklaşım izliyor: her yazım, bir JSON ya da metin dosyasına karşı bir `WireOp` olarak ifade ediliyor, atomik bir yazımla uygulanıyor (geçici dosya + yeniden adlandırma, çökme sırasında asla kısmi bir yazım olmuyor) ve turnbell'in tam olarak hangi anahtarlara ya da işaretlere dokunduğunu ve önceki değerin ne olduğunu kaydeden bir deftere (`listWiredKeys`, `appendLedgerEntry`) ekleniyor. `turnbell init`, hiçbir şey yazmadan önce her değişikliği oluşturulmuş bir satır diff'i olarak önizliyor. `turnbell uninstall`, niyeti dosyanın mevcut durumundan yeniden çıkarmak yerine defteri tekrar oynatıyor; README'deki "yalnızca turnbell'in eklediğini cerrahi hassasiyetle kaldırır, sonradan yaptığınız düzenlemeler korunur" iddiasını en iyi çaba bir söylem yerine gerçek bir garanti yapan da bu.
+
+## Codex Özel Durumu
+
+Codex, config'inde yalnızca tek bir üst düzey `notify` komutuna izin veriyor, hook listesine izin vermiyor. Bir kullanıcı zaten başka bir şey için bağlanmış bir `notify` komutuna sahipse, bunun üzerine saf bir şekilde yazmak mevcut kurulumu sessizce bozardı. Adaptör, orijinal `notify` değerini değiştirmeden önce arşivliyor, ve `turnbell uninstall` anahtarı doğrudan silmek yerine onu bu arşivden geri yüklüyor. Kurulum ile kaldırma arasında `config.toml`'un kendisi silinirse geri yüklenecek hiçbir şey kalmaz — bu, örtbas edilmek yerine gerçek bir sınır olarak belgeleniyor, kurtarılamayan tek durum bu.
+
+## Devir Ortasında Sizi Uyarmamak
+
+Claude Code'un kendi `done` hook'u üst düzey her tur için tetikleniyor, ama bir tur, üst turun bitti raporundan sonra da çalışmaya devam eden alt ajanlar, workflow'lar ya da takım arkadaşları başlatabiliyor. turnbell'in erken bir sürümü uyarıyı tam orada tetikliyordu, bu da arka planda iş hâlâ sürerken terminale geri çekilmek anlamına geliyordu. Çözüm, `done` duyurusunu Claude Code artık devam eden delege edilmiş iş bildirmeyene kadar bekletiyor, uzun ömürlü `shell`/watcher ve `monitor` görevlerini ise açıkça yok sayıyor, çünkü bunları "devam ediyor" saymak, arka planda bir süreç bulunan her oturumdaki her uyarıyı susturmuş olurdu.
+
+## Yük, Yapısı Gereği Yalnızca Meta Veri
+
+turnbell cihazda çalışır: ses, bildirimler ve ses efektleri asla makineden çıkmaz. Ağ üzerinden gidebilecek tek şey kullanıcının açıkça yapılandırdığı bir webhook'tur, ve o yol tam olarak altı alan yayınlayan tek bir serileştiriciden geçer, başka hiçbir şey değil: zaman damgası, ajan, olay, proje adının temel kısmı ve kısa bir özet metni. Çalışma dizinini ya da ajanın gerçek yanıtını yanlışlıkla sızdırabilecek ikinci bir kod yolu yoktur, çünkü tüm kod tabanında ağ erişimi olan tek şey bu serileştiricidir. `turnbell test --show-payload`, göndermeden tam olarak bu yükü yazdırır, böylece bu iddia öne sürülen değil doğrulanabilir bir şey olur.
+
+## Teknoloji yığını
+
+TypeScript, paketleme için [tsup](https://tsup.egoist.dev/), %80 kapsama eşiğiyle [Vitest](https://vitest.dev/), platform başına ses/bildirim/ses efekti için yerel işletim sistemi ilkelleri (macOS kararlı, Linux ve Windows beta aşamasında), ve aralarında paylaşılan bir SDK olmadan ajan başına hook/config formatları (Claude Code, Codex, Gemini CLI, Copilot CLI, Cursor, opencode, Antigravity, Amp). MIT lisanslı.
+
+</CaseStudy>
