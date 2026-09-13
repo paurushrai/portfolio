@@ -1,13 +1,13 @@
 ---
-title: "AppForest Timetracker - VS Code 확장"
-description: "AppForest Timesheets와 연동되는 VS Code 확장으로, 에디터 활동을 추적하고 Git 브랜치 컨텍스트로부터 Timesheets by AppForest에 근무시간을 기록한다."
+title: "Appforest Timetracker - VS Code 확장"
+description: "Appforest Timesheets와 연동되는 VS Code 확장으로, 에디터 활동을 추적하고 Git 브랜치 컨텍스트로부터 Timesheets by Appforest에 근무시간을 기록한다."
 url: https://marketplace.visualstudio.com/items?itemName=AppforestTimetracker.appforest-timetracker
 date: 2025-07-01
 published: true
 company: Testlify
 ---
 
-우리의 Jira 플러그인인 [Timesheets by AppForest](/projects/timesheets-appforest)는 Testlify의 근무시간 관리를 중앙화했지만, 개발자들은 여전히 시간을 수동으로 기록하려면 작업을 멈추고 다른 도구로 전환해야 했다. AppForest Timetracker는 이 간극을 메운다. 이것은 에디터 안에서 바로 코딩 활동을 추적하고 근무시간 기록을 빠른 작업으로 바꿔주는 VS Code 확장으로, 엔지니어들이 IDE를 벗어나지 않고도 Timesheets에 기록할 수 있게 해준다. 나는 콘셉트부터 Visual Studio Marketplace 패키징까지 이 확장을 처음부터 끝까지 소유했다.
+우리의 Jira 플러그인인 [Timesheets by Appforest](/projects/timesheets-appforest)는 Testlify의 근무시간 관리를 중앙화했지만, 개발자들은 여전히 시간을 수동으로 기록하려면 작업을 멈추고 다른 도구로 전환해야 했다. Appforest Timetracker는 이 간극을 메운다. 이것은 에디터 안에서 바로 코딩 활동을 추적하고 근무시간 기록을 빠른 작업으로 바꿔주는 VS Code 확장으로, 엔지니어들이 IDE를 벗어나지 않고도 Timesheets에 기록할 수 있게 해준다. 나는 콘셉트부터 Visual Studio Marketplace 패키징까지 이 확장을 처음부터 끝까지 소유했다.
 
 ## 내가 만든 것
 
@@ -27,7 +27,7 @@ Git 브랜치 컨텍스트로부터 티켓 매칭을 자동화함으로써 수�
 
 ## 기록된 시간이 실제로 어디로 가는가
 
-이 확장은 Jira의 REST API를 직접 호출하지 않는다. Timesheets by AppForest 자체 백엔드로 전송하며, 이는 [Forge 앱](/projects/timesheets-appforest)이 매니페스트에 선언한 것과 같은 원격 서비스로, 그 앱이 Jira 쪽 처리를 대신 담당한다. 이 두 프로젝트는 각자 독립적으로 Jira와 통신하는 것이 아니라 서로 대화하도록 만들어졌으며, 이것이 바로 Forge 앱의 리졸버가 VS Code에서 온 제안이 기록되고 나면 그것을 지우는 전용 함수를 포함하는 이유이기도 하다.
+이 확장은 Jira의 REST API를 직접 호출하지 않는다. Timesheets by Appforest 자체 백엔드로 전송하며, 이는 [Forge 앱](/projects/timesheets-appforest)이 매니페스트에 선언한 것과 같은 원격 서비스로, 그 앱이 Jira 쪽 처리를 대신 담당한다. 이 두 프로젝트는 각자 독립적으로 Jira와 통신하는 것이 아니라 서로 대화하도록 만들어졌으며, 이것이 바로 Forge 앱의 리졸버가 VS Code에서 온 제안이 기록되고 나면 그것을 지우는 전용 함수를 포함하는 이유이기도 하다.
 
 ## 활동 및 티켓 감지가 실제로 작동하는 방식
 

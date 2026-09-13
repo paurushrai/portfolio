@@ -1,13 +1,13 @@
 ---
-title: "AppForest Timetracker - VS Code Eklentisi"
-description: "AppForest Timesheets'e eşlik eden VS Code eklentisi: editör etkinliğini izler ve Git branch bağlamından Timesheets by AppForest'a zaman kaydı işler."
+title: "Appforest Timetracker - VS Code Eklentisi"
+description: "Appforest Timesheets'e eşlik eden VS Code eklentisi: editör etkinliğini izler ve Git branch bağlamından Timesheets by Appforest'a zaman kaydı işler."
 url: https://marketplace.visualstudio.com/items?itemName=AppforestTimetracker.appforest-timetracker
 date: 2025-07-01
 published: true
 company: Testlify
 ---
 
-Jira eklentimiz [Timesheets by AppForest](/projects/timesheets-appforest), Testlify'da zaman takibini tek bir yerde topladı, ama geliştiricilerin saatlerini elle kaydetmek için yine de durup başka bir araca geçmesi gerekiyordu. AppForest Timetracker bu boşluğu kapatıyor. Editörün tam içinde kodlama etkinliğini izleyen ve zaman kaydını hızlı bir eyleme dönüştüren bir VS Code eklentisi; böylece mühendisler IDE'den çıkmadan Timesheets'e kayıt yapabiliyor. Fikirden Visual Studio Marketplace için paketlemeye kadar uçtan uca ben sahiplendim.
+Jira eklentimiz [Timesheets by Appforest](/projects/timesheets-appforest), Testlify'da zaman takibini tek bir yerde topladı, ama geliştiricilerin saatlerini elle kaydetmek için yine de durup başka bir araca geçmesi gerekiyordu. Appforest Timetracker bu boşluğu kapatıyor. Editörün tam içinde kodlama etkinliğini izleyen ve zaman kaydını hızlı bir eyleme dönüştüren bir VS Code eklentisi; böylece mühendisler IDE'den çıkmadan Timesheets'e kayıt yapabiliyor. Fikirden Visual Studio Marketplace için paketlemeye kadar uçtan uca ben sahiplendim.
 
 ## Neler geliştirdim
 
@@ -27,7 +27,7 @@ Tek katkıda bulunan benim, Nisan 2025'ten bu yana 32 commit. Bu, belirli bir g�
 
 ## Kaydedilen Zaman Aslında Nereye Gidiyor
 
-Eklenti, Jira'nın REST API'sini doğrudan çağırmıyor. Bunun yerine Timesheets by AppForest'ın kendi arka ucuna gönderiyor; bu, [Forge uygulamasının](/projects/timesheets-appforest) manifestosunda tanımladığı aynı uzak servis, o da Jira'ya bakan tarafı kendisi hallediyor. İki proje, Jira'yla bağımsız olarak değil, birbiriyle konuşacak şekilde inşa edildi; Forge uygulamasının resolver'larının, VS Code kaynaklı öneriler kaydedildikten sonra onları temizlemeye özel fonksiyonlar içermesinin nedeni de bu.
+Eklenti, Jira'nın REST API'sini doğrudan çağırmıyor. Bunun yerine Timesheets by Appforest'ın kendi arka ucuna gönderiyor; bu, [Forge uygulamasının](/projects/timesheets-appforest) manifestosunda tanımladığı aynı uzak servis, o da Jira'ya bakan tarafı kendisi hallediyor. İki proje, Jira'yla bağımsız olarak değil, birbiriyle konuşacak şekilde inşa edildi; Forge uygulamasının resolver'larının, VS Code kaynaklı öneriler kaydedildikten sonra onları temizlemeye özel fonksiyonlar içermesinin nedeni de bu.
 
 ## Etkinlik ve Bilet Tespiti Aslında Nasıl Çalışıyor
 
