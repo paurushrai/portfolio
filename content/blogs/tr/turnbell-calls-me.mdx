@@ -1,0 +1,75 @@
+---
+title: "AI Ajanımın Terminalini İzlemeyi Bıraktım. İşi Bitince Turnbell Bağırıyor."
+description: "Her AI kodlama ajanının zaten gönderdiği bitiş sinyalini bir sese, bildirime veya telefon uyarısına çeviren küçük bir CLI olan turnbell'i neden yazdım, hiçbir projeye arka planda çalışan bir daemon ya da SDK eklemeden."
+date: 2026-09-13
+published: true
+coverImage: /blogs/turnbell-calls-me/00-hero.png
+tags: ["AI Coding Agents", "Developer Tools", "CLI Tools", "Claude Code", "Open Source"]
+---
+
+*Uzun ajan çalıştırmaları başlatıp sonra terminale sanki bana borcu varmış gibi bakıp duruyordum. Ölü dakikalar birikti. Ben bakmak zorunda kalmayayım diye terminali izleyen küçük bir araç yazdım.*
+
+![Terminaldeki tamamlanmış bir ajan çalıştırması, "turnbell: claude-code finished" yazan bir telefon bildirimine doğru yayılan ses halkaları](/blogs/turnbell-calls-me/00-hero.png)
+
+İşin utanç verici kısmı şu. AI ajanıma gerçek bir görev veriyordum, bir auth modülünü yeniden düzenlemek, bir route'u taşımak, tüm test paketini çalıştırmak, sonra da sadece... izliyordum. Altı dakika boyunca dönen bir spinner, ve ben ona, gözümü ayırırsam gidecekmiş gibi bakıyordum.
+
+Alternatif daha kötüydü. Slack'e geçip bir şeye kaptırılıyor, ajan çoktan bitirip soğumuşken on dakika sonra geri sürükleniyordum. O noktada zaten ne istediğimin izini kaybetmiş oluyordum.
+
+Yani çalıştırma altı dakika sürüyordu, ama bana on beş dakikaya mal oluyordu. Her seferinde. *Başlat* ile *bitti* arasındaki o boşluk, sessizce günümü yiyordu.
+
+## 🔔 Sinyal Zaten Oradaydı
+
+Can sıkıcı olan şu, bilmek istediğim an zaten var oluyor. Her ajan bir turu ne zaman bitirdiğini ya da size bir şey sormak için ne zaman durduğunu tam olarak biliyor. Claude Code bir `Stop` hook'u tetikliyor. Codex'in bir `notify` komutu var. Gemini'nin bir `AfterAgent` olayı var. Copilot'un `agentStop`'u var.
+
+Olay her araçta zaten oturuyordu. Kimse bunu basit bir *"hey, geri dön"e* çevirmiyordu.
+
+Beni şikayet etmeyi bırakıp inşa etmeye başlatan çerçeve buydu. Herhangi bir şeyi yoklamama ya da bir log'u kazımama gerek yoktu. Sadece ajanın zaten yayınladığı bir sinyali yakalayıp bunu bir sese, bir bildirime, bir ses efektine çevirmem gerekiyordu: nereye kaybolmuşsam oraya ulaşan bir dürtme.
+
+![Nasıl çalışır: ajanın kendi hook'u turnbell emit'i çağırır, bu da yerel olarak sese, bildirime ve ses efektine dağılır, tek ağ atlaması olarak telefon webhook'u ile](/blogs/turnbell-calls-me/01-how-it-works.png)
+
+## 🧱 İlk Karar Bir Özellik Değil, Bir Kısıtlamaydı
+
+Tek bir satır yazmadan önce, aracın *yapmasına izin verilmeyecek* şeyi karara bağladım.
+
+Süreç listemde vızıldayan bir arka plan daemon'u yok. Her projeye import edilecek bir SDK yok. Neye dokunduğu konusunda beni tedirgin edecek hiçbir şey yok. Her ajanın kendi hook yapılandırmasını tek bir komutu çağıracak şekilde bağlıyor, ve ayak izi bundan ibaret.
+
+Bundan iki kural doğdu:
+
+- **Her değişiklik, bayt bayt geri alınabilir.** [turnbell](https://github.com/paurushrai/turnbell) (ayrıca [npm](https://www.npmjs.com/package/turnbell) üzerinde) bir yapılandırma düzenlemesini atomik olarak uygular, sonra size az önce ne yazdığının tam diff'ini gösterir ve bunu tutmanıza ya da anında geri almanıza izin verir. Dokunulmamış bir dosya sahip olduğu tam baytlara geri döner; sadece bir bloğun enjekte edildiği bir dosya (diyelim bir ajanın talimat dosyası) yalnızca o bloğun geri çıkarılmasını görür, böylece etrafına sonradan yaptığınız düzenlemeler hayatta kalır.
+- **Kaldırma dürüst olmak zorunda.** Yukarıdaki aynı iki kuralı kullanarak eklediği şeyi tam olarak tersine çevirir, başka hiçbir şeyi değil, böylece geri alınabilir olduğunu iddia edip sessizce öyle olmadığı bir durum hiç yaşanmaz.
+
+Gerçek mühendisliğin büyük kısmı buraya gitti, bu makinenizi tam bulduğu gibi bırakacağı konusundaki gösterişsiz sözü tutmaya. Global yapılandırmanızı düzenleyen bir aracın bu erişimi hak etmesi gerekiyor.
+
+## 🔒 Makinenizden Ayrılan Tek Şey
+
+Telefon uyarıları istiyordum, bu da *bir şeyin* ağ üzerinden gitmesi gerektiği anlamına geliyordu. Bu beni daha az değil, daha dikkatli yaptı.
+
+Ses, masaüstü bildirimleri ve ses efekti makineden asla ayrılmıyor, tanım gereği yerel. Tek giden yol isteğe bağlı bir webhook, ve bunun tam olarak altı alan yayınlayan tek bir serileştiricisi var: bir versiyon, bir zaman damgası, ajan adı, olay, projenin klasör adı ve kısa bir durum satırı.
+
+Kod yok. Çalışma dizini yok. Ajan yanıtı yok. Ve ona güvenmeden önce tam baytları yazdırabilirsiniz: bir bayrak size payload'u gösterir ve hiçbir şey göndermez.
+
+Gizlilik sonda eklediğim bir pazarlama cümlesi değildi. Yapısal bir seçimdi: ağa tam olarak bir kapı verin, ve o kapıyı küçük tutun.
+
+## 🧩 Sekiz Ajan, Tek Sözleşme
+
+Sonra genellikle ilginç işin saklandığı yer olan karmaşık orta kısım geldi.
+
+Her ajan *farklı* güçlere sahip farklı bir hook seti sunuyor. Claude Code her şeyi yapabiliyor: bitti, engellendi, sesli okuma, bir slash komutu. Cursor sadece bittiğini duyurabiliyor. opencode kendi transkriptini açığa çıkaramıyor, bu yüzden yanıtı sesli okumak onun için masada değil.
+
+Bunu örtüp tek tip destek iddia etmek cazip. Ben tam tersini yaptım. Tek bir wire/unwire sözleşmesinin arkasında ajan başına bir adaptör inşa ettim, ve yetenek tablosu her birinin gerçekte neyi teslim edebileceği konusunda düz gerçeği söylüyor.
+
+Çünkü birinin güvenini kaybetmenin en hızlı yolu, kurulumunun yerine getiremeyeceği bir özelliği vaat etmek. Dürüst sınırlar, yalan söyleyen güzel bir tablodan iyidir.
+
+## 🎯 Gerçekten Öğrendiğim Şey
+
+Eğlenceli kısım hiçbir zaman konuşan terminal olmadı. Etrafındaki her şeydi.
+
+Gerçek problem, global yapılandırmanıza, ajanlarınıza, makinenize uzanan ve orada olmayı *hak eden* bir şey inşa etmekti. Atomik olarak uygulayın, geri alınabilir yapın, ağa küçük bir kapı verin, yapamadığınız şeyi yüksek sesle söyleyin.
+
+Sürekli tek bir teste geri döndüm: **onu, kaldıran kişi izliyormuş gibi inşa edin.** O tek mercek, herhangi bir özellik talebinden daha fazla tasarım kararını belirledi.
+
+Bugünlerde uzun bir çalıştırma başlatıp gerçekten uzaklaşıyorum. Birkaç dakika sonra dizüstü bilgisayarım yanıtı yüksek sesle söylüyor, ya da ajan takılıp bir karar gerektirdiğinde telefonum titriyor. Ölü dakikalar gitti. Önemli olduğu an geri çağrılıyorum, bir dakika erken değil, on dakika geç değil.
+
+## Geri alınabilir olmadığı ortaya çıksa anında güvenmeyi bırakacağınız yapılandırma düzenleyen tek araç hangisi?
+
+Bunun size zaten olup olmadığını merak ediyorum, bir dotfile'ı yeniden yazıp geri dönüş yolu bırakmayan bir CLI, ve bunun bir kurulumcunun vaatlerini ne kadar dikkatli okuduğunuzu değiştirip değiştirmediğini.

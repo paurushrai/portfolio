@@ -1,0 +1,75 @@
+---
+title: "Ich habe aufgehört, das Terminal meines AI-Agenten zu beobachten. Turnbell ruft, wenn er fertig ist."
+description: "Warum ich turnbell gebaut habe, ein kleines CLI-Tool, das das Fertig-Signal, das jeder AI-Coding-Agent ohnehin schon sendet, in eine Stimme, eine Benachrichtigung oder einen Anruf aufs Handy verwandelt, ohne einen Hintergrund-Daemon oder ein SDK in irgendein Projekt einzubauen."
+date: 2026-09-13
+published: true
+coverImage: /blogs/turnbell-calls-me/00-hero.png
+tags: ["AI Coding Agents", "Developer Tools", "CLI Tools", "Claude Code", "Open Source"]
+---
+
+*Ich habe immer wieder lange Agenten-Läufe gestartet und dann über dem Terminal gehangen, als würde es mir Geld schulden. Die toten Minuten summierten sich. Also habe ich ein kleines Tool gebaut, das das Terminal beobachtet, damit ich es nicht muss.*
+
+![Ein fertiger Agentenlauf im Terminal, Klangringe strahlen zu einer Handy-Benachrichtigung aus, auf der steht "turnbell: claude-code finished"](/blogs/turnbell-calls-me/00-hero.png)
+
+Hier kommt der peinliche Teil. Ich gebe meinem AI-Agenten eine echte Aufgabe, ein Auth-Modul refaktorieren, eine Route migrieren, die ganze Testsuite laufen lassen, und dann… schaue ich einfach zu. Sechs Minuten Ladeanimation, und ich starre sie an, als würde sie verschwinden, sobald ich wegsehe.
+
+Die Alternative war schlimmer. Zu Slack wechseln, in etwas hineingezogen werden, und zehn Minuten später zurücktreiben, nachdem der Agent längst fertig und abgekühlt war. Bis dahin hatte ich den Faden verloren, was ich überhaupt gefragt hatte.
+
+Also dauerte der Lauf sechs Minuten, kostete mich aber fünfzehn. Jedes Mal. Diese Lücke, zwischen *los* und *fertig*, fraß still meinen Tag auf.
+
+## 🔔 Das Signal war schon da
+
+Das Ärgerliche ist: Der Moment, über den ich informiert werden wollte, existiert bereits. Jeder Agent weiß genau, wann er einen Durchgang beendet oder anhält, um dich etwas zu fragen. Claude Code feuert einen `Stop`-Hook. Codex hat einen `notify`-Befehl. Gemini hat ein `AfterAgent`-Event. Copilot hat `agentStop`.
+
+Das Ereignis saß bereits in jedem Tool. Niemand verwandelte es in ein simples *"hey, komm zurück."*
+
+Diese Erkenntnis war es, die mich vom Meckern zum Bauen brachte. Ich musste nichts pollen oder ein Log durchsuchen. Ich musste nur ein Signal abfangen, das der Agent ohnehin schon aussendete, und es in eine Stimme, eine Benachrichtigung, einen Ton verwandeln: einen Stups, der mich erreicht, egal wohin ich abgeschweift bin.
+
+![So funktioniert es: der eigene Hook des Agenten ruft turnbell emit auf, das lokal an Stimme, Benachrichtigung und Ton verzweigt, mit dem Handy-Webhook als einzigem Netzwerksprung](/blogs/turnbell-calls-me/01-how-it-works.png)
+
+## 🧱 Die erste Entscheidung war ein Zwang, kein Feature
+
+Bevor ich eine Zeile schrieb, legte ich fest, was das Tool *nicht* tun durfte.
+
+Kein Hintergrund-Daemon, der in meiner Prozessliste vor sich hin summt. Kein SDK, das in jedes Projekt importiert werden muss. Nichts, das mich nervös machen würde, was es da eigentlich anfasst. Es verdrahtet die eigene Hook-Konfiguration jedes Agenten so, dass sie einen einzigen Befehl aufruft, und das ist der gesamte Fußabdruck.
+
+Zwei Regeln ergaben sich daraus:
+
+- **Jede Änderung ist Byte für Byte reversibel.** [turnbell](https://github.com/paurushrai/turnbell) (auch auf [npm](https://www.npmjs.com/package/turnbell)) wendet eine Konfigurationsänderung atomar an, zeigt dir dann das exakte Diff dessen, was gerade geschrieben wurde, und lässt dich es behalten oder sofort zurückrollen. Eine unangetastete Datei wird auf exakt die Bytes zurückgesetzt, die sie vorher hatte; eine Datei, in die nur ein Block eingefügt wurde (etwa die Instruktionsdatei eines Agenten), bekommt genau diesen Block wieder entfernt, sodass alles, was du danach drumherum bearbeitet hast, erhalten bleibt.
+- **Die Deinstallation muss ehrlich sein.** Sie macht exakt das rückgängig, was hinzugefügt wurde, und nichts anderes, nach denselben zwei Regeln oben, sodass sie nie behauptet, reversibel zu sein, und es dann leise nicht ist.
+
+Der Großteil der eigentlichen Ingenieursarbeit steckte hier, in dem unglamourösen Versprechen, dass dieses Ding deinen Rechner exakt so verlässt, wie es ihn vorgefunden hat. Ein Tool, das deine globale Konfiguration bearbeitet, muss sich diesen Zugriff verdienen.
+
+## 🔒 Das eine, das deinen Rechner verlässt
+
+Ich wollte Handy-Benachrichtigungen, was bedeutete, dass *etwas* über das Netzwerk gehen musste. Das machte mich vorsichtiger, nicht weniger vorsichtig.
+
+Stimme, Desktop-Benachrichtigungen und Ton verlassen den Rechner nie, sie sind per Definition lokal. Der einzige ausgehende Pfad ist ein optionaler Webhook, und der hat einen einzigen Serializer, der genau sechs Felder ausgibt: eine Version, einen Zeitstempel, den Agentennamen, das Event, den Ordnernamen des Projekts und eine kurze Statuszeile.
+
+Kein Code. Kein Arbeitsverzeichnis. Keine Agenten-Antwort. Und du kannst dir die exakten Bytes ausgeben lassen, bevor du dem Ganzen jemals vertraust: Ein Flag zeigt dir die Payload und sendet nichts.
+
+Datenschutz war keine Marketing-Zeile, die ich am Ende drangeschraubt habe. Es war eine strukturelle Entscheidung: dem Netzwerk genau eine Tür geben und diese Tür winzig machen.
+
+## 🧩 Acht Agenten, ein Vertrag
+
+Dann kam die unordentliche Mitte, wo sich meist die interessante Arbeit versteckt.
+
+Jeder Agent stellt einen *anderen* Satz an Hooks mit unterschiedlichen Fähigkeiten bereit. Claude Code kann alles: fertig, blockiert, laut vorlesen, ein Slash-Befehl. Cursor kann nur ankündigen, dass er fertig ist. opencode kann sein Transkript nicht offenlegen, also fällt das laute Vorlesen der Antwort dafür weg.
+
+Die Versuchung ist, das zu übertünchen und einheitliche Unterstützung zu behaupten. Ich habe das Gegenteil getan. Ich habe einen Adapter pro Agent hinter einem einzigen wire/unwire-Vertrag gebaut, und die Fähigkeitstabelle sagt dir die schlichte Wahrheit darüber, was jeder tatsächlich liefern kann.
+
+Denn der schnellste Weg, das Vertrauen von jemandem zu verlieren, ist, ein Feature zu versprechen, das dessen Setup nicht einhalten kann. Ehrliche Grenzen schlagen ein hübsches Raster, das lügt.
+
+## 🎯 Was ich tatsächlich gelernt habe
+
+Der spaßige Teil war nie das sprechende Terminal. Es war alles drumherum.
+
+Das eigentliche Problem war, etwas zu bauen, das in deine globale Konfiguration, deine Agenten, deinen Rechner hineinreicht, und das *verdient*, dort zu sein. Atomar anwenden, reversibel machen, dem Netzwerk eine kleine Tür geben, laut sagen, was man nicht kann.
+
+Ich kam immer wieder auf einen Test zurück: **bau es so, als würde die Person, die es deinstalliert, zusehen.** Diese eine Linse entschied mehr Designfragen als jede Feature-Anfrage es je hätte tun können.
+
+Heutzutage starte ich einen langen Lauf und gehe tatsächlich weg. Ein paar Minuten später sagt mein Laptop die Antwort laut, oder mein Handy vibriert, weil der Agent hängengeblieben ist und eine Entscheidung braucht. Die toten Minuten sind weg. Ich werde genau in dem Moment zurückgerufen, in dem es zählt, keine Minute früher, keine zehn Minuten später.
+
+## Welches konfigurationsverändernde Tool würdest du sofort nicht mehr vertrauen, wenn sich herausstellte, dass es nicht reversibel ist?
+
+Ich bin neugierig, ob dir das schon einmal passiert ist, irgendein CLI-Tool, das eine Dotfile umgeschrieben hat und keinen Weg zurückließ, und ob es verändert hat, wie genau du seitdem die Versprechen eines Installers liest.

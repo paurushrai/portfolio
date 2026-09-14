@@ -1,0 +1,75 @@
+---
+title: "Parei de Vigiar o Terminal do Meu Agente de IA. O Turnbell Grita Quando Termina."
+description: "Por que criei o turnbell, um pequeno CLI que transforma o sinal de conclusão que todo agente de codificação de IA já envia em uma voz, uma notificação ou um alerta no celular, sem adicionar um daemon em segundo plano ou um SDK a nenhum projeto."
+date: 2026-09-13
+published: true
+coverImage: /blogs/turnbell-calls-me/00-hero.png
+tags: ["AI Coding Agents", "Developer Tools", "CLI Tools", "Claude Code", "Open Source"]
+---
+
+*Eu ficava iniciando execuções longas de agentes e depois vigiando o terminal como se ele me devesse dinheiro. Os minutos mortos se acumulavam. Então criei uma ferramenta pequena que vigia o terminal para eu não precisar.*
+
+![Uma execução de agente concluída no terminal, ondas de som irradiando até uma notificação no celular que diz "turnbell: claude-code finished"](/blogs/turnbell-calls-me/00-hero.png)
+
+Aqui está a parte constrangedora. Eu dava ao meu agente de IA uma tarefa de verdade, refatorar um módulo de autenticação, migrar uma rota, rodar toda a suíte de testes, e então eu simplesmente... ficava olhando. Seis minutos de um spinner de progresso, e eu encarando ele como se o spinner fosse sumir se eu desviasse o olhar.
+
+A alternativa era pior. Trocar de aba para o Slack, ser puxado para outra coisa, e voltar dez minutos depois com o agente já tendo terminado e esfriado. Nessa altura eu já tinha perdido o fio do que tinha pedido.
+
+Então a execução levava seis minutos, mas me custava quinze. Toda vez. Essa lacuna, entre *começar* e *terminar*, estava silenciosamente comendo meu dia.
+
+## 🔔 O Sinal Já Existia
+
+O irritante é que o momento que eu queria saber já existe. Todo agente sabe exatamente quando termina uma rodada ou para para te perguntar algo. O Claude Code dispara um hook `Stop`. O Codex tem um comando `notify`. O Gemini tem um evento `AfterAgent`. O Copilot tem `agentStop`.
+
+O evento estava ali, parado, em cada ferramenta. Ninguém o transformava num simples *"ei, volta aqui."*
+
+Foi esse enquadramento que me fez parar de reclamar e começar a construir. Eu não precisava fazer polling em nada nem vasculhar um log. Só precisava capturar um sinal que o agente já estava transmitindo e transformá-lo numa voz, numa notificação, num som: um empurrãozinho que me alcança onde quer que eu tenha ido parar.
+
+![Como funciona: o próprio hook do agente chama turnbell emit, que se ramifica para voz, notificação e som localmente, com o webhook do celular como o único salto de rede](/blogs/turnbell-calls-me/01-how-it-works.png)
+
+## 🧱 A Primeira Decisão Foi uma Restrição, Não uma Funcionalidade
+
+Antes de escrever uma linha, decidi o que a ferramenta *não* tinha permissão de fazer.
+
+Nenhum daemon em segundo plano zumbindo na minha lista de processos. Nenhum SDK para importar em cada projeto. Nada que me deixasse nervoso sobre o que estava mexendo. Ele conecta a configuração de hook de cada agente para chamar um único comando, e essa é toda a pegada.
+
+Duas regras nasceram disso:
+
+- **Toda mudança é reversível, byte a byte.** O [turnbell](https://github.com/paurushrai/turnbell) (também no [npm](https://www.npmjs.com/package/turnbell)) aplica uma edição de configuração atomicamente, depois mostra o diff exato do que acabou de escrever e deixa você mantê-lo ou reverter na hora. Um arquivo intocado volta aos bytes exatos que tinha antes; um arquivo em que ele só injetou um bloco (o arquivo de instruções de um agente, por exemplo) tem apenas esse bloco removido de volta, então qualquer coisa que você editou ao redor dele depois sobrevive.
+- **A desinstalação tem que ser honesta.** Ela reverte exatamente o que foi adicionado e nada mais, usando as mesmas duas regras acima, então nunca alega ser reversível e depois silenciosamente não é.
+
+A maior parte da engenharia de verdade foi aqui, na promessa nada glamorosa de que essa coisa deixaria sua máquina exatamente como a encontrou. Uma ferramenta que edita sua configuração global precisa merecer esse acesso.
+
+## 🔒 A Única Coisa Que Sai da Sua Máquina
+
+Eu queria alertas no celular, o que significava que *alguma coisa* tinha que passar pela rede. Isso me deixou mais cuidadoso, não menos.
+
+Voz, notificações de desktop e som nunca saem da máquina, são locais por definição. O único caminho de saída é um webhook opcional, e ele tem um único serializador que emite exatamente seis campos: uma versão, um timestamp, o nome do agente, o evento, o nome da pasta do projeto e uma linha curta de status.
+
+Sem código. Sem diretório de trabalho. Sem resposta do agente. E você pode imprimir os bytes exatos antes de sequer confiar nele: uma flag mostra o payload e não envia nada.
+
+Privacidade não foi uma frase de marketing que colei no final. Foi uma escolha estrutural: dar à rede exatamente uma porta, e fazer essa porta ser minúscula.
+
+## 🧩 Oito Agentes, Um Contrato
+
+Depois veio o meio bagunçado, que costuma ser onde o trabalho interessante se esconde.
+
+Cada agente expõe um conjunto *diferente* de hooks com poderes diferentes. O Claude Code pode fazer tudo: terminado, bloqueado, leitura em voz alta, um comando de barra. O Cursor só consegue anunciar que terminou. O opencode não consegue expor sua transcrição, então ler a resposta em voz alta está fora de cogitação para ele.
+
+A tentação é maquiar isso e alegar suporte uniforme. Fiz o oposto. Construí um adaptador por agente atrás de um único contrato wire/unwire, e a tabela de capacidades conta a verdade nua sobre o que cada um consegue realmente entregar.
+
+Porque a forma mais rápida de perder a confiança de alguém é prometer uma funcionalidade que a configuração dessa pessoa não consegue honrar. Limites honestos vencem uma grade bonita que mente.
+
+## 🎯 O Que Eu Realmente Aprendi
+
+A parte divertida nunca foi o terminal falante. Foi tudo ao redor dele.
+
+O problema de verdade era construir algo que se estende até sua configuração global, seus agentes, sua máquina, e *merece* estar lá. Aplicar atomicamente, tornar reversível, dar à rede uma porta pequena, dizer em voz alta o que você não consegue fazer.
+
+Eu voltava sempre a um único teste: **construa como se a pessoa desinstalando estivesse observando.** Essa única lente decidiu mais escolhas de design do que qualquer pedido de funcionalidade poderia ter decidido.
+
+Hoje em dia eu inicio uma execução longa e realmente me afasto. Alguns minutos depois meu notebook fala a resposta em voz alta, ou meu celular vibra porque o agente travou e precisa de uma decisão. Os minutos mortos se foram. Eu só sou chamado de volta no momento em que importa, nem um minuto antes, nem dez minutos depois.
+
+## Qual é a única ferramenta de edição de configuração em que você pararia de confiar instantaneamente se descobrisse que não é reversível?
+
+Tenho curiosidade se isso já aconteceu com você, algum CLI que reescreveu um dotfile e não deixou volta, e se isso mudou o quanto você lê com atenção as promessas de um instalador desde então.
