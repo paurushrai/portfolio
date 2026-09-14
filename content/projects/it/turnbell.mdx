@@ -1,6 +1,6 @@
 ---
 title: "turnbell - Avvisi Vocali, Desktop e Webhook per Agenti di Coding CLI"
-description: "Una CLI local-first che legge ad alta voce la risposta del tuo agente di coding, invia una notifica desktop o avvisa il tuo telefono nel momento in cui finisce o ha bisogno di input — zero telemetria."
+description: "Una CLI local-first che legge ad alta voce la risposta del tuo agente di coding, invia una notifica desktop o avvisa il tuo telefono nel momento in cui finisce o ha bisogno di input, zero telemetria."
 url: https://www.npmjs.com/package/turnbell
 repository: paurushrai/turnbell
 date: 2026-09-13
@@ -9,7 +9,7 @@ company: Personal Project
 coverImage: /projects/turnbell/cover.png
 ---
 
-turnbell segnala il momento in cui un agente di coding CLI termina un turno o si blocca in attesa di input. Avvia una lunga sessione di Claude Code, Codex o Gemini CLI, passa a fare altro e smetti di sorvegliare il terminale: turnbell legge la risposta ad alta voce, invia una notifica desktop, riproduce un suono o avvisa un webhook nell'istante in cui l'agente ha bisogno di te — non un minuto prima, non dieci minuti dopo.
+turnbell segnala il momento in cui un agente di coding CLI termina un turno o si blocca in attesa di input. Avvia una lunga sessione di Claude Code, Codex o Gemini CLI, passa a fare altro e smetti di sorvegliare il terminale: turnbell legge la risposta ad alta voce, invia una notifica desktop, riproduce un suono o avvisa un webhook nell'istante in cui l'agente ha bisogno di te: non un minuto prima, non dieci minuti dopo.
 
 ![turnbell - Avvisi Vocali, Desktop e Webhook per Agenti di Coding CLI](/projects/turnbell/cover.png)
 
@@ -17,9 +17,9 @@ turnbell segnala il momento in cui un agente di coding CLI termina un turno o si
 
 - **8 integrazioni di prima classe con gli agenti:** Claude Code, Codex, Gemini CLI, Copilot CLI, Cursor, opencode, Antigravity e Amp, ogni adapter collegato a qualunque segnale done/blocked/read-aloud che il sistema di hook di quell'agente espone realmente, più un wrapper universale `turnbell run` per qualsiasi altro comando.
 - **Scritture di configurazione tracciate su un ledger:** ogni hook che turnbell aggiunge al file di impostazioni di un agente viene registrato in un ledger atomico e append-only con un diff a livello di riga, così `turnbell uninstall` può rimuovere chirurgicamente esattamente ciò che turnbell ha scritto e nient'altro, preservando le modifiche fatte in seguito.
-- **Read-aloud in "modalità parlabile":** un suggerimento opt-in scritto nel file di memoria dell'agente stesso (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`) che gli chiede di mantenere le risposte parlabili e di instradare codice o dettagli densi verso un file temporaneo invece di leggerli ad alta voce — reversibile, e ripulito automaticamente dopo 24h.
+- **Read-aloud in "modalità parlabile":** un suggerimento opt-in scritto nel file di memoria dell'agente stesso (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`) che gli chiede di mantenere le risposte parlabili e di instradare codice o dettagli densi verso un file temporaneo invece di leggerli ad alta voce. È reversibile, e ripulito automaticamente dopo 24h.
 - **Rilevamento "done" consapevole dei task in background:** l'avviso `done` di Claude Code viene trattenuto finché sub-agenti, workflow o teammate stanno ancora riportando lavoro in corso, così vieni avvisato una sola volta alla vera fine di un turno invece che a metà di una delega.
-- **Sink webhook local-first:** un unico serializzatore emette esattamente sei campi di metadati (timestamp, agente, evento, progetto, riepilogo) verso ntfy, Pushover, Slack o un endpoint generico — mai la directory di lavoro, il codice o la risposta dell'agente.
+- **Sink webhook local-first:** un unico serializzatore emette esattamente sei campi di metadati (timestamp, agente, evento, progetto, riepilogo) verso ntfy, Pushover, Slack o un endpoint generico: mai la directory di lavoro, il codice o la risposta dell'agente.
 
 ## Perché è stato importante
 

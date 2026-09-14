@@ -1,6 +1,6 @@
 ---
 title: "turnbell - CLI Kodlama Ajanları için Sesli, Masaüstü ve Webhook Uyarıları"
-description: "Kodlama ajanınızın yanıtını sesli okuyan, bitirdiği ya da girdi beklediği anda masaüstü bildirimi gönderen veya telefonunuzu uyaran, cihazda çalışan bir CLI — sıfır telemetri."
+description: "Kodlama ajanınızın yanıtını sesli okuyan, bitirdiği ya da girdi beklediği anda masaüstü bildirimi gönderen veya telefonunuzu uyaran, cihazda çalışan bir CLI, sıfır telemetri."
 url: https://www.npmjs.com/package/turnbell
 repository: paurushrai/turnbell
 date: 2026-09-13
@@ -9,7 +9,7 @@ company: Personal Project
 coverImage: /projects/turnbell/cover.png
 ---
 
-turnbell, bir CLI kodlama ajanının bir turu bitirdiği ya da girdi beklerken durakladığı anı haber verir. Uzun bir Claude Code, Codex ya da Gemini CLI çalıştırması başlatın, başka bir işe geçin ve terminali beklemeyi bırakın: turnbell yanıtı sesli okur, masaüstü bildirimi gönderir, bir ses çalar ya da bir webhook'u tetikler — tam ajanın size ihtiyaç duyduğu anda, ne bir dakika erken ne on dakika geç.
+turnbell, bir CLI kodlama ajanının bir turu bitirdiği ya da girdi beklerken durakladığı anı haber verir. Uzun bir Claude Code, Codex ya da Gemini CLI çalıştırması başlatın, başka bir işe geçin ve terminali beklemeyi bırakın: turnbell yanıtı sesli okur, masaüstü bildirimi gönderir, bir ses çalar ya da bir webhook'u tetikler, tam ajanın size ihtiyaç duyduğu anda, ne bir dakika erken ne on dakika geç.
 
 ![turnbell - CLI Kodlama Ajanları için Sesli, Masaüstü ve Webhook Uyarıları](/projects/turnbell/cover.png)
 
@@ -17,9 +17,9 @@ turnbell, bir CLI kodlama ajanının bir turu bitirdiği ya da girdi beklerken d
 
 - **8 birinci sınıf ajan entegrasyonu:** Claude Code, Codex, Gemini CLI, Copilot CLI, Cursor, opencode, Antigravity ve Amp; her adaptör o ajanın kendi hook sisteminin gerçekten sunduğu done/blocked/read-aloud sinyaline bağlanıyor, üstüne herhangi bir komut için evrensel bir `turnbell run` sarmalayıcısı.
 - **Defter takipli config yazımları:** turnbell'in bir ajanın ayar dosyasına eklediği her hook, satır düzeyinde diff çıkaran, ekleme yapılan (append-only) atomik bir deftere kaydediliyor; böylece `turnbell uninstall` yalnızca turnbell'in yazdığını cerrahi hassasiyetle geri alabiliyor, sonradan yapılan düzenlemeler korunuyor.
-- **Sesli okuma "konuşulabilir mod":** ajanın kendi hafıza dosyasına (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`) yazılan, isteğe bağlı bir dürtme: yanıtları konuşulabilir tutmasını ve kodu ya da yoğun ayrıntıyı sesli okumak yerine geçici bir dosyaya yönlendirmesini isteyen bir not — geri alınabilir, 24 saat sonra otomatik temizleniyor.
+- **Sesli okuma "konuşulabilir mod":** ajanın kendi hafıza dosyasına (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`) yazılan, isteğe bağlı bir dürtme: yanıtları konuşulabilir tutmasını ve kodu ya da yoğun ayrıntıyı sesli okumak yerine geçici bir dosyaya yönlendirmesini isteyen bir not: geri alınabilir, 24 saat sonra otomatik temizleniyor.
 - **Arka plana duyarlı bitiş algılama:** Claude Code'un `done` uyarısı, alt ajanlar, workflow'lar ya da takım arkadaşları hâlâ devam eden işi raporlarken bekletiliyor; böylece devam eden bir devir sırasında değil, bir turun gerçek sonunda, tek seferde uyarılıyorsunuz.
-- **Cihazda çalışan webhook alıcısı:** tek bir serileştirici tam olarak altı meta veri alanı (zaman damgası, ajan, olay, proje, özet) yayınlıyor — ntfy, Pushover, Slack ya da ham bir uç noktaya; asla çalışma dizinini, kodu ya da ajanın yanıtını değil.
+- **Cihazda çalışan webhook alıcısı:** tek bir serileştirici tam olarak altı meta veri alanı (zaman damgası, ajan, olay, proje, özet) yayınlıyor: ntfy, Pushover, Slack ya da ham bir uç noktaya; asla çalışma dizinini, kodu ya da ajanın yanıtını değil.
 
 ## Neden önemliydi
 
@@ -43,7 +43,7 @@ turnbell'deki her ajan entegrasyonu tek bir kurala uyuyor: ajanın kendi hook co
 
 ## Codex Özel Durumu
 
-Codex, config'inde yalnızca tek bir üst düzey `notify` komutuna izin veriyor, hook listesine izin vermiyor. Bir kullanıcı zaten başka bir şey için bağlanmış bir `notify` komutuna sahipse, bunun üzerine saf bir şekilde yazmak mevcut kurulumu sessizce bozardı. Adaptör, orijinal `notify` değerini değiştirmeden önce arşivliyor, ve `turnbell uninstall` anahtarı doğrudan silmek yerine onu bu arşivden geri yüklüyor. Kurulum ile kaldırma arasında `config.toml`'un kendisi silinirse geri yüklenecek hiçbir şey kalmaz — bu, örtbas edilmek yerine gerçek bir sınır olarak belgeleniyor, kurtarılamayan tek durum bu.
+Codex, config'inde yalnızca tek bir üst düzey `notify` komutuna izin veriyor, hook listesine izin vermiyor. Bir kullanıcı zaten başka bir şey için bağlanmış bir `notify` komutuna sahipse, bunun üzerine saf bir şekilde yazmak mevcut kurulumu sessizce bozardı. Adaptör, orijinal `notify` değerini değiştirmeden önce arşivliyor, ve `turnbell uninstall` anahtarı doğrudan silmek yerine onu bu arşivden geri yüklüyor. Kurulum ile kaldırma arasında `config.toml`'un kendisi silinirse geri yüklenecek hiçbir şey kalmaz. Bu, örtbas edilmek yerine gerçek bir sınır olarak belgeleniyor, kurtarılamayan tek durum bu.
 
 ## Devir Ortasında Sizi Uyarmamak
 
