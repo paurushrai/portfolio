@@ -1,6 +1,6 @@
 ---
-title: "我不再盯着 AI 代理的终端看了。任务一完成,turnbell 就会喊我。"
-description: "为什么我做了 turnbell,一个把每个 AI 编程代理本就会发出的完成信号,转换成语音、通知或手机提醒的小型 CLI 工具 -  - 不需要给任何项目添加后台守护进程或 SDK。"
+title: "turnbell:别再盯着 AI 代理的终端看了"
+description: "turnbell 把每个 AI 编程代理本就会发出的完成信号,转换成语音、通知或手机提醒 -  - 不需要后台守护进程,也不需要 SDK。"
 date: 2026-09-13
 published: true
 coverImage: /blogs/turnbell-calls-me/00-hero.png
@@ -23,7 +23,7 @@ tags: ["AI Coding Agents", "Developer Tools", "CLI Tools", "Claude Code", "Open 
 
 这个事件就摆在每个工具里,现成的。只是没人把它转换成一句简单的*"喂,回来一下"*。
 
-正是这个想法,让我不再抱怨,开始动手。我不需要轮询任何东西,也不需要去抓日志。我只需要接住代理本就在广播的那个信号,把它变成一段语音、一条通知、一声提示音:不管我飘到哪儿去了,都能被推一把叫回来。
+正是这个想法,让我不再抱怨,开始动手。我不需要轮询任何东西,也不需要去抓日志。我只需要接住代理本就在广播的那个信号,把它变成一段语音、一条通知、一声提示音:不管我飘到哪儿去了,都能被推一把叫回来。这正是 [turnbell](https://github.com/paurushrai/turnbell) 在做的事。
 
 ![工作原理:代理自身的钩子调用 turnbell emit,后者在本地扇出到语音、通知和声音,手机 webhook 是唯一的网络跳转](/blogs/turnbell-calls-me/01-how-it-works.png)
 
@@ -69,6 +69,8 @@ tags: ["AI Coding Agents", "Developer Tools", "CLI Tools", "Claude Code", "Open 
 我反复回到同一个检验标准:**把它做得就像卸载它的人正在看着一样。** 这一个视角决定的设计取舍,比任何功能需求都多。
 
 现在我启动一个长任务之后,是真的会走开。几分钟后,我的笔记本会把回复念出来,或者我的手机会震动,因为代理卡住了,需要我做个决定。那些空等的时间没有了。我只会在真正要紧的那一刻被叫回去,不早一分钟,也不晚十分钟。
+
+如果可逆的配置编辑和只开一扇门的网络策略对你有用:turnbell 是开源的:[GitHub](https://github.com/paurushrai/turnbell) · [npm](https://www.npmjs.com/package/turnbell)。
 
 ## 如果有一个编辑配置的工具被发现其实不可逆,你会立刻不再信任哪一个?
 

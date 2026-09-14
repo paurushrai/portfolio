@@ -1,6 +1,6 @@
 ---
-title: "AI Ajanımın Terminalini İzlemeyi Bıraktım. İşi Bitince Turnbell Bağırıyor."
-description: "Her AI kodlama ajanının zaten gönderdiği bitiş sinyalini bir sese, bildirime veya telefon uyarısına çeviren küçük bir CLI olan turnbell'i neden yazdım, hiçbir projeye arka planda çalışan bir daemon ya da SDK eklemeden."
+title: "Turnbell: AI Ajanının Terminalini İzlemeyi Bırakın"
+description: "turnbell, her AI kodlama ajanının zaten gönderdiği bitiş sinyalini sese, bildirime veya telefon uyarısına çevirir — daemon yok, SDK yok."
 date: 2026-09-13
 published: true
 coverImage: /blogs/turnbell-calls-me/00-hero.png
@@ -23,7 +23,7 @@ Can sıkıcı olan şu, bilmek istediğim an zaten var oluyor. Her ajan bir turu
 
 Olay her araçta zaten oturuyordu. Kimse bunu basit bir *"hey, geri dön"e* çevirmiyordu.
 
-Beni şikayet etmeyi bırakıp inşa etmeye başlatan çerçeve buydu. Herhangi bir şeyi yoklamama ya da bir log'u kazımama gerek yoktu. Sadece ajanın zaten yayınladığı bir sinyali yakalayıp bunu bir sese, bir bildirime, bir ses efektine çevirmem gerekiyordu: nereye kaybolmuşsam oraya ulaşan bir dürtme.
+Beni şikayet etmeyi bırakıp inşa etmeye başlatan çerçeve buydu. Herhangi bir şeyi yoklamama ya da bir log'u kazımama gerek yoktu. Sadece ajanın zaten yayınladığı bir sinyali yakalayıp bunu bir sese, bir bildirime, bir ses efektine çevirmem gerekiyordu: nereye kaybolmuşsam oraya ulaşan bir dürtme. Bunu yapan şey [turnbell](https://github.com/paurushrai/turnbell).
 
 ![Nasıl çalışır: ajanın kendi hook'u turnbell emit'i çağırır, bu da yerel olarak sese, bildirime ve ses efektine dağılır, tek ağ atlaması olarak telefon webhook'u ile](/blogs/turnbell-calls-me/01-how-it-works.png)
 
@@ -69,6 +69,8 @@ Gerçek problem, global yapılandırmanıza, ajanlarınıza, makinenize uzanan v
 Sürekli tek bir teste geri döndüm: **onu, kaldıran kişi izliyormuş gibi inşa edin.** O tek mercek, herhangi bir özellik talebinden daha fazla tasarım kararını belirledi.
 
 Bugünlerde uzun bir çalıştırma başlatıp gerçekten uzaklaşıyorum. Birkaç dakika sonra dizüstü bilgisayarım yanıtı yüksek sesle söylüyor, ya da ajan takılıp bir karar gerektirdiğinde telefonum titriyor. Ölü dakikalar gitti. Önemli olduğu an geri çağrılıyorum, bir dakika erken değil, on dakika geç değil.
+
+Geri alınabilir yapılandırma düzenlemeleri ve tek kapılı bir ağ politikası kulağa faydalı geliyorsa: turnbell açık kaynak: [GitHub](https://github.com/paurushrai/turnbell) · [npm](https://www.npmjs.com/package/turnbell).
 
 ## Geri alınabilir olmadığı ortaya çıksa anında güvenmeyi bırakacağınız yapılandırma düzenleyen tek araç hangisi?
 

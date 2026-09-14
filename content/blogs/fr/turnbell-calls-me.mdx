@@ -1,6 +1,6 @@
 ---
-title: "J'ai arrêté de surveiller le terminal de mon agent IA. Turnbell hurle quand c'est fini."
-description: "Pourquoi j'ai construit turnbell, un petit CLI qui transforme le signal de fin que tout agent de codage IA envoie déjà en une voix, une notification ou une alerte téléphone, sans ajouter de daemon en arrière-plan ni de SDK à aucun projet."
+title: "Turnbell : Arrêtez de Surveiller le Terminal de Votre Agent IA"
+description: "turnbell transforme le signal de fin que tout agent de codage IA envoie déjà en voix, notification ou alerte téléphone — sans daemon ni SDK."
 date: 2026-09-13
 published: true
 coverImage: /blogs/turnbell-calls-me/00-hero.png
@@ -23,7 +23,7 @@ Le truc agaçant, c'est que le moment que je voulais connaître existe déjà. C
 
 L'événement était là, dans chaque outil. Personne ne le transformait en simple *« hé, reviens »*.
 
-Ce cadrage est ce qui m'a fait arrêter de râler et commencer à construire. Je n'avais pas besoin de sonder quoi que ce soit ni de scraper un log. J'avais juste besoin d'attraper un signal que l'agent diffusait déjà et de le transformer en une voix, une notification, un son : un rappel qui m'atteint où que je me sois égaré.
+Ce cadrage est ce qui m'a fait arrêter de râler et commencer à construire. Je n'avais pas besoin de sonder quoi que ce soit ni de scraper un log. J'avais juste besoin d'attraper un signal que l'agent diffusait déjà et de le transformer en une voix, une notification, un son : un rappel qui m'atteint où que je me sois égaré. C'est exactement ce que fait [turnbell](https://github.com/paurushrai/turnbell).
 
 ![Comment ça marche : le hook de l'agent lui-même appelle turnbell emit, qui se répartit vers la voix, la notification et le son en local, avec le webhook téléphone comme seul saut réseau](/blogs/turnbell-calls-me/01-how-it-works.png)
 
@@ -69,6 +69,8 @@ Le vrai problème était de construire quelque chose qui s'immisce dans votre co
 Je revenais sans cesse à un seul test : **le construire comme si la personne qui le désinstalle vous regardait.** Ce seul prisme a tranché plus de décisions de conception qu'aucune demande de fonctionnalité n'aurait pu le faire.
 
 Ces jours-ci, je lance un run long et je m'en vais vraiment. Quelques minutes plus tard, mon ordinateur dit la réponse à voix haute, ou mon téléphone vibre parce que l'agent est resté bloqué et a besoin d'une décision. Les minutes mortes ont disparu. On me rappelle juste au moment où ça compte, pas une minute plus tôt, pas dix minutes plus tard.
+
+Si des modifications de config réversibles et une politique réseau à porte unique vous parlent : turnbell est open source : [GitHub](https://github.com/paurushrai/turnbell) · [npm](https://www.npmjs.com/package/turnbell).
 
 ## Quel est l'outil qui édite votre config auquel vous arrêteriez instantanément de faire confiance s'il se révélait ne pas être réversible ?
 

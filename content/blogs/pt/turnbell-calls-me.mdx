@@ -1,6 +1,6 @@
 ---
-title: "Parei de Vigiar o Terminal do Meu Agente de IA. O Turnbell Grita Quando Termina."
-description: "Por que criei o turnbell, um pequeno CLI que transforma o sinal de conclusão que todo agente de codificação de IA já envia em uma voz, uma notificação ou um alerta no celular, sem adicionar um daemon em segundo plano ou um SDK a nenhum projeto."
+title: "Turnbell: Pare de Vigiar o Terminal do Seu Agente de IA"
+description: "turnbell transforma o sinal de conclusão que todo agente de codificação de IA já envia em voz, notificação ou alerta no celular — sem daemon nem SDK."
 date: 2026-09-13
 published: true
 coverImage: /blogs/turnbell-calls-me/00-hero.png
@@ -23,7 +23,7 @@ O irritante é que o momento que eu queria saber já existe. Todo agente sabe ex
 
 O evento estava ali, parado, em cada ferramenta. Ninguém o transformava num simples *"ei, volta aqui."*
 
-Foi esse enquadramento que me fez parar de reclamar e começar a construir. Eu não precisava fazer polling em nada nem vasculhar um log. Só precisava capturar um sinal que o agente já estava transmitindo e transformá-lo numa voz, numa notificação, num som: um empurrãozinho que me alcança onde quer que eu tenha ido parar.
+Foi esse enquadramento que me fez parar de reclamar e começar a construir. Eu não precisava fazer polling em nada nem vasculhar um log. Só precisava capturar um sinal que o agente já estava transmitindo e transformá-lo numa voz, numa notificação, num som: um empurrãozinho que me alcança onde quer que eu tenha ido parar. É exatamente isso que o [turnbell](https://github.com/paurushrai/turnbell) faz.
 
 ![Como funciona: o próprio hook do agente chama turnbell emit, que se ramifica para voz, notificação e som localmente, com o webhook do celular como o único salto de rede](/blogs/turnbell-calls-me/01-how-it-works.png)
 
@@ -69,6 +69,8 @@ O problema de verdade era construir algo que se estende até sua configuração 
 Eu voltava sempre a um único teste: **construa como se a pessoa desinstalando estivesse observando.** Essa única lente decidiu mais escolhas de design do que qualquer pedido de funcionalidade poderia ter decidido.
 
 Hoje em dia eu inicio uma execução longa e realmente me afasto. Alguns minutos depois meu notebook fala a resposta em voz alta, ou meu celular vibra porque o agente travou e precisa de uma decisão. Os minutos mortos se foram. Eu só sou chamado de volta no momento em que importa, nem um minuto antes, nem dez minutos depois.
+
+Se edições de configuração reversíveis e uma política de rede com porta única fazem sentido para você: o turnbell é open source: [GitHub](https://github.com/paurushrai/turnbell) · [npm](https://www.npmjs.com/package/turnbell).
 
 ## Qual é a única ferramenta de edição de configuração em que você pararia de confiar instantaneamente se descobrisse que não é reversível?
 

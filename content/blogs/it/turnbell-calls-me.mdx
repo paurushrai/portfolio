@@ -1,6 +1,6 @@
 ---
-title: "Ho smesso di guardare il terminale del mio agente AI. Turnbell urla quando ha finito."
-description: "Perché ho costruito turnbell, una piccola CLI che trasforma il segnale di fine che ogni agente AI di coding già invia in una voce, una notifica o un avviso sul telefono, senza aggiungere un demone in background o un SDK a nessun progetto."
+title: "Turnbell: Basta Guardare il Terminale del Tuo Agente AI"
+description: "turnbell trasforma il segnale di fine che ogni agente AI di coding già invia in voce, notifica o avviso sul telefono — senza demone né SDK."
 date: 2026-09-13
 published: true
 coverImage: /blogs/turnbell-calls-me/00-hero.png
@@ -23,7 +23,7 @@ La cosa fastidiosa è che il momento che volevo conoscere esiste già. Ogni agen
 
 L'evento era lì, in ogni strumento. Nessuno lo trasformava in un semplice *"ehi, torna qui."*
 
-È stata quella constatazione a farmi smettere di lamentarmi e iniziare a costruire. Non avevo bisogno di fare polling su nulla né di leggere un log. Mi serviva solo intercettare un segnale che l'agente già trasmetteva e trasformarlo in una voce, una notifica, un suono: una spinta che mi raggiunge ovunque io mi sia allontanato.
+È stata quella constatazione a farmi smettere di lamentarmi e iniziare a costruire. Non avevo bisogno di fare polling su nulla né di leggere un log. Mi serviva solo intercettare un segnale che l'agente già trasmetteva e trasformarlo in una voce, una notifica, un suono: una spinta che mi raggiunge ovunque io mi sia allontanato. È esattamente quello che fa [turnbell](https://github.com/paurushrai/turnbell).
 
 ![Come funziona: l'hook dell'agente stesso chiama turnbell emit, che si dirama verso voce, notifica e suono in locale, con il webhook del telefono come unico salto di rete](/blogs/turnbell-calls-me/01-how-it-works.png)
 
@@ -69,6 +69,8 @@ Il vero problema era costruire qualcosa che si insinua nella tua configurazione 
 Continuavo a tornare a un unico test: **costruiscilo come se la persona che lo disinstalla ti stesse guardando.** Quella singola lente ha deciso più scelte di design di quante ne avrebbe potute decidere qualsiasi richiesta di funzionalità.
 
 Di questi tempi avvio una run lunga e me ne vado davvero. Qualche minuto dopo il mio laptop dice la risposta ad alta voce, oppure il telefono vibra perché l'agente si è bloccato e ha bisogno di una decisione. I minuti morti sono spariti. Vengo semplicemente richiamato nel momento esatto in cui conta, non un minuto prima, non dieci minuti dopo.
+
+Se modifiche di configurazione reversibili e una politica di rete a porta unica ti convincono: turnbell è open source: [GitHub](https://github.com/paurushrai/turnbell) · [npm](https://www.npmjs.com/package/turnbell).
 
 ## Qual è l'unico strumento che modifica configurazioni di cui smetteresti subito di fidarti se si scoprisse non essere reversibile?
 

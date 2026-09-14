@@ -1,6 +1,6 @@
 ---
-title: "AI 에이전트의 터미널 그만 지켜보기로 했다. 끝나면 Turnbell이 소리쳐준다."
-description: "모든 AI 코딩 에이전트가 이미 보내고 있는 완료 신호를 음성, 알림, 휴대폰 경고로 바꿔주는 작은 CLI, turnbell을 왜 만들었는지. 어떤 프로젝트에도 백그라운드 데몬이나 SDK를 더하지 않는다."
+title: "turnbell: AI 에이전트 터미널 그만 지켜보기"
+description: "turnbell은 AI 코딩 에이전트의 완료 신호를 음성, 알림, 휴대폰 경고로 바꿔주는 CLI다 — 데몬도 SDK도 필요 없다."
 date: 2026-09-13
 published: true
 coverImage: /blogs/turnbell-calls-me/00-hero.png
@@ -23,7 +23,7 @@ tags: ["AI Coding Agents", "Developer Tools", "CLI Tools", "Claude Code", "Open 
 
 이벤트는 각 도구 안에 이미 앉아 있었다. 아무도 그걸 단순한 *"어이, 돌아와"*로 바꾸지 않았을 뿐이다.
 
-그 프레이밍이 나를 불평 대신 만들기로 옮기게 했다. 뭔가를 폴링하거나 로그를 긁어올 필요는 없었다. 에이전트가 이미 방송하고 있던 신호를 붙잡아서, 음성과 알림과 소리로 바꾸기만 하면 됐다. 내가 어디로 떠돌아갔든 나에게 닿는 넛지 하나.
+그 프레이밍이 나를 불평 대신 만들기로 옮기게 했다. 뭔가를 폴링하거나 로그를 긁어올 필요는 없었다. 에이전트가 이미 방송하고 있던 신호를 붙잡아서, 음성과 알림과 소리로 바꾸기만 하면 됐다. 내가 어디로 떠돌아갔든 나에게 닿는 넛지 하나. 그걸 해주는 게 [turnbell](https://github.com/paurushrai/turnbell)이다.
 
 ![작동 방식: 에이전트 자신의 훅이 turnbell emit을 호출하고, 이게 음성/알림/소리로 로컬에서 갈라지며, 휴대폰 웹훅만이 유일한 네트워크 홉이다](/blogs/turnbell-calls-me/01-how-it-works.png)
 
@@ -69,6 +69,8 @@ tags: ["AI Coding Agents", "Developer Tools", "CLI Tools", "Claude Code", "Open 
 나는 계속 테스트 하나로 돌아왔다. **제거하는 사람이 지켜보고 있다고 생각하고 만들어라.** 그 렌즈 하나가 어떤 기능 요청보다도 더 많은 설계 결정을 내려줬다.
 
 요즘 나는 긴 실행을 시작하고 실제로 자리를 뜬다. 몇 분 뒤 내 노트북이 응답을 소리 내어 읽어주거나, 에이전트가 막혀서 결정이 필요할 때 내 휴대폰이 울린다. 죽은 시간은 사라졌다. 나는 중요한 순간에 정확히 불려 돌아온다, 1분 먼저도 아니고, 10분 늦게도 아니고.
+
+되돌릴 수 있는 설정 편집과 문 하나뿐인 네트워크 정책이 마음에 든다면: turnbell은 오픈소스다: [GitHub](https://github.com/paurushrai/turnbell) · [npm](https://www.npmjs.com/package/turnbell).
 
 ## 되돌릴 수 없는 걸로 밝혀지면 당장 신뢰를 접을 설정 편집 도구가 있다면, 그건 뭔가?
 

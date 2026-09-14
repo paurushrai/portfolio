@@ -1,6 +1,6 @@
 ---
-title: "I Stopped Watching My AI Agent's Terminal. Turnbell Yells When It's Done."
-description: "Why I built turnbell, a small CLI that turns the finish signal every AI coding agent already sends into a voice, a notification, or a phone alert, without adding a background daemon or an SDK to any project."
+title: "Turnbell: Stop Watching Your AI Agent's Terminal"
+description: "turnbell turns the finish signal every AI coding agent already sends into a voice, notification, or phone alert — no daemon, no SDK required."
 date: 2026-09-13
 published: true
 coverImage: /blogs/turnbell-calls-me/00-hero.png
@@ -23,7 +23,7 @@ The annoying thing is that the moment I wanted to know about already exists. Eve
 
 The event was sitting right there in each tool. Nobody was turning it into a simple *"hey, come back."*
 
-That framing is what made me stop complaining and start building. I didn't need to poll anything or scrape a log. I just needed to catch a signal the agent was already broadcasting and turn it into a voice, a notification, a sound: a nudge that reaches me wherever I've wandered off to.
+That framing is what made me stop complaining and start building. I didn't need to poll anything or scrape a log. I just needed to catch a signal the agent was already broadcasting and turn it into a voice, a notification, a sound: a nudge that reaches me wherever I've wandered off to. That's what [turnbell](https://github.com/paurushrai/turnbell) does.
 
 ![How it works: the agent's own hook calls turnbell emit, which fans out to voice, notification and sound locally, with the phone webhook as the only network hop](/blogs/turnbell-calls-me/01-how-it-works.png)
 
@@ -69,6 +69,8 @@ The real problem was building something that reaches into your global config, yo
 I kept coming back to one test: **build it like the person uninstalling it is watching.** That single lens decided more design calls than any feature request could have.
 
 These days I kick off a long run and actually walk away. A few minutes later my laptop says the reply out loud, or my phone buzzes because the agent got stuck and needs a decision. The dead minutes are gone. I just get called back the moment it matters, not a minute sooner, not ten minutes later.
+
+If reversible config edits and a one-door network policy sound useful, turnbell is open source: [GitHub](https://github.com/paurushrai/turnbell) · [npm](https://www.npmjs.com/package/turnbell).
 
 ## What's the one config-editing tool you'd instantly stop trusting if it turned out not to be reversible?
 
