@@ -1,0 +1,77 @@
+---
+title: "Turnbell: Stop Watching Your AI Agent's Terminal"
+description: "turnbell turns the finish signal every AI coding agent already sends into a voice, notification, or phone alert. No daemon, no SDK required."
+date: 2026-09-13
+published: true
+coverImage: /blogs/turnbell-calls-me/00-hero.png
+tags: ["AI Coding Agents", "Developer Tools", "CLI Tools", "Claude Code", "Open Source"]
+---
+
+*I kept kicking off long agent runs and then hovering over the terminal like it owed me money. The dead minutes added up. So I built a small tool that watches the terminal so I don't have to.*
+
+![A finished agent run in the terminal, sound rings radiating out to a phone notification that reads "turnbell: claude-code finished"](/blogs/turnbell-calls-me/00-hero.png)
+
+Here's the embarrassing part. I'd give my AI agent a real task, refactor an auth module, migrate a route, run the whole test suite, and then I'd just… watch. Six minutes of a progress spinner, and me staring at it like the spinner might leave if I looked away.
+
+The alternative was worse. Tab over to Slack, get pulled into something, and drift back ten minutes after the agent had already finished and gone cold. By then I'd lost the thread of what I even asked for.
+
+So the run took six minutes, but it cost me fifteen. Every time. That gap, between *go* and *done*, was quietly eating my day.
+
+## 🔔 The signal was already there
+
+The annoying thing is that the moment I wanted to know about already exists. Every agent knows exactly when it finishes a turn or stops to ask you something. Claude Code fires a `Stop` hook. Codex has a `notify` command. Gemini has an `AfterAgent` event. Copilot has `agentStop`.
+
+The event was sitting right there in each tool. Nobody was turning it into a simple *"hey, come back."*
+
+That framing is what made me stop complaining and start building. I didn't need to poll anything or scrape a log. I just needed to catch a signal the agent was already broadcasting and turn it into a voice, a notification, a sound: a nudge that reaches me wherever I've wandered off to. That's what [turnbell](https://github.com/paurushrai/turnbell) does.
+
+![How it works: the agent's own hook calls turnbell emit, which fans out to voice, notification and sound locally, with the phone webhook as the only network hop](/blogs/turnbell-calls-me/01-how-it-works.png)
+
+## 🧱 The first decision was a constraint, not a feature
+
+Before I wrote a line, I decided what the tool was *not* allowed to do.
+
+No background daemon humming in my process list. No SDK to import into every project. Nothing that would make me nervous about what it was touching. It wires each agent's own hook config to call one command, and that's the entire footprint.
+
+Two rules fell out of that:
+
+- **Every change is reversible, byte-for-byte.** [turnbell](https://github.com/paurushrai/turnbell) (also on [npm](https://www.npmjs.com/package/turnbell)) applies a config edit atomically, then shows you the exact diff of what it just wrote and lets you keep it or revert it on the spot. An untouched file restores to the exact bytes it had before; a file it only injected a block into (an agent's instructions file, say) gets just that block stripped back out, so anything you edited around it afterward survives.
+- **Uninstall has to be honest.** It reverses exactly what it added and nothing else, using the same two rules above, so it never claims to be reversible and then quietly isn't.
+
+Most of the real engineering went here, into the unglamorous promise that this thing would leave your machine exactly as it found it. A tool that edits your global config has to earn that access.
+
+## 🔒 The one thing that leaves your machine
+
+I wanted phone alerts, which meant *something* had to go over the network. That made me more careful, not less.
+
+Voice, desktop notifications, and sound never leave the machine, they're local by definition. The only outbound path is an optional webhook, and it has a single serializer that emits exactly six fields: a version, a timestamp, the agent name, the event, the project's folder name, and a short status line.
+
+No code. No working directory. No agent response. And you can print the exact bytes before you ever trust it: one flag shows you the payload and sends nothing.
+
+Privacy wasn't a marketing line I bolted on at the end. It was a structural choice: give the network exactly one door, and make that door tiny.
+
+## 🧩 Eight agents, one contract
+
+Then came the messy middle, which is usually where the interesting work hides.
+
+Every agent exposes a *different* set of hooks with different powers. Claude Code can do everything: done, blocked, read-aloud, a slash command. Cursor can only announce that it finished. opencode can't expose its transcript, so reading the reply aloud is off the table for it.
+
+The temptation is to paper over that and claim uniform support. I did the opposite. I built one adapter per agent behind a single wire/unwire contract, and the capability table tells you the plain truth about what each one can actually deliver.
+
+Because the fastest way to lose someone's trust is to promise a feature their setup can't honor. Honest limits beat a pretty grid that lies.
+
+## 🎯 What I actually learned
+
+The fun part was never the talking terminal. It was everything around it.
+
+The real problem was building something that reaches into your global config, your agents, your machine, and *deserves* to be there. Apply it atomically, make it reversible, give the network one small door, say what you can't do out loud.
+
+I kept coming back to one test: **build it like the person uninstalling it is watching.** That single lens decided more design calls than any feature request could have.
+
+These days I kick off a long run and actually walk away. A few minutes later my laptop says the reply out loud, or my phone buzzes because the agent got stuck and needs a decision. The dead minutes are gone. I just get called back the moment it matters, not a minute sooner, not ten minutes later.
+
+If reversible config edits and a one-door network policy sound useful, turnbell is open source: [GitHub](https://github.com/paurushrai/turnbell) · [npm](https://www.npmjs.com/package/turnbell).
+
+## What's the one config-editing tool you'd instantly stop trusting if it turned out not to be reversible?
+
+I'm curious whether that's already happened to you, some CLI that rewrote a dotfile and left no way back, and whether it changed how closely you read an installer's promises since.

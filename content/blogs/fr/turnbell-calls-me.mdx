@@ -1,0 +1,77 @@
+---
+title: "Turnbell : Arrêtez de Surveiller le Terminal de Votre Agent IA"
+description: "turnbell transforme le signal de fin que tout agent de codage IA envoie déjà en voix, notification ou alerte téléphone. Sans daemon ni SDK."
+date: 2026-09-13
+published: true
+coverImage: /blogs/turnbell-calls-me/00-hero.png
+tags: ["AI Coding Agents", "Developer Tools", "CLI Tools", "Claude Code", "Open Source"]
+---
+
+*Je lançais des runs d'agent longs, puis je restais planté devant le terminal comme s'il me devait de l'argent. Les minutes mortes s'accumulaient. Alors j'ai construit un petit outil qui surveille le terminal à ma place.*
+
+![Un run d'agent terminé dans le terminal, des ondes sonores irradiant vers une notification téléphone affichant "turnbell: claude-code finished"](/blogs/turnbell-calls-me/00-hero.png)
+
+Voici la partie embarrassante. Je donnais à mon agent IA une vraie tâche, refactoriser un module d'auth, migrer une route, lancer toute la suite de tests, et ensuite je... regardais. Six minutes de spinner de progression, et moi à le fixer comme si le spinner allait s'enfuir si je détournais les yeux.
+
+L'alternative était pire. Passer sur Slack, se faire happer par autre chose, et revenir dix minutes plus tard alors que l'agent avait déjà fini et refroidi. À ce moment-là, j'avais perdu le fil de ce que j'avais même demandé.
+
+Alors le run prenait six minutes, mais il m'en coûtait quinze. À chaque fois. Cet écart, entre *lancer* et *terminé*, me mangeait ma journée en silence.
+
+## 🔔 Le signal était déjà là
+
+Le truc agaçant, c'est que le moment que je voulais connaître existe déjà. Chaque agent sait exactement quand il termine un tour ou s'arrête pour vous poser une question. Claude Code déclenche un hook `Stop`. Codex a une commande `notify`. Gemini a un événement `AfterAgent`. Copilot a `agentStop`.
+
+L'événement était là, dans chaque outil. Personne ne le transformait en simple *« hé, reviens »*.
+
+Ce cadrage est ce qui m'a fait arrêter de râler et commencer à construire. Je n'avais pas besoin de sonder quoi que ce soit ni de scraper un log. J'avais juste besoin d'attraper un signal que l'agent diffusait déjà et de le transformer en une voix, une notification, un son : un rappel qui m'atteint où que je me sois égaré. C'est exactement ce que fait [turnbell](https://github.com/paurushrai/turnbell).
+
+![Comment ça marche : le hook de l'agent lui-même appelle turnbell emit, qui se répartit vers la voix, la notification et le son en local, avec le webhook téléphone comme seul saut réseau](/blogs/turnbell-calls-me/01-how-it-works.png)
+
+## 🧱 La première décision fut une contrainte, pas une fonctionnalité
+
+Avant d'écrire une seule ligne, j'ai décidé ce que l'outil n'avait *pas le droit* de faire.
+
+Pas de daemon en arrière-plan qui ronronne dans ma liste de processus. Pas de SDK à importer dans chaque projet. Rien qui me rendrait nerveux quant à ce qu'il touche. Il câble la config de hook de chaque agent pour qu'elle appelle une seule commande, et c'est là toute son empreinte.
+
+Deux règles en ont découlé :
+
+- **Chaque changement est réversible, octet pour octet.** [turnbell](https://github.com/paurushrai/turnbell) (aussi sur [npm](https://www.npmjs.com/package/turnbell)) applique une modification de config de façon atomique, puis vous montre le diff exact de ce qu'il vient d'écrire et vous laisse le garder ou le revenir sur-le-champ. Un fichier non touché est restauré aux octets exacts qu'il avait avant ; un fichier dans lequel il n'a fait qu'injecter un bloc (le fichier d'instructions d'un agent, disons) se voit retirer exactement ce bloc, si bien que tout ce que vous avez édité autour par la suite survit.
+- **La désinstallation doit être honnête.** Elle défait exactement ce qui a été ajouté, rien de plus, en utilisant les deux mêmes règles ci-dessus, pour ne jamais prétendre être réversible tout en ne l'étant pas discrètement.
+
+L'essentiel du vrai travail d'ingénierie s'est joué ici, dans la promesse peu glorieuse que cet outil laisserait votre machine exactement telle qu'il l'a trouvée. Un outil qui édite votre config globale doit mériter cet accès.
+
+## 🔒 La seule chose qui quitte votre machine
+
+Je voulais des alertes téléphone, ce qui voulait dire que *quelque chose* devait passer par le réseau. Ça m'a rendu plus prudent, pas moins.
+
+La voix, les notifications de bureau et le son ne quittent jamais la machine, ils sont locaux par définition. La seule voie sortante est un webhook optionnel, et il n'a qu'un seul sérialiseur qui émet exactement six champs : une version, un horodatage, le nom de l'agent, l'événement, le nom du dossier du projet, et une courte ligne de statut.
+
+Pas de code. Pas de répertoire de travail. Pas de réponse de l'agent. Et vous pouvez afficher les octets exacts avant même d'y faire confiance : un flag vous montre la charge utile et n'envoie rien.
+
+La confidentialité n'était pas un argument marketing collé à la fin. C'était un choix structurel : donner au réseau exactement une porte, et faire en sorte que cette porte soit minuscule.
+
+## 🧩 Huit agents, un seul contrat
+
+Est venu ensuite le désordre du milieu, là où se cache habituellement le travail intéressant.
+
+Chaque agent expose un ensemble *différent* de hooks avec des pouvoirs différents. Claude Code peut tout faire : terminé, bloqué, lecture à voix haute, une commande slash. Cursor ne peut qu'annoncer qu'il a fini. opencode ne peut pas exposer sa transcription, donc lire la réponse à voix haute est hors de portée pour lui.
+
+La tentation est de maquiller ça et de prétendre un support uniforme. J'ai fait l'inverse. J'ai construit un adaptateur par agent derrière un seul contrat wire/unwire, et le tableau des capacités dit la vérité toute nue sur ce que chacun peut réellement livrer.
+
+Parce que la façon la plus rapide de perdre la confiance de quelqu'un est de promettre une fonctionnalité que sa configuration ne peut pas honorer. Des limites honnêtes valent mieux qu'une jolie grille qui ment.
+
+## 🎯 Ce que j'ai vraiment appris
+
+La partie amusante n'a jamais été le terminal qui parle. C'était tout ce qui l'entourait.
+
+Le vrai problème était de construire quelque chose qui s'immisce dans votre config globale, vos agents, votre machine, et qui *mérite* d'y être. L'appliquer de façon atomique, le rendre réversible, donner au réseau une seule petite porte, dire à voix haute ce qu'on ne peut pas faire.
+
+Je revenais sans cesse à un seul test : **le construire comme si la personne qui le désinstalle vous regardait.** Ce seul prisme a tranché plus de décisions de conception qu'aucune demande de fonctionnalité n'aurait pu le faire.
+
+Ces jours-ci, je lance un run long et je m'en vais vraiment. Quelques minutes plus tard, mon ordinateur dit la réponse à voix haute, ou mon téléphone vibre parce que l'agent est resté bloqué et a besoin d'une décision. Les minutes mortes ont disparu. On me rappelle juste au moment où ça compte, pas une minute plus tôt, pas dix minutes plus tard.
+
+Si des modifications de config réversibles et une politique réseau à porte unique vous parlent : turnbell est open source : [GitHub](https://github.com/paurushrai/turnbell) · [npm](https://www.npmjs.com/package/turnbell).
+
+## Quel est l'outil qui édite votre config auquel vous arrêteriez instantanément de faire confiance s'il se révélait ne pas être réversible ?
+
+Je suis curieux de savoir si ça vous est déjà arrivé, un CLI qui a réécrit un dotfile et n'a laissé aucun moyen de revenir en arrière, et si ça a changé la façon dont vous lisez les promesses d'un installeur depuis.
