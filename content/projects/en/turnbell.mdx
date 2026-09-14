@@ -1,6 +1,6 @@
 ---
 title: "turnbell - Voice, Desktop & Webhook Alerts for CLI Coding Agents"
-description: "A local-first CLI that reads your coding agent's response aloud, fires a desktop notification, or pings your phone the moment it finishes or needs input — zero telemetry."
+description: "A local-first CLI that reads your coding agent's response aloud, fires a desktop notification, or pings your phone the moment it finishes or needs input, zero telemetry."
 url: https://www.npmjs.com/package/turnbell
 repository: paurushrai/turnbell
 date: 2026-09-13
@@ -9,7 +9,7 @@ company: Personal Project
 coverImage: /projects/turnbell/cover.png
 ---
 
-turnbell calls out the moment a CLI coding agent finishes a turn or stalls waiting on input. Kick off a long Claude Code, Codex, or Gemini CLI run, switch to something else, and stop babysitting the terminal: turnbell reads the response aloud, fires a desktop notification, plays a sound, or pings a webhook the instant the agent needs you — not a minute sooner, not ten minutes later.
+turnbell calls out the moment a CLI coding agent finishes a turn or stalls waiting on input. Kick off a long Claude Code, Codex, or Gemini CLI run, switch to something else, and stop babysitting the terminal: turnbell reads the response aloud, fires a desktop notification, plays a sound, or pings a webhook the instant the agent needs you: not a minute sooner, not ten minutes later.
 
 ![turnbell - Voice, Desktop & Webhook Alerts for CLI Coding Agents](/projects/turnbell/cover.png)
 
@@ -17,9 +17,9 @@ turnbell calls out the moment a CLI coding agent finishes a turn or stalls waiti
 
 - **8 first-class agent integrations:** Claude Code, Codex, Gemini CLI, Copilot CLI, Cursor, opencode, Antigravity, and Amp, each adapter wired to whatever done/blocked/read-aloud signal that agent's own hook system actually exposes, plus a universal `turnbell run` wrapper for any other command.
 - **Ledger-tracked config writes:** every hook turnbell adds to an agent's settings file is recorded in an atomic, append-only ledger with a line-level diff, so `turnbell uninstall` can surgically remove exactly what turnbell wrote and nothing else, preserving edits made afterward.
-- **Read-aloud "speakable mode":** an opt-in nudge written into an agent's own memory file (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`) asking it to keep responses speakable and route code or dense detail to a temp file instead of speaking it — reversible, and auto-cleaned after 24h.
+- **Read-aloud "speakable mode":** an opt-in nudge written into an agent's own memory file (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`) asking it to keep responses speakable and route code or dense detail to a temp file instead of speaking it. It's reversible, and auto-cleaned after 24h.
 - **Background-aware done detection:** Claude Code's `done` alert holds while sub-agents, workflows, or teammates are still reporting in-flight work, so you're pinged once at the real end of a turn instead of mid-delegation.
-- **Local-first webhook sink:** one serializer emits exactly six metadata fields (timestamp, agent, event, project, summary) to ntfy, Pushover, Slack, or a raw endpoint — never the working directory, the code, or the agent's response.
+- **Local-first webhook sink:** one serializer emits exactly six metadata fields (timestamp, agent, event, project, summary) to ntfy, Pushover, Slack, or a raw endpoint: never the working directory, the code, or the agent's response.
 
 ## Why it mattered
 

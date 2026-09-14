@@ -1,6 +1,6 @@
 ---
 title: "turnbell - Sprach-, Desktop- & Webhook-Alarme für CLI-Coding-Agenten"
-description: "Ein local-first CLI, das die Antwort deines Coding-Agenten vorliest, eine Desktop-Benachrichtigung auslöst oder dein Telefon anpingt, sobald er fertig ist oder Eingaben braucht — ohne Telemetrie."
+description: "Ein local-first CLI, das die Antwort deines Coding-Agenten vorliest, eine Desktop-Benachrichtigung auslöst oder dein Telefon anpingt, sobald er fertig ist oder Eingaben braucht, ohne Telemetrie."
 url: https://www.npmjs.com/package/turnbell
 repository: paurushrai/turnbell
 date: 2026-09-13
@@ -9,7 +9,7 @@ company: Personal Project
 coverImage: /projects/turnbell/cover.png
 ---
 
-turnbell meldet sich in dem Moment, in dem ein CLI-Coding-Agent einen Durchgang beendet oder wartend auf Eingaben stehen bleibt. Starte einen langen Claude-Code-, Codex- oder Gemini-CLI-Lauf, wechsle zu etwas anderem und hör auf, das Terminal zu babysitten: turnbell liest die Antwort vor, löst eine Desktop-Benachrichtigung aus, spielt einen Ton ab oder pingt einen Webhook an, in dem Moment, in dem der Agent dich braucht — nicht eine Minute früher, nicht zehn Minuten später.
+turnbell meldet sich in dem Moment, in dem ein CLI-Coding-Agent einen Durchgang beendet oder wartend auf Eingaben stehen bleibt. Starte einen langen Claude-Code-, Codex- oder Gemini-CLI-Lauf, wechsle zu etwas anderem und hör auf, das Terminal zu babysitten: turnbell liest die Antwort vor, löst eine Desktop-Benachrichtigung aus, spielt einen Ton ab oder pingt einen Webhook an, in dem Moment, in dem der Agent dich braucht. Nicht eine Minute früher, nicht zehn Minuten später.
 
 ![turnbell - Sprach-, Desktop- & Webhook-Alarme für CLI-Coding-Agenten](/projects/turnbell/cover.png)
 
@@ -17,9 +17,9 @@ turnbell meldet sich in dem Moment, in dem ein CLI-Coding-Agent einen Durchgang 
 
 - **8 erstklassige Agent-Integrationen:** Claude Code, Codex, Gemini CLI, Copilot CLI, Cursor, opencode, Antigravity und Amp, jeder Adapter an das done/blocked/read-aloud-Signal angebunden, das das Hook-System des jeweiligen Agenten tatsächlich bereitstellt, plus ein universeller `turnbell run`-Wrapper für jeden anderen Befehl.
 - **Ledger-geführte Config-Schreibzugriffe:** jeder Hook, den turnbell in die Settings-Datei eines Agenten einträgt, wird in einem atomaren, append-only Ledger mit zeilengenauem Diff festgehalten, sodass `turnbell uninstall` chirurgisch genau das entfernen kann, was turnbell geschrieben hat, und sonst nichts, während später vorgenommene Änderungen erhalten bleiben.
-- **Read-aloud „Speakable Mode":** ein Opt-in-Hinweis, der in die eigene Memory-Datei eines Agenten (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`) geschrieben wird und ihn bittet, Antworten sprechbar zu halten und Code oder dichte Details stattdessen in eine Temp-Datei auszulagern, statt sie vorzulesen — reversibel, und nach 24h automatisch bereinigt.
+- **Read-aloud „Speakable Mode":** ein Opt-in-Hinweis, der in die eigene Memory-Datei eines Agenten (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`) geschrieben wird und ihn bittet, Antworten sprechbar zu halten und Code oder dichte Details stattdessen in eine Temp-Datei auszulagern, statt sie vorzulesen: reversibel und nach 24h automatisch bereinigt.
 - **Background-bewusste Done-Erkennung:** Der `done`-Alarm von Claude Code wird zurückgehalten, solange Sub-Agenten, Workflows oder Teammitglieder noch laufende Arbeit melden, sodass du einmal am tatsächlichen Ende eines Durchgangs benachrichtigt wirst statt mitten in einer Delegation.
-- **Local-first Webhook-Sink:** ein einziger Serializer gibt exakt sechs Metadatenfelder aus (Zeitstempel, Agent, Event, Projekt, Zusammenfassung) an ntfy, Pushover, Slack oder einen beliebigen Endpunkt — nie das Arbeitsverzeichnis, den Code oder die tatsächliche Antwort des Agenten.
+- **Local-first Webhook-Sink:** ein einziger Serializer gibt exakt sechs Metadatenfelder aus (Zeitstempel, Agent, Event, Projekt, Zusammenfassung) an ntfy, Pushover, Slack oder einen beliebigen Endpunkt: nie das Arbeitsverzeichnis, den Code oder die tatsächliche Antwort des Agenten.
 
 ## Warum es wichtig war
 
