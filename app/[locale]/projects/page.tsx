@@ -3,7 +3,8 @@ import { allProjects } from "contentlayer/generated";
 import { Navigation } from "../../components/nav";
 import { LocaleProjectFilter } from "./LocaleProjectFilter";
 import type { Metadata } from "next";
-import { type AppLocale, DEFAULT_LOCALE, alternatesFor, isLocale } from "../../i18n/config";
+import { type AppLocale, DEFAULT_LOCALE, SITE_URL, alternatesFor, isLocale, localizedPath } from "../../i18n/config";
+import { pickLocalized } from "../../lib/pick-localized";
 
 export async function generateMetadata(
   props: {
@@ -41,7 +42,7 @@ export async function generateMetadata(
       title: "Projects | Paurush Rai | Senior Software Engineer & Full-Stack Developer",
       description: "Enterprise SaaS, AI-integrated apps, fintech platforms and developer tools built with React, Next.js, and TypeScript.",
       url: alternates.canonical,
-      images: [{ url: "https://paurushrai.in/og.png", width: 1200, height: 630 }],
+      images: [{ url: `${SITE_URL}/og.png`, width: 1200, height: 630 }],
     },
   };
 }
@@ -62,7 +63,9 @@ export type ProjectMeta = {
   path: string;
 };
 
-export default function ProjectsPage() {
+export default async function ProjectsPage(props: { params: Promise<{ locale: string }> }) {
+  const params = await props.params;
+  const locale: AppLocale = isLocale(params.locale) ? params.locale : DEFAULT_LOCALE;
   const projectsMeta: ProjectMeta[] = allProjects.map((p) => ({
     _id: p._id,
     slug: p.slug,
@@ -78,8 +81,30 @@ export default function ProjectsPage() {
     path: p.path,
   }));
 
+  const itemListJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Projects",
+    url: alternatesFor("/projects", locale).canonical,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: pickLocalized(allProjects, locale).map((p, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: p.title,
+        url: `${SITE_URL}${localizedPath(`/projects/${p.slug}`, locale)}`,
+      })),
+    },
+  };
+
   return (
     <div className="relative pb-16">
+      {/* JSON-LD structured data, serialized from trusted app constants (no user input). */}
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD from trusted app constants, no user input
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+      />
       <Navigation />
       <LocaleProjectFilter projects={projectsMeta} />
     </div>

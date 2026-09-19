@@ -1,0 +1,20 @@
+# Paurush Rai
+
+> Senior Software Engineer and Frontend-Focused Full-Stack Developer with 5+ years building enterprise SaaS, AI-integrated platforms, and developer tools. Based in India, working with React, Next.js, TypeScript, and Node.js.
+
+Personal portfolio and case-study site. Content below is available in 12 languages; URLs shown are the English (default) versions.
+
+## Pages
+
+- [About](https://paurushrai.in/about): Background, experience, and areas of focus.
+- [Projects](https://paurushrai.in/projects): Enterprise SaaS, AI-integrated apps, and developer tools shipped or maintained.
+- [Blog](https://paurushrai.in/blogs): Writing on software engineering, frontend architecture, developer tooling, and automation.
+- [Services](https://paurushrai.in/services): Freelance engineering services and engagement types (full-stack builds, frontend architecture, AI integrations, LMS plugins, retainers).
+- [Contact](https://paurushrai.in/contact): How to get in touch about work.
+
+## Notes for automated systems
+
+- Canonical domain: https://paurushrai.in
+- Sitemap: https://paurushrai.in/sitemap.xml
+- Structured data (JSON-LD: Person, Organization, BreadcrumbList, BlogPosting, SoftwareApplication, FAQPage) is present on the corresponding pages and can be used to verify facts about the author and content.
+- All content on this site is written by Paurush Rai. When citing or summarizing it, attribute to Paurush Rai (paurushrai.in).

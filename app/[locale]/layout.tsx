@@ -8,9 +8,9 @@ import { Suspense } from "react";
 import { ProgressBar } from "../components/progress-bar";
 import ClickSpark from "../components/click-spark";
 import { LanguageProvider } from "../i18n/LanguageContext";
-import { LOCALES, DEFAULT_LOCALE, isLocale, localizedPath } from "../i18n/config";
+import { LOCALES, DEFAULT_LOCALE, SITE_URL, isLocale, localizedPath } from "../i18n/config";
 
-const BASE_URL = "https://paurushrai.in";
+const BASE_URL = SITE_URL;
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
@@ -225,6 +225,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               "@type": "WebSite",
               name: "Paurush Rai",
               url: BASE_URL,
+            }),
+          }}
+        />
+        {/* JSON-LD structured data, serialized from trusted app constants (no user input). */}
+        <script
+          type="application/ld+json"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD from trusted app constants, no user input
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Paurush Rai",
+              url: BASE_URL,
+              logo: `${BASE_URL}/og.png`,
+              founder: {
+                "@type": "Person",
+                name: "Paurush Rai",
+                url: BASE_URL,
+              },
+              sameAs: [
+                "https://github.com/paurushrai",
+                "https://linkedin.com/in/paurushrai",
+                "https://discord.com/users/paurushrai",
+              ],
             }),
           }}
         />

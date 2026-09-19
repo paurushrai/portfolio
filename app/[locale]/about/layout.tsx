@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Footer } from "../../components/footer";
 import { type AppLocale, DEFAULT_LOCALE, alternatesFor, isLocale } from "../../i18n/config";
+import { personRef } from "../../lib/schema";
 
 export async function generateMetadata(
   props: {
@@ -44,10 +45,30 @@ export async function generateMetadata(
 }
 
 
-export default function AboutLayout({ children }: { children: React.ReactNode }) {
+export default async function AboutLayout(
+  props: {
+    children: React.ReactNode;
+    params: Promise<{ locale: string }>;
+  }
+) {
+  const params = await props.params;
+  const locale: AppLocale = isLocale(params.locale) ? params.locale : DEFAULT_LOCALE;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    url: alternatesFor("/about", locale).canonical,
+    mainEntity: personRef,
+  };
+
   return (
     <>
-      {children}
+      {/* JSON-LD structured data, serialized from trusted app constants (no user input). */}
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD from trusted app constants, no user input
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      {props.children}
       <Footer />
     </>
   );

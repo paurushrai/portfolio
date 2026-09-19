@@ -5,14 +5,16 @@ import "./mdx.css";
 import {
   type AppLocale,
   DEFAULT_LOCALE,
+  SITE_URL,
   isLocale,
   LOCALES,
   localizedPath,
 } from "../../../i18n/config";
+import { breadcrumbJsonLd, personRef } from "../../../lib/schema";
 import { LocaleProjectClient } from "./LocaleProjectClient";
 import { RelatedProjects } from "./RelatedProjects";
 
-const BASE_URL = "https://paurushrai.in";
+const BASE_URL = SITE_URL;
 
 type Props = {
   params: Promise<{
@@ -84,26 +86,13 @@ export default async function PostPage(props: Props) {
     description: enProject.description,
     url: enProject.url ?? canonical,
     image: enProject.coverImage ? `${BASE_URL}${enProject.coverImage}` : undefined,
-    author: {
-      "@type": "Person",
-      name: "Paurush Rai",
-      url: BASE_URL,
-    },
+    author: personRef,
   };
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Projects",
-        item: `${BASE_URL}${localizedPath("/projects", DEFAULT_LOCALE)}`,
-      },
-      { "@type": "ListItem", position: 3, name: enProject.title, item: canonical },
-    ],
-  };
+  const breadcrumb = breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Projects", path: "/projects" },
+    { name: enProject.title, path: `/projects/${slug}` },
+  ]);
 
   return (
     <>
@@ -117,7 +106,7 @@ export default async function PostPage(props: Props) {
         <script
           type="application/ld+json"
           // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD from trusted app constants, no user input
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
         />
         <LocaleProjectClient projectLocales={projectLocales} />
       </div>

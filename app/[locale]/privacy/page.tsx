@@ -5,6 +5,7 @@ import { Navigation } from "../../components/nav";
 import {
   type AppLocale,
   DEFAULT_LOCALE,
+  SITE_URL,
   alternatesFor,
   isLocale,
   localizedPath,
@@ -27,13 +28,31 @@ export async function generateMetadata(
 
 const LAST_UPDATED = "May 1, 2025";
 const CONTACT_EMAIL = "paurushrai96@gmail.com";
-const BASE_URL = "https://paurushrai.in";
+const BASE_URL = SITE_URL;
 
 export default async function PrivacyPage(props: { params: Promise<{ locale: string }> }) {
   const params = await props.params;
   const locale: AppLocale = isLocale(params.locale) ? params.locale : DEFAULT_LOCALE;
+  const canonical = `${BASE_URL}${localizedPath("/privacy", locale)}`;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "Privacy Policy",
+    url: canonical,
+    isPartOf: {
+      "@type": "WebSite",
+      name: "Paurush Rai",
+      url: BASE_URL,
+    },
+  };
   return (
     <div className="min-h-screen bg-linear-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0">
+      {/* JSON-LD structured data, serialized from trusted app constants (no user input). */}
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD from trusted app constants, no user input
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navigation />
 
       <main className="px-6 pt-20 pb-32 mx-auto max-w-4xl lg:px-8 md:pt-24 lg:pt-32">

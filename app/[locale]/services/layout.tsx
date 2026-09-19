@@ -1,20 +1,7 @@
 import type { Metadata } from "next";
 import { Footer } from "../../components/footer";
 import { type AppLocale, DEFAULT_LOCALE, alternatesFor, isLocale } from "../../i18n/config";
-import { en } from "../../i18n/locales/en";
-
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: en.services.faq.items.map((item) => ({
-    "@type": "Question",
-    name: item.q,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: item.a,
-    },
-  })),
-};
+import { faqJsonLd } from "../../lib/schema";
 
 export async function generateMetadata(
   props: {
@@ -54,18 +41,23 @@ export async function generateMetadata(
   };
 }
 
-export default function ServicesLayout({
+export default async function ServicesLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale: rawLocale } = await params;
+  const locale: AppLocale = isLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE;
+
   return (
     <>
       {/* JSON-LD structured data, serialized from trusted app constants (no user input). */}
       <script
         type="application/ld+json"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD from trusted app constants, no user input
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(locale)) }}
       />
       {children}
       <Footer />

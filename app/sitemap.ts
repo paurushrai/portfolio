@@ -1,8 +1,8 @@
 import type { MetadataRoute } from "next";
 import { allBlogs, allProjects } from "contentlayer/generated";
-import { DEFAULT_LOCALE, LOCALES, localizedPath } from "./i18n/config";
+import { DEFAULT_LOCALE, LOCALES, SITE_URL, localizedPath } from "./i18n/config";
 
-const BASE_URL = "https://paurushrai.in";
+const BASE_URL = SITE_URL;
 
 type RouteSpec = {
 	path: string;
