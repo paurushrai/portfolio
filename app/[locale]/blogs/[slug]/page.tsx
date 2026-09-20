@@ -5,15 +5,16 @@ import "./mdx.css";
 import {
   type AppLocale,
   DEFAULT_LOCALE,
+  SITE_URL,
   isLocale,
   LOCALES,
   localizedPath,
 } from "../../../i18n/config";
+import { AUTHOR_NAME, breadcrumbJsonLd, personRef } from "../../../lib/schema";
 import { LocaleBlogClient } from "./LocaleBlogClient";
 import { RelatedBlogs } from "./RelatedBlogs";
 
-const BASE_URL = "https://paurushrai.in";
-const AUTHOR_NAME = "Paurush Rai";
+const BASE_URL = SITE_URL;
 
 type Props = {
   params: Promise<{
@@ -92,31 +93,14 @@ export default async function BlogPostPage(props: Props) {
     image: imageUrl,
     mainEntityOfPage: canonical,
     keywords: enBlog.tags?.join(", "),
-    author: {
-      "@type": "Person",
-      name: AUTHOR_NAME,
-      url: BASE_URL,
-    },
-    publisher: {
-      "@type": "Person",
-      name: AUTHOR_NAME,
-      url: BASE_URL,
-    },
+    author: personRef,
+    publisher: personRef,
   };
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Blog",
-        item: `${BASE_URL}${localizedPath("/blogs", DEFAULT_LOCALE)}`,
-      },
-      { "@type": "ListItem", position: 3, name: enBlog.title, item: canonical },
-    ],
-  };
+  const breadcrumb = breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Blog", path: "/blogs" },
+    { name: enBlog.title, path: `/blogs/${slug}` },
+  ]);
 
   return (
     <>
@@ -130,7 +114,7 @@ export default async function BlogPostPage(props: Props) {
         <script
           type="application/ld+json"
           // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD from trusted app constants, no user input
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
         />
         <LocaleBlogClient blogLocales={blogLocales} />
       </div>
