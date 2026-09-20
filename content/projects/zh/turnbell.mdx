@@ -1,6 +1,6 @@
 ---
 title: "turnbell - 面向 CLI 编程 Agent 的语音、桌面与 Webhook 提醒"
-description: "一款本地优先的 CLI 工具，在你的编程 agent 完成任务或需要输入的那一刻，把它的回复读出来、弹出桌面通知，或推送到你的手机 —— 零遥测。"
+description: "一款本地优先的 CLI 工具，在你的编程 agent 完成任务或需要输入的那一刻，把它的回复读出来、弹出桌面通知，或推送到你的手机：零遥测。"
 url: https://www.npmjs.com/package/turnbell
 repository: paurushrai/turnbell
 date: 2026-09-13
@@ -9,7 +9,7 @@ company: Personal Project
 coverImage: /projects/turnbell/cover.png
 ---
 
-turnbell 会在 CLI 编程 agent 结束一轮任务或卡在等待输入时立刻告诉你。开一个 Claude Code、Codex 或 Gemini CLI 的长任务，切去做别的事，不用再守着终端：turnbell 会把回复读出来、弹出桌面通知、播放提示音，或推送到 webhook —— 在 agent 真正需要你的那一刻，不早一分钟，也不晚十分钟。
+turnbell 会在 CLI 编程 agent 结束一轮任务或卡在等待输入时立刻告诉你。开一个 Claude Code、Codex 或 Gemini CLI 的长任务，切去做别的事，不用再守着终端：turnbell 会把回复读出来、弹出桌面通知、播放提示音，或推送到 webhook：在 agent 真正需要你的那一刻，不早一分钟，也不晚十分钟。
 
 ![turnbell - 面向 CLI 编程 Agent 的语音、桌面与 Webhook 提醒](/projects/turnbell/cover.png)
 
@@ -17,9 +17,9 @@ turnbell 会在 CLI 编程 agent 结束一轮任务或卡在等待输入时立�
 
 - **8 个一等公民级 agent 集成：** Claude Code、Codex、Gemini CLI、Copilot CLI、Cursor、opencode、Antigravity 和 Amp，每个适配器都对接该 agent 自身钩子系统实际能暴露出来的 done/blocked/朗读信号，再加一个通用的 `turnbell run` 包装器，用来给任意命令加上提醒。
 - **账本式追踪的配置写入：** turnbell 加到某个 agent 设置文件里的每一个钩子，都会被记录进一份原子的、只追加的账本，并带有逐行 diff，这样 `turnbell uninstall` 才能精确地只移除 turnbell 自己写入的内容，其余一概不动，之后用户做的任何修改都会被保留。
-- **朗读模式（"speakable mode"）：** 一段可选的提示文字，写进 agent 自己的记忆文件（`CLAUDE.md`、`AGENTS.md`、`GEMINI.md`），要求它保持回复可读、把代码或大段细节转存到临时文件里而不是直接念出来 —— 可逆，24 小时后自动清理。
+- **朗读模式（"speakable mode"）：** 一段可选的提示文字，写进 agent 自己的记忆文件（`CLAUDE.md`、`AGENTS.md`、`GEMINI.md`），要求它保持回复可读、把代码或大段细节转存到临时文件里而不是直接念出来：可逆，24 小时后自动清理。
 - **感知后台任务的完成检测：** Claude Code 自己的 `done` 提醒会在子 agent、workflow 或队友还在汇报进行中的工作时先按住不发，这样你只会在一轮任务真正结束时被提醒一次，而不是在委派工作还没跑完的中途。
-- **本地优先的 webhook 出口：** 一个序列化器只会输出六个元数据字段（时间戳、agent、事件、项目、摘要），发到 ntfy、Pushover、Slack 或一个原始端点 —— 永远不包含工作目录、代码或 agent 的实际回复。
+- **本地优先的 webhook 出口：** 一个序列化器只会输出六个元数据字段（时间戳、agent、事件、项目、摘要），发到 ntfy、Pushover、Slack 或一个原始端点，永远不包含工作目录、代码或 agent 的实际回复。
 
 ## 为什么它有意义
 
@@ -39,19 +39,19 @@ turnbell 里的每一个 agent 集成都服从同一条规则:它只编辑该 ag
 
 构建 `turnbell init` 最直接的做法,是把钩子条目追加进 agent 用的任意配置文件,然后就算完事。在此基础上构建 `turnbell uninstall` 最直接的做法,则是去搜 turnbell 自己留下的标记,祈祷文件里没有别的东西跟它冲突。这就是"尽力而为"式卸载的样子,而当被编辑的文件是用户自己工具链依赖的共享配置时,这个程度是不够的。
 
-`src/adapters/diffwire.ts` 走的是另一条路:每一次写入都被表达成针对某个 JSON 或文本文件的 `WireOp`,通过原子写入完成(临时文件加重命名,崩溃时绝不会留下写了一半的文件),并追加进一份账本(`listWiredKeys`、`appendLedgerEntry`),精确记录 turnbell 动过哪些键或标记、原来的值是什么。`turnbell init` 会在真正写入之前,先把每一处改动生成逐行 diff 预览出来。`turnbell uninstall` 靠的是回放这份账本,而不是从文件当前的状态里重新猜测意图 —— 这正是"只精确移除 turnbell 自己添加的内容,之后的修改会被保留"这句话能成为一个真正的保证、而不只是 README 里一句尽力而为的承诺的原因。
+`src/adapters/diffwire.ts` 走的是另一条路:每一次写入都被表达成针对某个 JSON 或文本文件的 `WireOp`,通过原子写入完成(临时文件加重命名,崩溃时绝不会留下写了一半的文件),并追加进一份账本(`listWiredKeys`、`appendLedgerEntry`),精确记录 turnbell 动过哪些键或标记、原来的值是什么。`turnbell init` 会在真正写入之前,先把每一处改动生成逐行 diff 预览出来。`turnbell uninstall` 靠的是回放这份账本,而不是从文件当前的状态里重新猜测意图。这正是"只精确移除 turnbell 自己添加的内容,之后的修改会被保留"这句话能成为一个真正的保证、而不只是 README 里一句尽力而为的承诺的原因。
 
 ## Codex 的特殊情况
 
-Codex 的配置里只允许一个顶层的 `notify` 命令,不支持钩子列表。如果用户已经为别的用途接好了一个 `notify` 命令,简单粗暴地覆盖它就会悄无声息地破坏用户原有的设置。这个适配器会在替换之前先把原来的 `notify` 值归档,`turnbell uninstall` 会从这份归档里把它还原回来,而不是直接删掉这个键。唯一无法恢复的情况,是 `config.toml` 本身在配置和卸载之间被删除了,那就没有东西可以还原 —— 这一点被明确记录为一个真实的边界,而不是被含糊带过。
+Codex 的配置里只允许一个顶层的 `notify` 命令,不支持钩子列表。如果用户已经为别的用途接好了一个 `notify` 命令,简单粗暴地覆盖它就会悄无声息地破坏用户原有的设置。这个适配器会在替换之前先把原来的 `notify` 值归档,`turnbell uninstall` 会从这份归档里把它还原回来,而不是直接删掉这个键。唯一无法恢复的情况,是 `config.toml` 本身在配置和卸载之间被删除了,那就没有东西可以还原。这一点被明确记录为一个真实的边界,而不是被含糊带过。
 
 ## 不在委派工作跑到一半时打扰你
 
-Claude Code 自己的 `done` 钩子是按每一轮顶层任务触发的,但一轮任务可能会派生出子 agent、workflow 或队友,在父任务报告"完成"之后仍在继续工作。早期版本的 turnbell 会在那一刻就直接发出提醒,结果就是在后台工作还没跑完时就被拉回了终端。修复方案是让 `done` 提醒一直按住,直到 Claude Code 报告没有正在进行中的委派工作为止,同时明确忽略长期运行的 `shell`/watcher 和 `monitor` 任务 —— 因为把这些也当成"进行中",会导致任何碰巧挂着后台进程的会话永远收不到提醒。
+Claude Code 自己的 `done` 钩子是按每一轮顶层任务触发的,但一轮任务可能会派生出子 agent、workflow 或队友,在父任务报告"完成"之后仍在继续工作。早期版本的 turnbell 会在那一刻就直接发出提醒,结果就是在后台工作还没跑完时就被拉回了终端。修复方案是让 `done` 提醒一直按住,直到 Claude Code 报告没有正在进行中的委派工作为止,同时明确忽略长期运行的 `shell`/watcher 和 `monitor` 任务，因为把这些也当成"进行中",会导致任何碰巧挂着后台进程的会话永远收不到提醒。
 
 ## 载荷天生就只是元数据
 
-turnbell 是本地优先的:语音、通知和提示音都不会离开这台机器。唯一可能经过网络的东西,是用户自己显式配置的 webhook,而这条路径只经过一个序列化器,它只会输出六个字段,别无其他 —— 时间戳、agent、事件、项目名(仅取文件夹名)和一段简短的摘要文字。不存在第二条代码路径会意外泄漏工作目录或 agent 的实际回复,因为整个代码库里唯一拥有网络访问权限的就是这个序列化器。`turnbell test --show-payload` 可以打印出完全一样的载荷内容而不真正发送,所以这个说法是可以验证的,而不只是一句断言。
+turnbell 是本地优先的:语音、通知和提示音都不会离开这台机器。唯一可能经过网络的东西,是用户自己显式配置的 webhook,而这条路径只经过一个序列化器,它只会输出六个字段,别无其他:时间戳、agent、事件、项目名(仅取文件夹名)和一段简短的摘要文字。不存在第二条代码路径会意外泄漏工作目录或 agent 的实际回复,因为整个代码库里唯一拥有网络访问权限的就是这个序列化器。`turnbell test --show-payload` 可以打印出完全一样的载荷内容而不真正发送,所以这个说法是可以验证的,而不只是一句断言。
 
 ## 技术栈
 
