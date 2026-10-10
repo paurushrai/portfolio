@@ -35,12 +35,12 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@next/mdx": "16.3.5",
+    "@next/mdx": "16.4.0",
     "contentlayer2": "^0.5.8",
     "country-flag-emoji-polyfill": "^0.1.10",
     "framer-motion": "^12.42.2",
     "lucide-react": "^1.24.0",
-    "next": "16.3.5",
+    "next": "16.4.0",
     "next-contentlayer2": "^0.5.8",
     "react": "19.3.0",
     "react-dom": "19.3.0",
