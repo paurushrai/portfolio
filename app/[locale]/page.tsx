@@ -80,7 +80,7 @@ export default function Home() {
         <div className="my-16 text-center animate-fade-in flex flex-col items-center gap-4 px-6 md:px-0">
           <p className="text-sm font-light text-zinc-400">
             <span className="block text-zinc-300">{t.home.tagline.role}</span>
-            <span className="block whitespace-nowrap">
+            <span className="block text-balance md:whitespace-nowrap">
               {t.home.tagline.detail}
             </span>
           </p>
