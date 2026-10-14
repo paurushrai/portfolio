@@ -39,7 +39,7 @@
     "contentlayer2": "^0.5.8",
     "country-flag-emoji-polyfill": "^0.1.10",
     "framer-motion": "^12.42.2",
-    "lucide-react": "^1.24.0",
+    "lucide-react": "^1.55.0",
     "next": "16.4.0",
     "next-contentlayer2": "^0.5.8",
     "react": "19.3.0",
@@ -49,11 +49,11 @@
     "rehype-pretty-code": "^0.14.5",
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.1",
-    "shiki": "^4.4.3",
+    "shiki": "^4.5.0",
     "typescript": "^6.0.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.12",
+    "@biomejs/biome": "^2.5.15",
     "@opentelemetry/api": "1.9.1",
     "@tailwindcss/postcss": "^4.3.3",
     "@tailwindcss/typography": "^0.5.20",
@@ -61,7 +61,7 @@
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "critters": "npm:beasties@^0.4.2",
-    "postcss": "^8.5.28",
+    "postcss": "^8.5.29",
     "tailwindcss": "^4.3.2",
     "vitest": "^4.1.9"
   },
